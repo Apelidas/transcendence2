@@ -7,3 +7,11 @@ app.use(express.static('app'));
 app.listen(port, () => {
     console.log(`Server now listens at http://localhost:${port}`);
 })
+
+module.exports = {
+    testing
+};
+
+function testing(){
+    return true;
+}

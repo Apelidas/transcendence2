@@ -1,0 +1,15 @@
+version: '3'
+
+includes:
+  frontend:
+    taskfile: ./frontend/Taskfile.yml
+    dir: ./frontend
+
+tasks:
+  frontend:
+    cmds:
+      - task: frontend:run
+
+  kill-frontend:
+    cmds:
+      - task: frontend:kill
