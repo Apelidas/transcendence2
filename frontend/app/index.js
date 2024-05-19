@@ -1,5 +1,6 @@
 window.onload = function() {
     loadContent("header.html", "header");
+    // loadContent('pages/login/login.html', 'body');
 };
 function loadContent(url, containerId) {
     fetch(url)
@@ -8,3 +9,4 @@ function loadContent(url, containerId) {
                 document.getElementById(containerId).innerHTML = data;
         });
 }
+
