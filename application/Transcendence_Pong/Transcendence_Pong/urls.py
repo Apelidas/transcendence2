@@ -1,5 +1,5 @@
 """
-URL configuration for application project.
+URL configuration for Transcendence_Pong project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -16,10 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Transcendence_Pong.Transcendence_Pong.Adapter.userAdapter import my_endpoint
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('my_endpoint/', my_endpoint, name='my_endpoint'),
 ]
-
