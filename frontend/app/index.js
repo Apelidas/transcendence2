@@ -1,6 +1,9 @@
 window.onload = function() {
     loadContent("header.html", "header");
-    // loadContent('pages/login/login.html', 'body');
+    loadContent("pages/login/login.html", "body");
+	if (!userIsAuthenticated()) {
+        window.location.href = 'login.html';
+    }
 };
 function loadContent(url, containerId) {
     fetch(url)

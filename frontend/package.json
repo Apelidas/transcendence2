@@ -22,6 +22,7 @@
     "binary-extensions": "^2.3.0",
     "body-parser": "^1.20.2",
     "bonjour-service": "^1.2.1",
+    "bootstrap": "^5.3.3",
     "brace-expansion": "^2.0.1",
     "braces": "^3.0.2",
     "bundle-name": "^4.1.0",
