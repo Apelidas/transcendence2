@@ -13,3 +13,12 @@ tasks:
   kill-frontend:
     cmds:
       - task: frontend:kill
+
+  start-dependencies:
+    cmds:
+      - task: stop-dependencies
+      - docker compose up -d
+
+  stop-dependencies:
+    cmds:
+      - docker compose down

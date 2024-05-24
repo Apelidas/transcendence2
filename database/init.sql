@@ -4,9 +4,6 @@ CREATE DATABASE mydatabase;
 -- Connect to the database
 \c mydatabase
 
--- Drop the users table if it exists (to avoid conflicts during repeated runs)
-DROP TABLE IF EXISTS users;
-
 -- Create the users table
 CREATE TABLE IF NOT EXISTS users (
     ID SERIAL PRIMARY KEY,
