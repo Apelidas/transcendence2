@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': 'mydatabase',
         'USER': 'myuser',
         'PASSWORD': 'mypassword',
-        'HOST': '127.0.0.1', # Use the IP address of your PostgreSQL container
+        'HOST': 'postgres', # Use the IP address of your PostgreSQL container
         'PORT': '5432', # Default PostgreSQL port
     }
 }
