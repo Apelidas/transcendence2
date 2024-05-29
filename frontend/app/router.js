@@ -1,7 +1,7 @@
 ///loging with intra
 
 function userIsAuthenticated() {
-	return false;
+	return true;
 }
 
 
