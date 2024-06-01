@@ -26,7 +26,21 @@
         <h2 id="winnerMessage"></h2>
         <button onclick="restartGame()">Restart Game</button>
     </div>
-    <canvas id="pongCanvas" width="800" height="600" style="display:none;"></canvas>
+    <div id="gameContainer">
+        <canvas id="pongCanvas" width="800" height="600" style="display:none;"></canvas>
+        <div id="controlsContainer" class="controls-container" style="display:none;">
+            <button id="leftGiveUp" class="give-up-button" onclick="giveUp('left')">Give Up</button>
+            <div id="ballSpeedControl" class="ball-speed-control">
+                <label for="ballSpeed">Adjust Ball Speed</label>
+                <div>
+                    <span>-</span>
+                    <input type="range" id="ballSpeed" min="1" max="10" value="4">
+                    <span>+</span>
+                </div>
+            </div>
+            <button id="rightGiveUp" class="give-up-button" onclick="giveUp('right')">Give Up</button>
+        </div>
+    </div>
     <script src="pong.js"></script>
 </body>
 </html>

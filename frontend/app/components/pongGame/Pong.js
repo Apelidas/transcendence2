@@ -3,13 +3,19 @@ const context = canvas.getContext('2d');
 const overlay = document.getElementById('overlay');
 const popup = document.getElementById('popup');
 const winnerMessage = document.getElementById('winnerMessage');
+const leftGiveUpButton = document.getElementById('leftGiveUp');
+const rightGiveUpButton = document.getElementById('rightGiveUp');
+const ballSpeedSlider = document.getElementById('ballSpeed');
+const controlsContainer = document.getElementById('controlsContainer');
 
 // Game constants
 const paddleWidth = 10;
 const paddleHeight = 100;
 const ballRadius = 10;
 const playerSpeed = 6;
+const aiSpeed = 4;
 const winningScore = 11;
+const missChance = 0.1; // 10% chance for the AI to miss the ball
 const scoreMargin = 50; // Margin for score from the top
 const nameMargin = 50; // Margin for name from the bottom
 
@@ -20,8 +26,9 @@ let leftPlayerColor = '#FF0000';
 let rightPlayerColor = '#0000FF';
 
 // Player names
-let leftPlayerName = 'Left Player';
-let rightPlayerName = 'Right Player';
+let leftPlayerName = 'Player';
+let rightPlayerName = 'Player 2';
+let isAI = false; // Flag to determine if AI is active
 
 // Player paddle (left)
 const playerLeft = {
@@ -50,7 +57,7 @@ const ball = {
     x: canvas.width / 2,
     y: canvas.height / 2,
     radius: ballRadius,
-    speed: 4,
+    speed: parseInt(ballSpeedSlider.value, 10),
     dx: 4,
     dy: -4,
     color: ballColor
@@ -129,6 +136,23 @@ function draw() {
 // Move paddles
 function movePaddles() {
     playerLeft.y += playerLeft.dy;
+
+    if (isAI) {
+        // AI movement
+        if (Math.random() > missChance) {
+            if (ball.y < playerRight.y + playerRight.height / 2) {
+                playerRight.dy = -aiSpeed;
+            } else if (ball.y > playerRight.y + playerRight.height / 2) {
+                playerRight.dy = aiSpeed;
+            } else {
+                playerRight.dy = 0;
+            }
+        } else {
+            // Introduce a random move to simulate a miss
+            playerRight.dy = Math.random() > 0.5 ? aiSpeed : -aiSpeed;
+        }
+    }
+
     playerRight.y += playerRight.dy;
 
     // Prevent paddles from going out of bounds
@@ -142,6 +166,11 @@ function movePaddles() {
 function moveBall() {
     ball.x += ball.dx;
     ball.y += ball.dy;
+
+    // Adjust ball speed based on slider
+    ball.speed = parseInt(ballSpeedSlider.value, 10);
+    ball.dx = ball.speed * Math.sign(ball.dx);
+    ball.dy = ball.speed * Math.sign(ball.dy);
 
     // Wall collision (top and bottom)
     if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
@@ -178,7 +207,7 @@ function moveBall() {
 function resetBall() {
     ball.x = canvas.width / 2;
     ball.y = canvas.height / 2;
-    ball.dx = -ball.dx;
+    ball.dx = ball.speed * Math.sign(ball.dx);
 }
 
 // End game
@@ -187,6 +216,17 @@ function endGame() {
     const winner = playerLeft.score >= winningScore ? `${leftPlayerName} Wins!` : `${rightPlayerName} Wins!`;
     winnerMessage.textContent = winner;
     winnerMessage.style.color = playerLeft.score >= winningScore ? playerLeft.color : playerRight.color;
+    overlay.style.display = 'flex';
+    popup.style.display = 'block';
+    document.removeEventListener('keydown', keyDownHandler);
+    document.removeEventListener('keyup', keyUpHandler);
+}
+
+// Give up function
+function giveUp(player) {
+    const winner = player === 'left' ? `${rightPlayerName} Wins!` : `${leftPlayerName} Wins!`;
+    winnerMessage.textContent = winner;
+    winnerMessage.style.color = player === 'left' ? playerRight.color : playerLeft.color;
     overlay.style.display = 'flex';
     popup.style.display = 'block';
     document.removeEventListener('keydown', keyDownHandler);
@@ -215,8 +255,9 @@ function startGame() {
         return;
     }
 
-    leftPlayerName = leftNameInput || 'Left Player';
-    rightPlayerName = rightNameInput || 'Right Player';
+    leftPlayerName = leftNameInput || 'Player';
+    rightPlayerName = rightNameInput || 'Player 2';
+    isAI = rightNameInput === 'AI-ko';
 
     // Get customization options
     backgroundColor = document.getElementById('backgroundColor').value;
@@ -229,8 +270,15 @@ function startGame() {
     playerRight.color = rightPlayerColor;
     ball.color = ballColor;
 
+    // Set button colors
+    leftGiveUpButton.style.color = leftPlayerColor;
+    rightGiveUpButton.style.color = rightPlayerColor;
+
     document.getElementById('startScreen').style.display = 'none';
     canvas.style.display = 'block';
+    controlsContainer.style.display = 'flex';
+    leftGiveUpButton.style.display = 'block';
+    rightGiveUpButton.style.display = 'block';
     document.addEventListener('keydown', keyDownHandler);
     document.addEventListener('keyup', keyUpHandler);
     requestAnimationFrame(gameLoop);
@@ -262,7 +310,7 @@ function gameLoop() {
     }
 }
 
-// Event listeners for player and opponent paddles
+// Event listeners for player paddles
 function keyDownHandler(e) {
     switch(e.key) {
         case 'w':
@@ -272,10 +320,10 @@ function keyDownHandler(e) {
             playerLeft.dy = playerSpeed;
             break;
         case 'ArrowUp':
-            playerRight.dy = -playerSpeed;
+            if (!isAI) playerRight.dy = -playerSpeed;
             break;
         case 'ArrowDown':
-            playerRight.dy = playerSpeed;
+            if (!isAI) playerRight.dy = playerSpeed;
             break;
     }
 }
@@ -288,7 +336,7 @@ function keyUpHandler(e) {
             break;
         case 'ArrowUp':
         case 'ArrowDown':
-            playerRight.dy = 0;
+            if (!isAI) playerRight.dy = 0;
             break;
     }
 }
