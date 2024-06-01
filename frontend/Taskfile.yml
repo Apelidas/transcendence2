@@ -4,7 +4,7 @@ version: '3'
 tasks:
   run:
     cmds:
-      - bash -c "nohup npm run start:server &"
+      - bash -c " npm run start:server &" #nohup
 
   kill:
     cmds:
