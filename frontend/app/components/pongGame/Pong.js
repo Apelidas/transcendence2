@@ -10,6 +10,18 @@ const paddleHeight = 100;
 const ballRadius = 10;
 const playerSpeed = 6;
 const winningScore = 11;
+const scoreMargin = 50; // Margin for score from the top
+const nameMargin = 50; // Margin for name from the bottom
+
+// Customization options
+let backgroundColor = '#000000';
+let ballColor = '#FFFFFF';
+let leftPlayerColor = '#FF0000';
+let rightPlayerColor = '#0000FF';
+
+// Player names
+let leftPlayerName = 'Left Player';
+let rightPlayerName = 'Right Player';
 
 // Player paddle (left)
 const playerLeft = {
@@ -17,7 +29,7 @@ const playerLeft = {
     y: canvas.height / 2 - paddleHeight / 2,
     width: paddleWidth,
     height: paddleHeight,
-    color: '#FF0000', // Red color for left player
+    color: leftPlayerColor,
     dy: 0,
     score: 0
 };
@@ -28,7 +40,7 @@ const playerRight = {
     y: canvas.height / 2 - paddleHeight / 2,
     width: paddleWidth,
     height: paddleHeight,
-    color: '#0000FF', // Blue color for right player
+    color: rightPlayerColor,
     dy: 0,
     score: 0
 };
@@ -41,7 +53,7 @@ const ball = {
     speed: 4,
     dx: 4,
     dy: -4,
-    color: '#fff'
+    color: ballColor
 };
 
 // Draw rectangle (paddles)
@@ -59,38 +71,59 @@ function drawCircle(x, y, r, color) {
     context.fill();
 }
 
-// Draw text (scores)
-function drawText(text, x, y, color) {
+// Draw text (scores and names)
+function drawText(text, x, y, color, align = 'center') {
     context.fillStyle = color;
     context.font = '35px Arial';
+    context.textAlign = align;
     context.fillText(text, x, y);
 }
 
 // Draw net
 function drawNet() {
-    for (let i = 0; i < canvas.height; i += 15) {
+    for (let i = 0; i; canvas.height; i += 15) {
         drawRect(canvas.width / 2 - 1, i, 2, 10, '#fff');
     }
+}
+
+// Create a gradient color
+function createGradient(color1, color2) {
+    const gradient = context.createLinearGradient(0, 0, canvas.width, 0);
+    gradient.addColorStop(0, color1);
+    gradient.addColorStop(1, color2);
+    return gradient;
 }
 
 // Draw everything
 function draw() {
     // Clear the canvas
     context.clearRect(0, 0, canvas.width, canvas.height);
-    
+
+    // Set the background color
+    context.fillStyle = backgroundColor;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
     // Draw net
     drawNet();
-    
+
     // Draw paddles
     drawRect(playerLeft.x, playerLeft.y, playerLeft.width, playerLeft.height, playerLeft.color);
     drawRect(playerRight.x, playerRight.y, playerRight.width, playerRight.height, playerRight.color);
-    
+
     // Draw ball
     drawCircle(ball.x, ball.y, ball.radius, ball.color);
 
+    // Create gradients for scores and names
+    const leftGradient = createGradient(playerLeft.color, 'white');
+    const rightGradient = createGradient('white', playerRight.color);
+
     // Draw scores
-    drawText(playerLeft.score, canvas.width / 4, canvas.height / 5, playerLeft.color);
-    drawText(playerRight.score, 3 * canvas.width / 4, canvas.height / 5, playerRight.color);
+    drawText(playerLeft.score, canvas.width / 4, scoreMargin, leftGradient);
+    drawText(playerRight.score, 3 * canvas.width / 4, scoreMargin, rightGradient);
+
+    // Draw player names (mirroring the score positions)
+    drawText(leftPlayerName, canvas.width / 4, canvas.height - nameMargin, leftGradient);
+    drawText(rightPlayerName, 3 * canvas.width / 4, canvas.height - nameMargin, rightGradient);
 }
 
 // Move paddles
@@ -151,7 +184,7 @@ function resetBall() {
 // End game
 function endGame() {
     // Display winner
-    const winner = playerLeft.score >= winningScore ? 'Left Player Wins!' : 'Right Player Wins!';
+    const winner = playerLeft.score >= winningScore ? `${leftPlayerName} Wins!` : `${rightPlayerName} Wins!`;
     winnerMessage.textContent = winner;
     winnerMessage.style.color = playerLeft.score >= winningScore ? playerLeft.color : playerRight.color;
     overlay.style.display = 'flex';
@@ -171,6 +204,50 @@ function restartGame() {
     document.addEventListener('keyup', keyUpHandler);
     requestAnimationFrame(gameLoop);
 }
+
+// Start game
+function startGame() {
+    const leftNameInput = document.getElementById('leftPlayerName').value.trim();
+    const rightNameInput = document.getElementById('rightPlayerName').value.trim();
+
+    if (leftNameInput === rightNameInput) {
+        alert('Player names must be different!');
+        return;
+    }
+
+    leftPlayerName = leftNameInput || 'Left Player';
+    rightPlayerName = rightNameInput || 'Right Player';
+
+    // Get customization options
+    backgroundColor = document.getElementById('backgroundColor').value;
+    ballColor = document.getElementById('ballColor').value;
+    leftPlayerColor = document.getElementById('leftPlayerColor').value;
+    rightPlayerColor = document.getElementById('rightPlayerColor').value;
+
+    // Update player and ball colors
+    playerLeft.color = leftPlayerColor;
+    playerRight.color = rightPlayerColor;
+    ball.color = ballColor;
+
+    document.getElementById('startScreen').style.display = 'none';
+    canvas.style.display = 'block';
+    document.addEventListener('keydown', keyDownHandler);
+    document.addEventListener('keyup', keyUpHandler);
+    requestAnimationFrame(gameLoop);
+}
+
+// Handle color input change
+function handleColorChange(event) {
+    const input = event.target;
+    const color = input.value;
+    input.style.backgroundColor = color;
+}
+
+// Attach color change handler to color inputs
+document.querySelectorAll('input[type="color"]').forEach(input => {
+    input.addEventListener('change', handleColorChange);
+    input.addEventListener('input', handleColorChange);
+});
 
 // Game loop
 function gameLoop() {
@@ -212,9 +289,3 @@ function keyUpHandler(e) {
             break;
     }
 }
-
-document.addEventListener('keydown', keyDownHandler);
-document.addEventListener('keyup', keyUpHandler);
-
-// Start game loop
-gameLoop();
