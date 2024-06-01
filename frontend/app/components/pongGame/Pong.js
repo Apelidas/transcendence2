@@ -29,6 +29,7 @@ let rightPlayerColor = '#0000FF';
 let leftPlayerName = 'Player';
 let rightPlayerName = 'Player 2';
 let isAI = false; // Flag to determine if AI is active
+let gameRunning = true; // Flag to control the game loop
 
 // Player paddle (left)
 const playerLeft = {
@@ -218,6 +219,7 @@ function endGame() {
     winnerMessage.style.color = playerLeft.score >= winningScore ? playerLeft.color : playerRight.color;
     overlay.style.display = 'flex';
     popup.style.display = 'block';
+    gameRunning = false; // Stop the game loop
     document.removeEventListener('keydown', keyDownHandler);
     document.removeEventListener('keyup', keyUpHandler);
 }
@@ -229,6 +231,7 @@ function giveUp(player) {
     winnerMessage.style.color = player === 'left' ? playerRight.color : playerLeft.color;
     overlay.style.display = 'flex';
     popup.style.display = 'block';
+    gameRunning = false; // Stop the game loop
     document.removeEventListener('keydown', keyDownHandler);
     document.removeEventListener('keyup', keyUpHandler);
 }
@@ -238,6 +241,7 @@ function restartGame() {
     playerLeft.score = 0;
     playerRight.score = 0;
     resetBall();
+    gameRunning = true; // Restart the game loop
     overlay.style.display = 'none';
     popup.style.display = 'none';
     document.addEventListener('keydown', keyDownHandler);
@@ -281,6 +285,7 @@ function startGame() {
     rightGiveUpButton.style.display = 'block';
     document.addEventListener('keydown', keyDownHandler);
     document.addEventListener('keyup', keyUpHandler);
+    gameRunning = true;
     requestAnimationFrame(gameLoop);
 }
 
@@ -302,12 +307,11 @@ document.querySelectorAll('input[type="color"]').forEach(input => {
 
 // Game loop
 function gameLoop() {
+    if (!gameRunning) return; // Exit the loop if the game is not running
     movePaddles();
     moveBall();
     draw();
-    if (playerLeft.score < winningScore && playerRight.score < winningScore) {
-        requestAnimationFrame(gameLoop);
-    }
+    requestAnimationFrame(gameLoop);
 }
 
 // Event listeners for player paddles
