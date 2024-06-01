@@ -22,3 +22,4 @@ tasks:
   stop-dependencies:
     cmds:
       - docker compose down
+      - docker system prune -a -f
