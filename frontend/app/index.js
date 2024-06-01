@@ -1,5 +1,5 @@
 window.onload = function() {
-    loadContent("header.html", "header");
+    loadContent("header/header.html", "header");
     loadContent("pages/login/login.html", "body");
 	if (!userIsAuthenticated()) {
         window.location.href = 'login.html';
