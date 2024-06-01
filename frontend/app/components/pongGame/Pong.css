@@ -10,3 +10,39 @@ body {
 canvas {
     border: 1px solid #fff;
 }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+    z-index: 20;
+}
+
+.popup h2 {
+    margin: 0 0 20px;
+}
+
+.popup button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
