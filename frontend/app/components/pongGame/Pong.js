@@ -81,7 +81,7 @@ function drawText(text, x, y, color, align = 'center') {
 
 // Draw net
 function drawNet() {
-    for (let i = 0; i; canvas.height; i += 15) {
+    for (let i = 0; i < canvas.height; i += 15) {
         drawRect(canvas.width / 2 - 1, i, 2, 10, '#fff');
     }
 }
@@ -235,6 +235,9 @@ function startGame() {
     document.addEventListener('keyup', keyUpHandler);
     requestAnimationFrame(gameLoop);
 }
+
+// Attach start button event listener
+document.getElementById('startButton').addEventListener('click', startGame);
 
 // Handle color input change
 function handleColorChange(event) {
