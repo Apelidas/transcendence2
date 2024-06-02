@@ -17,9 +17,8 @@ tasks:
   start-dependencies:
     cmds:
       - task: stop-dependencies
-      - docker compose up -d
+      - docker compose up -d --build
 
   stop-dependencies:
     cmds:
       - docker compose down
-      - docker system prune -a -f

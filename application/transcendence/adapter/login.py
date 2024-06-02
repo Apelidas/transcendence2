@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from django.views.decorators.csrf import csrf_exempt
 import json
 
@@ -13,9 +13,13 @@ def login_view(request):
             password = data['password']
         except (KeyError, json.JSONDecodeError):
             return JsonResponse({'error': 'Invalid data'}, status=400)
-        print('email: ', email, '\npassword: ', password)
+        if password is None:
+            return JsonResponse({'status': 'error', 'message': 'Password is required.'})
+
+        if email is None:
+            return JsonResponse({'status': 'error', 'message': 'Email is required'})
         try:
-            user = findUser(email, password)
+            user = authenticate(request, email=email, password=password)
         except Exception as e:
             print(e)
             return JsonResponse(e, status=401)
@@ -34,3 +38,4 @@ def findUser(email, password):
             return user
     except User.DoesNotExist:
         return None
+
