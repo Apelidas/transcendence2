@@ -15,7 +15,7 @@ const ballRadius = 10;
 const playerSpeed = 6;
 const aiSpeed = 4;
 const winningScore = 11;
-const missChance = 0.1; // 10% chance for the AI to miss the ball
+const missChance = 0.01; // 1% chance for the AI to miss the ball
 const scoreMargin = 50; // Margin for score from the top
 const nameMargin = 50; // Margin for name from the bottom
 
@@ -63,6 +63,10 @@ const ball = {
     dy: -4,
     color: ballColor
 };
+
+// AI update interval
+let lastAIUpdateTime = 0;
+const aiUpdateInterval = 1000; // 1 second
 
 // Draw rectangle (paddles)
 function drawRect(x, y, w, h, color) {
@@ -138,19 +142,23 @@ function draw() {
 function movePaddles() {
     playerLeft.y += playerLeft.dy;
 
+    // AI movement
     if (isAI) {
-        // AI movement
-        if (Math.random() > missChance) {
-            if (ball.y < playerRight.y + playerRight.height / 2) {
-                playerRight.dy = -aiSpeed;
-            } else if (ball.y > playerRight.y + playerRight.height / 2) {
-                playerRight.dy = aiSpeed;
+        const currentTime = Date.now();
+        if (currentTime - lastAIUpdateTime >= aiUpdateInterval) {
+            if (Math.random() > missChance) {
+                if (ball.y < playerRight.y + playerRight.height / 2) {
+                    playerRight.dy = -aiSpeed;
+                } else if (ball.y > playerRight.y + playerRight.height / 2) {
+                    playerRight.dy = aiSpeed;
+                } else {
+                    playerRight.dy = 0;
+                }
             } else {
-                playerRight.dy = 0;
+                // Introduce a random move to simulate a miss
+                playerRight.dy = Math.random() > 0.5 ? aiSpeed : -aiSpeed;
             }
-        } else {
-            // Introduce a random move to simulate a miss
-            playerRight.dy = Math.random() > 0.5 ? aiSpeed : -aiSpeed;
+            lastAIUpdateTime = currentTime;
         }
     }
 
