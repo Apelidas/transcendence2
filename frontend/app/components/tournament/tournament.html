@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong Tournament</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="tournamentContainer">
+        <h1>Pong Tournament</h1>
+        <div id="registration">
+            <h2>Register for the Tournament</h2>
+            <input type="text" id="playerAlias" placeholder="Enter your alias name">
+            <button id="registerButton">Register</button>
+            <ul id="playerList"></ul>
+        </div>
+        <div id="matchmaking" style="display:none;">
+            <h2>Tournament Matchmaking</h2>
+            <ul id="matchList"></ul>
+            <button id="startTournamentButton">Start Tournament</button>
+        </div>
+        <div id="announcement" style="display:none;">
+            <h2>Next Match</h2>
+            <p id="currentMatch"></p>
+            <button id="nextMatchButton" style="display:none;">Next Match</button>
+        </div>
+    </div>
+    <script src="tournament.js"></script>
+</body>
+</html>
