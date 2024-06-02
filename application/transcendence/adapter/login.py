@@ -3,21 +3,15 @@ from django.contrib.auth import get_user_model, authenticate
 from django.views.decorators.csrf import csrf_exempt
 import json
 
+from transcendence.adapter.util import checkForCredentials
+
 
 @csrf_exempt
 def login_view(request):
     if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            email = data['email']
-            password = data['password']
-        except (KeyError, json.JSONDecodeError):
-            return JsonResponse({'error': 'Invalid data'}, status=400)
-        if password is None:
-            return JsonResponse({'status': 'error', 'message': 'Password is required.'})
-
-        if email is None:
-            return JsonResponse({'status': 'error', 'message': 'Email is required'})
+        email, password = checkForCredentials()
+        if not email or not password:
+            return JsonResponse({'error': 'missing credentials'}, status=400)
         try:
             user = authenticate(request, email=email, password=password)
         except Exception as e:

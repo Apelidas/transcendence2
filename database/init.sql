@@ -5,7 +5,7 @@ CREATE DATABASE mydatabase;
 \c mydatabase
 
 -- Create the users table
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS transcendence_user (
     ID SERIAL PRIMARY KEY,
     EMAIL VARCHAR(255) UNIQUE NOT NULL,
     PASSWORD VARCHAR(255) NOT NULL

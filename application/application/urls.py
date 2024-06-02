@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from transcendence.login import login_view
+from transcendence.adapter.login import login_view
+from transcendence.adapter.signup import signup_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', login_view, name='login'),
+    path('signup/', signup_view, name='signup')
 ]
 
