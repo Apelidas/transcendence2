@@ -14,7 +14,7 @@ tasks:
     cmds:
       - task: frontend:kill
 
-  start-dependencies:
+  run:
     cmds:
       - task: stop-dependencies
       - docker compose up -d --build
