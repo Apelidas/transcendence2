@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Load body content and then load Stone Game content
     loadContent('siteComponents/body.html', 'body', function () {
-        loadContent('siteComponents/bodyComponents/stoneGame.html', 'stoneGame');
+        loadContent('siteComponents/bodyComponents/stoneGame/stoneGame.html', 'stoneGame');
+        loadContent('siteComponents/bodyComponents/pong/Pong.html', 'pongGame');
     });
 
     // Handle login form submission
@@ -43,7 +44,8 @@ function login() {
     // Load header and body content again if necessary
 	loadContent('siteComponents/header.html', 'header');
     loadContent('siteComponents/body.html', 'body', function () {
-        loadContent('siteComponents/bodyComponents/stoneGame.html', 'stoneGame');
+        loadContent('siteComponents/bodyComponents/stoneGame/stoneGame.html', 'stoneGame');
+        loadContent('siteComponents/bodyComponents/pong/Pong.html', 'pongGame');
     });
 }
 
