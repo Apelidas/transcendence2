@@ -1,5 +1,8 @@
+
+
+document.addEventListener('DOMContentLoaded', function () {
 const canvas = document.getElementById('pongCanvas');
-const context = canvas.getContext('2d');
+const context = canvas ? canvas.getContext('2d') : null;
 const overlay = document.getElementById('overlay');
 const popup = document.getElementById('popup');
 const winnerMessage = document.getElementById('winnerMessage');
@@ -34,7 +37,7 @@ let gameRunning = true; // Flag to control the game loop
 // Player paddle (left)
 const playerLeft = {
     x: 0,
-    y: canvas.height / 2 - paddleHeight / 2,
+    y: canvas ? canvas.height / 2 - paddleHeight / 2 : 0,
     width: paddleWidth,
     height: paddleHeight,
     color: leftPlayerColor,
@@ -44,7 +47,7 @@ const playerLeft = {
 
 // Opponent paddle (right)
 const playerRight = {
-    x: canvas.width - paddleWidth,
+    x: canvas ? canvas.width - paddleWidth : 0,
     y: canvas.height / 2 - paddleHeight / 2,
     width: paddleWidth,
     height: paddleHeight,
@@ -55,8 +58,8 @@ const playerRight = {
 
 // Ball
 const ball = {
-    x: canvas.width / 2,
-    y: canvas.height / 2,
+    x: canvas ? canvas.width / 2 : 0,
+    y: canvas ? canvas.height / 2 : 0,
     radius: ballRadius,
     speed: parseInt(ballSpeedSlider.value, 10),
     dx: 4,
@@ -352,3 +355,4 @@ function keyUpHandler(e) {
             break;
     }
 }
+});

@@ -1,3 +1,4 @@
+
 window.onload = function() {
     loadContent("header.html", "header");
     loadContent("pages/login/login.html", "body");
