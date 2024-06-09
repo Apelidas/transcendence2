@@ -1,5 +1,5 @@
 """
-URL configuration for application project.
+URL configuration for server project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -17,10 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from transcendence.adapter import signup
+from transcendence import signup
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('signup/', signup.signup_view, name='signup'),
+    path('signup/', signup.signup_view),
 ]
-
