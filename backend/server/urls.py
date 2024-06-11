@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from transcendence import signup
+from transcendence.adapter import signup, login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', signup.signup_view),
+    path('login/', login.login_view),
 ]
