@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	if (!resultDisplay) {
 		console.log('resultDisplay does not exists');
 	}
-    const possibleChoices = document.querySelectorAll('button');
+    const possibleChoices = document.querySelectorAll('.rock-game');
 	if (!possibleChoices) {
 		console.log('possibleChoices does not exists');
 	}

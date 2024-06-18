@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 		event.preventDefault(); // Prevent the form from submitting the traditional way
 		login();
 	});
-
+		
 	// Initially blur the main content
 	toggleBlur(true);
 	console.log('user-choice: ', document.getElementById('user-choice'));
@@ -44,18 +44,6 @@ function login() {
 
 	// Remove the blur effect from the main content
 	toggleBlur(false);
-
-	// Load header and body content again if necessary
-	//loadContent('siteComponents/header.html', 'header');
-	//loadContent('siteComponents/body.html', 'body', function () {
-	//    loadContent('siteComponents/bodyComponents/stoneGame/stoneGame.html', 'stoneGame');
-	//    //loadContent('siteComponents/bodyComponents/stoneGame/stoneGame.js');
-	//    loadContent('siteComponents/bodyComponents/stoneGame/stoneGame.css');
-
-	//    loadContent('siteComponents/bodyComponents/pong/pong.html', 'pongGame');
-	//    loadContent('siteComponents/bodyComponents/pong/pong.css');
-
-	//});
 }
 
 function redirectToLoginPage() {

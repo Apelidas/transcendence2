@@ -44,10 +44,10 @@
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>
 				<div>
-					<button type="submit" class="btn btn-primary mt-2">Sign in with Intra</button>
+					<button type="submit" id="signInWithIntra" class="btn btn-primary mt-2">Sign in with Intra</button>
 				</div>
 				<div class="signup-link">
-					<a href="signup">Sign Up</a>
+					<a href="signup" >Sign Up</a>
 				</div>
 			</div>
 		</div>
@@ -59,59 +59,59 @@
 				<button id="loginOutBtn" class="btn" onclick="redirectToLoginPage()">Log-out</button>
 			</div>
 		</div>
+
+		<div class="pongGame">
+			<div id="startScreen" class="start-screen">
+				<h2>Enter Player Names and Customize</h2>
+				<input type="text" id="leftPlayerName" placeholder="Left Player Name" required>
+				<input type="text" id="rightPlayerName" placeholder="Right Player Name" required>
+				<label for="backgroundColor">Background Color:</label>
+				<input type="color" id="backgroundColor" value="#000000">
+				<label for="ballColor">Ball Color:</label>
+				<input type="color" id="ballColor" value="#FFFFFF">
+				<label for="leftPlayerColor">Left Player Color:</label>
+				<input type="color" id="leftPlayerColor" value="#FF0000">
+				<label for="rightPlayerColor">Right Player Color:</label>
+				<input type="color" id="rightPlayerColor" value="#0000FF">
+				<button id="startButton">Start Game</button>
+			</div>
+			<div id="overlay" class="overlay"></div>
+			<div id="popup" class="popup">
+				<h2 id="winnerMessage"></h2>
+				<button onclick="restartGame()">Restart Game</button>
+			</div>
+			<div id="gameContainer">
+				<canvas id="pongCanvas" width="800" height="600" style="display:none;"></canvas>
+				<div id="controlsContainer" class="controls-container" style="display:none;">
+					<button id="leftGiveUp" class="give-up-button" onclick="giveUp('left')">Give Up</button>
+					<div id="ballSpeedControl" class="ball-speed-control">
+						<label for="ballSpeed">Adjust Ball Speed</label>
+						<div>
+							<span>-</span>
+							<input type="range" id="ballSpeed" min="1" max="10" value="4">
+							<span>+</span>
+						</div>
+					</div>
+					<button id="rightGiveUp" class="give-up-button" onclick="giveUp('right')">Give Up</button>
+				</div>
+			</div>
+		</div>
+
 		<div class="body" id="body">
-			<h1>hi from body</h1>
 			<div class="card stoneGame" id="stoneGame">
 				<h1 class="mt-5">Rock Paper Scissors</h1>
 			
 				<div class="container-fluid mt-4 mb-5">
 					<h3 class="fw-light">Choose:</h3>
-					<button class="btn btn-info" id="rock">rock👊</button>
-					<button class="btn btn-info" id="paper">paper🖐</button>
-					<button class="btn btn-info" id="scissors">scissors✌</button>
+					<button class="btn btn-info rock-game" id="rock">rock👊</button>
+					<button class="btn btn-info rock-game" id="paper">paper🖐</button>
+					<button class="btn btn-info rock-game" id="scissors">scissors✌</button>
 				</div>
 				<div class="square">
 					<div class="container-fluid mt-4 mb-5">
 						<h2>User: <span class="text-muted" id="user-choice"></span></h2>
 						<h2>PC: <span class="text-muted" id="computer-choice"></span></h2>
 						<h2 class="fw-bolder">Result: <span id="result"></span></h2>
-					</div>
-				</div>
-			</div>
-			
-			<div class="pongGame">
-				<div id="startScreen" class="start-screen">
-					<h2>Enter Player Names and Customize</h2>
-					<input type="text" id="leftPlayerName" placeholder="Left Player Name" required>
-					<input type="text" id="rightPlayerName" placeholder="Right Player Name" required>
-					<label for="backgroundColor">Background Color:</label>
-					<input type="color" id="backgroundColor" value="#000000">
-					<label for="ballColor">Ball Color:</label>
-					<input type="color" id="ballColor" value="#FFFFFF">
-					<label for="leftPlayerColor">Left Player Color:</label>
-					<input type="color" id="leftPlayerColor" value="#FF0000">
-					<label for="rightPlayerColor">Right Player Color:</label>
-					<input type="color" id="rightPlayerColor" value="#0000FF">
-					<button id="startButton">Start Game</button>
-				</div>
-				<div id="overlay" class="overlay"></div>
-				<div id="popup" class="popup">
-					<h2 id="winnerMessage"></h2>
-					<button onclick="restartGame()">Restart Game</button>
-				</div>
-				<div id="gameContainer">
-					<canvas id="pongCanvas" width="800" height="600" style="display:none;"></canvas>
-					<div id="controlsContainer" class="controls-container" style="display:none;">
-						<button id="leftGiveUp" class="give-up-button" onclick="giveUp('left')">Give Up</button>
-						<div id="ballSpeedControl" class="ball-speed-control">
-							<label for="ballSpeed">Adjust Ball Speed</label>
-							<div>
-								<span>-</span>
-								<input type="range" id="ballSpeed" min="1" max="10" value="4">
-								<span>+</span>
-							</div>
-						</div>
-						<button id="rightGiveUp" class="give-up-button" onclick="giveUp('right')">Give Up</button>
 					</div>
 				</div>
 			</div>

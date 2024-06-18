@@ -8,6 +8,7 @@
 	padding: 20px;
 	color: white;
 	text-align: center;
+	z-index: 1000;
 }
 
 input[type="text"],
