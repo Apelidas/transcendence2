@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 		
 	// Initially blur the main content
 	toggleBlur(true);
-	console.log('user-choice: ', document.getElementById('user-choice'));
 });
 
 async function loadContent(url, containerId, callback) {

@@ -1,8 +1,18 @@
 .header {
-    background-color: #d52a2a !important;
-    color: #fff;
+    background-color: #BD8B28 !important;
+    color:#650515;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+    width: 100%;
 }
 
 .title {
     margin: 0;
+}
+
+.bi {
+	color: #650515 !important;
 }
