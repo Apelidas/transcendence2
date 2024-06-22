@@ -9,6 +9,7 @@ from django.views.decorators.http import require_POST
 @csrf_exempt
 @require_POST
 def login_view(request):
+    print("has been called")
     data = json.loads(request.body)
     email = data['email']
     password = data['password']
