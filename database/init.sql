@@ -1,5 +1,5 @@
 -- Create the database if it doesn't exist
-CREATE DATABASE mydatabase;
+CREATE DATABASE IF NOT EXISTS mydatabase;
 
 -- Connect to the database
 \c mydatabase
