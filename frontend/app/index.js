@@ -5,9 +5,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 });
 
 
-
-
-
 function redirectToLoginPage() {
 	document.getElementById('loginPopup').style.display = 'block';
 	toggleBlur(true);
