@@ -1,0 +1,55 @@
+<div class="pongGame">
+    <div id="startScreen" class="start-screen">
+        <h2>Pong:</h2>
+        <div class="row">
+            <div class="col">
+                <p>Enter Player Names:</p>
+                <input type="text" id="leftPlayerName" placeholder="Left Player Name" required>
+                <input type="text" id="rightPlayerName" placeholder="Right Player Name" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="backgroundColor">Background:</label>
+                <input type="color" id="backgroundColor" value="#000000">
+            </div>
+            <div class="col">
+                <label for="ballColor">Ball Color:</label>
+                <input type="color" id="ballColor"  value="#FFFFFF">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="leftPlayerColor">Left Player Color:</label>
+                <input type="color" id="leftPlayerColor"  value="#FF0000">
+            </div>
+            <div class="col">
+                <label for="rightPlayerColor">Right Player Color:</label>
+                <input type="color" id="rightPlayerColor"  value="#0000FF">
+            </div>
+            <button id="startButton" class="btn btn-info">Start Game</button>
+
+        </div>
+    </div>
+    <div id="overlay" class="overlay"></div>
+    <div id="popup" class="popup">
+        <h2 id="winnerMessage"></h2>
+        <button onclick="restartGame()" class="btn btn-primary">Restart Game</button>
+    </div>
+    <div id="gameContainer">
+        <canvas id="pongCanvas" width="800" height="600" style="display:none;"></canvas>
+        <div id="controlsContainer" class="controls-container" style="display:none;">
+            <button id="leftGiveUp" class="give-up-button btn btn-info" onclick="giveUp('left')">Give Up</button>
+            <div id="ballSpeedControl" class="ball-speed-control">
+                <label for="ballSpeed">Adjust Ball Speed</label>
+                <div>
+                    <span>-</span>
+                    <input type="range" id="ballSpeed" min="1" max="10" value="4">
+                    <span>+</span>
+                </div>
+            </div>
+            <button id="rightGiveUp"  class="give-up-button btn btn-info" onclick="giveUp('right')">Give
+                Up</button>
+        </div>
+    </div>
+</div>
