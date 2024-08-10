@@ -4,12 +4,11 @@ document.addEventListener('DOMContentLoaded', async function () {
 	toggleBlur(true);
 });
 
-function redirectToLoginPage() {
-	document.getElementById('loginPopup').style.display = 'block';
-	toggleBlur(true);
-}
 
-function redirectToPopUp() {
+
+
+
+function redirectToLoginPage() {
 	document.getElementById('loginPopup').style.display = 'block';
 	toggleBlur(true);
 }
