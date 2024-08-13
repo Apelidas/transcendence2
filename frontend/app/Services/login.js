@@ -16,6 +16,9 @@ async function login(){
         body: JSON.stringify({email, password})
     });
     if (response.status === 200){
+        const data = await response.json();
+        localStorage.setItem('access_token', data.access);
+        localStorage.setItem('refresh_token', data.refresh);
         document.getElementById('loginPopup').style.display = 'none';
         toggleBlur();
 

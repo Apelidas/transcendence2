@@ -1,29 +1,34 @@
 import json
 
 from django.contrib.auth import authenticate, login
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
-@csrf_exempt
-@require_POST
-def login_view(request):
-    print("has been called")
-    data = json.loads(request.body)
-    email = data['email']
-    password = data['password']
+class LoginView(APIView):
+    authentication_classes = []  # Disable JWT Authentication for this view
 
-    if not email or not password:
-        return JsonResponse({'error': 'Email and password are required.'}, status=400)
+    def post(self, request):
+        data = request.data
+        email = data.get('email')
+        password = data.get('password')
 
-    user = authenticate(request, email=email, password=password)
+        if not email or not password:
+            return Response({'error': 'Email and password are required.'}, status=400)
 
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-            return JsonResponse({'message': 'Login successful'}, status=200)
+        user = authenticate(request, email=email, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                refresh = RefreshToken.for_user(user)
+                return Response({
+                    'message': 'Login successful',
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                }, status=200)
+            else:
+                return Response({'error': 'Account is inactive.'}, status=403)
         else:
-            return JsonResponse({'error': 'Account is inactive.'}, status=403)
-    else:
-        return JsonResponse({'error': 'Invalid email or password.'}, status=401)
+            return Response({'error': 'Invalid email or password.'}, status=401)
