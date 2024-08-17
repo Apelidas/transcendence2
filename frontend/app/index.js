@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const playPongButton = document.getElementById('playPongButton');
 	const playRPSButton = document.getElementById('playRPSButton');
 	const loginButton = document.getElementById('loginButton');
+	const signupButton = document.getElementById('signupButton');
 	const playTournamentButton = document.getElementById('playTournamentButton');
 	const viewProfileButton = document.getElementById('viewProfileButton');
 	const pongGame = document.getElementById('pongGame');
@@ -40,6 +41,11 @@ document.addEventListener('DOMContentLoaded', function () {
 	loginButton.addEventListener('click', function () {
 	  showLoginPopup();
 	});
+
+	// Function to open the Sign Up Page
+	signupButton.addEventListener('click', function () {
+		showGameSection('signup');
+	  });
   
 	// Function to close the Login popup by clicking outside
 	overlay.addEventListener('click', function () {
@@ -52,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	  rpsGame.style.display = game === 'rps' ? 'block' : 'none';
 	  tournamentGame.style.display = game === 'tournament' ? 'block' : 'none';
 	  profilePage.style.display = game === 'profile' ? 'block' : 'none';
+	  signupPage.style.display = game === 'signup' ? 'block' : 'none';
 	  toggleBlur(false);
 	}
   
