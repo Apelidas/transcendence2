@@ -7,6 +7,7 @@ input[type="text"],
 input[type="password"] {
     margin: 10px 0;
     padding: 5px;
+	width: 100%;
 }
 
 #loginPopup {
@@ -20,4 +21,12 @@ input[type="password"] {
     color: white;
     text-align: center;
     z-index: 1000;
+}
+
+.signup-link a {
+    color: #007bff;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
 }

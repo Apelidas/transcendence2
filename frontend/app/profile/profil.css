@@ -1,0 +1,18 @@
+#profileContent {
+	padding: 20px;
+  }
+  
+  .profile-info {
+	padding: 15px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #f9f9f9;
+  }
+  
+  .edit-profile {
+	padding: 15px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #f0f8ff;
+  }
+  
