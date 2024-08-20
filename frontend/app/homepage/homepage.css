@@ -49,3 +49,9 @@ body {
 	margin: 1rem auto;
 	line-height: 1.5;
   }
+
+  img.img-fluid {
+	max-width: 100%;
+	height: auto;
+	margin: 20px 0;
+  }
