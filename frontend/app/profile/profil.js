@@ -1,3 +1,5 @@
+const profileEndpoint = 'http://127.0.0.1:8000/profile/';
+
 document.addEventListener('DOMContentLoaded', function () {
 	const editButton = document.getElementById('editProfile');
 	const cancelButton = document.getElementById('cancelEdit');

@@ -1,14 +1,14 @@
 <div id="loginPopup" class="popup" style="display: none;">
 	<div class="card text-center">
 	  <div class="card-body">
+		<a href="#" class="close">&times;</a> <!-- This link closes the popup -->
 		<form id="loginForm" action="#" method="POST">
 		  <div class="form-group">
-			<label for="email">Email address</label>
-			<input type="email" class="form-control" id="EmailField" aria-describedby="emailHelp"
-				   placeholder="Enter email" required>
+			<label for="EmailField">Email address</label>
+			<input type="email" class="form-control" id="EmailField" aria-describedby="emailHelp" placeholder="Enter email" required>
 		  </div>
 		  <div class="form-group">
-			<label for="password">Password</label>
+			<label for="PasswordField">Password</label>
 			<input type="password" class="form-control" id="PasswordField" placeholder="Password" required>
 		  </div>
 		  <div class="form-check">
@@ -17,6 +17,7 @@
 		  </div>
 		  <button type="submit" class="btn btn-info">Submit</button>
 		</form>
+		<p>Not registered? <a href="#signupPopup">Sign up here</a></p> <!-- This link opens the signup popup -->
 	  </div>
 	</div>
   </div>

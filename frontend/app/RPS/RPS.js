@@ -1,3 +1,4 @@
+const RPSEndpoint = 'http://127.0.0.1:8000/RPS/';
 document.addEventListener('DOMContentLoaded', function () {
 	//const { cyan } = require("colorette");
     const computerChoiceDisplay = document.getElementById('computer-choice');

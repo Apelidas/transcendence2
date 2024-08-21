@@ -1,3 +1,4 @@
+const pongEndpoint = 'http://127.0.0.1:8000/pong/';
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -262,6 +263,7 @@ function restartGame() {
 
 // Start game
 function startGame() {
+	event.preventDefault();  // Prevent default link behavior
     const leftNameInput = document.getElementById('leftPlayerName').value.trim();
     const rightNameInput = document.getElementById('rightPlayerName').value.trim();
 

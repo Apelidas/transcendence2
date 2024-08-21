@@ -21,11 +21,7 @@ body {
 	padding: 20px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	z-index: 10;
-  }
-  
-  #loginPopup {
 	display: none;
-	z-index: 10;
   }
   
   .overlay {
@@ -39,16 +35,9 @@ body {
 	z-index: 9;
   }
   
-  .navbar {
-	margin-bottom: 20px;
-  }
-  
   .img-fluid {
 	max-width: 100%;
 	height: auto;
   }
   
-  .homepage {
-	margin-bottom: 20px;
-  }
-  
+

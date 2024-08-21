@@ -1,0 +1,43 @@
+/*.signup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}*/
+
+.card-body {
+    background-color: white;
+    opacity: 1;
+}
+
+input[type="text"],
+input[type="password"] {
+    margin: 10px 0;
+    padding: 5px;
+	width: 100%;
+}
+
+#signupPopUp {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    /* semi-transparent background */
+    padding: 20px;
+    color: white;
+    text-align: center;
+    z-index: 1000;
+}
+
+.login-link a {
+    color: #007bff;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
