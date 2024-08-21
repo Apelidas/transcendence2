@@ -22,23 +22,22 @@
     </form>
 </div>
 -->
-
 <div id="signupPopup" class="popup" style="display: none;">
 	<div class="card text-center">
 	  <div class="card-body">
+		<a href="#" class="close">&times;</a> <!-- This link closes the popup -->
 		<form id="signupForm" action="#" method="POST">
 		  <div class="form-group">
-			<label for="email">Email address</label>
-			<input type="email" class="form-control" id="EmailField" aria-describedby="emailHelp"
-				   placeholder="Enter email" required>
+			<label for="EmailField">Email address</label>
+			<input type="email" class="form-control" id="EmailField" aria-describedby="emailHelp" placeholder="Enter email" required>
 		  </div>
 		  <div class="form-group">
-			<label for="password">Password</label>
+			<label for="PasswordField">Password</label>
 			<input type="password" class="form-control" id="PasswordField" placeholder="Password" required>
 		  </div>
 		  <div class="form-group">
-			<label for="password"> Repeat Password</label>
-			<input type="password" class="form-control" id="RepeatPasswordField" placeholder="Password" required>
+			<label for="RepeatPasswordField">Repeat Password</label>
+			<input type="password" class="form-control" id="RepeatPasswordField" placeholder="Repeat Password" required>
 		  </div>
 		  <div class="form-check">
 			<input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -47,8 +46,8 @@
 		  <button type="submit" class="btn btn-info">Submit</button>
 		</form>
 		<p class="mt-3">
-			Already registered? <a href="#" id="loginPopup">Go to login.</a>
-		  </p>
+		  Already registered? <a href="#loginPopup" id="loginLink">Go to login.</a> <!-- Link to the login popup -->
+		</p>
 	  </div>
 	</div>
   </div>

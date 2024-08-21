@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
         homepage: document.querySelector('.homepage'),
         pongGame: document.getElementById('pongGame'),
         rpsGame: document.getElementById('rpsGame'),
-        tournamentGame: document.getElementById('tournamentGame'),
         profilePage: document.getElementById('profilePage'),
         signupPage: document.getElementById('signupPage')
     };
@@ -21,6 +20,22 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleBlur(false);
     }
 
+	function closePopup(popupId) {
+		const popup = document.getElementById(popupId);
+		if (popup) {
+			popup.style.display = 'none';
+			toggleBlur(false);
+		}
+	}
+	
+	function openPopup(popupId) {
+		const popup = document.getElementById(popupId);
+		if (popup) {
+			popup.style.display = 'block';
+			toggleBlur(true);
+		}
+	}
+
     // Common toggleBlur function to be used across different modules
     function toggleBlur(shouldBlur) {
         const mainContent = document.getElementById('mainContent');
@@ -35,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 	// Common function to show alerts
     function showAlert(message, type = 'info') {
+		//console.log(`${type}: ${message}`);
         alert(message);
     }
 	

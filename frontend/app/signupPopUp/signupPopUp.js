@@ -3,9 +3,23 @@ const signupEndpoint = 'http://127.0.0.1:8000/signup/';
 document.addEventListener('DOMContentLoaded', () => {
     const signupForm = document.getElementById('signupForm');
 
+    // Handle form submission
     signupForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         await signup();
+    });
+
+    // Handle closing the signup popup
+    document.querySelector('#signupPopup .close').addEventListener('click', (event) => {
+        event.preventDefault();
+        closePopup('signupPopup');
+    });
+
+    // Handle navigating to the login popup
+    document.getElementById('loginLink').addEventListener('click', (event) => {
+        event.preventDefault();
+        closePopup('signupPopup');
+        openPopup('loginPopup');
     });
 });
 
