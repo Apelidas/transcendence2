@@ -1,0 +1,23 @@
+.card-body {
+    background-color: white;
+    opacity: 1;
+}
+
+input[type="text"],
+input[type="password"] {
+    margin: 10px 0;
+    padding: 5px;
+    width: 100%;
+}
+
+#signupPopup {
+    background-color: white; /* Ensures popup has a solid background */
+}
+
+.login-link a {
+    color: #007bff;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}

@@ -19,7 +19,7 @@ async function login(){
         const data = await response.json();
         localStorage.setItem('access_token', data.access);
         localStorage.setItem('refresh_token', data.refresh);
-        document.getElementById('loginPopup').style.display = 'none';
+        document.getElementById('loginPopUp').style.display = 'none';
         toggleBlur();
 
     }

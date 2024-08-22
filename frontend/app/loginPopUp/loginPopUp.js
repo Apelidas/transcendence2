@@ -1,4 +1,4 @@
-const Endpoint = 'http://127.0.0.1:8000/login/'
+const loginEndpoint = 'http://127.0.0.1:8000/login/'; // Ensure this endpoint is correct
 
 document.getElementById('loginForm').addEventListener('submit', async function(event) {
     event.preventDefault();
@@ -8,20 +8,18 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 async function login(){
     const email = document.getElementById('EmailField').value;
     const password = document.getElementById('PasswordField').value;
-    const response = await fetch(Endpoint, {
+    const response = await fetch(loginEndpoint, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({email, password})
+        body: JSON.stringify({ email, password })
     });
     if (response.status === 200){
-        document.getElementById('loginPopup').style.display = 'none';
-        toggleBlur();
-
+        document.getElementById('loginPopUp').style.display = 'none';
+        toggleBlur(false);
     }
     else{
-        alert('FAILURE');
+        alert('Login failed. Please check your credentials.');
     }
-
 }
