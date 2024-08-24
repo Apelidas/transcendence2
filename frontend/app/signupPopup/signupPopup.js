@@ -1,7 +1,5 @@
 //only interaction with the signup pop up
 
-//import { signupAdapter } from '../services/signup.js';
-
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('loginLink').addEventListener('click', function(event) {
         event.preventDefault(); // Prevent default anchor behavior
