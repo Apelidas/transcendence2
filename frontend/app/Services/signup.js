@@ -2,7 +2,7 @@
 
 const signupEndpoint = 'http://127.0.0.1:8000/signup/'
 
-export async function signupAdapter(email, password) {
+async function signupAdapter(email, password) {
 
     try {
         const response = await fetch(signupEndpoint, {

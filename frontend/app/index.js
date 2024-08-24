@@ -1,3 +1,61 @@
+// Utility functions available globally
+function navigateToSection(section) {
+    showGameSection(section);
+    window.history.pushState({ section: section }, '', `/${section}`);
+}
+
+function openPopup(popup, pushState = true) {
+    if (pushState) {
+        window.history.pushState({ popup: popup }, '', `/${popup}`);
+    }
+    closeAllPopups(false); // Close any open popups without removing blur
+
+    if (popup === 'login') {
+        document.getElementById('loginPopUp').style.display = 'block';
+    } else if (popup === 'signup') {
+        document.getElementById('signupPopup').style.display = 'block';
+    }
+
+    document.getElementById('overlay').style.display = 'block';
+    toggleBlur(true);
+}
+
+function closeAllPopups(removeBlur = true) {
+    document.getElementById('loginPopUp').style.display = 'none';
+    document.getElementById('signupPopup').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+
+    if (removeBlur) {
+        toggleBlur(false);
+    }
+}
+
+function showGameSection(section) {
+    document.querySelector('.homepage').style.display = section === 'home' ? 'block' : 'none';
+    document.getElementById('pongGame').style.display = section === 'pong' ? 'block' : 'none';
+    document.getElementById('rpsGame').style.display = section === 'rps' ? 'block' : 'none';
+    document.getElementById('tournamentGame').style.display = section === 'tournament' ? 'block' : 'none';
+    document.getElementById('profilePage').style.display = section === 'profile' ? 'block' : 'none';
+    closeAllPopups(); // Close popups and remove blur when switching sections
+}
+
+function toggleBlur(shouldBlur) {
+    const mainContent = document.getElementById('mainContent');
+    if (shouldBlur) {
+        mainContent.classList.add('blurred');
+    } else {
+        mainContent.classList.remove('blurred');
+    }
+}
+
+// Attach the utility functions to the window object to make them globally accessible
+window.navigateToSection = navigateToSection;
+window.openPopup = openPopup;
+window.closeAllPopups = closeAllPopups;
+window.toggleBlur = toggleBlur;
+window.showGameSection = showGameSection;
+
+// DOMContentLoaded event listener for the initial setup
 document.addEventListener('DOMContentLoaded', function () {
     const playPongButton = document.getElementById('playPongButton');
     const playRPSButton = document.getElementById('playRPSButton');
@@ -5,15 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const signupButton = document.getElementById('signupButton');
     const playTournamentButton = document.getElementById('playTournamentButton');
     const viewProfileButton = document.getElementById('viewProfileButton');
-    const pongGame = document.getElementById('pongGame');
-    const rpsGame = document.getElementById('rpsGame');
-    const tournamentGame = document.getElementById('tournamentGame');
-    const profilePage = document.getElementById('profilePage');
-    const homepage = document.querySelector('.homepage');
     const overlay = document.getElementById('overlay');
-
-    const loginPopup = document.getElementById('loginPopUp');
-    const signupPopup = document.getElementById('signupPopup');
 
     // Add event listeners for navigation buttons
     playPongButton.addEventListener('click', function () {
@@ -56,60 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
             showGameSection('home');
         }
     });
-
-    // Navigate to a specific section and update the URL
-    function navigateToSection(section) {
-        showGameSection(section);
-        window.history.pushState({ section: section }, '', `/${section}`);
-    }
-
-    // Open a popup and update the URL
-    function openPopup(popup, pushState = true) {
-        if (pushState) {
-            window.history.pushState({ popup: popup }, '', `/${popup}`);
-        }
-        closeAllPopups(false); // Close any open popups without removing blur
-
-        if (popup === 'login') {
-            loginPopup.style.display = 'block';
-        } else if (popup === 'signup') {
-            signupPopup.style.display = 'block';
-        }
-
-        overlay.style.display = 'block';
-        toggleBlur(true);
-    }
-
-    // Close all popups
-    function closeAllPopups(removeBlur = true) {
-        loginPopup.style.display = 'none';
-        signupPopup.style.display = 'none';
-        overlay.style.display = 'none';
-
-        if (removeBlur) {
-            toggleBlur(false);
-        }
-    }
-
-    // Show the appropriate game section
-    function showGameSection(section) {
-        homepage.style.display = section === 'home' ? 'block' : 'none';
-        pongGame.style.display = section === 'pong' ? 'block' : 'none';
-        rpsGame.style.display = section === 'rps' ? 'block' : 'none';
-        tournamentGame.style.display = section === 'tournament' ? 'block' : 'none';
-        profilePage.style.display = section === 'profile' ? 'block' : 'none';
-        closeAllPopups(); // Close popups and remove blur when switching sections
-    }
-
-    // Apply or remove blur effect
-    function toggleBlur(shouldBlur) {
-        const mainContent = document.getElementById('mainContent');
-        if (shouldBlur) {
-            mainContent.classList.add('blurred');
-        } else {
-            mainContent.classList.remove('blurred');
-        }
-    }
 
     // Initialize based on the current URL
     const initialPath = window.location.pathname.slice(1);
