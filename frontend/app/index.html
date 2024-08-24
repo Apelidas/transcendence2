@@ -5,14 +5,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>42 Pong Boss</title>
+  <link rel="stylesheet" href="index.css">
+  
   <link rel="stylesheet" href="homepage/homepage.css">
-  <link rel="stylesheet" href="loginPopup/loginPopup.css">
+  <link rel="stylesheet" href="about/about.css">
+  
   <link rel="stylesheet" href="rps/rps.css">
   <link rel="stylesheet" href="pong/pong.css">
-  <link rel="stylesheet" href="profile/profile.css">
-  <link rel="stylesheet" href="tournament/tournament.css">
-  <link rel="stylesheet" href="index.css">
+  
   <link rel="stylesheet" href="signupPopup/signupPopup.css">
+  <link rel="stylesheet" href="loginPopup/loginPopup.css">
+  
+  <link rel="stylesheet" href="profile/profile.css">
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -38,6 +42,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto" id="navLinks">
+            <li class="nav-item">
+              <button class="btn btn-primary nav-link" id="viewAboutPage">About us</button>
+            </li>
             <li class="nav-item">
               <button class="btn btn-primary nav-link" id="playPongButton">Play Pong</button>
             </li>
@@ -69,22 +76,21 @@
     <div class="container text-center mt-4 homepage">
       <!--#include file="homepage/homepage.html" -->
     </div>
-	<div class="row">
-		<div class="col" id="pongGame" style="display: none;">
-			<!--#include file="pong/pong.html" -->
+    <div class="row">
+        <div class="col" id="aboutPage" style="display: none;">
+            <!--#include file="about/about.html" -->
+        </div>        
+        <div class="col" id="pongGame" style="display: none;">
+            <!--#include file="pong/pong.html" -->
         </div>
         <div class="col" id="rpsGame" style="display: none;">
-			<!--#include file="rps/rps.html" -->
-        </div>
-        <div class="col" id="tournamentGame" style="display: none;">
-			<!--#include file="tournament/tournament.html" -->
+            <!--#include file="rps/rps.html" -->
         </div>
         <div class="col" id="profilePage" style="display: none;">
-			<!--#include file="profile/profile.html" -->
+            <!--#include file="profile/profile.html" -->
         </div>
-	</div>
-</div>
-</div>
+    </div>
+  </div>
 
 <!-- Include Popups -->
 <!--#include file="loginPopup/loginPopup.html" -->
@@ -95,12 +101,20 @@
   <script src="services/login.js" charset="utf-8"></script>
 
   <script src="homepage/homepage.js" charset="utf-8"></script>
-  <script src="loginPopup/loginPopup.js" charset="utf-8"></script>
-  <script src="rps/rps.js" charset="utf-8"></script>
-  <script src="pong/pong.js" charset="utf-8"></script>
+  <script src="about/about.js" charset="utf-8"></script>
   <script src="profile/profile.js" charset="utf-8"></script>
-  <script src="tournament/tournament.js" charset="utf-8"></script>
+
   <script src="signupPopup/signupPopup.js" charset="utf-8"></script>
+  <script src="loginPopup/loginPopup.js" charset="utf-8"></script>
+
+  
+  <script src="rps/rps.js" charset="utf-8"></script>
+
+  <script src="pong/pong.js" charset="utf-8"></script>
+  <script src="pong/pongPvP/pongPvP.js" charset="utf-8"></script>
+  <script src="pong/pongAI/pongAI.js" charset="utf-8"></script>
+  <script src="pong/pongTourn/pongTourn.js" charset="utf-8"></script>
+
 
 </body>
 

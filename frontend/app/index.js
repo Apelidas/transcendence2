@@ -32,10 +32,10 @@ function closeAllPopups(removeBlur = true) {
 
 function showGameSection(section) {
     document.querySelector('.homepage').style.display = section === 'home' ? 'block' : 'none';
+    document.getElementById('aboutPage').style.display = section === 'about' ? 'block' : 'none';
+    document.getElementById('profilePage').style.display = section === 'profile' ? 'block' : 'none';
     document.getElementById('pongGame').style.display = section === 'pong' ? 'block' : 'none';
     document.getElementById('rpsGame').style.display = section === 'rps' ? 'block' : 'none';
-    document.getElementById('tournamentGame').style.display = section === 'tournament' ? 'block' : 'none';
-    document.getElementById('profilePage').style.display = section === 'profile' ? 'block' : 'none';
     closeAllPopups(); // Close popups and remove blur when switching sections
 }
 
@@ -57,31 +57,17 @@ window.showGameSection = showGameSection;
 
 // DOMContentLoaded event listener for the initial setup
 document.addEventListener('DOMContentLoaded', function () {
+    const signupButton = document.getElementById('signupButton');
+    const loginButton = document.getElementById('loginButton');
+    const viewProfileButton = document.getElementById('viewProfileButton');
+    const viewAboutButton = document.getElementById('viewAboutPage');
+
     const playPongButton = document.getElementById('playPongButton');
     const playRpsButton = document.getElementById('playRpsButton');
-    const loginButton = document.getElementById('loginButton');
-    const signupButton = document.getElementById('signupButton');
-    const playTournamentButton = document.getElementById('playTournamentButton');
-    const viewProfileButton = document.getElementById('viewProfileButton');
+
     const overlay = document.getElementById('overlay');
 
     // Add event listeners for navigation buttons
-    playPongButton.addEventListener('click', function () {
-        navigateToSection('pong');
-    });
-
-    playRpsButton.addEventListener('click', function () {
-        navigateToSection('rps');
-    });
-
-    playTournamentButton.addEventListener('click', function () {
-        navigateToSection('tournament');
-    });
-
-    viewProfileButton.addEventListener('click', function () {
-        navigateToSection('profile');
-    });
-
     loginButton.addEventListener('click', function () {
         openPopup('login');
     });
@@ -93,6 +79,22 @@ document.addEventListener('DOMContentLoaded', function () {
     // Handle clicks outside popups to close them
     overlay.addEventListener('click', function () {
         closeAllPopups(true);
+    });
+
+    viewAboutButton.addEventListener('click', function () {
+        navigateToSection('about');
+    });
+
+    playPongButton.addEventListener('click', function () {
+        navigateToSection('pong');
+    });
+
+    playRpsButton.addEventListener('click', function () {
+        navigateToSection('rps');
+    });
+
+    viewProfileButton.addEventListener('click', function () {
+        navigateToSection('profile');
     });
 
     // Handle back/forward navigation and URL changes
