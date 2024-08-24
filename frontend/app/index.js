@@ -10,63 +10,98 @@ document.addEventListener('DOMContentLoaded', function () {
     const tournamentGame = document.getElementById('tournamentGame');
     const profilePage = document.getElementById('profilePage');
     const homepage = document.querySelector('.homepage');
-	const overlay = document.getElementById('overlay');
-
-    const userGreeting = document.getElementById('userGreeting');
-    const tournamentButton = document.getElementById('tournamentButton');
-    const profileButton = document.getElementById('profileButton');
+    const overlay = document.getElementById('overlay');
 
     const loginPopup = document.getElementById('loginPopUp');
     const signupPopup = document.getElementById('signupPopup');
 
-    // Function to navigate to the Pong game
+    // Add event listeners for navigation buttons
     playPongButton.addEventListener('click', function () {
-        showGameSection('pong');
+        navigateToSection('pong');
     });
 
-    // Function to navigate to the Rock Paper Scissors game
     playRPSButton.addEventListener('click', function () {
-        showGameSection('rps');
+        navigateToSection('rps');
     });
 
-    // Function to navigate to the Tournament page
     playTournamentButton.addEventListener('click', function () {
-        showGameSection('tournament');
+        navigateToSection('tournament');
     });
 
-    // Function to navigate to the Profile page
     viewProfileButton.addEventListener('click', function () {
-        showGameSection('profile');
+        navigateToSection('profile');
     });
 
-    // Function to open the Log In popup
     loginButton.addEventListener('click', function () {
-        openPopup(loginPopup);
+        openPopup('login');
     });
 
-    // Function to open the Sign Up popup
     signupButton.addEventListener('click', function () {
-        openPopup(signupPopup);
+        openPopup('signup');
     });
 
-    // Function to close popups by clicking outside
+    // Handle clicks outside popups to close them
     overlay.addEventListener('click', function () {
-        closePopup(loginPopup);
-        closePopup(signupPopup);
+        closeAllPopups(true);
     });
 
-    function openPopup(popup) {
-        popup.style.display = 'block';
+    // Handle back/forward navigation and URL changes
+    window.addEventListener('popstate', function (event) {
+        const state = event.state || {};
+        if (state.section) {
+            showGameSection(state.section);
+        } else if (state.popup) {
+            openPopup(state.popup, false); // Open the popup without pushing a new state
+        } else {
+            showGameSection('home');
+        }
+    });
+
+    // Navigate to a specific section and update the URL
+    function navigateToSection(section) {
+        showGameSection(section);
+        window.history.pushState({ section: section }, '', `/${section}`);
+    }
+
+    // Open a popup and update the URL
+    function openPopup(popup, pushState = true) {
+        if (pushState) {
+            window.history.pushState({ popup: popup }, '', `/${popup}`);
+        }
+        closeAllPopups(false); // Close any open popups without removing blur
+
+        if (popup === 'login') {
+            loginPopup.style.display = 'block';
+        } else if (popup === 'signup') {
+            signupPopup.style.display = 'block';
+        }
+
         overlay.style.display = 'block';
         toggleBlur(true);
     }
 
-    function closePopup(popup) {
-        popup.style.display = 'none';
+    // Close all popups
+    function closeAllPopups(removeBlur = true) {
+        loginPopup.style.display = 'none';
+        signupPopup.style.display = 'none';
         overlay.style.display = 'none';
-        toggleBlur(false);
+
+        if (removeBlur) {
+            toggleBlur(false);
+        }
     }
 
+    // Show the appropriate game section
+    function showGameSection(section) {
+        homepage.style.display = section === 'home' ? 'block' : 'none';
+        pongGame.style.display = section === 'pong' ? 'block' : 'none';
+        rpsGame.style.display = section === 'rps' ? 'block' : 'none';
+        tournamentGame.style.display = section === 'tournament' ? 'block' : 'none';
+        profilePage.style.display = section === 'profile' ? 'block' : 'none';
+        closeAllPopups(); // Close popups and remove blur when switching sections
+    }
+
+    // Apply or remove blur effect
     function toggleBlur(shouldBlur) {
         const mainContent = document.getElementById('mainContent');
         if (shouldBlur) {
@@ -76,28 +111,26 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function showGameSection(game) {
-        homepage.style.display = 'none';
-        pongGame.style.display = game === 'pong' ? 'block' : 'none';
-        rpsGame.style.display = game === 'rps' ? 'block' : 'none';
-        tournamentGame.style.display = game === 'tournament' ? 'block' : 'none';
-        profilePage.style.display = game === 'profile' ? 'block' : 'none';
-        signupPage.style.display = game === 'signup' ? 'block' : 'none';
-        toggleBlur(false);
+    // Initialize based on the current URL
+    const initialPath = window.location.pathname.slice(1);
+    if (initialPath) {
+        if (initialPath === 'login' || initialPath === 'signup') {
+            openPopup(initialPath, false);
+        } else {
+            showGameSection(initialPath);
+        }
+    } else {
+        showGameSection('home');
     }
-/*
-    function displayLoggedInUser(username) {
-        // Hide the login button
-        loginButton.classList.add('d-none');
 
-        // Display user greeting and additional buttons
-        userGreeting.querySelector('span').textContent = `Hello, ${username}!`;
-        userGreeting.classList.remove('d-none');
-        tournamentButton.classList.remove('d-none');
-        profileButton.classList.remove('d-none');
+    // Links within popups to switch between them
+    document.getElementById('signupLink').addEventListener('click', function (event) {
+        event.preventDefault();
+        openPopup('signup');
+    });
 
-        // Close login popup
-        closePopup(loginPopup);
-    }
-		*/
+    document.getElementById('loginLink').addEventListener('click', function (event) {
+        event.preventDefault();
+        openPopup('login');
+    });
 });

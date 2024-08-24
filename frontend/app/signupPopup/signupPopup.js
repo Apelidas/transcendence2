@@ -1,6 +1,19 @@
 const signupEndpoint = 'http://127.0.0.1:8000/signup/';
 
 document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('loginLink').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default anchor behavior
+
+        // Hide signup popup
+        document.getElementById('signupPopup').style.display = 'none';
+
+        // Show login popup
+        document.getElementById('loginPopUp').style.display = 'block';
+
+        // Apply blur to the background if necessary
+        toggleBlur(true);
+    });
+
     document.getElementById('signupForm').addEventListener('submit', async function(event) {
         event.preventDefault();
         await signup();
@@ -44,15 +57,3 @@ async function signup() {
         submitButton.disabled = false;
     }
 }
-
-function toggleBlur() {
-    const mainContent = document.getElementById('mainContent');
-    if (mainContent.classList.contains('blurred')) {
-        mainContent.classList.remove('blurred');
-    } else {
-        mainContent.classList.add('blurred');
-    }
-}
-
-// Export functions if necessary
-window.signup = signup;

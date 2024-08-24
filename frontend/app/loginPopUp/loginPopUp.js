@@ -1,11 +1,24 @@
-const loginEndpoint = 'http://127.0.0.1:8000/login/'; // Ensure this endpoint is correct
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('signupLink').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default anchor behavior
 
-document.getElementById('loginForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
-    await login();
+        // Hide login popup
+        document.getElementById('loginPopUp').style.display = 'none';
+
+        // Show signup popup
+        document.getElementById('signupPopup').style.display = 'block';
+
+        // Apply blur to the background if necessary
+        toggleBlur(true);
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        await login();
+    });
 });
 
-async function login(){
+async function login() {
     const email = document.getElementById('EmailField').value;
     const password = document.getElementById('PasswordField').value;
     const response = await fetch(loginEndpoint, {
@@ -15,11 +28,10 @@ async function login(){
         },
         body: JSON.stringify({ email, password })
     });
-    if (response.status === 200){
+    if (response.status === 200) {
         document.getElementById('loginPopUp').style.display = 'none';
         toggleBlur(false);
-    }
-    else{
+    } else {
         alert('Login failed. Please check your credentials.');
     }
 }

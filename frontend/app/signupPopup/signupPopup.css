@@ -11,7 +11,16 @@ input[type="password"] {
 }
 
 #signupPopup {
-    background-color: white; /* Ensures popup has a solid background */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    /* semi-transparent background */
+    padding: 20px;
+    color: white;
+    text-align: center;
+    z-index: 1000;
 }
 
 .login-link a {
