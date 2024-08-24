@@ -10,7 +10,7 @@ input[type="password"] {
 	width: 100%;
 }
 
-#loginPopUp {
+#loginPopup {
     position: fixed;
     top: 50%;
     left: 50%;

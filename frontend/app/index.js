@@ -11,7 +11,7 @@ function openPopup(popup, pushState = true) {
     closeAllPopups(false); // Close any open popups without removing blur
 
     if (popup === 'login') {
-        document.getElementById('loginPopUp').style.display = 'block';
+        document.getElementById('loginPopup').style.display = 'block';
     } else if (popup === 'signup') {
         document.getElementById('signupPopup').style.display = 'block';
     }
@@ -21,7 +21,7 @@ function openPopup(popup, pushState = true) {
 }
 
 function closeAllPopups(removeBlur = true) {
-    document.getElementById('loginPopUp').style.display = 'none';
+    document.getElementById('loginPopup').style.display = 'none';
     document.getElementById('signupPopup').style.display = 'none';
     document.getElementById('overlay').style.display = 'none';
 
@@ -58,7 +58,7 @@ window.showGameSection = showGameSection;
 // DOMContentLoaded event listener for the initial setup
 document.addEventListener('DOMContentLoaded', function () {
     const playPongButton = document.getElementById('playPongButton');
-    const playRPSButton = document.getElementById('playRPSButton');
+    const playRpsButton = document.getElementById('playRpsButton');
     const loginButton = document.getElementById('loginButton');
     const signupButton = document.getElementById('signupButton');
     const playTournamentButton = document.getElementById('playTournamentButton');
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
         navigateToSection('pong');
     });
 
-    playRPSButton.addEventListener('click', function () {
+    playRpsButton.addEventListener('click', function () {
         navigateToSection('rps');
     });
 
