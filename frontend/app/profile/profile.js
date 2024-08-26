@@ -1,5 +1,3 @@
-// profile.js
-
 document.addEventListener('DOMContentLoaded', function () {
     // Example data fetching or setting for profile
     const profileName = document.getElementById('profileName');
@@ -39,30 +37,4 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('changeAliasButton').addEventListener('click', function () {
         alert('Change Alias functionality here');
     });
-
-    // Update the navbar after login
-    const loginButton = document.getElementById('loginButton');
-    const signupButton = document.getElementById('signupButton');
-    const userGreeting = document.getElementById('userGreeting');
-    const tournamentButton = document.getElementById('tournamentButton');
-    const profileButton = document.getElementById('viewProfileButton');  // Updated to use `viewProfileButton`
-
-    loginButton.style.display = 'none';
-    signupButton.style.display = 'none';
-    userGreeting.style.display = 'block';
-    tournamentButton.classList.remove('d-none');
-    profileButton.classList.remove('d-none');
-
-    // Log out button functionality
-    const logoutButton = document.createElement('button');
-    logoutButton.className = 'btn btn-danger nav-link';
-    logoutButton.textContent = 'Log Out';
-    logoutButton.addEventListener('click', function () {
-        // Clear session or localStorage as needed
-        localStorage.clear();
-        window.location.reload();
-    });
-
-    const navLinks = document.getElementById('navLinks');
-    navLinks.appendChild(logoutButton);
 });
