@@ -34,10 +34,6 @@ body {
     z-index: 900; /* Lower z-index than popups */
 }
 
-.navbar {
-    margin-bottom: 20px;
-}
-
 .img-fluid {
     max-width: 100%;
     height: auto;

@@ -1,0 +1,51 @@
+<!-- profile.html -->
+
+<div class="profile-container">
+    <img src="../assets/default-profile.png" alt="Profile Picture" class="profile-picture" id="profilePicture">
+    <h1 class="profile-header">Welcome, <span id="profileName">User</span>!</h1>
+
+    <!-- Pong Section -->
+    <div class="stats-section">
+        <h2>PONG</h2>
+        <table class="stats-table">
+            <tr>
+                <th>PvP</th>
+                <td>Wins: <span id="pvpWins">0</span></td>
+                <td>Loses: <span id="pvpLoses">0</span></td>
+                <td>Most wins in a row: <span id="pvpStreak">0</span></td>
+            </tr>
+            <tr>
+                <th>AI</th>
+                <td>Wins: <span id="aiWins">0</span></td>
+                <td>Loses: <span id="aiLoses">0</span></td>
+                <td>Most wins in a row: <span id="aiStreak">0</span></td>
+            </tr>
+            <tr>
+                <th>Tournament</th>
+                <td>Wins: <span id="tournamentWins">0</span></td>
+                <td>Loses: <span id="tournamentLoses">0</span></td>
+                <td>Most wins in a row: <span id="tournamentStreak">0</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- RPS Section -->
+    <div class="stats-section">
+        <h2>RPS</h2>
+        <table class="stats-table">
+            <tr>
+                <th>RPS</th>
+                <td>Wins: <span id="rpsWins">0</span></td>
+                <td>Loses: <span id="rpsLoses">0</span></td>
+                <td>Most wins in a row: <span id="rpsStreak">0</span></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Profile Actions -->
+    <div class="profile-actions">
+        <button id="changeEmailButton">Change login Email</button>
+        <button id="changePasswordButton">Change Password</button>
+        <button id="changeAliasButton">Choose Default Alias for Tournaments</button>
+    </div>
+</div>

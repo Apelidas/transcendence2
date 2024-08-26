@@ -1,0 +1,32 @@
+/* Styles specific to the navigation bar */
+.navbar {
+    margin-bottom: 20px;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    margin-right: 10px;
+}
+
+.navbar-nav .btn {
+    margin-right: 10px;
+}
+
+#userGreeting {
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+/* Hide elements that are not relevant when logged out */
+.d-none {
+    display: none !important;
+}
+
+/* Styles for the log out button */
+#logoutButton {
+    margin-left: 10px;
+}

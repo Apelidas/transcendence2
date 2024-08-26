@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="loginPopup/loginPopup.css">
   
   <link rel="stylesheet" href="profile/profile.css">
+  <link rel="stylesheet" href="navBar/navBar.css">
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -32,45 +33,8 @@
 
   <!-- Main content area -->
   <div id="mainContent">
-    <!-- Navigation bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">42 Pong Boss</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto" id="navLinks">
-            <li class="nav-item">
-              <button class="btn btn-primary nav-link" id="viewAboutPage">About us</button>
-            </li>
-            <li class="nav-item">
-              <button class="btn btn-primary nav-link" id="playPongButton">Play Pong</button>
-            </li>
-            <li class="nav-item">
-              <button class="btn btn-secondary nav-link" id="playRpsButton">Rock Paper Scissors</button>
-            </li>
-            <li class="nav-item">
-              <button class="btn btn-success nav-link" id="loginButton">Log In</button>
-            </li>
-            <li class="nav-item">
-              <button class="btn btn-success nav-link" id="signupButton">Sign Up</button>
-            </li>
-            <!-- Placeholder for logged-in user options -->
-            <li class="nav-item d-none" id="userGreeting">
-              <span class="navbar-text"></span>
-            </li>
-            <li class="nav-item d-none" id="tournamentButton">
-              <button class="btn btn-outline-primary nav-link" id="playTournamentButton">Tournament</button>
-            </li>
-            <li class="nav-item d-none" id="profileButton">
-              <button class="btn btn-outline-secondary nav-link" id="viewProfileButton">Profile</button>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <!-- Include Navigation bar -->
+    <!--#include file="navBar/navBar.html" -->
 
     <!-- Welcome message -->
     <div class="container text-center mt-4 homepage">
@@ -92,29 +56,25 @@
     </div>
   </div>
 
-<!-- Include Popups -->
-<!--#include file="loginPopup/loginPopup.html" -->
-<!--#include file="signupPopup/signupPopup.html" -->
+  <!-- Include Popups -->
+  <!--#include file="loginPopup/loginPopup.html" -->
+  <!--#include file="signupPopup/signupPopup.html" -->
 
+  <!-- Scripts -->
+  <script src="navBar/navBar.js" charset="utf-8"></script>
   <script src="index.js" charset="utf-8"></script>
   <script src="services/signup.js" charset="utf-8"></script>
   <script src="services/login.js" charset="utf-8"></script>
-
   <script src="homepage/homepage.js" charset="utf-8"></script>
   <script src="about/about.js" charset="utf-8"></script>
   <script src="profile/profile.js" charset="utf-8"></script>
-
   <script src="signupPopup/signupPopup.js" charset="utf-8"></script>
   <script src="loginPopup/loginPopup.js" charset="utf-8"></script>
-
-  
   <script src="rps/rps.js" charset="utf-8"></script>
-
   <script src="pong/pong.js" charset="utf-8"></script>
   <script src="pong/pongPvP/pongPvP.js" charset="utf-8"></script>
   <script src="pong/pongAI/pongAI.js" charset="utf-8"></script>
   <script src="pong/pongTourn/pongTourn.js" charset="utf-8"></script>
-
 
 </body>
 
