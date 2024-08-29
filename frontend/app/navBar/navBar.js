@@ -1,3 +1,9 @@
+
+
+document.addEventListener('loggedIn', function () {
+	updateNavbarBasedOnLogin();
+})
+
 // Utility functions for navigation
 function navigateToSection(section) {
     showGameSection(section);

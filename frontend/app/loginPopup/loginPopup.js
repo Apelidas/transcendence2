@@ -1,4 +1,6 @@
 //only interaction with the login pop up
+const EventEmitter = require('node:events');
+const eventEmitter = new EventEmitter();
 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('signupLink').addEventListener('click', function(event) {
@@ -27,6 +29,7 @@ async function login() {
     if (isSuccess) {
         closeAllPopups(true); // Close all popups and remove blur effect
         alert('Login successful!');
+		eventEmitter.emit('loggedIn');
     } else {
         alert('Login failed. Please try again.');
     }
