@@ -1,4 +1,4 @@
-const rpsEndpoint = 'http://127.0.0.1:8000/rps/';
+const tickTacToeEndpoint = 'http://127.0.0.1:8000/tickTacToe/';
 
 document.addEventListener('DOMContentLoaded', function () {
 	//const { cyan } = require("colorette");

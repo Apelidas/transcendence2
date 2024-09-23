@@ -18,6 +18,33 @@ function closeAllPopups(removeBlur = true) {
     }
 }
 
+function showSection(sectionId) {
+    const sections = document.querySelectorAll('#mainContent > .container > div');
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+    document.getElementById(sectionId).style.display = 'block';
+}
+
+function handleNavigation(path) {
+    if (path.includes('about')) {
+        showSection('aboutSection');
+    } else if (path.includes('profile')) {
+        showSection('profileSection');
+    } else if (path.includes('games')) {
+        if (path.includes('pong')) {
+            showSection('pongGameSection');
+        } else if (path.includes('tickTacToe')) {
+            showSection('tickTacToeSection');
+        } else {
+            showSection('gamesSection');
+        }
+    } else {
+        showSection('homepageSection');
+    }
+    window.history.pushState({}, '', path);
+}
+
 // DOMContentLoaded event listener for the initial setup
 document.addEventListener('DOMContentLoaded', function () {
     const overlay = document.getElementById('overlay');
@@ -28,14 +55,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Initialize page content based on the current URL
-    const initialPath = window.location.pathname.slice(1);
-    if (initialPath) {
-        if (initialPath === 'login' || initialPath === 'signup') {
-            openPopup(initialPath, false);
-        } else {
-            showGameSection(initialPath);
-        }
-    } else {
-        showGameSection('home');
-    }
+    //let initialPath = window.location.pathname.slice(1);
+    //if (!initialPath) initialPath = 'home';
+
+    handleNavigation(initialPath);
+
+    // Set up event listeners for navigation
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            const targetPath = event.target.getAttribute('href');
+            handleNavigation(targetPath);
+        });
+    });
 });

@@ -16,10 +16,24 @@ document.addEventListener('DOMContentLoaded', function () {
             if (aiPlayer.y + aiPlayer.height > canvas.height) aiPlayer.y = canvas.height - aiPlayer.height;
         }
 
+        // Overwrite the existing startGame function to include AI logic
+        const originalStartGame = PongGame.startGame;
+        PongGame.startGame = function(startPvP, leftName, rightName) {
+            originalStartGame(startPvP, leftName, rightName);
+            if (!startPvP) {
+                requestAnimationFrame(function gameLoop() {
+                    if (!gameRunning) return; // Exit the loop if the game is not running
+                    movePaddles(true); // true indicates it's an AI game
+                    moveBall();
+                    draw();
+                    requestAnimationFrame(gameLoop);
+                });
+            }
+        };
+
         document.getElementById('startButton').addEventListener('click', function() {
             const leftName = document.getElementById('leftPlayerName').value.trim();
-
-            window.startGame(false, leftName, 'AI-ko'); // Start with AI, using the core logic from pong.js
+            PongGame.startGame(false, leftName, 'AI-ko'); // Start with AI, using the core logic from pong.js
         });
     })();
 });

@@ -1,3 +1,6 @@
+/* Inherit general styles from pong.css */
+@import url('pong.css');
+
 /* Styles for the disabled input */
 input[disabled] {
     background-color: #e9ecef;

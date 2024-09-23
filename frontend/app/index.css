@@ -1,7 +1,9 @@
 /* General styles for the page */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f4f4f9;
 }
 
 .container {
@@ -34,11 +36,16 @@ body {
     z-index: 900; /* Lower z-index than popups */
 }
 
-.img-fluid {
+img-fluid {
     max-width: 100%;
     height: auto;
 }
 
-.homepage {
-    margin-bottom: 20px;
+.homepage, #aboutSection, #profileSection, #gamesSection {
+    display: none;
+}
+
+/* Ensure the currently active section is displayed */
+.active {
+    display: block;
 }

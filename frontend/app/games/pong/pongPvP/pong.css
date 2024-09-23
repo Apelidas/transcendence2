@@ -1,4 +1,5 @@
-.start-screen {
+/* General styles for both PvP and AI modes */
+.pongGame {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,34 +8,44 @@
     padding: 20px;
     border-radius: 10px;
     text-align: center;
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.start-screen h2 {
-    margin: 0 0 20px;
-}
-
-.start-screen input[type="text"],
-.start-screen input[type="color"],
-.start-screen label {
-    margin: 5px 0;
-    padding: 10px;
-    font-size: 16px;
-}
-
-.start-screen input[type="color"] {
-    border: none;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    background-color: #fff; /* Default background color for color input */
-}
-
-.start-screen button {
+/* Consistent button styles */
+button, input[type="text"], input[type="color"] {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    border: none;
+    border-radius: 10px;
 }
 
+button {
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+input[type="color"] {
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+button:focus, input:focus {
+    outline: 2px solid #000;
+    outline-offset: 4px;
+}
+
+/* Popup and overlay styles */
 .overlay {
     position: fixed;
     top: 0;
@@ -61,16 +72,7 @@
     z-index: 20;
 }
 
-.popup h2 {
-    margin: 0 0 20px;
-}
-
-.popup button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
+/* Game container and controls */
 #gameContainer {
     position: relative;
     display: flex;
@@ -92,7 +94,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #fff;
+    color: #333;
 }
 
 .ball-speed-control label {
@@ -115,10 +117,13 @@
     display: none; /* Initially hidden */
 }
 
-#leftGiveUp {
-    margin-left: 20px;
-}
+/* Responsive design */
+@media (max-width: 768px) {
+    .controls-container {
+        flex-direction: column;
+    }
 
-#rightGiveUp {
-    margin-right: 20px;
+    .give-up-button {
+        margin: 10px 0;
+    }
 }

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     profileName.textContent = name;
 
     // Example: Set profile picture (you can update this with actual logic)
-    const profilePicUrl = localStorage.getItem('profilePicUrl') || '../assets/default-profile.png';
+    const profilePicUrl = localStorage.getItem('profilePicUrl') || '../0-assets/default-profile.png';
     profilePicture.src = profilePicUrl;
 
     // Fetch and display stats (these would typically be fetched from a backend service)
@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('tournamentWins').textContent = localStorage.getItem('tournamentWins') || 0;
     document.getElementById('tournamentLoses').textContent = localStorage.getItem('tournamentLoses') || 0;
     document.getElementById('tournamentStreak').textContent = localStorage.getItem('tournamentStreak') || 0;
-    document.getElementById('rpsWins').textContent = localStorage.getItem('rpsWins') || 0;
-    document.getElementById('rpsLoses').textContent = localStorage.getItem('rpsLoses') || 0;
-    document.getElementById('rpsStreak').textContent = localStorage.getItem('rpsStreak') || 0;
+    document.getElementById('tickTacToeWins').textContent = localStorage.getItem('tickTacToeWins') || 0;
+    document.getElementById('tickTacToeLoses').textContent = localStorage.getItem('tickTacToeLoses') || 0;
+    document.getElementById('tickTacToeStreak').textContent = localStorage.getItem('tickTacToeStreak') || 0;
 
     // Handle button clicks for profile actions
     document.getElementById('changeEmailButton').addEventListener('click', function () {

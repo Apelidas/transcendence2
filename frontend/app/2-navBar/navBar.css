@@ -30,3 +30,31 @@
 #logoutButton {
     margin-left: 10px;
 }
+
+
+.nav-list {
+	list-style: none;
+	display: flex;
+	justify-content: center;
+	margin: 0;
+	padding: 0;
+}
+
+.nav-item {
+	margin: 0 15px;
+}
+
+.nav-link {
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.nav-link:hover {
+	color: #ddd;
+}
+
+/* Show dropdown on hover instead of click */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}

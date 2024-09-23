@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-    (function() {
+    const PongGame = (function() {
         const canvas = document.getElementById('pongCanvas');
-        const context = canvas ? canvas.getContext('2d') : null;
+        const context = canvas.getContext('2d');
         const overlay = document.getElementById('overlay');
         const popup = document.getElementById('popup');
         const winnerMessage = document.getElementById('winnerMessage');
@@ -27,11 +27,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Game state
         let gameRunning = true;
+        let leftPlayerName = 'Player';
+        let rightPlayerName = 'Player 2';
 
         // Player objects
         const playerLeft = {
             x: 0,
-            y: canvas ? canvas.height / 2 - paddleHeight / 2 : 0,
+            y: canvas.height / 2 - paddleHeight / 2,
             width: paddleWidth,
             height: paddleHeight,
             color: leftPlayerColor,
@@ -40,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         const playerRight = {
-            x: canvas ? canvas.width - paddleWidth : 0,
+            x: canvas.width - paddleWidth,
             y: canvas.height / 2 - paddleHeight / 2,
             width: paddleWidth,
             height: paddleHeight,
@@ -50,8 +52,8 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         const ball = {
-            x: canvas ? canvas.width / 2 : 0,
-            y: canvas ? canvas.height / 2 : 0,
+            x: canvas.width / 2,
+            y: canvas.height / 2,
             radius: ballRadius,
             speed: parseInt(ballSpeedSlider.value, 10),
             dx: 4,
@@ -272,34 +274,42 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        document.addEventListener('keydown', keyDownHandler);
-        document.addEventListener('keyup', keyUpHandler);
-
         // Export shared functions
-        window.startGame = function(startPvP, leftName, rightName) {
-            leftPlayerName = leftName || 'Player';
-            rightPlayerName = rightName || 'Player 2';
-            
-            // Update player and ball colors
-            playerLeft.color = leftPlayerColor;
-            playerRight.color = rightPlayerColor;
-            ball.color = ballColor;
+        return {
+            startGame: function(startPvP, leftName, rightName) {
+                leftPlayerName = leftName || 'Player';
+                rightPlayerName = rightName || 'Player 2';
+                
+                // Update player and ball colors
+                playerLeft.color = leftPlayerColor;
+                playerRight.color = rightPlayerColor;
+                ball.color = ballColor;
 
-            // Set button colors
-            leftGiveUpButton.style.color = leftPlayerColor;
-            rightGiveUpButton.style.color = rightPlayerColor;
+                // Set button colors
+                leftGiveUpButton.style.color = leftPlayerColor;
+                rightGiveUpButton.style.color = rightPlayerColor;
 
-            document.getElementById('startScreen').style.display = 'none';
-            canvas.style.display = 'block';
-            controlsContainer.style.display = 'flex';
-            leftGiveUpButton.style.display = 'block';
-            rightGiveUpButton.style.display = 'block';
+                document.getElementById('startScreen').style.display = 'none';
+                canvas.style.display = 'block';
+                controlsContainer.style.display = 'flex';
+                leftGiveUpButton.style.display = 'block';
+                rightGiveUpButton.style.display = 'block';
 
-            gameRunning = true;
-            requestAnimationFrame(() => gameLoop(!startPvP)); // Determine if it's AI mode or not
+                gameRunning = true;
+                requestAnimationFrame(() => gameLoop(!startPvP)); // Determine if it's AI mode or not
+            },
+            restartGame: restartGame,
+            giveUp: giveUp
         };
-
-        window.restartGame = restartGame;
-        window.giveUp = giveUp;
     })();
+
+    // Expose the PongGame to the global scope
+    window.PongGame = PongGame;
+    
+    // Initialize the game when the start button is clicked
+    document.getElementById('startButton').addEventListener('click', function() {
+        const leftName = document.getElementById('leftPlayerName').value;
+        const rightName = document.getElementById('rightPlayerName').value;
+        PongGame.startGame(true, leftName, rightName); // Start in PvP mode
+    });
 });

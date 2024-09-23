@@ -1,12 +1,10 @@
-
-
 document.addEventListener('loggedIn', function () {
-	updateNavbarBasedOnLogin();
-})
+    updateNavbarBasedOnLogin();
+});
 
 // Utility functions for navigation
 function navigateToSection(section) {
-    showGameSection(section);
+    showSection(section);
     window.history.pushState({ section: section }, '', `/${section}`);
 }
 
@@ -36,12 +34,25 @@ function closeAllPopups(removeBlur = true) {
     }
 }
 
-function showGameSection(section) {
-    document.querySelector('.homepage').style.display = section === 'home' ? 'block' : 'none';
-    document.getElementById('aboutPage').style.display = section === 'about' ? 'block' : 'none';
-    document.getElementById('profilePage').style.display = section === 'profile' ? 'block' : 'none';
-    document.getElementById('pongGame').style.display = section === 'pong' ? 'block' : 'none';
-    document.getElementById('rpsGame').style.display = section === 'rps' ? 'block' : 'none';
+function showSection(section) {
+    // Hide all sections
+    document.querySelectorAll('#mainContent > .container > div').forEach(div => {
+        div.style.display = 'none';
+    });
+
+    // Show the targeted section
+    if (section === 'home') {
+        document.getElementById('homepageSection').style.display = 'block';
+    } else if (section === 'about') {
+        document.getElementById('aboutSection').style.display = 'block';
+    } else if (section === 'profile') {
+        document.getElementById('profileSection').style.display = 'block';
+    } else if (section === 'pong') {
+        document.getElementById('pongGameSection').style.display = 'block';
+    } else if (section === 'tickTacToe') {
+        document.getElementById('tickTacToeGameSection').style.display = 'block';
+    }
+
     closeAllPopups(); // Close popups and remove blur when switching sections
 }
 
@@ -90,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const viewAboutButton = document.getElementById('viewAboutPage');
 
     const playPongButton = document.getElementById('playPongButton');
-    const playRpsButton = document.getElementById('playRpsButton');
+    const playtickTacToeButton = document.getElementById('playtickTacToeButton');
 
     const overlay = document.getElementById('overlay');
 
@@ -116,8 +127,8 @@ document.addEventListener('DOMContentLoaded', function () {
         navigateToSection('pong');
     });
 
-    playRpsButton.addEventListener('click', function () {
-        navigateToSection('rps');
+    playtickTacToeButton.addEventListener('click', function () {
+        navigateToSection('tickTacToe');
     });
 
     viewProfileButton.addEventListener('click', function () {
@@ -131,11 +142,11 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('popstate', function (event) {
         const state = event.state || {};
         if (state.section) {
-            showGameSection(state.section);
+            showSection(state.section);
         } else if (state.popup) {
             openPopup(state.popup, false); // Open the popup without pushing a new state
         } else {
-            showGameSection('home');
+            showSection('home');
         }
     });
 
@@ -145,10 +156,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (initialPath === 'login' || initialPath === 'signup') {
             openPopup(initialPath, false);
         } else {
-            showGameSection(initialPath);
+            showSection(initialPath);
         }
     } else {
-        showGameSection('home');
+        showSection('home');
     }
 
     // Links within popups to switch between them
