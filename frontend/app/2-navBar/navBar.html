@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="/">42 Pong Boss</a>
+		<a class="navbar-brand" href="/" onclick="changeRoute('/'); return false;">42 Pong Boss</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
 			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -9,30 +9,30 @@
 			<ul class="navbar-nav ms-auto" id="navLinks">
 				<li class="nav-item">
 					<!-- Home Button -->
-					<button class="btn btn-primary nav-link" id="viewHomePage" onclick="navigateToSection('homepageSection')">Home</button>
+					<a class="nav-link" href="/" onclick="changeRoute('/'); return false;">Home</a>
 				</li>
 				<li class="nav-item">
 					<!-- About Button -->
-					<button class="btn btn-primary nav-link" id="viewAboutPage" onclick="navigateToSection('aboutSection')">About</button>
+					<a class="nav-link" href="/about" onclick="changeRoute('/about'); return false;">About</a>
 				</li>
 
 				<!-- Games Dropdown -->
 				<li class="nav-item dropdown">
-					<button class="btn btn-primary nav-link dropdown-toggle" id="viewGamesPage" data-bs-toggle="dropdown" aria-expanded="false">
+					<a class="nav-link dropdown-toggle" id="viewGamesPage" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						Games
-					</button>
+					</a>
 					<ul class="dropdown-menu" aria-labelledby="viewGamesPage">
-						<li><button class="dropdown-item" id="playPongButton" onclick="navigateToSection('gamesSection')">Play Pong</button></li>
-						<li><button class="dropdown-item" id="playTicTacToeButton" onclick="navigateToSection('gamesSection')">Play Tic-Tack-Toe</button></li>
+						<li><a class="dropdown-item" href="/games/pong" onclick="changeRoute('/games/pong'); return false;">Play Pong</a></li>
+						<li><a class="dropdown-item" href="/games/tic-tac-toe" onclick="changeRoute('/games/tic-tac-toe'); return false;">Play Tic-Tack-Toe</a></li>
 					</ul>
 				</li>
 
 				<!-- Log In / Sign Up -->
 				<li class="nav-item">
-					<button class="btn btn-success nav-link" id="loginButton" onclick="openPopup('loginPopup')">Log In</button>
+					<a class="nav-link btn btn-success" id="loginButton" href="#" onclick="openPopup('loginPopup'); return false;">Log In</a>
 				</li>
 				<li class="nav-item">
-					<button class="btn btn-success nav-link" id="signupButton" onclick="openPopup('signupPopup')">Sign Up</button>
+					<a class="nav-link btn btn-success" id="signupButton" href="#" onclick="openPopup('signupPopup'); return false;">Sign Up</a>
 				</li>
 
 				<!-- Logged-In User Options (Hidden by default) -->
@@ -40,10 +40,10 @@
 					<span class="navbar-text">Welcome, <span id="userName"></span>!</span>
 				</li>
 				<li class="nav-item d-none" id="profileButton">
-					<button class="btn btn-outline-secondary nav-link" id="viewProfileButton" onclick="navigateToSection('profileSection')">Profile</button>
+					<a class="nav-link btn btn-outline-secondary" href="/profile" onclick="changeRoute('/profile'); return false;">Profile</a>
 				</li>
 				<li class="nav-item d-none" id="logoutButton">
-					<button class="btn btn-danger nav-link" onclick="logout()">Log Out</button>
+					<a class="nav-link btn btn-danger" href="#" onclick="logout(); return false;">Log Out</a>
 				</li>
 			</ul>
 		</div>
