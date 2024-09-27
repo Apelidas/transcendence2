@@ -20,6 +20,8 @@ services:
   backend:
     build: ./backend
     container_name: my_backend_container
+    env_file:
+      - .env
     depends_on:
       - postgres
     command: sh run.sh
