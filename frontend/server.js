@@ -2,9 +2,25 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
+const Locations = [
+    '/', 
+    '/home',
+    '/about',
+    '/profile',
+    '/games',
+    '/games/pong',
+    '/games/tic-tac-toe',
+    '/login',
+    '/signup',
+];
+
 const server = http.createServer((req, res) => {
     // Construct the file path
-    const filePath = path.join(__dirname, 'app', req.url === '/' ? 'index.html' : req.url);
+    let url = req.url;
+    // TODO: urls with a trailing '/' are not handled correctly yet
+    // if (url != '/' && url.charAt(url.length - 1) == '/') url.slice(-1);
+
+    const filePath = path.join(__dirname, 'app', Locations.includes(url) ? 'index.html' : url);
 
     // Determine the file extension to set the content type
     const extname = path.extname(filePath);
