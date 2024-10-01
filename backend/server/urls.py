@@ -15,15 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from rest_framework_simplejwt.views import TokenRefreshView
 
 from transcendence.adapter.signup import SignUpView
 from transcendence.adapter.login import LoginView
+from two_factor.urls import urlpatterns as tf_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', SignUpView.as_view(), name='signup_view'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('login/', LoginView.as_view(), name='login_view'),
+    path('', include(tf_urls)),
 ]
