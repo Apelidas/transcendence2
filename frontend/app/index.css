@@ -1,9 +1,9 @@
 /* General styles for the page */
 body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	background-color: #f4f4f9;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
 }
 
 .container {
@@ -14,6 +14,7 @@ body {
     filter: blur(5px);
 }
 
+/* Popup styles */
 .popup {
     position: fixed;
     top: 50%;
@@ -36,16 +37,29 @@ body {
     z-index: 900; /* Lower z-index than popups */
 }
 
-img-fluid {
+.img-fluid {
     max-width: 100%;
     height: auto;
 }
 
-.homepage, #aboutSection, #profileSection, #gamesSection {
+/* Hide all sections by default */
+#mainContent > div {
     display: none;
 }
 
-/* Ensure the currently active section is displayed */
-.active {
+/* Show the active section */
+#mainContent > div.active {
     display: block;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    /* Adjust popup styles for smaller screens */
+    .popup {
+        width: 90%;
+        height: auto;
+    }
 }

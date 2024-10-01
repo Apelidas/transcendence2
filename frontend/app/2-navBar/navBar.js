@@ -2,12 +2,6 @@ document.addEventListener('loggedIn', function () {
     updateNavbarBasedOnLogin();
 });
 
-// Utility function to navigate between sections
-function navigateToSection(section) {
-    showSection(section);
-    window.history.pushState({ section: section }, '', `/${section}`);
-}
-
 // Utility function to open popups
 function openPopup(popup, pushState = true) {
     if (pushState) {
@@ -36,31 +30,6 @@ function closeAllPopups(removeBlur = true) {
     }
 }
 
-// Show the correct section based on the section ID
-function showSection(section) {
-    // Hide all sections
-    document.querySelectorAll('#mainContent > .container > div').forEach(div => {
-        div.style.display = 'none';
-    });
-
-    // Show the targeted section
-    const sectionMap = {
-        home: 'homepageSection',
-        about: 'aboutSection',
-        profile: 'profileSection',
-        pong: 'pongGameSection',
-        ticTacToe: 'ticTacToeGameSection',
-        games: 'gamesSection'
-    };
-
-    const sectionId = sectionMap[section];
-    if (sectionId) {
-        document.getElementById(sectionId).style.display = 'block';
-    }
-
-    closeAllPopups(); // Close popups and remove blur when switching sections
-}
-
 // Toggle blur effect for popups
 function toggleBlur(shouldBlur) {
     const mainContent = document.getElementById('mainContent');
@@ -77,7 +46,7 @@ function updateNavbarBasedOnLogin() {
     const loginButton = document.getElementById('loginButton');
     const signupButton = document.getElementById('signupButton');
     const userGreeting = document.getElementById('userGreeting');
-    const profileButton = document.getElementById('profileButton');
+    const viewProfileButton = document.getElementById('viewProfileButton');
     const logoutButton = document.getElementById('logoutButton');
 
     if (isLoggedIn) {
@@ -86,58 +55,66 @@ function updateNavbarBasedOnLogin() {
         signupButton.style.display = 'none';
         userGreeting.querySelector('span').textContent = `Welcome, ${username}!`;
         userGreeting.classList.remove('d-none');
-        profileButton.classList.remove('d-none');
+        viewProfileButton.classList.remove('d-none');
         logoutButton.classList.remove('d-none');
     } else {
         loginButton.style.display = 'block';
         signupButton.style.display = 'block';
         userGreeting.classList.add('d-none');
-        profileButton.classList.add('d-none');
+        viewProfileButton.classList.add('d-none');
         logoutButton.classList.add('d-none');
     }
 }
 
+// Event listeners for buttons and links
+const signupButton = document.getElementById('signupButton');
+const loginButton = document.getElementById('loginButton');
+const viewHomeButton = document.getElementById('viewHomeButton');
+const viewAboutButton = document.getElementById('viewAboutButton');
+const viewProfileButton = document.getElementById('viewProfileButton');
+const viewPongMainButton = document.getElementById('viewPongMainButton');
+const viewTicTacToeMainButton = document.getElementById('viewTicTacToeMainButton');
+const gamesDropdownButton = document.getElementById('gamesDropdownButton');
+const overlay = document.getElementById('overlay');
+
+// Add event listeners for navigation buttons
+loginButton.addEventListener('click', function () {
+    openPopup('login');
+});
+
+signupButton.addEventListener('click', function () {
+    openPopup('signup');
+});
+
+// Handle clicks outside popups to close them
+overlay.addEventListener('click', function () {
+    closeAllPopups(true);
+});
+
+// Routing handled through index.js functions
+viewAboutButton.addEventListener('click', function (event) {
+	console.log('navbar')
+    changeRoute('/about');
+});
+
+viewPongMainButton.addEventListener('click', function () {
+    changeRoute('/games/pong');
+});
+
+viewTicTacToeMainButton.addEventListener('click', function () {
+    changeRoute('/games/tic-tac-toe');
+});
+
+viewProfileButton.addEventListener('click', function () {
+    changeRoute('/profile');
+});
+
+gamesDropdownButton.addEventListener('click', function () {
+    changeRoute('/games');
+});
+
 // DOMContentLoaded event listener for the initial setup
 document.addEventListener('DOMContentLoaded', function () {
-    const signupButton = document.getElementById('signupButton');
-    const loginButton = document.getElementById('loginButton');
-    const viewAboutButton = document.querySelector('a[href="/about"]');
-    const viewProfileButton = document.getElementById('viewProfileButton');
-    const playPongButton = document.getElementById('playPongButton');
-    const playTicTacToeButton = document.getElementById('playTicTacToeButton');
-    const overlay = document.getElementById('overlay');
-
-    // Add event listeners for navigation buttons
-    loginButton.addEventListener('click', function () {
-        openPopup('login');
-    });
-
-    signupButton.addEventListener('click', function () {
-        openPopup('signup');
-    });
-
-    // Handle clicks outside popups to close them
-    overlay.addEventListener('click', function () {
-        closeAllPopups(true);
-    });
-
-    viewAboutButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        navigateToSection('about');
-    });
-
-    playPongButton.addEventListener('click', function () {
-        navigateToSection('pong');
-    });
-
-    playTicTacToeButton.addEventListener('click', function () {
-        navigateToSection('ticTacToe');
-    });
-
-    viewProfileButton.addEventListener('click', function () {
-        navigateToSection('profile');
-    });
-
     // Initialize navbar based on login state
     updateNavbarBasedOnLogin();
 
@@ -145,24 +122,20 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('popstate', function (event) {
         const state = event.state || {};
         if (state.section) {
-            showSection(state.section);
+            changeRoute(`/${state.section}`);
         } else if (state.popup) {
             openPopup(state.popup, false); // Open the popup without pushing a new state
         } else {
-            showSection('home');
+            changeRoute('/home');
         }
     });
 
     // Initialize based on the current URL
-    const initialPath = window.location.pathname.slice(1);
-    if (initialPath) {
-        if (initialPath === 'login' || initialPath === 'signup') {
-            openPopup(initialPath, false);
-        } else {
-            showSection(initialPath);
-        }
+    const initialPath = window.location.pathname;
+    if (initialPath.includes('login') || initialPath.includes('signup')) {
+        openPopup(initialPath.slice(1), false);
     } else {
-        showSection('home');
+        changeRoute(initialPath);
     }
 
     // Links within popups to switch between them
