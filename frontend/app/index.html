@@ -7,8 +7,9 @@
     <title>42 Pong Boss</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="homepage/homepage.css">
-    <link rel="stylesheet" href="about/about.css">
-    <link rel="stylesheet" href="games/tickTacToe/tickTacToe.css">
+    <link rel="stylesheet" href="games/games.css">
+	<link rel="stylesheet" href="about/about.css">
+    <link rel="stylesheet" href="games/ticTacToe/ticTacToe.css">
     <link rel="stylesheet" href="games/pong/pong.css">
     <link rel="stylesheet" href="popups/signupPopup/signupPopup.css">
     <link rel="stylesheet" href="popups/loginPopup/loginPopup.css">
@@ -33,22 +34,55 @@
     </nav>
 
     <!-- Main content area -->
-    <div id="mainContent">
-        <div class="container">
-            <div id="homepageSection">
-                <!--#include file="homepage/homepage.html" -->
-            </div>
-            <div id="aboutSection" style="display: none;">
-                <!--#include file="about/about.html" -->
-            </div>
-            <div id="profileSection" style="display: none;">
-                <!--#include file="profile/profile.html" -->
-            </div>
-            <div id="gamesSection" style="display: none;">
-                <!-- Placeholder for Games Section -->
-            </div>
-        </div>
-    </div>
+	<div id="mainContent">
+		<div class="container">
+			<div id="homepageSection">
+				<!--#include file="homepage/homepage.html" -->
+			</div>
+			<div id="aboutSection" style="display: none;">
+				<!--#include file="about/about.html" -->
+			</div>
+			<div id="profileSection" style="display: none;">
+				<!--#include file="profile/profile.html" -->
+			</div>
+			<div id="gamesSection" style="display: none;">
+				<!--#include file="games/games.html" -->
+			</div>
+
+			<div id="pongMainSection" style="display: none;">
+				<!--#include file="games/pong/pong.html" -->
+			</div>
+			<div id="pongPvpSection" style="display: none;">
+				<!--#include file="games/pong/pongPvP/pongPvP.html" -->
+				<h2>Player vs. Player</h2>
+			</div>
+			<div id="pongAiSection" style="display: none;">
+				<!--#include file="games/pong/pongAI/pongAI.html" -->
+				<h2>Player vs. AI</h2>
+			</div>
+			<div id="pongTournamentSection" style="display: none;">
+				<!--#include file="games/pong/pongTourn/pongTourn.html" -->
+				<h2>Create a Pong Tournament</h2>
+			</div>
+
+			<div id="ticTacToeMainSection" style="display: none;">
+				<!--#include file="games/ticTacToe/ticTacToe.html" -->
+			</div>
+			<div id="ticTacToePvpSection" style="display: none;">
+				<!--#include file="games/ticTacToe/ticTacToePvP/ticTacToePvP.html" -->
+				<h2>Player vs. Player</h2>
+			</div>
+			<div id="ticTacToeAiSection" style="display: none;">
+				<!--#include file="games/ticTacToe/ticTacToeAI/ticTacToeAI.html" -->
+				<h2>Player vs. AI</h2>
+			</div>
+			<div id="ticTacToeTournamentSection" style="display: none;">
+				<!--#include file="games/ticTacToe/ticTacToeTourn/ticTacToeTourn.html" -->
+				<h2>Create a Tic-Tac-Toe Tournament</h2>
+			</div>
+		</div>
+	</div>
+	
 
     <!-- Include Popups -->
     <!--#include file="popups/loginPopup/loginPopup.html" -->
@@ -62,9 +96,14 @@
     <script src="homepage/homepage.js" charset="utf-8"></script>
     <script src="about/about.js" charset="utf-8"></script>
     <script src="profile/profile.js" charset="utf-8"></script>
-    <script src="games/tickTacToe/tickTacToe.js" charset="utf-8"></script>
+	<script src="games.js" charset="utf-8"></script>
+    <script src="games/ticTacToe/ticTacToe.js" charset="utf-8"></script>
+	<script src="games/ticTacToe/ticTacToePvP.js" charset="utf-8"></script>
+	<script src="games/ticTacToe/ticTacToeAI.js" charset="utf-8"></script>
+	<script src="games/ticTacToe/ticTacToeTourn.js" charset="utf-8"></script>
     <script src="games/pong/pong.js" charset="utf-8"></script>
     <script src="games/pong/pongAI/pongAI.js" charset="utf-8"></script>
+	<script src="games/pong/pongAI/pongPvP.js" charset="utf-8"></script>
     <script src="games/pong/pongTourn/pongTourn.js" charset="utf-8"></script>
 
 </body>

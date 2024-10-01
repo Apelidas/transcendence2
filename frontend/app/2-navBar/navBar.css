@@ -58,3 +58,47 @@
 .nav-item.dropdown:hover .dropdown-menu {
     display: block;
 }
+
+/* Align the caret next to the "Games" button */
+.navbar .nav-item.dropdown .dropdown-toggle {
+    margin-left: 5px;
+}
+
+/* Show dropdown on hover */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Ensure the dropdown menu looks good */
+.dropdown-menu {
+    display: none; /* Initially hide the dropdown */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    min-width: 10rem;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+}
+
+/* Optional styling to make dropdown menu visually appealing */
+.navbar .dropdown-menu .dropdown-item {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.navbar .dropdown-menu .dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Make sure the dropdown-toggle icon looks properly aligned */
+.navbar .nav-link.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-left: 0.3em solid transparent;
+}

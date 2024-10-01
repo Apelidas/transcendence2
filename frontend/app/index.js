@@ -18,45 +18,51 @@ function closeAllPopups(removeBlur = true) {
     }
 }
 
-// Function to show the appropriate section based on ID
-function showSection(sectionId) {
-    const sections = document.querySelectorAll('#mainContent > .container > div');
-    sections.forEach(section => {
-        section.style.display = 'none'; // Hide all sections
-    });
-    document.getElementById(sectionId).style.display = 'block'; // Show the selected section
-}
 
-// Function to handle routing and display sections based on URL
+// Function to handle routing
 function handleRouting() {
-    const path = window.location.pathname; // Get the current path from the URL
+    const path = window.location.pathname;
 
-    if (path === '/' || path === '/home') {
-        showSection('homepageSection');
-    } else if (path === '/about') {
-        showSection('aboutSection');
-    } else if (path === '/profile') {
-        showSection('profileSection'); // Ensure this section exists
-    } else if (path.startsWith('/games')) {
-        if (path.includes('pong')) {
-            showSection('pongGameSection'); // Ensure this section exists
-        } else if (path.includes('tic-tac-toe')) {
-            showSection('tickTacToeSection'); // Ensure this section exists
-        } else {
-            showSection('gamesSection');
-        }
-    } else {
-        alert('Page not found'); // Handle 404 error or redirect
+    switch (path) {
+        case '/':
+        case '/home':
+            showSection('homepageSection');
+            break;
+        case '/about':
+            showSection('aboutSection');
+            break;
+		case '/games':
+			showSection('gamesSection');
+			break;
+		case '/games/pong':
+			showSection('pongMainSection'); // Display Pong main section
+			break;
+		case '/games/pong/pvp':
+			showSection('pvpSection'); // Display Player vs Player section
+			break;
+		case '/games/pong/ai':
+			showSection('aiSection'); // Display Player vs AI section
+			break;
+		case '/games/pong/tournament':
+			showSection('tournamentSection'); // Display Tournament section
+			break;
+
+        case '/profile':
+            showSection('profileSection');
+            break;
+        default:
+            showSection('homepageSection'); // Default to homepage if no match
+            break;
     }
 }
 
-// Function to programmatically navigate and update the URL
+// Update URL and content based on route
 function changeRoute(path) {
     window.history.pushState({}, '', path); // Update the URL without reloading
-    handleRouting(); // Update content based on the new route
+    handleRouting(); // Call handleRouting to update the displayed content
 }
 
-// Listen to popstate event (for back/forward navigation)
+// Listen for changes in the browser's back/forward history
 window.addEventListener('popstate', handleRouting);
 
 // Initialize routing on page load

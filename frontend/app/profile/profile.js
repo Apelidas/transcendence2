@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('tournamentWins').textContent = localStorage.getItem('tournamentWins') || 0;
     document.getElementById('tournamentLoses').textContent = localStorage.getItem('tournamentLoses') || 0;
     document.getElementById('tournamentStreak').textContent = localStorage.getItem('tournamentStreak') || 0;
-    document.getElementById('tickTacToeWins').textContent = localStorage.getItem('tickTacToeWins') || 0;
-    document.getElementById('tickTacToeLoses').textContent = localStorage.getItem('tickTacToeLoses') || 0;
-    document.getElementById('tickTacToeStreak').textContent = localStorage.getItem('tickTacToeStreak') || 0;
+    document.getElementById('ticTacToeWins').textContent = localStorage.getItem('ticTacToeWins') || 0;
+    document.getElementById('ticTacToeLoses').textContent = localStorage.getItem('ticTacToeLoses') || 0;
+    document.getElementById('ticTacToeStreak').textContent = localStorage.getItem('ticTacToeStreak') || 0;
 
     // Handle button clicks for profile actions
     document.getElementById('changeEmailButton').addEventListener('click', function () {

@@ -1,51 +1,40 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<div class="container-fluid">
-		<a class="navbar-brand" href="/" onclick="changeRoute('/'); return false;">42 Pong Boss</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav ms-auto" id="navLinks">
-				<li class="nav-item">
-					<!-- Home Button -->
-					<a class="nav-link" href="/" onclick="changeRoute('/'); return false;">Home</a>
-				</li>
-				<li class="nav-item">
-					<!-- About Button -->
-					<a class="nav-link" href="/about" onclick="changeRoute('/about'); return false;">About</a>
-				</li>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/" onclick="changeRoute('/'); return false;">42 Pong Boss</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto" id="navLinks">
+                <li class="nav-item">
+                    <!-- Home Button -->
+                    <a class="nav-link" href="/" onclick="changeRoute('/'); return false;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <!-- About Button -->
+                    <a class="nav-link" href="/about" onclick="changeRoute('/about'); return false;">About</a>
+                </li>
 
-				<!-- Games Dropdown -->
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" id="viewGamesPage" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Games
-					</a>
-					<ul class="dropdown-menu" aria-labelledby="viewGamesPage">
-						<li><a class="dropdown-item" href="/games/pong" onclick="changeRoute('/games/pong'); return false;">Play Pong</a></li>
-						<li><a class="dropdown-item" href="/games/tic-tac-toe" onclick="changeRoute('/games/tic-tac-toe'); return false;">Play Tic-Tack-Toe</a></li>
-					</ul>
-				</li>
+                <!-- Games Dropdown with routing -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="/games" onclick="changeRoute('/games'); return false;" id="gamesDropdown">
+                        Games <span class="dropdown-toggle"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="gamesDropdown">
+                        <li><a class="dropdown-item" href="/games/pong" onclick="changeRoute('/games/pong'); return false;">Play Pong</a></li>
+                        <li><a class="dropdown-item" href="/games/tic-tac-toe" onclick="changeRoute('/games/tic-tac-toe'); return false;">Play Tic-Tac-Toe</a></li>
+                    </ul>
+                </li>
 
-				<!-- Log In / Sign Up -->
-				<li class="nav-item">
-					<a class="nav-link btn btn-success" id="loginButton" href="#" onclick="openPopup('loginPopup'); return false;">Log In</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link btn btn-success" id="signupButton" href="#" onclick="openPopup('signupPopup'); return false;">Sign Up</a>
-				</li>
-
-				<!-- Logged-In User Options (Hidden by default) -->
-				<li class="nav-item d-none" id="userGreeting">
-					<span class="navbar-text">Welcome, <span id="userName"></span>!</span>
-				</li>
-				<li class="nav-item d-none" id="profileButton">
-					<a class="nav-link btn btn-outline-secondary" href="/profile" onclick="changeRoute('/profile'); return false;">Profile</a>
-				</li>
-				<li class="nav-item d-none" id="logoutButton">
-					<a class="nav-link btn btn-danger" href="#" onclick="logout(); return false;">Log Out</a>
-				</li>
-			</ul>
-		</div>
-	</div>
+                <!-- Log In / Sign Up -->
+                <li class="nav-item">
+                    <a class="nav-link btn btn-success" id="loginButton" href="#" onclick="openPopup('loginPopup'); return false;">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-success" id="signupButton" href="#" onclick="openPopup('signupPopup'); return false;">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>

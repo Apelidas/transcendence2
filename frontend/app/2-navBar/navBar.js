@@ -2,12 +2,13 @@ document.addEventListener('loggedIn', function () {
     updateNavbarBasedOnLogin();
 });
 
-// Utility functions for navigation
+// Utility function to navigate between sections
 function navigateToSection(section) {
     showSection(section);
     window.history.pushState({ section: section }, '', `/${section}`);
 }
 
+// Utility function to open popups
 function openPopup(popup, pushState = true) {
     if (pushState) {
         window.history.pushState({ popup: popup }, '', `/${popup}`);
@@ -24,6 +25,7 @@ function openPopup(popup, pushState = true) {
     toggleBlur(true);
 }
 
+// Utility function to close all popups
 function closeAllPopups(removeBlur = true) {
     document.getElementById('loginPopup').style.display = 'none';
     document.getElementById('signupPopup').style.display = 'none';
@@ -34,6 +36,7 @@ function closeAllPopups(removeBlur = true) {
     }
 }
 
+// Show the correct section based on the section ID
 function showSection(section) {
     // Hide all sections
     document.querySelectorAll('#mainContent > .container > div').forEach(div => {
@@ -41,21 +44,24 @@ function showSection(section) {
     });
 
     // Show the targeted section
-    if (section === 'home') {
-        document.getElementById('homepageSection').style.display = 'block';
-    } else if (section === 'about') {
-        document.getElementById('aboutSection').style.display = 'block';
-    } else if (section === 'profile') {
-        document.getElementById('profileSection').style.display = 'block';
-    } else if (section === 'pong') {
-        document.getElementById('pongGameSection').style.display = 'block';
-    } else if (section === 'tickTacToe') {
-        document.getElementById('tickTacToeGameSection').style.display = 'block';
+    const sectionMap = {
+        home: 'homepageSection',
+        about: 'aboutSection',
+        profile: 'profileSection',
+        pong: 'pongGameSection',
+        ticTacToe: 'ticTacToeGameSection',
+        games: 'gamesSection'
+    };
+
+    const sectionId = sectionMap[section];
+    if (sectionId) {
+        document.getElementById(sectionId).style.display = 'block';
     }
 
     closeAllPopups(); // Close popups and remove blur when switching sections
 }
 
+// Toggle blur effect for popups
 function toggleBlur(shouldBlur) {
     const mainContent = document.getElementById('mainContent');
     if (shouldBlur) {
@@ -65,12 +71,12 @@ function toggleBlur(shouldBlur) {
     }
 }
 
+// Update the navbar based on the login status
 function updateNavbarBasedOnLogin() {
     const isLoggedIn = localStorage.getItem('username');
     const loginButton = document.getElementById('loginButton');
     const signupButton = document.getElementById('signupButton');
     const userGreeting = document.getElementById('userGreeting');
-    const tournamentButton = document.getElementById('tournamentButton');
     const profileButton = document.getElementById('profileButton');
     const logoutButton = document.getElementById('logoutButton');
 
@@ -80,14 +86,12 @@ function updateNavbarBasedOnLogin() {
         signupButton.style.display = 'none';
         userGreeting.querySelector('span').textContent = `Welcome, ${username}!`;
         userGreeting.classList.remove('d-none');
-        tournamentButton.classList.remove('d-none');
         profileButton.classList.remove('d-none');
         logoutButton.classList.remove('d-none');
     } else {
         loginButton.style.display = 'block';
         signupButton.style.display = 'block';
         userGreeting.classList.add('d-none');
-        tournamentButton.classList.add('d-none');
         profileButton.classList.add('d-none');
         logoutButton.classList.add('d-none');
     }
@@ -97,12 +101,10 @@ function updateNavbarBasedOnLogin() {
 document.addEventListener('DOMContentLoaded', function () {
     const signupButton = document.getElementById('signupButton');
     const loginButton = document.getElementById('loginButton');
+    const viewAboutButton = document.querySelector('a[href="/about"]');
     const viewProfileButton = document.getElementById('viewProfileButton');
-    const viewAboutButton = document.getElementById('viewAboutPage');
-
     const playPongButton = document.getElementById('playPongButton');
-    const playtickTacToeButton = document.getElementById('playtickTacToeButton');
-
+    const playTicTacToeButton = document.getElementById('playTicTacToeButton');
     const overlay = document.getElementById('overlay');
 
     // Add event listeners for navigation buttons
@@ -119,7 +121,8 @@ document.addEventListener('DOMContentLoaded', function () {
         closeAllPopups(true);
     });
 
-    viewAboutButton.addEventListener('click', function () {
+    viewAboutButton.addEventListener('click', function (event) {
+        event.preventDefault();
         navigateToSection('about');
     });
 
@@ -127,8 +130,8 @@ document.addEventListener('DOMContentLoaded', function () {
         navigateToSection('pong');
     });
 
-    playtickTacToeButton.addEventListener('click', function () {
-        navigateToSection('tickTacToe');
+    playTicTacToeButton.addEventListener('click', function () {
+        navigateToSection('ticTacToe');
     });
 
     viewProfileButton.addEventListener('click', function () {
