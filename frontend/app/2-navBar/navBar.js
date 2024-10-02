@@ -69,12 +69,6 @@ function updateNavbarBasedOnLogin() {
 // Event listeners for buttons and links
 const signupButton = document.getElementById('signupButton');
 const loginButton = document.getElementById('loginButton');
-const viewHomeButton = document.getElementById('viewHomeButton');
-const viewAboutButton = document.getElementById('viewAboutButton');
-const viewProfileButton = document.getElementById('viewProfileButton');
-const viewPongMainButton = document.getElementById('viewPongMainButton');
-const viewTicTacToeMainButton = document.getElementById('viewTicTacToeMainButton');
-const gamesDropdownButton = document.getElementById('gamesDropdownButton');
 const overlay = document.getElementById('overlay');
 
 // Add event listeners for navigation buttons
@@ -85,33 +79,11 @@ loginButton.addEventListener('click', function () {
 signupButton.addEventListener('click', function () {
     openPopup('signup');
 });
-
-// Handle clicks outside popups to close them
+// // Handle clicks outside popups to close them
 overlay.addEventListener('click', function () {
     closeAllPopups(true);
 });
 
-// Routing handled through index.js functions
-viewAboutButton.addEventListener('click', function (event) {
-	console.log('navbar')
-    changeRoute('/about');
-});
-
-viewPongMainButton.addEventListener('click', function () {
-    changeRoute('/games/pong');
-});
-
-viewTicTacToeMainButton.addEventListener('click', function () {
-    changeRoute('/games/tic-tac-toe');
-});
-
-viewProfileButton.addEventListener('click', function () {
-    changeRoute('/profile');
-});
-
-gamesDropdownButton.addEventListener('click', function () {
-    changeRoute('/games');
-});
 
 // DOMContentLoaded event listener for the initial setup
 document.addEventListener('DOMContentLoaded', function () {

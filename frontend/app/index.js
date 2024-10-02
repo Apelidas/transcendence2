@@ -13,6 +13,8 @@ function handleRouting() {
 			document.getElementById('viewHome').classList.add('active');
             break;
         case '/home':
+            console.log(document.getElementById('viewHome'))
+            console.log(document.getElementById('viewAbout'))
             document.getElementById('viewHome').classList.add('active');
             break;
         case '/about':
@@ -34,7 +36,8 @@ function handleRouting() {
         case '/games/pong/pongTourn':
             document.getElementById('viewPongTourn').classList.add('active');
             break;
-        case '/games/ticTacToe':
+        case '/games/tic-tac-toe':
+            console.log(document.getElementById('viewTicTacToeMain'));
             document.getElementById('viewTicTacToeMain').classList.add('active');
             break;
         case '/games/ticTacToe/ticTacToePvP':
