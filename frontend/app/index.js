@@ -1,57 +1,59 @@
-// Utility functions available globally
-function toggleBlur(shouldBlur) {
-    const mainContent = document.getElementById('mainContent');
-    if (shouldBlur) {
-        mainContent.classList.add('blurred');
-    } else {
-        mainContent.classList.remove('blurred');
-    }
-}
-
-function closeAllPopups(removeBlur = true) {
-    document.getElementById('loginPopup').style.display = 'none';
-    document.getElementById('signupPopup').style.display = 'none';
-    document.getElementById('overlay').style.display = 'none';
-
-    if (removeBlur) {
-        toggleBlur(false);
-    }
-}
-
-
 // Function to handle routing
 function handleRouting() {
+    // Hide all sections by removing the active class
+    document.querySelectorAll('.active').forEach(div => div.classList.remove('active'));
+
     const path = window.location.pathname;
+	console.log('Routing to:', path); 
+
 
     switch (path) {
         case '/':
+			console.log(document.getElementById('viewHome'))
+			document.getElementById('viewHome').classList.add('active');
+            break;
         case '/home':
-            showSection('homepageSection');
+            console.log(document.getElementById('viewHome'))
+            console.log(document.getElementById('viewAbout'))
+            document.getElementById('viewHome').classList.add('active');
             break;
         case '/about':
-            showSection('aboutSection');
+			console.log(document.getElementById('viewAbout'))
+            document.getElementById('viewAbout').classList.add('active');
             break;
-		case '/games':
-			showSection('gamesSection');
-			break;
-		case '/games/pong':
-			showSection('pongMainSection'); // Display Pong main section
-			break;
-		case '/games/pong/pvp':
-			showSection('pvpSection'); // Display Player vs Player section
-			break;
-		case '/games/pong/ai':
-			showSection('aiSection'); // Display Player vs AI section
-			break;
-		case '/games/pong/tournament':
-			showSection('tournamentSection'); // Display Tournament section
-			break;
-
+        case '/games':
+            document.getElementById('gamesDropdown').classList.add('active');
+            break;
+        case '/games/pong':
+            document.getElementById('viewPongMain').classList.add('active');
+            break;
+        case '/games/pong/pongPvP':
+            document.getElementById('viewPongPvP').classList.add('active');
+            break;
+        case '/games/pong/pongAI':
+            document.getElementById('viewPongAI').classList.add('active');
+            break;
+        case '/games/pong/pongTourn':
+            document.getElementById('viewPongTourn').classList.add('active');
+            break;
+        case '/games/tic-tac-toe':
+            console.log(document.getElementById('viewTicTacToeMain'));
+            document.getElementById('viewTicTacToeMain').classList.add('active');
+            break;
+        case '/games/ticTacToe/ticTacToePvP':
+            document.getElementById('viewTicTacToePvP').classList.add('active');
+            break;
+        case '/games/ticTacToe/ticTacToeAI':
+            document.getElementById('viewTicTacToeAI').classList.add('active');
+            break;
+        case '/games/ticTacToe/ticTacToeTourn':
+            document.getElementById('viewTicTacToeTourn').classList.add('active');
+            break;
         case '/profile':
-            showSection('profileSection');
+            document.getElementById('viewProfile').classList.add('active');
             break;
         default:
-            showSection('homepageSection'); // Default to homepage if no match
+            document.getElementById('viewHome').classList.add('active');
             break;
     }
 }
@@ -59,6 +61,7 @@ function handleRouting() {
 // Update URL and content based on route
 function changeRoute(path) {
     window.history.pushState({}, '', path); // Update the URL without reloading
+	console.log('changeRoute')
     handleRouting(); // Call handleRouting to update the displayed content
 }
 
@@ -67,21 +70,7 @@ window.addEventListener('popstate', handleRouting);
 
 // Initialize routing on page load
 document.addEventListener('DOMContentLoaded', function () {
-    // Handle clicks outside popups to close them
-    const overlay = document.getElementById('overlay');
-    overlay.addEventListener('click', function () {
-        closeAllPopups(true);
-    });
-
     // Initialize page content based on the current URL
+	console.log('onLoad')
     handleRouting();
-
-    // Set up event listeners for navigation
-    document.querySelectorAll('nav a').forEach(link => {
-        link.addEventListener('click', function (event) {
-            event.preventDefault(); // Prevent the default link behavior
-            const targetPath = event.target.getAttribute('href');
-            changeRoute(targetPath); // Use changeRoute to update the URL and content
-        });
-    });
 });
