@@ -1,3 +1,5 @@
+// import { authenticator } from 'otplib';
+
 // Function to handle routing
 function handleRouting() {
     // Hide all sections by removing the active class
@@ -74,3 +76,20 @@ document.addEventListener('DOMContentLoaded', function () {
 	console.log('onLoad')
     handleRouting();
 });
+
+// import { authenticator } from 'otplib';
+
+async function check_2fa() {
+    const authenticator = await import('otplib');
+    const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
+    const token = authenticator.generate(secret);
+    
+    try {
+        const isValid = authenticator.check(token, secret);
+        console.log("Valid 2FA check!");
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+check_2fa();
