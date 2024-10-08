@@ -1,5 +1,6 @@
 
 const secret = window.otplib.authenticator.generateSecret();
+let tokenInterval; // DEBUG
 
 function auth_2fa_get_token(secret) {
     let token = window.otplib.authenticator.generate(secret);
@@ -7,7 +8,7 @@ function auth_2fa_get_token(secret) {
     return token;
 }
 
-async function check_2fa() {
+function auth_2fa_show_qrcode() {
     console.log("2FA secret = " + secret);
 
     let username = "agent47";
@@ -15,7 +16,7 @@ async function check_2fa() {
     const otpauth = window.otplib.authenticator.keyuri(username, "transcendence", secret);
     console.log("2FA otpauth = " + otpauth);
 
-    let qrcode = new QRCode(document.getElementById("qrcode"), {
+    new QRCode(document.getElementById("qrcode"), {
         text: otpauth,
         width: 128,
         height: 128,
@@ -25,7 +26,7 @@ async function check_2fa() {
     });
 
     const token = auth_2fa_get_token(secret);
-    setInterval(auth_2fa_get_token, 10000, secret);
+    tokenInterval = setInterval(auth_2fa_get_token, 10000, secret); // DEBUG
     try {
         const isValid = window.otplib.authenticator.check(token, secret);
         console.log("2FA valid check!");
@@ -33,5 +34,3 @@ async function check_2fa() {
         console.error(err);
     }
 }
-
-check_2fa();
