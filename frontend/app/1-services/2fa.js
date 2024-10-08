@@ -11,9 +11,7 @@ async function check_2fa() {
     console.log("2FA secret = " + secret);
 
     let username = "agent47";
-    if (isLoggedIn) {
-        username = localStorage.getItem('username');
-    }
+    // TODO get username
     const otpauth = window.otplib.authenticator.keyuri(username, "transcendence", secret);
     console.log("2FA otpauth = " + otpauth);
 
