@@ -38,3 +38,12 @@ class CustomUser(AbstractBaseUser):
 
     def __str__(self):
         return self.email
+    
+    def getMfaData(self):
+        data = MfaData(self.email, self.secret_2fa)
+        return data
+
+class MfaData:
+  def __init__(self, username, secret):
+    self.username = username
+    self.secret = secret

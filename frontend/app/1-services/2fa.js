@@ -1,4 +1,6 @@
 
+const mfaDataEndpoint = 'http://127.0.0.1:8000/mfa_data/'
+
 const secret = window.otplib.authenticator.generateSecret();
 let tokenInterval; // DEBUG
 
@@ -10,6 +12,10 @@ function auth_2fa_get_token(secret) {
 
 function auth_2fa_show_qrcode() {
     console.log("2FA secret = " + secret);
+
+    const response = fetchWithToken(mfaDataEndpoint, 'GET');
+    data = response.data;
+    console.log(data);
 
     let username = "agent47";
     // TODO get username
