@@ -10,8 +10,11 @@ function auth_2fa_get_token(secret) {
 async function check_2fa() {
     console.log("2FA secret = " + secret);
 
-    // qrcode
-    const otpauth = window.otplib.authenticator.keyuri("daniel", "transcendence", secret);
+    let username = "agent47";
+    if (isLoggedIn) {
+        username = localStorage.getItem('username');
+    }
+    const otpauth = window.otplib.authenticator.keyuri(username, "transcendence", secret);
     console.log("2FA otpauth = " + otpauth);
 
     let qrcode = new QRCode(document.getElementById("qrcode"), {
