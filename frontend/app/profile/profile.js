@@ -37,4 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('changeAliasButton').addEventListener('click', function () {
         alert('Change Alias functionality here');
     });
+
+    document.getElementById('change2FAButton').addEventListener('click', function () {
+        alert('Change 2FA functionality here');
+    });
 });
