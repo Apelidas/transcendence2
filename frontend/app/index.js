@@ -77,12 +77,13 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 async function check_2fa() {
-    const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
+    const secret = window.otplib.authenticator.generateSecret(); // 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
+    console.log("2FA secret = " + secret);
     const token = window.otplib.authenticator.generate(secret);
-    
+    console.log("2FA token = " + token);
     try {
         const isValid = window.otplib.authenticator.check(token, secret);
-        console.log("Valid 2FA check!");
+        console.log("2FA valid check!");
     } catch (err) {
         console.error(err);
     }
