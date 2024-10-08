@@ -1,4 +1,3 @@
-// import { authenticator } from 'otplib';
 
 // Function to handle routing
 function handleRouting() {
@@ -77,15 +76,12 @@ document.addEventListener('DOMContentLoaded', function () {
     handleRouting();
 });
 
-// import { authenticator } from 'otplib';
-
 async function check_2fa() {
-    const authenticator = await import('otplib');
     const secret = 'KVKFKRCPNZQUYMLXOVYDSQKJKZDTSRLD';
-    const token = authenticator.generate(secret);
+    const token = window.otplib.authenticator.generate(secret);
     
     try {
-        const isValid = authenticator.check(token, secret);
+        const isValid = window.otplib.authenticator.check(token, secret);
         console.log("Valid 2FA check!");
     } catch (err) {
         console.error(err);
