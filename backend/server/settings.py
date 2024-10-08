@@ -147,3 +147,5 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
     'ALGORITHM': 'HS256',
 }
+
+LOGIN_URL = 'two_factor:login'
