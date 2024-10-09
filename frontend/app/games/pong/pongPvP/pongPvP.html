@@ -1,54 +1,98 @@
 <div class="pongGame">
-    <section id="startScreen" class="start-screen">
-        <h2>Pong: Player vs Player</h2>
-        <div class="row">
-            <div class="col">
-                <p>Enter Player Names:</p>
-                <input type="text" id="leftPlayerName" placeholder="Left Player Name" required aria-label="Left Player Name">
-                <input type="text" id="rightPlayerName" placeholder="Right Player Name" required aria-label="Right Player Name">
-            </div>
+    <h2>Pong: Player vs Player</h2>
+    <div class="options-container">
+        <!-- Left Player Options -->
+        <div class="player-options" id="leftPlayerOptions">
+            <label for="leftPlayerName">Left Player Name:</label>
+            <input type="text" id="leftPlayerName" placeholder="Enter Left Player Name" required>
+            <label for="leftPlayerColor">Player Color:</label>
+            <input type="color" id="leftPlayerColor" value="#FF0000">
         </div>
-        <div class="row">
-            <div class="col">
-                <label for="backgroundColor">Background:</label>
-                <input type="color" id="backgroundColor" value="#000000" aria-label="Background Color">
-            </div>
-            <div class="col">
-                <label for="ballColor">Ball Color:</label>
-                <input type="color" id="ballColor" value="#FFFFFF" aria-label="Ball Color">
-            </div>
+
+        <!-- Right Player Options -->
+        <div class="player-options" id="rightPlayerOptions">
+            <label for="rightPlayerName">Right Player Name:</label>
+            <input type="text" id="rightPlayerName" placeholder="Enter Right Player Name" required>
+            <label for="rightPlayerColor">Player Color:</label>
+            <input type="color" id="rightPlayerColor" value="#0000FF">
         </div>
-        <div class="row">
-            <div class="col">
-                <label for="leftPlayerColor">Left Player Color:</label>
-                <input type="color" id="leftPlayerColor" value="#FF0000" aria-label="Left Player Color">
-            </div>
-            <div class="col">
-                <label for="rightPlayerColor">Right Player Color:</label>
-                <input type="color" id="rightPlayerColor" value="#0000FF" aria-label="Right Player Color">
-            </div>
+    </div>
+
+    <!-- Game Settings Container -->
+    <div class="options-container">
+        <div class="settings-container">
+            <label for="backgroundColor">Background Color:</label>
+            <input type="color" id="backgroundColor" value="#000000">
+            <label for="ballColor">Ball Color:</label>
+            <input type="color" id="ballColor" value="#FFFFFF">
+            <label for="winningScore">Winning Score:</label>
+            <select id="winningScore">
+                <option value="3">3 Points</option>
+                <option value="5">5 Points</option>
+                <option value="11" selected>11 Points</option>
+            </select>
         </div>
-        <button id="startButton" class="btn" aria-label="Start Game Button">Start Game</button>
-    </section>
-    <section id="overlay" class="overlay" role="dialog" aria-labelledby="winnerMessage"></section>
-    <section id="popup" class="popup" role="dialog" aria-labelledby="winnerMessage">
-        <h2 id="winnerMessage"></h2>
-        <button onclick="restartGame()" class="btn" aria-label="Restart Game Button">Restart Game</button>
-    </section>
-    <section id="gameContainer">
-        <canvas id="pongCanvas" width="800" height="600" style="display:none;" aria-label="Pong Game Canvas"></canvas>
-        <div id="controlsContainer" class="controls-container" style="display:none;">
-            <button id="leftGiveUp" class="give-up-button btn" onclick="giveUp('left')" aria-label="Left Player Give Up Button">Give Up</button>
-            <div id="ballSpeedControl" class="ball-speed-control">
-                <label for="ballSpeed">Adjust Ball Speed</label>
-                <div>
-                    <span>-</span>
-                    <input type="range" id="ballSpeed" min="1" max="10" value="4" aria-label="Ball Speed Control">
-                    <span>+</span>
-                </div>
-            </div>
-            <button id="rightGiveUp" class="give-up-button btn" onclick="giveUp('right')" aria-label="Right Player Give Up Button">Give Up</button>
+
+        <!-- Start Game Button Container -->
+        <div class="start-container">
+            <button id="startButton" class="start-btn">Start Game</button>
         </div>
-    </section>
+    </div>
 </div>
-<script src="pong.js"></script>
+
+<div id="gameOverlay" class="overlay">
+    <div class="game-container">
+        <!-- Upper Header with Controls -->
+        <div class="header-controls">
+            <div class="header-part">
+                <span>Use "Esc" to exit.</span>
+            </div>
+            <div class="header-part">
+                <button id="decreaseSpeed">-</button>
+                <span>Ball Speed</span>
+                <button id="increaseSpeed">+</button>
+            </div>
+            <div class="header-part">
+                <button id="decreaseSize">-</button>
+                <span>Ball Size</span>
+                <button id="increaseSize">+</button>
+            </div>
+            <div class="header-part">
+                <button id="toggleObstacles">Add Obstacles</button>
+            </div>
+        </div>
+
+		<!-- Horizontal Line -->
+        <hr class="header-divider">
+
+        <!-- Lower Header Part -->
+        <div class="header-controls">
+            <div id="leftPlayerInfo" class="header-part playerInfo">
+                <div id="leftPlayerNameDisplay" class="player-name">Left Player Name</div>
+                <div>Use W/S to move</div>
+            </div>
+            <div id="rightPlayerInfo" class="header-part playerInfo">
+                <div id="rightPlayerNameDisplay" class="player-name">Right Player Name</div>
+                <div>Use ↑/↓ to move</div>
+            </div>
+        </div>
+
+        <!-- Playing Field -->
+        <div class="game-container">
+            <canvas id="pongCanvas"></canvas>
+            <div class="score left-score" id="leftPlayerScore">0</div>
+            <div class="score right-score" id="rightPlayerScore">0</div>
+        </div>
+
+        <!-- Footer with Give Up Buttons -->
+        <div class="footer-controls">
+			<div id="left-give-up" class="footer-part">
+				<button class="give-up-button left-give-up">Give Up</button>
+			</div>
+			<div id="right-give-up" class="footer-part">
+				<button class="give-up-button right-give-up">Give Up</button>
+			</div>
+        </div>
+    </div>
+</div>
+
