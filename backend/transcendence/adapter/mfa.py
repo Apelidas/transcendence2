@@ -3,13 +3,13 @@ import json
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from models import getMfaData
+from ..models import CustomUser
 
 class MfaDataView(APIView):
     
-    def get(self, request):
+    def get(self, request): 
         
-        data = getMfaData()
+        data = CustomUser.getMfaData()
         
         return Response({
             'message': 'Mfa data',
