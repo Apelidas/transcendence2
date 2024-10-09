@@ -10,8 +10,6 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('The Email field must be set')
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.secret_2fa = pyotp.random_base32()
         user.save(using=self._db)
         return user
 
@@ -29,7 +27,8 @@ class CustomUser(AbstractBaseUser):
     email = models.EmailField(unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    secret_2fa = models.CharField(default=False)
+    mfa_enabled = models.BooleanField(default=False)
+    secret_2fa = models.CharField(pyotp.random_base32())
 
     objects = CustomUserManager()
 
