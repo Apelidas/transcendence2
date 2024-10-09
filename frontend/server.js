@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const Locations = [
-    '/', 
+    '/',
     '/home',
     '/about',
     '/profile',
@@ -14,16 +14,7 @@ const Locations = [
     '/signup',
 ];
 
-const server = http.createServer((req, res) => {
-    // Construct the file path
-    let url = req.url;
-    // TODO: urls with a trailing '/' are not handled correctly yet
-    // if (url != '/' && url.charAt(url.length - 1) == '/') url.slice(-1);
-
-    const filePath = path.join(__dirname, 'app', Locations.includes(url) ? 'index.html' : url);
-
-    // Determine the file extension to set the content type
-    const extname = path.extname(filePath);
+function getContentType(extname) {
     let contentType = 'text/html';
     switch (extname) {
         case '.js':
@@ -41,20 +32,40 @@ const server = http.createServer((req, res) => {
         case '.gif':
             contentType = 'image/gif';
             break;
-        default:
-            contentType = 'text/html';
     }
+    return contentType;
+}
 
+const server = http.createServer((request, response) => {
+    // Construct the file path
+    let url = request.url;
+
+    const filePath = path.join(__dirname, 'app', Locations.includes(url) ? 'index.html' : url);
+
+    // Determine the file extension to set the content type
+    const extname = path.extname(filePath);
+
+    let contentType = getContentType(extname);
+
+    if(extname === '.png' || extname === '.jpeg'){
+        readPictures(contentType, filePath, response)
+    }
+    else {
+        readText(extname, contentType, filePath, response)
+    }
+});
+
+function readText(extname, contentType, filePath, response){
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
             if (err.code === 'ENOENT') {
                 // Handle file not found error
-                res.writeHead(404, { 'Content-Type': 'text/plain' });
-                res.end('Not Found');
+                response.writeHead(404, {'Content-Type': 'text/plain'});
+                response.end('Not Found');
             } else {
                 // Handle other errors
-                res.writeHead(500, { 'Content-Type': 'text/plain' });
-                res.end('Server Error');
+                response.writeHead(500, {'Content-Type': 'text/plain'});
+                response.end('Server Error');
             }
             return;
         }
@@ -62,22 +73,41 @@ const server = http.createServer((req, res) => {
         if (extname === '.html') {
             // Process SSI for HTML files
             const processedData = processSSI(data);
-            res.writeHead(200, { 'Content-Type': contentType });
-            res.end(processedData);
+            response.writeHead(200, {'Content-Type': contentType});
+            response.end(processedData);
         } else {
             // Serve static files directly
-            res.writeHead(200, { 'Content-Type': contentType });
-            res.end(data);
+            response.writeHead(200, {'Content-Type': contentType});
+            response.end(data);
         }
     });
-});
+}
+
+function readPictures(contentType, filePath, response) {
+    fs.readFile(filePath, (err, data) => {
+        if (err) {
+            if (err.code === 'ENOENT') {
+                // Handle file not found error
+                response.writeHead(404, {'Content-Type': 'text/plain'});
+                response.end('Not Found');
+            } else {
+                // Handle other errors
+                response.writeHead(500, {'Content-Type': 'text/plain'});
+                response.end('Server Error');
+            }
+            return;
+        }
+
+        // Serve static files directly
+        response.writeHead(200, {'Content-Type': contentType});
+        response.end(data);
+    });
+}
 
 function processSSI(data) {
-    console.log("start ssi process");
     return data.replace(/<!--#include file="([^"]+)" -->/g, (match, filePath) => {
         try {
             const fullPath = path.join(__dirname, 'app', filePath);
-            console.log('fullPath: ' + fullPath);
             return fs.readFileSync(fullPath, 'utf8');
         } catch (err) {
             return `<!-- Error including file: ${filePath} -->`;

@@ -1,3 +1,4 @@
+
 // Function to handle routing
 function handleRouting() {
     // Hide all sections by removing the active class

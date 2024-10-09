@@ -18,7 +18,18 @@ tasks:
     cmds:
       - task: stop-dependencies
       - docker compose up -d --build
+      - bash migrate.sh
 
   stop-dependencies:
     cmds:
       - docker compose down
+
+  clean:
+    cmds:
+      - task: stop-dependencies
+      - docker system prune -af
+      - docker volume prune -af
+  re:
+    cmds:
+      - task: clean
+      - task: run
