@@ -22,3 +22,13 @@ tasks:
   stop-dependencies:
     cmds:
       - docker compose down
+
+  clean:
+    cmds:
+      - task: stop-dependencies
+      - docker system prune -af
+      - docker volume prune -af
+  re:
+    cmds:
+      - task: clean
+      - task: run
