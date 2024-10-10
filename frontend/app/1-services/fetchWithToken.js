@@ -2,7 +2,7 @@ const TokenRefreshEndpoint = 'http://127.0.0.1:8000/api/token/refresh/'
 
 async function fetchWithToken(url, method,  headers = {}, body = {}){
 
-    body['accessToken'] = localStorage.getItem('access_token');
+    headers['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
 
     const response = await sendRequest(url, method, headers, body);
     if (response.status === 401){
@@ -10,12 +10,9 @@ async function fetchWithToken(url, method,  headers = {}, body = {}){
         if (!refreshSuccess){
             throw 'InvalidTokenError'
         }
-        body['accessToken'] = localStorage.getItem('access_token');
+        headers['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
         return sendRequest(url, method, headers, body)
     }
-
-
-
 }
 
 async function refreshToken(){
@@ -42,7 +39,7 @@ async function sendRequest(url, method, header, body){
             'Content-Type': 'application/json',
             ...header
         },
-        body: JSON.stringify(body)
+        body: (method !== 'GET') ? JSON.stringify(body) : undefined
 
     });
     if(response.status === 500 || response.status === 502){
