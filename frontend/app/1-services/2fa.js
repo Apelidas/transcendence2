@@ -10,10 +10,10 @@ function auth_2fa_get_token(secret) {
     return token;
 }
 
-function auth_2fa_show_qrcode() {
+async function auth_2fa_show_qrcode() {
     console.log("2FA secret = " + secret);
 
-    const response = fetchWithToken(mfaDataEndpoint, 'GET');
+    const response = await fetchWithToken(mfaDataEndpoint, 'GET');
     data = response.data;
     console.log(data);
 

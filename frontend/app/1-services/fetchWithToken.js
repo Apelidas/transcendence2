@@ -40,7 +40,7 @@ async function sendRequest(url, method, header, body){
         method: method,
         headers: {
             'Content-Type': 'application/json',
-            ...headers
+            ...header
         },
         body: JSON.stringify(body)
 
