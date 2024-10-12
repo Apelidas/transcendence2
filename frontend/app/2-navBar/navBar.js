@@ -50,7 +50,7 @@ function updateNavbarBasedOnLogin() {
     const viewProfileButton = document.getElementById('viewProfileButton');
     const logoutButton = document.getElementById('logoutButton');
 
-    if (!isLoggedIn) {
+    if (isLoggedIn) {
         const username = localStorage.getItem('username');
         loginButton.style.display = 'none';
         signupButton.style.display = 'none';

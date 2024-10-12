@@ -4,7 +4,3 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
-class ProfileView(APIView):
-    authentication_classes = [JWTAuthentication]
-
-    def get(self, request):

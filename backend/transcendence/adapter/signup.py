@@ -28,9 +28,4 @@ class SignUpView(APIView):
 
 
 def create_custom_user(email, username, password):
-    user = CustomUser(
-        email=email,
-        username=username
-    )
-    user.set_password(password)  # This will hash the password before saving
-    return user
+    return CustomUser.objects.create_user(email=email, username=username, password=password)
