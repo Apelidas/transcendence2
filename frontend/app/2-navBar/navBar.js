@@ -1,4 +1,5 @@
 document.addEventListener('loggedIn', function () {
+    alert('received loggedIn event')
     updateNavbarBasedOnLogin();
 });
 
@@ -49,13 +50,14 @@ function updateNavbarBasedOnLogin() {
     const viewProfileButton = document.getElementById('viewProfileButton');
     const logoutButton = document.getElementById('logoutButton');
 
-    if (isLoggedIn) {
+    if (!isLoggedIn) {
         const username = localStorage.getItem('username');
         loginButton.style.display = 'none';
         signupButton.style.display = 'none';
         userGreeting.querySelector('span').textContent = `Welcome, ${username}!`;
         userGreeting.classList.remove('d-none');
         viewProfileButton.classList.remove('d-none');
+        console.log(viewProfileButton)
         logoutButton.classList.remove('d-none');
     } else {
         loginButton.style.display = 'block';
