@@ -3,11 +3,13 @@ from django.db import models
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, email, username, password, **extra_fields):
         if not email:
             raise ValueError('The Email field must be set')
+        if not username:
+            raise ValueError('The Username field must be set')
         email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        user = self.model(email=email, username=username, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -21,9 +23,13 @@ class CustomUserManager(BaseUserManager):
     def user_exists(self, email):
         return self.model.objects.filter(email=email).exists()
 
+    def username_exists(self, username):
+        return self.model.objects.filter(username=username).exists()
+
 
 class CustomUser(AbstractBaseUser):
     email = models.EmailField(unique=True)
+    username = models.CharField(unique=True, max_length=25)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
