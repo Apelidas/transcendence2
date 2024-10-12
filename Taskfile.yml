@@ -18,7 +18,6 @@ tasks:
     cmds:
       - task: stop-dependencies
       - docker compose up -d --build
-      - bash migrate.sh
 
   stop-dependencies:
     cmds:
