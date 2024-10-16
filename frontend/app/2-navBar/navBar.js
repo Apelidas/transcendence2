@@ -1,12 +1,11 @@
 document.addEventListener('loggedIn', function () {
-    alert('received loggedIn event')
     updateNavbarBasedOnLogin();
 });
 
 // Utility function to open popups
 function openPopup(popup, pushState = true) {
     if (pushState) {
-        window.history.pushState({ popup: popup }, '', `/${popup}`);
+        window.history.pushState({popup: popup}, '', `/${popup}`);
     }
     closeAllPopups(false); // Close any open popups without removing blur
 
@@ -43,29 +42,21 @@ function toggleBlur(shouldBlur) {
 
 // Update the navbar based on the login status
 function updateNavbarBasedOnLogin() {
-    const isLoggedIn = localStorage.getItem('username');
     const loginButton = document.getElementById('loginButton');
     const signupButton = document.getElementById('signupButton');
     const userGreeting = document.getElementById('userGreeting');
     const viewProfileButton = document.getElementById('viewProfileButton');
     const logoutButton = document.getElementById('logoutButton');
 
-    if (isLoggedIn) {
-        const username = localStorage.getItem('username');
-        loginButton.style.display = 'none';
-        signupButton.style.display = 'none';
-        userGreeting.querySelector('span').textContent = `Welcome, ${username}!`;
-        userGreeting.classList.remove('d-none');
-        viewProfileButton.classList.remove('d-none');
-        console.log(viewProfileButton)
-        logoutButton.classList.remove('d-none');
-    } else {
-        loginButton.style.display = 'block';
-        signupButton.style.display = 'block';
-        userGreeting.classList.add('d-none');
-        viewProfileButton.classList.add('d-none');
-        logoutButton.classList.add('d-none');
-    }
+    console.log('updating navBar')
+    const username = localStorage.getItem('username');
+    console.log(username)
+    loginButton.style.display = 'none';
+    signupButton.style.display = 'none';
+    userGreeting.querySelector('span').textContent = `Welcome, ${username}!`;
+    userGreeting.classList.remove('d-none');
+    viewProfileButton.classList.remove('d-none');
+    logoutButton.classList.remove('d-none');
 }
 
 // Event listeners for buttons and links
@@ -90,7 +81,6 @@ overlay.addEventListener('click', function () {
 // DOMContentLoaded event listener for the initial setup
 document.addEventListener('DOMContentLoaded', function () {
     // Initialize navbar based on login state
-    updateNavbarBasedOnLogin();
 
     // Handle back/forward navigation and URL changes
     window.addEventListener('popstate', function (event) {

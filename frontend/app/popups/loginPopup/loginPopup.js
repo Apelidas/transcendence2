@@ -10,7 +10,6 @@
 
         document.getElementById('loginForm').addEventListener('submit', async function(event) {
             event.preventDefault();
-            alert('Button clicked');
             await login(event);
         });
     });
@@ -26,7 +25,6 @@
 
         if (isSuccess) {
             closeAllPopups(true); // Close all popups and remove blur effect
-            alert('Login successful!');
             const loggedInEvent = new CustomEvent('loggedIn');
             document.dispatchEvent(loggedInEvent);
         } else {

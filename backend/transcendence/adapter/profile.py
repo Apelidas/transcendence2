@@ -9,7 +9,7 @@ class ProfileView(APIView):
     def get(self, request):
         user = request.user
         profile_data = {
-            user.username,
-            user.email
+            'username': user.username,
+            'email': user.email
         }
         return Response(profile_data, status=200)

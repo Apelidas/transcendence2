@@ -5,7 +5,6 @@ function handleRouting() {
     document.querySelectorAll('.active').forEach(div => div.classList.remove('active'));
 
     const path = window.location.pathname;
-	console.log('Routing to:', path); 
 
 
     switch (path) {
@@ -52,6 +51,7 @@ function handleRouting() {
             break;
         case '/profile':
             document.getElementById('viewProfile').classList.add('active');
+            profileAdapter().then(value => setProfileData(value))
             break;
         default:
             document.getElementById('viewHome').classList.add('active');
