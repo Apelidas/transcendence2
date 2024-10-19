@@ -1,8 +1,9 @@
 <div class="pongGame">
     <h2>Pong: Player vs Player</h2>
+	<!-- Settings Containers -->
     <div class="options-container">
         <!-- Left Player Options -->
-        <div class="player-options" id="leftPlayerOptions">
+        <div class="player-options">
             <label for="leftPlayerName">Left Player Name:</label>
             <input type="text" id="leftPlayerName" placeholder="Enter Left Player Name" required>
             <label for="leftPlayerColor">Player Color:</label>
@@ -10,11 +11,11 @@
         </div>
 
         <!-- Right Player Options -->
-        <div class="player-options" id="rightPlayerOptions">
+        <div class="player-options">
             <label for="rightPlayerName">Right Player Name:</label>
             <input type="text" id="rightPlayerName" placeholder="Enter Right Player Name" required>
-            <label for="rightPlayerColor">Player Color:</label>
-            <input type="color" id="rightPlayerColor" value="#0000FF">
+            <label for="rightPlayerColor">Right Player Color:</label>
+            <input type="color" id="rightPlayerColor">
         </div>
     </div>
 
@@ -22,9 +23,9 @@
     <div class="options-container">
         <div class="settings-container">
             <label for="backgroundColor">Background Color:</label>
-            <input type="color" id="backgroundColor" value="#000000">
+            <input type="color" id="backgroundColor">
             <label for="ballColor">Ball Color:</label>
-            <input type="color" id="ballColor" value="#FFFFFF">
+            <input type="color" id="ballColor">
             <label for="winningScore">Winning Score:</label>
             <select id="winningScore">
                 <option value="3">3 Points</option>

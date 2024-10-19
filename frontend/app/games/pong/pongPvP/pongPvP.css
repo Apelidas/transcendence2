@@ -212,4 +212,11 @@ canvas {
         width: 80%;
         margin: 10px 0;
     }
+	.game-container {
+        width: 90vw;
+        height: 90vh;
+    }
+    .header-controls, .footer-controls {
+        flex-direction: column;
+    }
 }
