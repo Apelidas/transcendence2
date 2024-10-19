@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let userChoice;
     let computerChoice;
     let result;
-	console.log(userChoice);
 
     possibleChoices.forEach(choice => choice.addEventListener('click', (event) => {
         userChoice = event.target.id;
