@@ -10,10 +10,10 @@ from rest_framework.permissions import IsAuthenticated
 class MfaDataView(APIView):
     authentication_classes = []  # Disable JWT Authentication for this view
     
-    def get(self, request): 
+    def post(self, request): 
         
+        # TODO get user info from request data (username)
         user = request.user
-        print("user" + user)
         data = user.getMfaData()
         print("data" + data)
         
