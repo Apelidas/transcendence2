@@ -13,12 +13,14 @@ class MfaDataView(APIView):
     def post(self, request): 
         
         # TODO get user info from request data (username)
-        user = request.user
-        data = user.getMfaData()
-        print("data" + data)
+        # user = request.user
+        # data = user.getMfaData()
+        # print("data" + data)
+        print("Post-Request received!")
+        
         
         return Response({
             'message': 'Mfa data',
-            'username': data.username,
-            'secret': data.secret,
+            'username': "dummy", # data.username
+            'secret': "geheim", # data.secret
         }, status=200)
