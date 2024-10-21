@@ -12,8 +12,10 @@ class MfaDataView(APIView):
     
     def get(self, request): 
         
-        data = CustomUser.getMfaData()
-        print(data)
+        user = request.user
+        print("user" + user)
+        data = user.getMfaData()
+        print("data" + data)
         
         return Response({
             'message': 'Mfa data',
