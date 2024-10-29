@@ -74,4 +74,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialize page content based on the current URL
 	console.log('onLoad')
     handleRouting();
+    checkIfLoggedIn();
 });
+
+function checkIfLoggedIn(){
+    const token = localStorage.getItem('refreshToken');
+    if(token !== undefined){
+        refreshToken().then(() => {
+            const loggedInEvent = new CustomEvent('loggedIn');
+            document.dispatchEvent(loggedInEvent);
+        })
+    }
+}
