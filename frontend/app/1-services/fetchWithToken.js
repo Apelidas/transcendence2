@@ -16,7 +16,6 @@ async function fetchWithToken(url, method, headers = {}, body) {
 }
 
 async function refreshToken() {
-    alert('token being refreshed');
     const refreshToken = localStorage.getItem('refresh_token');
     const response = await sendRequest(
         TokenRefreshEndpoint,
