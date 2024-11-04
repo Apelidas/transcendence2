@@ -17,9 +17,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function signup() {
     const email = document.getElementById('EmailFieldSignup').value;
+    const username = document.getElementById('UsernameFieldSignup').value;
     const password = document.getElementById('PasswordFieldSignup').value;
     const repeatPassword = document.getElementById('RepeatPasswordFieldSignup').value;
-    
+
     if (password !== repeatPassword) {
         alert('Passwords do not match. Please try again.');
         return;
@@ -28,7 +29,7 @@ async function signup() {
     const submitButton = document.querySelector('#signupForm button[type="submit"]');
     submitButton.disabled = true;
     
-    const isSuccess = await signupAdapter(email, password);
+    const isSuccess = await signupAdapter(email, username, password);
 
     if (isSuccess) {
         closeAllPopups(true); // Close all popups and remove blur effect

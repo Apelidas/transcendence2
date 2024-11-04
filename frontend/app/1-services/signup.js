@@ -2,20 +2,16 @@
 
 const signupEndpoint = 'http://127.0.0.1:8000/signup/'
 
-async function signupAdapter(email, password) {
+async function signupAdapter(email, username, password) {
     try {
         const response = await fetch(signupEndpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, password }),
+            body: JSON.stringify({ email, username, password }),
         });
-        if (response.status === 200) {
-			return true;
-        } else {
-			return false;
-        }
+        return response.status === 200;
     } catch (error) {
 		return false;
 	}

@@ -1,17 +1,15 @@
-
 // Function to handle routing
 function handleRouting() {
     // Hide all sections by removing the active class
     document.querySelectorAll('.active').forEach(div => div.classList.remove('active'));
 
     const path = window.location.pathname;
-	console.log('Routing to:', path); 
 
 
     switch (path) {
         case '/':
-			console.log(document.getElementById('viewHome'))
-			document.getElementById('viewHome').classList.add('active');
+            console.log(document.getElementById('viewHome'))
+            document.getElementById('viewHome').classList.add('active');
             break;
         case '/home':
             console.log(document.getElementById('viewHome'))
@@ -19,7 +17,7 @@ function handleRouting() {
             document.getElementById('viewHome').classList.add('active');
             break;
         case '/about':
-			console.log(document.getElementById('viewAbout'))
+            console.log(document.getElementById('viewAbout'))
             document.getElementById('viewAbout').classList.add('active');
             break;
         case '/games':
@@ -52,6 +50,7 @@ function handleRouting() {
             break;
         case '/profile':
             document.getElementById('viewProfile').classList.add('active');
+            profileAdapter().then(value => setProfileData(value))
             break;
         default:
             document.getElementById('viewHome').classList.add('active');
@@ -62,7 +61,7 @@ function handleRouting() {
 // Update URL and content based on route
 function changeRoute(path) {
     window.history.pushState({}, '', path); // Update the URL without reloading
-	console.log('changeRoute')
+    console.log('changeRoute')
     handleRouting(); // Call handleRouting to update the displayed content
 }
 
@@ -72,6 +71,26 @@ window.addEventListener('popstate', handleRouting);
 // Initialize routing on page load
 document.addEventListener('DOMContentLoaded', function () {
     // Initialize page content based on the current URL
-	console.log('onLoad')
+    console.log('onLoad')
     handleRouting();
+    checkIfLoggedIn();
 });
+
+function checkIfLoggedIn() {
+    const token = localStorage.getItem('refresh_token');
+    console.log('refreshToken before: ' + token);
+    if (token !== undefined) {
+        refreshToken().then((ifSuccess) => {
+            console.log('Token refresh was: ' + ifSuccess + '-----')
+            if (ifSuccess) {
+                const loggedInEvent = new CustomEvent('loggedIn');
+                document.dispatchEvent(loggedInEvent);
+            }
+            else{
+                localStorage.setItem('refresh_token', null);
+                localStorage.setItem('access_token', null);
+            }
+        })
+    }
+    console.log('refreshToken after: ' + localStorage.getItem('refresh_token'));
+}

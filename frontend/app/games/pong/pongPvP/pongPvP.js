@@ -45,13 +45,13 @@ document.addEventListener('DOMContentLoaded', function () {
     function applySettings() {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
-        canvas.style.backgroundColor = backgroundColorInput.value;
-        ball.color = ballColorInput.value;
-        playerLeft.color = leftPlayerColorInput.value;
-        playerRight.color = rightPlayerColorInput.value;
+        canvas.style.backgroundColor = backgroundColorInput ? backgroundColorInput.value : '#222'; // Add fallback
+        ball.color = ballColorInput ? ballColorInput.value : '#FFFFFF';
+        playerLeft.color = leftPlayerColorInput ? leftPlayerColorInput.value : '#FF0000';
+        playerRight.color = rightPlayerColorInput ? rightPlayerColorInput.value : '#0000FF';
         playerLeft.name = leftPlayerNameInput.value || 'Left Player';
         playerRight.name = rightPlayerNameInput.value || 'Right Player';
-        winningScore = parseInt(winningScoreSelect.value);
+        winningScore = parseInt(winningScoreSelect ? winningScoreSelect.value : 11);
     }
 
     // Start button event listener
@@ -125,6 +125,20 @@ document.addEventListener('DOMContentLoaded', function () {
         playerRight.y = Math.max(0, Math.min(canvas.height - playerRight.height, playerRight.y));
     }
 
+    // End the game and display the winner
+	function endGame(winner) {
+		gameRunning = false;
+		alert(`${winner} wins!`);
+		gameOverlay.style.display = 'none';
+		playerLeft.score = 0;
+		playerRight.score = 0;
+		giveUpButtons.forEach(button => button.style.display = 'none');
+		if (obstaclesEnabled) {
+			clearInterval(obstacleInterval);
+			obstacles = [];
+		}
+	}
+
     // Move the ball and check for collisions
     function moveBall() {
         ball.x += ball.dx;
@@ -168,17 +182,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 //OBSTICLE FUNCTIONS
-	// Toggle obstacles on or off
-    toggleObstaclesButton.addEventListener('click', () => {
-        obstaclesEnabled = !obstaclesEnabled;
-        if (obstaclesEnabled) {
-            createObstacles();
-            obstacleInterval = setInterval(createObstacles, 5000);
-        } else {
-            clearInterval(obstacleInterval);
-            obstacles = [];
-        }
-    });
 
     // Function to create four obstacles at random positions
     function createObstacles() {
@@ -193,6 +196,18 @@ document.addEventListener('DOMContentLoaded', function () {
             obstacles.push(obstacle);
         }
     }
+
+	// Toggle obstacles on or off
+    toggleObstaclesButton.addEventListener('click', () => {
+        obstaclesEnabled = !obstaclesEnabled;
+        if (obstaclesEnabled) {
+            createObstacles();
+            obstacleInterval = setInterval(createObstacles, 5000);
+        } else {
+            clearInterval(obstacleInterval);
+            obstacles = [];
+        }
+    });
 
     // Apply a random effect when the ball hits an obstacle
     function applyRandomEffect() {
@@ -250,19 +265,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 
-    // End the game and display the winner
-    function endGame(winner) {
-        gameRunning = false;
-        alert(`${winner} wins!`);
-        gameOverlay.style.display = 'none';
-        playerLeft.score = 0;
-        playerRight.score = 0;
-        giveUpButtons.forEach(button => button.style.display = 'none');
-		if (obstaclesEnabled) {
-            clearInterval(obstacleInterval);
-            obstacles = [];
-        }
-    }
+
 
     // Handle user keyboard inputs for paddle control
     document.addEventListener('keydown', (e) => {
