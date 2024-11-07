@@ -15,7 +15,7 @@ async function auth_2fa_show_qrcode() {
 
     // TODO POST instead of GET with (min.) username
     const response = await fetchWithToken(mfaDataEndpoint, 'POST');
-    data = response.data;
+    const data = await response.json();
     console.log(data);
 
     let username = "agent47";
