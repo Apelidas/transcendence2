@@ -14,8 +14,13 @@ document.getElementById('change2FAToggle').addEventListener('click', function ()
     toggle = document.getElementById('change2FAToggle');
     qrcode = document.getElementById('qrcode');
     if (toggle.checked) {
+        try {
+            auth_2fa_show_qrcode();
+        }
+        catch (err) {
+            console.error(err);
+        }
         qrcode.style.display = 'block';
-        auth_2fa_show_qrcode();
     } else {
         qrcode.style.display = 'none';
         qrcode.innerHTML = "";
