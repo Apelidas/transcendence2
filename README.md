@@ -17,3 +17,16 @@ Make sure your containers are running and then run:
 `docker-compose exec backend python manage.py makemigrations` 
 
 `docker-compose exec backend python manage.py migrate` 
+
+
+For the env to test:
+`
+export DB_NAME = mydatabase
+export DB_USER = myuser
+export DB_USER_PASSWORD = mypassword
+export DB_HOST = postgres
+export DB_DB_PORT = 5432
+export POSTGRES_DB = mydatabase
+export POSTGRES_USER = myuser
+export POSTGRES_PASSWORD = mypassword
+`
