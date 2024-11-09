@@ -13,11 +13,8 @@ class MfaDataView(APIView):
     def post(self, request): 
         
         user = request.user
-        print("Post-Request received!")
-        
         
         return Response({
-            'message': 'Mfa data',
             'username': user.username,
             'secret': user.secret_2fa
         }, status=200)
