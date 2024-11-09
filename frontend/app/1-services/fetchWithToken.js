@@ -4,6 +4,7 @@ async function fetchWithToken(url, method, headers = {}, body) {
 
     headers['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
     const response = await sendRequest(url, method, headers, body);
+    console.log('fetchWithToken: ' + response.status);
     if (response.status === 401) {
         const refreshSuccess = await refreshToken();
         if (!refreshSuccess) {

@@ -10,27 +10,52 @@ document.getElementById('changeAliasButton').addEventListener('click', function 
     alert('Change Alias functionality here');
 });
 
-document.getElementById('change2FAToggle').addEventListener('click', function () {
-    toggle = document.getElementById('change2FAToggle');
-    qrcode = document.getElementById('qrcode');
-    if (toggle.checked) {
-        try {
-            auth_2fa_show_qrcode();
-        }
-        catch (err) {
-            console.error(err);
-        }
-        qrcode.style.display = 'block';
-    } else {
-        qrcode.style.display = 'none';
-        qrcode.innerHTML = "";
-        clearInterval(tokenInterval); // DEBUG
+document.getElementById('mfaEnableButton').addEventListener('click', function () {
+    try {
+        const secret_data = auth_2fa_get_secret();
+        showQrCode(secret_data);
+    }
+    catch (err) {
+        console.error(err);
     }
 });
 
+function showQrCode(data){
+    const otpauth = window.otplib.authenticator.keyuri(data.username, "transcendence", data.secret);
+    const qrcode = document.getElementById("qrcode");
+    qrcode.innerHTML = "";
+    new QRCode(qrcode, {
+        text: otpauth,
+        width: 128,
+        height: 128,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
+    openPopup('mfa-enable');
+    qrcode.style.display = 'block';
+}
+
+document.getElementById('mfaDisableButton').addEventListener('click', function () {
+    const response = fetchWithToken(mfaDataEndpoint, 'PUT', {}, {'mfa_enabled':false});
+    if (response.status !== 200)
+    {
+        console.log("2FA Disable Error: " + response.status)
+    }
+    document.getElementById('mfaEnableButton').style.display = 'block';
+    document.getElementById('mfaDisableButton').style.display = 'none';
+});
 
 function setProfileData(userData) {
     document.getElementById('profileName').textContent = userData.username;
+    if (userData.is_2fa_enabled) {
+        document.getElementById("mfaDisableButton").style.display = 'block';
+        document.getElementById("mfaEnableButton").style.display = 'none';
+    }
+    else {
+        document.getElementById("mfaEnableButton").style.display = 'block';
+        document.getElementById("mfaDisableButton").style.display = 'none';
+    }
     // document.getElementById('pvpWins').textContent = userData.pvpData.wins;
     // document.getElementById('pvpLoses').textContent = userData.pvpData.loses;
     // document.getElementById('pvpStreak').textContent = userData.pvpData.streak;
