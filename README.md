@@ -30,3 +30,9 @@ export POSTGRES_DB = mydatabase
 export POSTGRES_USER = myuser
 export POSTGRES_PASSWORD = mypassword
 `
+
+to delete postgress Database content:
+
+`
+docker exec -it my_postgres_container psql -U myuser -c "SELECT 'DROP DATABASE ' || datname || ';' FROM pg_database WHERE datistemplate = false;" | grep 'DROP DATABASE' | docker exec -i my_postgres_container psql -U postgres
+`
