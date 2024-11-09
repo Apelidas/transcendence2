@@ -13,7 +13,6 @@ class CustomUserManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(email=email, username=username, **extra_fields)
         user.set_password(password)
-        user.secret_2fa = pyotp.random_base32()
         user.save(using=self._db)
         return user
 
@@ -37,7 +36,7 @@ class CustomUser(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     mfa_enabled = models.BooleanField(default=False)
-    secret_2fa = models.CharField(default=False) # default=pyotp.random_base32()
+    secret_2fa = models.CharField(default=False) # pyotp.random_base32()
 
     objects = CustomUserManager()
 
@@ -46,12 +45,4 @@ class CustomUser(AbstractBaseUser):
 
     def __str__(self):
         return self.email
-    
-    def getMfaData(self):
-        data = MfaData(self.email, self.secret_2fa)
-        return data
 
-class MfaData:
-  def __init__(self, username, secret):
-    self.username = username
-    self.secret = secret

@@ -5,22 +5,19 @@ from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from ..models import CustomUser
-from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class MfaDataView(APIView):
-    authentication_classes = []  # Disable JWT Authentication for this view
+    authentication_classes = [JWTAuthentication]
     
     def post(self, request): 
         
-        # TODO get user info from request data (username)
-        # user = request.user
-        # data = user.getMfaData()
-        # print("data" + data)
+        user = request.user
         print("Post-Request received!")
         
         
         return Response({
             'message': 'Mfa data',
-            'username': "dummy", # data.username
-            'secret': "geheim", # data.secret
+            'username': user.username,
+            'secret': user.secret_2fa
         }, status=200)
