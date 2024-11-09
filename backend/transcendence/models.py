@@ -36,7 +36,7 @@ class CustomUser(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     mfa_enabled = models.BooleanField(default=False)
-    secret_2fa = models.CharField(default=False) # pyotp.random_base32()
+    secret_2fa = models.CharField(default=pyotp.random_base32())
 
     objects = CustomUserManager()
 
