@@ -16,8 +16,8 @@ async function loginAdapter(email, password) {
 			const data = await response.json();
 
 			// Store the tokens in localStorage
-			localStorage.setItem('access_token', data.access);
-			localStorage.setItem('refresh_token', data.refresh);
+			setCookie('access_token', data.access, 1800000);
+			setCookie('refresh_token', data.refresh, 86400000);
 			
 			return true;
 		} else {
