@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function checkIfLoggedIn() {
-    const token = localStorage.getItem('refresh_token');
+    const token = getCookie('refresh_token');
     console.log('refreshToken before: ' + token);
     if (token !== undefined) {
         refreshToken().then((ifSuccess) => {

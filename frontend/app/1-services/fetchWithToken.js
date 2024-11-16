@@ -18,7 +18,8 @@ async function refreshToken() {
     const response = await sendRequest(
         TokenRefreshEndpoint,
         'POST',
-        {'Authorization': 'Bearer ' + refresh_token},
+        {},
+        {refresh: refresh_token}
     )
     if (response.ok) {
         const data = await response.json();
