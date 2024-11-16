@@ -8,6 +8,8 @@ class ProfileView(APIView):
 
     def get(self, request):
         user = request.user
+        if not user:
+            return Response({'message': 'could not authenticate User'}, status=403)
         profile_data = {
             'username': user.username,
             'email': user.email
