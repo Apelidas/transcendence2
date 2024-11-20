@@ -21,8 +21,17 @@ class LoginView(APIView):
 
         if user is not None:
             if user.is_active:
-                login(request, user)
                 refresh = RefreshToken.for_user(user)
+                if user.mfa_enabled:
+                    tempToken = str(refresh.access_token)
+                    request.session['temporaryToken'] = tempToken
+                    request.session['userId'] = user.id
+                    request.session.set_expiry(600)
+                    return Response({
+                        'message': '2FA AUTH required',
+                        'temporaryToken': tempToken
+                    }, status=401)
+                login(request, user)
                 return Response({
                     'message': 'Login successful',
                     'refresh': str(refresh),

@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
+from transcendence.adapter.authenticate import AuthenticationView
 from transcendence.adapter.profile import ProfileView
 from transcendence.adapter.signup import SignUpView
 from transcendence.adapter.login import LoginView
@@ -29,6 +30,7 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('login/', LoginView.as_view(), name='login_view'),
     path('profile/', ProfileView.as_view(), name='profile_view'),
+    path('login/authenticate/', AuthenticationView.as_view(), name='authentication_view'),
 
     path('mfa_data/', MfaDataView.as_view(), name='mfa_view'),
 ]
