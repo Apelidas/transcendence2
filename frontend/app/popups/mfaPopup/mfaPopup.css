@@ -1,0 +1,20 @@
+#mfaPopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    /* semi-transparent background */
+    padding: 20px;
+    color: white;
+    text-align: center;
+    z-index: 1000;
+}
+
+#qrcode {
+    padding: 20px;
+}
+
+#mfa-button {
+    padding: 20px;
+}

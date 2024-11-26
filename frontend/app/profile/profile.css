@@ -75,6 +75,10 @@
     background-color: var(--link-hover-color);
 }
 
-#qrcode {
+#mfaEnableButton {
+    display: none;
+}
+
+#mfaDisableButton {
     display: none;
 }

@@ -10,6 +10,7 @@
 
         document.getElementById('loginForm').addEventListener('submit', async function(event) {
             event.preventDefault();
+            console.log('submit buton');
             await login(event);
         });
     });
@@ -17,16 +18,19 @@
     async function login(event) {
         const email = document.getElementById('EmailField').value;
         const password = document.getElementById('PasswordField').value;
+        const mfa = document.getElementById('MfaField').value;
 
         const submitButton = document.querySelector('#loginForm button[type="submit"]');
         submitButton.disabled = true;
 
-        const isSuccess = await loginAdapter(email, password);
+        const isSuccess = await loginAdapter(email, password, mfa);
 
         if (isSuccess) {
             closeAllPopups(true); // Close all popups and remove blur effect
             const loggedInEvent = new CustomEvent('loggedIn');
             document.dispatchEvent(loggedInEvent);
+        } else if (isSuccess === undefined){
+            document.getElementById('2faGroup').style.display = 'block';
         } else {
             alert('Login failed. Please try again.');
         }

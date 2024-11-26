@@ -14,6 +14,9 @@ class SignUpView(APIView):
         email = data.get('email')
         password = data.get('password')
         username = data.get('username')
+        print('this is data: ' + str(data))
+        print('EMAIL: ' + email)
+        print('PASSWORD: ' + password)
         if not email or not password or not username:
             return JsonResponse({'error': 'Missing credentials'}, status=400)
         if CustomUser.objects.user_exists(email) is True:
