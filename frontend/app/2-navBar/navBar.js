@@ -2,6 +2,30 @@ document.addEventListener('loggedIn', function () {
     updateNavbarBasedOnLogin();
 });
 
+function updateNavbarBasedOnLogout() {
+    const loginButton = document.getElementById('loginButton');
+    const signupButton = document.getElementById('signupButton');
+    const userGreeting = document.getElementById('userGreeting');
+    const viewProfileButton = document.getElementById('viewProfileButton');
+    const logoutButton = document.getElementById('logoutButton');
+
+    console.log('updating navBar')
+    const username = localStorage.getItem('username');
+    console.log(username)
+    loginButton.style.display = 'block';
+    signupButton.style.display = 'block';
+    userGreeting.querySelector('span').textContent = ``;
+    userGreeting.classList.add('d-none');
+    viewProfileButton.classList.add('d-none');
+    logoutButton.classList.add('d-none');
+    document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+document.addEventListener('loggedOut', function (){
+    updateNavbarBasedOnLogout();
+})
+
 // Utility function to open popups
 function openPopup(popup, pushState = true) {
     if (pushState) {
@@ -66,6 +90,11 @@ function updateNavbarBasedOnLogin() {
 const signupButton = document.getElementById('signupButton');
 const loginButton = document.getElementById('loginButton');
 const overlay = document.getElementById('overlay');
+const logoutButton = document.getElementById('logoutButton');
+
+logoutButton.addEventListener('click', function () {
+    updateNavbarBasedOnLogout();
+})
 
 // Add event listeners for navigation buttons
 loginButton.addEventListener('click', function () {
