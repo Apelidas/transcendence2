@@ -7,11 +7,10 @@ COPY requirements.txt /app/
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN apt-get install libnss3-tools -y
-RUN wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
-
-RUN wget -O /usr/local/bin/ https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64 \
-	&& chmod +x mkcert-v1.4.3-linux-amd64
+run apt update && apt upgrade -y
+RUN apt install libnss3-tools wget -y
+RUN wget -O /usr/local/bin/mkcert https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64 \
+	&& chmod +x /usr/local/bin/mkcert
 
 RUN mkcert -install
 RUN mkcert -cert-file cert.pem -key-file key.pem localhost 127.0.0.1
