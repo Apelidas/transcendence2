@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sslserver',
+    'django_extensions',
     'corsheaders',
     'transcendence.apps.TranscendenceConfig',
     'rest_framework',
