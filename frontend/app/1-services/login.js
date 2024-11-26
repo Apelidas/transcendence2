@@ -18,7 +18,6 @@ async function loginAdapter(email, password, mfaCode) {
 			// Store the tokens in localStorage
 			setCookie('access_token', data.access, 1800000);
 			setCookie('refresh_token', data.refresh, 86400000);
-
 			return true;
 		} else if(response.status === 401){
 			const content = await response.json();
