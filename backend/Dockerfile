@@ -14,6 +14,7 @@ RUN wget -O /usr/local/bin/mkcert https://github.com/FiloSottile/mkcert/releases
 
 RUN mkcert -install
 RUN mkcert -cert-file cert.pem -key-file key.pem localhost 127.0.0.1
+# COPY TO CORRECT DIR?
 
 COPY . /app/
 COPY run.sh /app/run.sh
