@@ -20,8 +20,10 @@ document.getElementById('mfaEnableButton').addEventListener('click', function ()
     }
 });
 
-function showQrCode(data){
-    const otpauth = window.otplib.authenticator.keyuri(data.username, "transcendence", data.secret);
+async function showQrCode(data){
+    const info = await data;
+    console.log('secret-data: ' + info.secret);
+    const otpauth = window.otplib.authenticator.keyuri(data.username, "transcendence", info.secret);
     const qrcode = document.getElementById("qrcode");
     qrcode.innerHTML = "";
     new QRCode(qrcode, {
