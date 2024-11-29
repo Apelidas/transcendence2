@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 createObstacles();
                 obstacleInterval = setInterval(createObstacles, 5000);
             }
-            requestAnimationFrame(update);
+            requestAnimationFrame(update_game);
         }
     });
 
@@ -253,14 +253,14 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
     // Update game loop
-	function update() {
+	function update_game() {
 		if (gameRunning) {
 			movePaddles();
 			moveBall();
 			// detectCollisions();
 			checkObstacleCollision();
 			draw();
-			requestAnimationFrame(update);
+			requestAnimationFrame(update_game);
 		}
 	}
 
