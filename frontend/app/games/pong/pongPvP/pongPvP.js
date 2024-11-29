@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (gameRunning) {
 			movePaddles();
 			moveBall();
-			detectCollisions();
+			// detectCollisions();
 			checkObstacleCollision();
 			draw();
 			requestAnimationFrame(update);
