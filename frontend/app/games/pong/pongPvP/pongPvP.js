@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
         canvas.height = 600;
         canvas.style.backgroundColor = backgroundColorInput ? backgroundColorInput.value : '#222'; // Add fallback
         ball.color = ballColorInput ? ballColorInput.value : '#FFFFFF';
-        playerLeft.color = leftPlayerColorInput ? leftPlayerColorInput.value : '#FF0000';
+        playerLeft.color = leftPlayerColorInput ? leftPlayerColorInput.value : '#FF0000'; // !!!!! this does not work
         playerRight.color = rightPlayerColorInput ? rightPlayerColorInput.value : '#0000FF';
         playerLeft.name = leftPlayerNameInput.value || 'Left Player';
         playerRight.name = rightPlayerNameInput.value || 'Right Player';
