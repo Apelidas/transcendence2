@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Apply settings for game initialization
     function applySettings() {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
+        canvas.width = 800; // !!!!!
+        canvas.height = 600;
         canvas.style.backgroundColor = backgroundColorInput ? backgroundColorInput.value : '#222'; // Add fallback
         ball.color = ballColorInput ? ballColorInput.value : '#FFFFFF';
         playerLeft.color = leftPlayerColorInput ? leftPlayerColorInput.value : '#FF0000';
