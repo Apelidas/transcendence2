@@ -37,7 +37,12 @@ class CustomUser(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     mfa_enabled = models.BooleanField(default=False)
     secret_2fa = models.CharField(default=pyotp.random_base32())
-
+    profile_picture = models.ImageField(
+        upload_to='pictures/',
+        null=True,
+        blank=True,
+        default='pictures/shiroFood.webp'
+    )
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'

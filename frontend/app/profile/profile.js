@@ -58,6 +58,7 @@ function setProfileData(userData) {
         document.getElementById("mfaEnableButton").style.display = 'block';
         document.getElementById("mfaDisableButton").style.display = 'none';
     }
+    document.getElementById('profilePicture').src = userData.profile_picture
     // document.getElementById('pvpWins').textContent = userData.pvpData.wins;
     // document.getElementById('pvpLoses').textContent = userData.pvpData.loses;
     // document.getElementById('pvpStreak').textContent = userData.pvpData.streak;

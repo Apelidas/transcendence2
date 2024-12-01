@@ -11,6 +11,6 @@ class ImageView(APIView):
             return Response({'error': 'No image provided'}, status=400)
 
         image = request.FILES['image']
-        file_name = default_storage.save(os.path.join('pictures', image.name), ContentFile(image.read()))
+        file_name = default_storage.save(os.path.join('media', image.name), ContentFile(image.read()))
 
         return Response({'message': 'Image uploaded successfully', 'file_path': file_name}, status=201)

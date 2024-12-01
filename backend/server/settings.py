@@ -154,3 +154,6 @@ SIMPLE_JWT = {
 LOGIN_URL = 'two_factor:login'
 
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'transcendence', 'media')
+MEDIA_URL = '/media/'

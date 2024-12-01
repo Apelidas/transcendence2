@@ -22,6 +22,9 @@ from transcendence.adapter.profile import ProfileView
 from transcendence.adapter.signup import SignUpView
 from transcendence.adapter.login import LoginView
 from transcendence.adapter.mfa import MfaDataView
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,3 +34,6 @@ urlpatterns = [
     path('profile/', ProfileView.as_view(), name='profile_view'),
     path('mfa_data/', MfaDataView.as_view(), name='mfa_view'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
