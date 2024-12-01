@@ -39,6 +39,8 @@ function openPopup(popup, pushState = true) {
         document.getElementById('signupPopup').style.display = 'block';
     } else if (popup === 'mfa-enable') {
         document.getElementById('mfaPopup').style.display = 'block';
+    } else if(popup === 'pictureUploadPopup'){
+        document.getElementById('pictureUploadPopup').style.display = 'block'
     }
 
     document.getElementById('overlay').style.display = 'block';
@@ -51,6 +53,7 @@ function closeAllPopups(removeBlur = true) {
     document.getElementById('signupPopup').style.display = 'none';
     document.getElementById('mfaPopup').style.display = 'none';
     document.getElementById('overlay').style.display = 'none';
+    document.getElementById('pictureUploadPopup').style.display = 'none';
 
     if (removeBlur) {
         toggleBlur(false);

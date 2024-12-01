@@ -10,6 +10,10 @@ document.getElementById('changeAliasButton').addEventListener('click', function 
     alert('Change Alias functionality here');
 });
 
+document.getElementById('ChangeProfilePictureButton').addEventListener('click', function () {
+    openPopup('pictureUploadPopup');
+});
+
 document.getElementById('mfaEnableButton').addEventListener('click', function () {
     try {
         const secret_data = auth_2fa_get_secret();
