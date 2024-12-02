@@ -40,7 +40,9 @@ function openPopup(popup, pushState = true) {
     } else if (popup === 'mfa-enable') {
         document.getElementById('mfaPopup').style.display = 'block';
     } else if(popup === 'pictureUploadPopup'){
-        document.getElementById('pictureUploadPopup').style.display = 'block'
+        document.getElementById('pictureUploadPopup').style.display = 'block';
+    } else if(popup === 'changePassword'){
+        document.getElementById('changePasswordPopup').style.display = 'block';
     }
 
     document.getElementById('overlay').style.display = 'block';
@@ -54,6 +56,7 @@ function closeAllPopups(removeBlur = true) {
     document.getElementById('mfaPopup').style.display = 'none';
     document.getElementById('overlay').style.display = 'none';
     document.getElementById('pictureUploadPopup').style.display = 'none';
+    document.getElementById('changePasswordPopup').style.display = 'none';
 
     if (removeBlur) {
         toggleBlur(false);

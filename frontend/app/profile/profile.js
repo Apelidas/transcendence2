@@ -3,7 +3,7 @@ document.getElementById('changeEmailButton').addEventListener('click', function 
 });
 
 document.getElementById('changePasswordButton').addEventListener('click', function () {
-    alert('Change Password functionality here');
+    openPopup('changePassword')
 });
 
 document.getElementById('changeAliasButton').addEventListener('click', function () {

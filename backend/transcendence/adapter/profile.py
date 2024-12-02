@@ -23,3 +23,13 @@ class ProfileView(APIView):
             'profile_picture': profile_picture_url
         }
         return Response(profile_data, status=200)
+
+    def put(self, request):
+        user = request.user
+        if not user or not user.is_authenticated:
+            return Response({'message': 'could not authenticate User'}, status=403)
+        data = request.data
+        new_password = data.get('newPassword')
+        user.set_password(new_password)
+        user.save()
+        return Response(status=200)
