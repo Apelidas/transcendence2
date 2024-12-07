@@ -12,7 +12,6 @@ async function changeEmail(){
         alert('Emails do not match. Please try again.');
         return;
     }
-    console.log('requesting change');
     const isSuccess = await requestEmailChange(newEmail);
     if (isSuccess){
         alert('Email Succesfully Changed')

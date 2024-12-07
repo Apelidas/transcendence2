@@ -8,53 +8,61 @@ function handleRouting() {
 
     switch (path) {
         case '/':
-            console.log(document.getElementById('viewHome'))
             document.getElementById('viewHome').classList.add('active');
+            window.history.pushState({}, '', path);
             break;
         case '/home':
-            console.log(document.getElementById('viewHome'))
-            console.log(document.getElementById('viewAbout'))
             document.getElementById('viewHome').classList.add('active');
+            window.history.pushState({}, '', path);
             break;
         case '/about':
-            console.log(document.getElementById('viewAbout'))
             document.getElementById('viewAbout').classList.add('active');
+            window.history.pushState({}, '', path);
             break;
         case '/games':
             document.getElementById('gamesDropdown').classList.add('active');
+            window.history.pushState({}, '', path);
             break;
         case '/games/pong':
             document.getElementById('viewPongMain').classList.add('active');
+            window.history.pushState({}, '', path);
             break;
         case '/games/pong/pongPvP':
             document.getElementById('viewPongPvP').classList.add('active');
+            window.history.pushState({}, '', path);
             break;
         case '/games/pong/pongAI':
             document.getElementById('viewPongAI').classList.add('active');
+            window.history.pushState({}, '', path);
             break;
         case '/games/pong/pongTourn':
             document.getElementById('viewPongTourn').classList.add('active');
+            window.history.pushState({}, '', path);
             break;
         case '/games/tic-tac-toe':
-            console.log(document.getElementById('viewTicTacToeMain'));
             document.getElementById('viewTicTacToeMain').classList.add('active');
+            window.history.pushState({}, '', path);
             break;
         case '/games/ticTacToe/ticTacToePvP':
             document.getElementById('viewTicTacToePvP').classList.add('active');
+            window.history.pushState({}, '', path);
             break;
         case '/games/ticTacToe/ticTacToeAI':
             document.getElementById('viewTicTacToeAI').classList.add('active');
+            window.history.pushState({}, '', path);
             break;
         case '/games/ticTacToe/ticTacToeTourn':
             document.getElementById('viewTicTacToeTourn').classList.add('active');
+            window.history.pushState({}, '', path);
             break;
         case '/profile':
             document.getElementById('viewProfile').classList.add('active');
-            console.log('before request');
+            window.history.pushState({}, '', path);
             getProfileData().then(value => setProfileData(value))
             break;
         default:
             document.getElementById('viewHome').classList.add('active');
+            window.history.pushState({}, '', '/');
             break;
     }
 }
@@ -62,7 +70,7 @@ function handleRouting() {
 // Update URL and content based on route
 function changeRoute(path) {
     window.history.pushState({}, '', path); // Update the URL without reloading
-    console.log('changeRoute')
+    console.log('changeRoute: ' + path);
     handleRouting(); // Call handleRouting to update the displayed content
 }
 

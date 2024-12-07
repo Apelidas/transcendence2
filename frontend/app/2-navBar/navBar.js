@@ -28,9 +28,6 @@ document.addEventListener('loggedOut', function (){
 
 // Utility function to open popups
 function openPopup(popup, pushState = true) {
-    if (pushState) {
-        window.history.pushState({popup: popup}, '', `/${popup}`);
-    }
     closeAllPopups(false); // Close any open popups without removing blur
 
     if (popup === 'login') {
