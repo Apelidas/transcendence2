@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('pongPvp', function () {
     const canvas = document.getElementById('pongCanvas');
     const context = canvas.getContext('2d');
     const gameOverlay = document.getElementById('gameOverlay');
@@ -43,8 +43,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Apply settings for game initialization
     function applySettings() {
-        canvas.width = 800; // !!!!!
-        canvas.height = 600;
+        // console.log("width1 " + document.getElementById("pvpContainer").width);
+        // canvas.width = document.getElementById("pvpContainer").style.width;
+        // canvas.height = document.getElementById("pvpContainer").style.height;
         canvas.style.backgroundColor = backgroundColorInput ? backgroundColorInput.value : '#222'; // Add fallback
         ball.color = ballColorInput ? ballColorInput.value : '#FFFFFF';
         playerLeft.color = leftPlayerColorInput ? leftPlayerColorInput.value : '#FF0000'; // !!!!! this does not work
@@ -52,6 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
         playerLeft.name = leftPlayerNameInput.value || 'Left Player';
         playerRight.name = rightPlayerNameInput.value || 'Right Player';
         winningScore = parseInt(winningScoreSelect ? winningScoreSelect.value : 11);
+        console.log("width " + canvas.width);
+        console.log("height " + canvas.height);
     }
 
     // Start button event listener

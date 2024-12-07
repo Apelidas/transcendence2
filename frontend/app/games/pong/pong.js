@@ -1,4 +1,6 @@
 document.getElementById('pongPvpButton').addEventListener('click', function() {
+    const pongPvpEvent = new CustomEvent('pongPvp');
+    document.dispatchEvent(pongPvpEvent);
     changeRoute('/games/pong/pongPvP'); 
 });
 
