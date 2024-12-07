@@ -22,6 +22,8 @@ from transcendence.adapter.profile import ProfileView
 from transcendence.adapter.signup import SignUpView
 from transcendence.adapter.login import LoginView
 from transcendence.adapter.mfa import MfaDataView
+from transcendence.adapter.change_email import ChangeEmailView
+from transcendence.adapter.upload_picture import UploadProfilePictureView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -33,6 +35,9 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login_view'),
     path('profile/', ProfileView.as_view(), name='profile_view'),
     path('mfa_data/', MfaDataView.as_view(), name='mfa_view'),
+    path('profile/upload-picture', UploadProfilePictureView.as_view(), name='upload_picture_view'),
+    path('profile/change-email', ChangeEmailView.as_view(), name='upload_picture_view'),
+
 ]
 
 if settings.DEBUG:

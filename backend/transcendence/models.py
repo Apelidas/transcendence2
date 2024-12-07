@@ -43,11 +43,18 @@ class CustomUser(AbstractBaseUser):
         blank=True,
         default='pictures/shiroFood.webp'
     )
-    objects = CustomUserManager()
+    def update_email(self, new_email):
+        if not new_email:
+            raise ValueError("The Email field must be set.")
+        if CustomUser.objects.filter(email=new_email).exists():
+            raise ValueError("This email is already in use.")
+        self.email = new_email
+        self.save()
+        self.refresh_from_db()
+        print("email: " + self.email)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email
-

@@ -1,9 +1,11 @@
-document.getElementById('changeEmailButton').addEventListener('click', function () {
-    alert('Change Email functionality here');
-});
+
 
 document.getElementById('changePasswordButton').addEventListener('click', function () {
     openPopup('changePassword')
+});
+
+document.getElementById('changeEmailButton').addEventListener('click', function () {
+    openPopup('changeEmail')
 });
 
 document.getElementById('changeAliasButton').addEventListener('click', function () {

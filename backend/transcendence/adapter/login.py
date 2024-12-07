@@ -1,5 +1,3 @@
-import json
-
 import pyotp
 from django.contrib.auth import authenticate, login
 from rest_framework.response import Response
@@ -23,7 +21,6 @@ class LoginView(APIView):
                 return Response({'error': 'Email and password are required.'}, status=400)
 
             user = authenticate(request, email=email, password=password)
-
             if user is not None:
                 if user.is_active:
                     refresh = RefreshToken.for_user(user)
