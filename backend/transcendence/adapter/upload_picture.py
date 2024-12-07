@@ -9,15 +9,14 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 class UploadProfilePictureView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    parser_classes = [MultiPartParser, FormParser]
 
-    def post(self, request, *args, **kwargs):
+    def put(self, request):
         user = request.user
-        if 'profile_picture' not in request.FILES:
+        file = request.FILES['file']
+        if not file:
             return Response({'error': 'No image file provided'}, status=status.HTTP_400_BAD_REQUEST)
 
-        image = request.FILES['profile_picture']
-        user.profile_picture = image
+        user.profile_picture = file
         user.save()
 
         return Response({'message': 'Profile picture updated successfully'}, status=status.HTTP_200_OK)

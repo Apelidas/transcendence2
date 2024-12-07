@@ -55,18 +55,29 @@ const server = http.createServer((request, response) => {
     }
 });
 
+function error(err, response) {
+    if (err.code === 'ENOENT') {
+        // Handle file not found error
+        const errorFilePath = path.join(__dirname, 'app', 'error', '404.html');
+        fs.readFile(errorFilePath, 'utf8', (err, data) => {
+            if (err) {
+                error(err, response);
+                return;
+            }
+            response.writeHead(200, {'Content-Type': 'text/html'});
+            response.end(data);
+        });
+    } else {
+        // Handle other errors
+        response.writeHead(500, {'Content-Type': 'text/plain'});
+        response.end('Server Error');
+    }
+}
+
 function readText(extname, contentType, filePath, response){
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
-            if (err.code === 'ENOENT') {
-                // Handle file not found error
-                response.writeHead(404, {'Content-Type': 'text/plain'});
-                response.end('Not Found');
-            } else {
-                // Handle other errors
-                response.writeHead(500, {'Content-Type': 'text/plain'});
-                response.end('Server Error');
-            }
+            error(err, response);
             return;
         }
 
@@ -86,15 +97,7 @@ function readText(extname, contentType, filePath, response){
 function readPictures(contentType, filePath, response) {
     fs.readFile(filePath, (err, data) => {
         if (err) {
-            if (err.code === 'ENOENT') {
-                // Handle file not found error
-                response.writeHead(404, {'Content-Type': 'text/plain'});
-                response.end('Not Found');
-            } else {
-                // Handle other errors
-                response.writeHead(500, {'Content-Type': 'text/plain'});
-                response.end('Server Error');
-            }
+            error(err, response);
             return;
         }
 

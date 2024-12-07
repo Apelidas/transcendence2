@@ -14,7 +14,8 @@ async function changePassword(){
     }
     const isSuccess = await requestPasswordChange(newPassword);
     if (isSuccess){
-        alert('Password Succesfully Changed')
+        alert('Password Succesfully Changed');
+        closeAllPopups(true);
     }
     submitButton.disabled = false;
 }

@@ -15,6 +15,7 @@ async function changeEmail(){
     const isSuccess = await requestEmailChange(newEmail);
     if (isSuccess){
         alert('Email Succesfully Changed')
+        closeAllPopups(true);
     }
     submitButton.disabled = false;
 }

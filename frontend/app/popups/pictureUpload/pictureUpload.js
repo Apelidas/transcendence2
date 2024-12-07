@@ -1,8 +1,32 @@
 
+const PictureEndpoint = 'http://127.0.0.1:8000/profile/upload-picture'
+document.getElementById('file-upload-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    await readImage();
+});
 
+async function readImage(){
+    const fileInput = document.getElementById('file-input');
+    const file = fileInput.files[0];
+
+    if (!file){
+        alert('cannot read file. Please change it and try again');
+        return;
+    }
+    try{
+
+     await sendImagetoBackend(file);
+    }
+    catch (e) {
+        alert(e);
+        return;
+    }
+    closeAllPopups(true);
+    alert('image changed succsefully');
+}
 async function sendImagetoBackend(image){
     const formdata = new FormData();
-    formdata.append(image);
+    formdata.append('file', image);
     const accessToken = getCookie('access_token');
     const options = {
         method: 'PUT',
@@ -12,5 +36,11 @@ async function sendImagetoBackend(image){
         body: formdata,
         credentials: 'include'
     };
-    const response = await fetch('', options);
+    const response = await fetch(PictureEndpoint, options);
+
+    if (!response.ok) {
+        throw new Error(`Failed to upload image: ${response.statusText}`);
+    }
+    alert('Image succesfully changed');
+    closeAllPopups(true);
 }
