@@ -51,7 +51,7 @@ function handleRouting() {
         case '/profile':
             document.getElementById('viewProfile').classList.add('active');
             console.log('before request');
-            profileAdapter().then(value => setProfileData(value))
+            getProfileData().then(value => setProfileData(value))
             break;
         default:
             document.getElementById('viewHome').classList.add('active');

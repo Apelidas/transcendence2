@@ -3,11 +3,15 @@ document.getElementById('changeEmailButton').addEventListener('click', function 
 });
 
 document.getElementById('changePasswordButton').addEventListener('click', function () {
-    alert('Change Password functionality here');
+    openPopup('changePassword')
 });
 
 document.getElementById('changeAliasButton').addEventListener('click', function () {
     alert('Change Alias functionality here');
+});
+
+document.getElementById('ChangeProfilePictureButton').addEventListener('click', function () {
+    openPopup('pictureUploadPopup');
 });
 
 document.getElementById('mfaEnableButton').addEventListener('click', function () {
@@ -58,6 +62,7 @@ function setProfileData(userData) {
         document.getElementById("mfaEnableButton").style.display = 'block';
         document.getElementById("mfaDisableButton").style.display = 'none';
     }
+    document.getElementById('profilePicture').src = userData.profile_picture
     // document.getElementById('pvpWins').textContent = userData.pvpData.wins;
     // document.getElementById('pvpLoses').textContent = userData.pvpData.loses;
     // document.getElementById('pvpStreak').textContent = userData.pvpData.streak;
