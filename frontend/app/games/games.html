@@ -1,13 +1,21 @@
-    <div class="games-container">
-        <!-- Pong Game Block -->
-        <div class="game-block">
-            <img src="pong-image.jpg" alt="Pong Game" class="game-image">
-            <button class="play-button" onclick="changeRoute('/games/pong')">Play Pong</button>
-        </div>
-        
-        <!-- Tic-Tac-Toe Game Block -->
-        <div class="game-block">
-            <img src="tic-tac-toe-image.jpg" alt="Tic-Tac-Toe Game" class="game-image">
-            <button class="play-button" onclick="changeRoute('/games/tic-tac-toe')">Play Tic-Tac-Toe</button>
-        </div>
+
+<div class="games-grid">
+    <div class="game-block">
+        <button class="play-button" onclick="changeRoute('/games/pong/settings/pongSettingsPvp')">Play Pong PVP</button>
     </div>
+    <div class="game-block">
+        <button class="play-button" onclick="changeRoute('/games/pong')">Play Pong vs AI</button>
+    </div>
+    <div class="game-block">
+        <button class="play-button" onclick="changeRoute('/games/pong')">Play Pong Tournament</button>
+    </div>
+    <div class="game-block">
+        <button class="play-button" onclick="changeRoute('/games/ttt')">Play TTT</button>
+    </div>
+    <div class="game-block">
+        <button class="play-button" onclick="changeRoute('/games/ttt')">Play TTT vs AI</button>
+    </div>
+    <div class="game-block">
+        <button class="play-button" onclick="changeRoute('/games/ttt')">Play TTT Tournament</button>
+    </div>
+</div>

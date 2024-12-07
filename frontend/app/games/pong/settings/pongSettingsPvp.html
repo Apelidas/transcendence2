@@ -1,0 +1,42 @@
+<div class="pongSettings">
+    <h2>Pong: Player vs Player</h2>
+	<!-- Settings Containers -->
+    <div class="options-container">
+        <!-- Left Player Options -->
+        <div class="player-options">
+            <label for="leftPlayerName">Left Player Name:</label>
+            <input type="text" id="leftPlayerName" placeholder="Enter Left Player Name" required>
+            <label for="leftPlayerColor">Player Color:</label>
+            <input type="color" id="leftPlayerColor" value="#FF0000">
+        </div>
+
+        <!-- Right Player Options -->
+        <div class="player-options">
+            <label for="rightPlayerName">Right Player Name:</label>
+            <input type="text" id="rightPlayerName" placeholder="Enter Right Player Name" required>
+            <label for="rightPlayerColor">Right Player Color:</label>
+            <input type="color" id="rightPlayerColor" value="#0000FF">
+        </div>
+    </div>
+
+    <!-- Game Settings Container -->
+    <div class="options-container">
+        <div class="settings-container">
+            <label for="backgroundColor">Background Color:</label>
+            <input type="color" id="backgroundColor" value="#000000">
+            <label for="ballColor">Ball Color:</label>
+            <input type="color" id="ballColor" value="#FFFFFF">
+            <label for="winningScore">Winning Score:</label>
+            <select id="winningScore">
+                <option value="3">3 Points</option>
+                <option value="5">5 Points</option>
+                <option value="11" selected>11 Points</option>
+            </select>
+        </div>
+
+        <!-- Start Game Button Container -->
+        <div class="start-container">
+            <button id="startPongPvp" class="start-btn">Start Game</button>
+        </div>
+    </div>
+</div>

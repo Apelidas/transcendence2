@@ -53,6 +53,14 @@ function handleRouting() {
             console.log('before request');
             getProfileData().then(value => setProfileData(value))
             break;
+
+        case '/games/pong/settings/pongSettingsPvp':
+            document.getElementById('viewPongSettingsPvp').classList.add('active');
+            break;
+        case '/games/pong/game':
+            document.getElementById('viewPongGame').classList.add('active');
+            break;
+
         default:
             document.getElementById('viewHome').classList.add('active');
             break;

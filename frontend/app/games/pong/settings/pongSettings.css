@@ -1,0 +1,78 @@
+/* Main container styling */
+.pongSettings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Player and settings containers */
+.options-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.player-options, .settings-container, .start-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 10px;
+    text-align: center;
+}
+
+/* Input styling */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="color"], select {
+    width: 80%;
+    padding: 8px;
+    margin: 5px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Start Button styling */
+.start-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.start-btn:hover {
+    background-color: #218838;
+}
+
+@media (max-width: 768px) {
+    .options-container {
+        flex-direction: column;
+    }
+    .player-options, .settings-container, .start-container {
+        width: 80%;
+        margin: 10px 0;
+    }
+}
