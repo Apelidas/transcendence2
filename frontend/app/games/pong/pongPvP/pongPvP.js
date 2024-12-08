@@ -19,11 +19,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let gameRunning = false;
     let winningScore = 11;
 	let obstacles = [];
-    let obstacleInterval;
 
-    let ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 4, dy: -4, speed: ballSpeed, radius: ballSize, color: '#FFFFFF' };
+    let ball = { x: canvas.width, y: canvas.height / 2, dx: 4, dy: -4, speed: ballSpeed, radius: ballSize, color: '#FFFFFF' };
     let playerLeft = { x: 10, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#FF0000' };
-    let playerRight = { x: canvas.width - 20, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#0000FF' };
+    let playerRight = { x: canvas.width * 2 - 20, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#0000FF' };
 
     // Helper function to validate player names
     function validateNames() {
@@ -43,8 +42,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Apply settings for game initialization
     function applySettings() {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
+        canvas.width = 600;
+        canvas.height = 400
         canvas.style.backgroundColor = backgroundColorInput ? backgroundColorInput.value : '#222'; // Add fallback
         ball.color = ballColorInput ? ballColorInput.value : '#FFFFFF';
         playerLeft.color = leftPlayerColorInput ? leftPlayerColorInput.value : '#FF0000';
@@ -62,10 +61,8 @@ document.addEventListener('DOMContentLoaded', function () {
             giveUpButtons.forEach(button => button.style.display = 'block');
             gameRunning = true;
             resetBall();
-			if (obstaclesEnabled) {
+			if (obstaclesEnabled)
                 createObstacles();
-                obstacleInterval = setInterval(createObstacles, 5000);
-            }
             requestAnimationFrame(update);
         }
     });
@@ -133,10 +130,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		playerLeft.score = 0;
 		playerRight.score = 0;
 		giveUpButtons.forEach(button => button.style.display = 'none');
-		if (obstaclesEnabled) {
-			clearInterval(obstacleInterval);
+		if (obstaclesEnabled)
 			obstacles = [];
-		}
 	}
 
     // Move the ball and check for collisions
@@ -150,12 +145,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (ball.x - ball.radius < playerLeft.x + playerLeft.width && ball.y > playerLeft.y && ball.y < playerLeft.y + playerLeft.height) {
             ball.dx *= -1;
-            if (obstaclesEnabled) randomObstacle();
+            if (obstaclesEnabled) checkObstacleCollision();
         }
 
         if (ball.x + ball.radius > playerRight.x && ball.y > playerRight.y && ball.y < playerRight.y + playerRight.height) {
             ball.dx *= -1;
-            if (obstaclesEnabled) randomObstacle();
+            if (obstaclesEnabled) checkObstacleCollision();
         }
 
         if (ball.x + ball.radius < 0) {
@@ -178,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ball.dx = (Math.random() < 0.5 ? -1 : 1) * ballSpeed;
         ball.dy = (Math.random() < 0.5 ? -1 : 1) * ballSpeed;
 		ball.radius = ballSize; // Obsticles
-        ball.speed = ballSpeed; 
+        ball.speed = ballSpeed;
     }
 
 //OBSTICLE FUNCTIONS
@@ -188,8 +183,8 @@ document.addEventListener('DOMContentLoaded', function () {
         obstacles = [];
         for (let i = 0; i < 4; i++) {
             const obstacle = {
-                x: Math.random() * (canvas.width - 30) + 15,
-                y: Math.random() * (canvas.height - 30) + 15,
+                x: Math.floor(Math.random() * 600),
+                y: Math.floor(Math.random() * 400),
                 width: 15,
                 height: 15
             };
@@ -200,13 +195,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Toggle obstacles on or off
     toggleObstaclesButton.addEventListener('click', () => {
         obstaclesEnabled = !obstaclesEnabled;
-        if (obstaclesEnabled) {
+        if (obstaclesEnabled)
             createObstacles();
-            obstacleInterval = setInterval(createObstacles, 5000);
-        } else {
-            clearInterval(obstacleInterval);
+        else
             obstacles = [];
-        }
     });
 
     // Apply a random effect when the ball hits an obstacle
@@ -257,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		if (gameRunning) {
 			movePaddles();
 			moveBall();
-			detectCollisions();
+			// detectCollisions();
 			checkObstacleCollision();
 			draw();
 			requestAnimationFrame(update);
