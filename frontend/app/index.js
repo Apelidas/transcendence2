@@ -39,20 +39,8 @@ function handleRouting() {
             document.getElementById('viewPongTourn').classList.add('active');
             window.history.pushState({}, '', path);
             break;
-        case '/games/tic-tac-toe':
-            document.getElementById('viewTicTacToeMain').classList.add('active');
-            window.history.pushState({}, '', path);
-            break;
-        case '/games/ticTacToe/ticTacToePvP':
-            document.getElementById('viewTicTacToePvP').classList.add('active');
-            window.history.pushState({}, '', path);
-            break;
-        case '/games/ticTacToe/ticTacToeAI':
-            document.getElementById('viewTicTacToeAI').classList.add('active');
-            window.history.pushState({}, '', path);
-            break;
-        case '/games/ticTacToe/ticTacToeTourn':
-            document.getElementById('viewTicTacToeTourn').classList.add('active');
+        case '/games/rockPaperScissors':
+            document.getElementById('viewRockPaperScissors').classList.add('active');
             window.history.pushState({}, '', path);
             break;
         case '/profile':

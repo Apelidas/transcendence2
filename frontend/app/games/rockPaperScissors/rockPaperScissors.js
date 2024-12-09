@@ -1,4 +1,4 @@
-const ticTacToeEndpoint = 'http://127.0.0.1:8000/ticTacToe/';
+const ticTacToeEndpoint = 'http://127.0.0.1:8000/rockPaperScissors/';
 
 document.addEventListener('DOMContentLoaded', function () {
 	//const { cyan } = require("colorette");
