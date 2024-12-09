@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const leftPlayerColorInput = document.getElementById('leftPlayerColor');
     const rightPlayerColorInput = document.getElementById('rightPlayerColor');
     const backgroundColorInput = document.getElementById('backgroundColor');
+    const leftGiveUp = document.getElementById('left-give-up');
+    const rightGiveUp = document.getElementById('right-give-up');
     const ballColorInput = document.getElementById('ballColor');
     const winningScoreSelect = document.getElementById('winningScore');
     const giveUpButtons = document.querySelectorAll('.give-up-button');
@@ -285,6 +287,14 @@ document.addEventListener('DOMContentLoaded', function () {
     decreaseSizeButton.addEventListener('click', () => {
         if (ball.radius > 2)
             ball.radius -= 2;
+    });
+
+    leftGiveUp.addEventListener('click', () => {
+        endGame(playerRight.name);
+    });
+
+    rightGiveUp.addEventListener('click', () => {
+        endGame(playerLeft.name);
     });
 
     // Handle user keyboard inputs for paddle control
