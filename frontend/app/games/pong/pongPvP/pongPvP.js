@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const context = canvas.getContext('2d');
     const gameOverlay = document.getElementById('gameOverlay');
     const startButton = document.getElementById('startButton');
+    const decreaseSpeedButton = document.getElementById('decreaseSpeed');
+    const increaseSpeedButton = document.getElementById('increaseSpeed');
+    const decreaseSizeButton = document.getElementById('decreaseSize');
+    const increaseSizeButton = document.getElementById('increaseSize');
 	const toggleObstaclesButton = document.getElementById('toggleObstacles');
     const leftPlayerNameInput = document.getElementById('leftPlayerName');
     const rightPlayerNameInput = document.getElementById('rightPlayerName');
@@ -114,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //MOVING
 
-	    // Move paddles based on user input
+    // Move paddles based on user input
     function movePaddles() {
         playerLeft.y += playerLeft.dy;
         playerRight.y += playerRight.dy;
@@ -127,17 +131,27 @@ document.addEventListener('DOMContentLoaded', function () {
 		gameRunning = false;
 		alert(`${winner} wins!`);
 		gameOverlay.style.display = 'none';
-		playerLeft.score = 0;
-		playerRight.score = 0;
+        resetScore();
+        resetBallsChanges();
 		giveUpButtons.forEach(button => button.style.display = 'none');
 		if (obstaclesEnabled)
 			obstacles = [];
 	}
 
+    function resetBallsChanges() {
+        ball.speed = ballSpeed;
+        ball.radius = ballSize;
+    }
+
+    function resetScore() {
+        playerLeft.score = 0;
+        playerRight.score = 0;
+    }
+
     // Move the ball and check for collisions
     function moveBall() {
-        ball.x += ball.dx;
-        ball.y += ball.dy;
+        ball.x += ball.dx * ball.speed;
+        ball.y += ball.dy * ball.speed;
 
         if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
             ball.dy *= -1;
@@ -170,21 +184,19 @@ document.addEventListener('DOMContentLoaded', function () {
     function resetBall() {
         ball.x = canvas.width / 2;
         ball.y = canvas.height / 2;
-        ball.dx = (Math.random() < 0.5 ? -1 : 1) * ballSpeed;
-        ball.dy = (Math.random() < 0.5 ? -1 : 1) * ballSpeed;
-		ball.radius = ballSize; // Obsticles
-        ball.speed = ballSpeed;
+        ball.dx = (Math.random() < 0.5 ? -1 : 1);
+        ball.dy = (Math.random() < 0.5 ? -1 : 1);
     }
 
-//OBSTICLE FUNCTIONS
+//OBSTACLE FUNCTIONS
 
     // Function to create four obstacles at random positions
     function createObstacles() {
         obstacles = [];
         for (let i = 0; i < 4; i++) {
             const obstacle = {
-                x: Math.floor(Math.random() * 600),
-                y: Math.floor(Math.random() * 400),
+                x: Math.floor(Math.random() * 500),
+                y: Math.floor(Math.random() * 300),
                 width: 15,
                 height: 15
             };
@@ -257,7 +269,23 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 
+    increaseSpeedButton.addEventListener('click', () => {
+        ball.speed ++;
+    });
 
+    decreaseSpeedButton.addEventListener('click', () => {
+        if (ball.speed > 1)
+            ball.speed --;
+    });
+
+    increaseSizeButton.addEventListener('click', () => {
+        ball.radius +=  2;
+    });
+
+    decreaseSizeButton.addEventListener('click', () => {
+        if (ball.radius > 2)
+            ball.radius -= 2;
+    });
 
     // Handle user keyboard inputs for paddle control
     document.addEventListener('keydown', (e) => {
