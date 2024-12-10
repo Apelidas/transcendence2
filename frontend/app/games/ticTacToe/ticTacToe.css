@@ -1,0 +1,61 @@
+/* Container for the three ticTacToe game blocks */
+.ticTacToe-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 1200px;
+    gap: 20px;
+}
+
+/* Styling for each game block */
+.ticTacToe-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 30%;
+    background-color: #f4f4f9;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Styling for the game images */
+.ticTacToe-image {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+/* Styling for the play buttons */
+.play-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Button hover effect */
+.play-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design: Stack blocks on smaller screens */
+@media (max-width: 768px) {
+    .ticTacToe-container {
+        flex-direction: column;
+    }
+
+    .ticTacToe-block {
+        width: 100%;
+    }
+}
