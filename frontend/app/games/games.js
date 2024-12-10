@@ -3,5 +3,5 @@ document.getElementById('playPongButton').addEventListener('click', function() {
 });
 
 document.getElementById('playTicTacToeButton').addEventListener('click', function() {
-    changeRoute('/games7ticTacToe'); 
+    changeRoute('/games/ticTacToe');
 });
