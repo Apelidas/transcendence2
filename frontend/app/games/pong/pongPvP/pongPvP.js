@@ -30,22 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let playerLeft = { x: 10, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#FF0000' };
     let playerRight = { x: canvas.width * 2 - 20, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#0000FF' };
 
-    // Helper function to validate player names
-    function validateNames() {
-        const leftName = leftPlayerNameInput.value.trim();
-        const rightName = rightPlayerNameInput.value.trim();
-        const namePattern = /^[A-Za-z]{3,}$/; // At least 3 letters, no special characters or numbers
-        if (!namePattern.test(leftName) || !namePattern.test(rightName)) {
-            alert("Names must be at least 3 letters long and contain only letters.");
-            return false;
-        }
-        if (leftName === rightName) {
-            alert("Player names must be unique.");
-            return false;
-        }
-        return true;
-    }
-
     // Apply settings for game initialization
     function applySettings() {
         canvas.width = 600;
@@ -61,7 +45,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Start button event listener
     startButton.addEventListener('click', () => {
-        if (validateNames()) {
+        const left = leftPlayerNameInput.value.trim();
+        const right = rightPlayerNameInput.value.trim();
+
+        if (validateName(left) && validateName(right) && checkForUniqueNames([left, right])) {
             applySettings();
             gameOverlay.style.display = 'flex';
             giveUpButtons.forEach(button => button.style.display = 'block');

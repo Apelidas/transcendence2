@@ -1,0 +1,51 @@
+<div class="pongGame">
+    <h2>Pong: Tournament</h2>
+	<!-- Settings Containers -->
+    <div class="options-container">
+        <div class="player-options">
+            <label for="firstPlayerName">First Player:</label>
+            <input type="text" id="firstPlayerName" placeholder="Enter Name" required>
+            <label for="firstPlayerColor">Player Color:</label>
+            <input type="color" id="firstPlayerColor" value="#FF0000">
+        </div>
+        <div class="player-options">
+            <label for="secondPlayerName">Second Player:</label>
+            <input type="text" id="secondPlayerName" placeholder="Enter Name" required>
+            <label for="secondPlayerColor">Player Color:</label>
+            <input type="color" id="secondPlayerColor" value="#0000FF">
+        </div>
+        <div class="player-options">
+            <label for="thirdPlayerName">Third Player:</label>
+            <input type="text" id="thirdPlayerName" placeholder="Enter Name" required>
+            <label for="thirdPlayerColor">Player Color:</label>
+            <input type="color" id="thirdPlayerColor" value="#FFFF00">
+        </div>
+        <div class="player-options">
+            <label for="fourthPlayerName">Fourth Player:</label>
+            <input type="text" id="fourthPlayerName" placeholder="Enter Name" required>
+            <label for="fourthPlayerColor">Player Color:</label>
+            <input type="color" id="fourthPlayerColor" value="#00FFFF">
+        </div>
+    </div>
+
+    <!-- Game Settings Container -->
+    <div class="options-container">
+        <div class="settings-container">
+            <label for="backgroundColor">Background Color:</label>
+            <input type="color" id="backgroundColor" value="#000000">
+            <label for="ballColor">Ball Color:</label>
+            <input type="color" id="ballColor" value="#FFFFFF">
+            <label for="winningScore">Winning Score:</label>
+            <select id="winningScore">
+                <option value="3">3 Points</option>
+                <option value="5" selected>5 Points</option>
+                <option value="11">11 Points</option>
+            </select>
+        </div>
+
+        <!-- Start Game Button Container -->
+        <div class="start-container">
+            <button id="startTournament" class="start-btn">Start Tournament</button>
+        </div>
+    </div>
+</div>
