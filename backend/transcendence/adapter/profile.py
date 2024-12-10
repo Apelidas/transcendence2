@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
+from transcendence.gameData import GameData
+
 
 class ProfileView(APIView):
     authentication_classes = [JWTAuthentication]
@@ -18,11 +20,17 @@ class ProfileView(APIView):
             if user.profile_picture else None
         )
 
+        pvpData = getGameData(user=user, againstAi=False)
+        aiData = getGameData(user=user, againstAi=True)
+
+
         profile_data = {
             'username': user.username,
             'email': user.email,
             'is_2fa_enabled': user.mfa_enabled,
-            'profile_picture': profile_picture_url
+            'profile_picture': profile_picture_url,
+            'pvpData': pvpData,
+            'aiData': aiData
         }
         print('profile/email:' + user.email);
         return Response(profile_data, status=200)
@@ -38,3 +46,15 @@ class ProfileView(APIView):
         user.set_password(new_password)
         user.save()
         return Response(status=200)
+
+def getGameData(user, againstAi):
+    wins = GameData.objects.getAllGamesWonBy(user, againstAi=againstAi).count()
+    loses = GameData.objects.getAllGamesPlayedBy(user, againstAi=againstAi).count() - wins
+
+    streak = GameData.objects.getMostWinsInARow(user, againstAi=againstAi)
+
+    return {
+        'wins': wins,
+        'loses': loses,
+        'streak': streak,
+    }
