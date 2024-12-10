@@ -39,7 +39,7 @@ function handleRouting() {
             document.getElementById('viewPongTourn').classList.add('active');
             window.history.pushState({}, '', path);
             break;
-        case '/games/tic-tac-toe':
+        case '/games/ticTacToe':
             document.getElementById('viewTicTacToeMain').classList.add('active');
             window.history.pushState({}, '', path);
             break;
