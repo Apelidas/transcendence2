@@ -9,7 +9,7 @@ const Locations = [
     '/profile',
     '/games',
     '/games/pong',
-    '/games/rockPaperScissors',
+    '/games/tic-tac-toe',
     '/login',
     '/signup',
 ];
