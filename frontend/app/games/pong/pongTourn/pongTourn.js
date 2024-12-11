@@ -36,7 +36,7 @@ document.getElementById("startTournament").addEventListener('click', () => {
     //     console.log("player" + i + " pos = " + players[i].position); // DEBUG
     // }
 
-    // changeRoute('/games/pong/pongTourn/tree') // TODO
+    changeRoute('/games/pong/pongTournPage')
     run_tournament(players); // , settings TODO
 });
 
