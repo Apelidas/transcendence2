@@ -6,6 +6,8 @@ async function fetchWithToken(url, method, headers = {}, body) {
     if (!accessToken){
         const isrefreshed = await refreshToken();
         if (!isrefreshed){
+            const loggedOutEvent = new CustomEvent('loggedOut');
+            document.dispatchEvent(loggedOutEvent);
             throw 'InvalidTokenError'
         }
     }

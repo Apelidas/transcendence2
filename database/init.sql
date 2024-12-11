@@ -12,5 +12,5 @@
 --     );
 
 
-INSERT INTO users (EMAIL, PASSWORD) VALUES ('test@example.com', 'hashed_password');
+-- INSERT INTO users (EMAIL, PASSWORD) VALUES ('test@example.com', 'hashed_password');
 

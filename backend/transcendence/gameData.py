@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 
 
+
+
 class GameDataManager(models.Manager):
     def getAllGamesWonBy(self, user, againstAi):
         return self.filter(user=user, user_won=True, against_ai=againstAi)
@@ -35,6 +37,7 @@ class GameData(models.Model):
         on_delete=models.CASCADE
     )
     user_won = models.BooleanField()
+    isPong = models.BooleanField()
 
     objects = GameDataManager()
 

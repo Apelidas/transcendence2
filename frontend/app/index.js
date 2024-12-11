@@ -5,64 +5,70 @@ function handleRouting() {
 
     const path = window.location.pathname;
 
-
+    console.log('switch to path: ' + path);
     switch (path) {
         case '/':
             document.getElementById('viewHome').classList.add('active');
-            window.history.pushState({}, '', path);
+            // window.history.pushState({}, '', path);
             break;
         case '/home':
             document.getElementById('viewHome').classList.add('active');
-            window.history.pushState({}, '', path);
+            // window.history.pushState({}, '', path);
             break;
         case '/about':
             document.getElementById('viewAbout').classList.add('active');
-            window.history.pushState({}, '', path);
+            // window.history.pushState({}, '', path);
             break;
         case '/games':
             document.getElementById('gamesDropdown').classList.add('active');
-            window.history.pushState({}, '', path);
+            // window.history.pushState({}, '', path);
             break;
         case '/games/pong':
             document.getElementById('viewPongMain').classList.add('active');
-            window.history.pushState({}, '', path);
+            // window.history.pushState({}, '', path);
             break;
         case '/games/pong/pongPvP':
             document.getElementById('viewPongPvP').classList.add('active');
-            window.history.pushState({}, '', path);
+            // window.history.pushState({}, '', path);
             break;
         case '/games/pong/pongAI':
             document.getElementById('viewPongAI').classList.add('active');
-            window.history.pushState({}, '', path);
+            // window.history.pushState({}, '', path);
             break;
         case '/games/pong/pongTourn':
             document.getElementById('viewPongTourn').classList.add('active');
-            window.history.pushState({}, '', path);
+            // window.history.pushState({}, '', path);
             break;
         case '/games/ticTacToe':
             document.getElementById('viewTicTacToeMain').classList.add('active');
-            window.history.pushState({}, '', path);
+            // window.history.pushState({}, '', path);
             break;
         case '/games/ticTacToe/ticTacToePvP':
             document.getElementById('viewTicTacToePvP').classList.add('active');
-            window.history.pushState({}, '', path);
+            // window.history.pushState({}, '', path);
             break;
         case '/games/ticTacToe/ticTacToeAI':
             document.getElementById('viewTicTacToeAI').classList.add('active');
-            window.history.pushState({}, '', path);
+            // window.history.pushState({}, '', path);
             break;
         case '/games/ticTacToe/ticTacToeTourn':
             document.getElementById('viewTicTacToeTourn').classList.add('active');
-            window.history.pushState({}, '', path);
+            // window.history.pushState({}, '', path);
             break;
         case '/profile':
             document.getElementById('viewProfile').classList.add('active');
-            window.history.pushState({}, '', path);
-            getProfileData().then(value => setProfileData(value))
+            // window.history.pushState({}, '', path);
+            getProfileData().then(value => {
+                if (value === undefined) {
+                    handleRouting();
+                } else {
+                    setProfileData(value)
+                }
+            })
             break;
         default:
             document.getElementById('viewHome').classList.add('active');
-            window.history.pushState({}, '', '/');
+            // window.history.pushState({}, '', '/');
             break;
     }
 }
@@ -75,7 +81,7 @@ function changeRoute(path) {
 }
 
 // Listen for changes in the browser's back/forward history
-window.addEventListener('popstate', handleRouting);
+
 
 // Initialize routing on page load
 document.addEventListener('DOMContentLoaded', function () {
@@ -83,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('onLoad')
     handleRouting();
     checkIfLoggedIn();
+    window.addEventListener('popstate', handleRouting);
 });
 
 function checkIfLoggedIn() {
@@ -94,8 +101,7 @@ function checkIfLoggedIn() {
             if (ifSuccess) {
                 const loggedInEvent = new CustomEvent('loggedIn');
                 document.dispatchEvent(loggedInEvent);
-            }
-            else{
+            } else {
                 localStorage.setItem('refresh_token', null);
                 localStorage.setItem('access_token', null);
             }

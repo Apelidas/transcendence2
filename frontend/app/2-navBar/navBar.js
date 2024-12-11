@@ -2,6 +2,10 @@ document.addEventListener('loggedIn', function () {
     updateNavbarBasedOnLogin();
 });
 
+document.addEventListener('loggedOut', function () {
+    updateNavbarBasedOnLogout();
+});
+
 function updateNavbarBasedOnLogout() {
     const loginButton = document.getElementById('loginButton');
     const signupButton = document.getElementById('signupButton');
@@ -128,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else if (state.popup) {
             openPopup(state.popup, false); // Open the popup without pushing a new state
         } else {
-            changeRoute('/home');
+            // changeRoute('/home');
         }
     });
 

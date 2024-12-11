@@ -65,9 +65,9 @@ function setProfileData(userData) {
         document.getElementById("mfaDisableButton").style.display = 'none';
     }
     document.getElementById('profilePicture').src = userData.profile_picture
-    // document.getElementById('pvpWins').textContent = userData.pvpData.wins;
-    // document.getElementById('pvpLoses').textContent = userData.pvpData.loses;
-    // document.getElementById('pvpStreak').textContent = userData.pvpData.streak;
+    document.getElementById('pvpWins').textContent = userData.pvpData.wins;
+    document.getElementById('pvpLoses').textContent = userData.pvpData.loses;
+    document.getElementById('pvpStreak').textContent = userData.pvpData.streak;
     // document.getElementById('aiWins').textContent = userData.aiData.wins;
     // document.getElementById('aiLoses').textContent = userData.aiData.loses;
     // document.getElementById('aiStreak').textContent = userData.aiData.streak;
