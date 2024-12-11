@@ -37,6 +37,7 @@ class CustomUser(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     mfa_enabled = models.BooleanField(default=False)
     secret_2fa = models.CharField(default=pyotp.random_base32())
+    lastAction = models.DateTimeField(null=True)
     profile_picture = models.ImageField(
         upload_to='pictures/',
         null=True,

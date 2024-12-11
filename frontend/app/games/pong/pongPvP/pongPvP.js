@@ -129,16 +129,24 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // End the game and display the winner
-	function endGame(winner) {
+	function endGame(winner, leftScore, rightScore) {
 		gameRunning = false;
 		alert(`${winner} wins!`);
 		gameOverlay.style.display = 'none';
+        sendGameData(leftScore, rightScore);
         resetScore();
         resetBallsChanges();
 		giveUpButtons.forEach(button => button.style.display = 'none');
 		if (obstaclesEnabled)
 			obstacles = [];
 	}
+
+    async function sendGameData(leftScore, rightScore){
+        const response = await sendGame(leftScore, rightScore, false, true, leftScore > rightScore);
+        if (response.status !== 200){
+            alert('There has been an error. GameData could not be stored');
+        }
+    }
 
     function resetBallsChanges() {
         ball.speed = ballSpeed;
@@ -178,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (playerLeft.score >= winningScore || playerRight.score >= winningScore) {
-            endGame(playerLeft.score > playerRight.score ? playerLeft.name : playerRight.name);
+            endGame(playerLeft.score > playerRight.score ? playerLeft.name : playerRight.name, playerLeft.score, playerRight.score);
         }
     }
 

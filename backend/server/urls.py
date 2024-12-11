@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
+from transcendence.adapter.pong import PongView
 from transcendence.adapter.profile import ProfileView
 from transcendence.adapter.signup import SignUpView
 from transcendence.adapter.login import LoginView
@@ -37,6 +38,7 @@ urlpatterns = [
     path('mfa_data/', MfaDataView.as_view(), name='mfa_view'),
     path('profile/upload-picture', UploadProfilePictureView.as_view(), name='upload_picture_view'),
     path('profile/change-email', ChangeEmailView.as_view(), name='upload_picture_view'),
+    path('pong/', PongView.as_view(), name='pong_view'),
 
 ]
 
