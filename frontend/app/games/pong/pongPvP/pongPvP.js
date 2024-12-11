@@ -302,4 +302,4 @@ function start_pong_game(left_player, right_player) {
         if (e.key === 'w' || e.key === 's') playerLeft.dy = 0;
         if (e.key === 'ArrowUp' || e.key === 'ArrowDown') playerRight.dy = 0;
     });
-});
+};
