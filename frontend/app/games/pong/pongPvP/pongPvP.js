@@ -1,17 +1,21 @@
-document.addEventListener('DOMContentLoaded', function () {
+
+document.getElementById('startButton').addEventListener('click', () => {
+
+    const left_player = create_player("leftPlayerName", "leftPlayerColor");
+    const right_player = create_player("rightPlayerName", "rightPlayerColor");
+
+    start_pong_game(left_player, right_player);
+});
+
+function start_pong_game(left_player, right_player) {
     const canvas = document.getElementById('pongCanvas');
     const context = canvas.getContext('2d');
     const gameOverlay = document.getElementById('gameOverlay');
-    const startButton = document.getElementById('startButton');
     const decreaseSpeedButton = document.getElementById('decreaseSpeed');
     const increaseSpeedButton = document.getElementById('increaseSpeed');
     const decreaseSizeButton = document.getElementById('decreaseSize');
     const increaseSizeButton = document.getElementById('increaseSize');
 	const toggleObstaclesButton = document.getElementById('toggleObstacles');
-    const leftPlayerNameInput = document.getElementById('leftPlayerName');
-    const rightPlayerNameInput = document.getElementById('rightPlayerName');
-    const leftPlayerColorInput = document.getElementById('leftPlayerColor');
-    const rightPlayerColorInput = document.getElementById('rightPlayerColor');
     const backgroundColorInput = document.getElementById('backgroundColor');
     const leftGiveUp = document.getElementById('left-give-up');
     const rightGiveUp = document.getElementById('right-give-up');
@@ -30,35 +34,29 @@ document.addEventListener('DOMContentLoaded', function () {
     let playerLeft = { x: 10, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#FF0000' };
     let playerRight = { x: canvas.width * 2 - 20, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#0000FF' };
 
+    if (validateName(left_player.name) && validateName(right_player.name) && checkForUniqueNames([left_player.name, right_player.name])) {
+        applySettings();
+        gameOverlay.style.display = 'flex';
+        giveUpButtons.forEach(button => button.style.display = 'block');
+        gameRunning = true;
+        resetBall();
+        if (obstaclesEnabled)
+            createObstacles();
+        requestAnimationFrame(update_game);
+    }
+
     // Apply settings for game initialization
     function applySettings() {
         canvas.width = 600;
         canvas.height = 400
         canvas.style.backgroundColor = backgroundColorInput ? backgroundColorInput.value : '#222'; // Add fallback
         ball.color = ballColorInput ? ballColorInput.value : '#FFFFFF';
-        playerLeft.color = leftPlayerColorInput ? leftPlayerColorInput.value : '#FF0000';
-        playerRight.color = rightPlayerColorInput ? rightPlayerColorInput.value : '#0000FF';
-        playerLeft.name = leftPlayerNameInput.value || 'Left Player';
-        playerRight.name = rightPlayerNameInput.value || 'Right Player';
+        playerLeft.color = left_player.color ? left_player.color : '#FF0000';
+        playerRight.color = right_player.color ? right_player.color : '#0000FF';
+        playerLeft.name = left_player.name || 'Left Player';
+        playerRight.name = right_player.name || 'Right Player';
         winningScore = parseInt(winningScoreSelect ? winningScoreSelect.value : 11);
     }
-
-    // Start button event listener
-    startButton.addEventListener('click', () => {
-        const left = leftPlayerNameInput.value.trim();
-        const right = rightPlayerNameInput.value.trim();
-
-        if (validateName(left) && validateName(right) && checkForUniqueNames([left, right])) {
-            applySettings();
-            gameOverlay.style.display = 'flex';
-            giveUpButtons.forEach(button => button.style.display = 'block');
-            gameRunning = true;
-            resetBall();
-			if (obstaclesEnabled)
-                createObstacles();
-            requestAnimationFrame(update);
-        }
-    });
 
 //////////////////////////GAME////////////////////////////
 //DRAWING
@@ -246,14 +244,14 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
     // Update game loop
-	function update() {
+	function update_game() {
 		if (gameRunning) {
 			movePaddles();
 			moveBall();
 			// detectCollisions();
 			checkObstacleCollision();
 			draw();
-			requestAnimationFrame(update);
+			requestAnimationFrame(update_game);
 		}
 	}
 
