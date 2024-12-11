@@ -10,12 +10,10 @@ document.getElementById('pongTournButton').addEventListener('click', function() 
     changeRoute('/games/pong/pongTourn'); 
 });
 
-function validateName(name) {
-    // const leftName = leftPlayerNameInput.value.trim();
-    // const rightName = rightPlayerNameInput.value.trim();
+function validateName(name, throw_alert=true) {
     const namePattern = /^[A-Za-z]{3,}$/; // At least 3 letters, no special characters or numbers
     if (!namePattern.test(name)) {
-        alert("Names must be at least 3 letters long and contain only letters.");
+        if (throw_alert) alert("Names must be at least 3 letters long and contain only letters (" + name + ").");
         return false;
     }
     return true;

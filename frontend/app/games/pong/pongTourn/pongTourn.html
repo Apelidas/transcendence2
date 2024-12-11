@@ -1,30 +1,30 @@
 <div class="pongGame">
     <h2>Pong: Tournament</h2>
-	<!-- Settings Containers -->
+    <!-- Settings Containers -->
     <div class="options-container">
         <div class="player-options">
-            <label for="firstPlayerName">First Player:</label>
-            <input type="text" id="firstPlayerName" placeholder="Enter Name" required>
-            <label for="firstPlayerColor">Player Color:</label>
-            <input type="color" id="firstPlayerColor" value="#FF0000">
+            <label for="player1Name">Player 1:</label>
+            <input type="text" id="player1Name" placeholder="Enter Name" required>
+            <label for="player1Color">Player Color:</label>
+            <input type="color" id="player1Color" value="#FF0000">
         </div>
         <div class="player-options">
-            <label for="secondPlayerName">Second Player:</label>
-            <input type="text" id="secondPlayerName" placeholder="Enter Name" required>
-            <label for="secondPlayerColor">Player Color:</label>
-            <input type="color" id="secondPlayerColor" value="#0000FF">
+            <label for="player2Name">Player 2:</label>
+            <input type="text" id="player2Name" placeholder="Enter Name" required>
+            <label for="player2Color">Player Color:</label>
+            <input type="color" id="player2Color" value="#0000FF">
         </div>
         <div class="player-options">
-            <label for="thirdPlayerName">Third Player:</label>
-            <input type="text" id="thirdPlayerName" placeholder="Enter Name" required>
-            <label for="thirdPlayerColor">Player Color:</label>
-            <input type="color" id="thirdPlayerColor" value="#FFFF00">
+            <label for="player3Name">Player 3:</label>
+            <input type="text" id="player3Name" placeholder="Enter Name" required>
+            <label for="player3Color">Player Color:</label>
+            <input type="color" id="player3Color" value="#FFFF00">
         </div>
         <div class="player-options">
-            <label for="fourthPlayerName">Fourth Player:</label>
-            <input type="text" id="fourthPlayerName" placeholder="Enter Name" required>
-            <label for="fourthPlayerColor">Player Color:</label>
-            <input type="color" id="fourthPlayerColor" value="#00FFFF">
+            <label for="player4Name">Player 4:</label>
+            <input type="text" id="player4Name" placeholder="Enter Name" required>
+            <label for="player4Color">Player Color:</label>
+            <input type="color" id="player4Color" value="#00FFFF">
         </div>
     </div>
 
@@ -48,4 +48,17 @@
             <button id="startTournament" class="start-btn">Start Tournament</button>
         </div>
     </div>
+</div>        
+<div id="pt-tournament-bracket" class="tournament-bracket">
+    <div id="ptPlayer1" class="player-status" style="grid-area: p1;"></div>
+    <button id="ptSemi1" class="play-game" style="grid-area: semi1; display: none" onclick="">Play Game</button>
+    <div id="ptPlayer2" class="player-status" style="grid-area: p2;"></div>
+    <button id="ptSemi2" class="play-game" style="grid-area: semi2; display: none;" onclick="">Play Game</button>
+    <div id="ptPlayer3" class="player-status" style="grid-area: p3;"></div>
+    <div id="ptPlayer4" class="player-status" style="grid-area: p4;"></div>
+    <div id="ptWinner1" class="player-status" style="grid-area: w1;"></div>
+    <button id="ptFinal" class="play-game" style="grid-area: final; display: none" onclick="">Play Game</button>
+    <div id="ptWinner2" class="player-status" style="grid-area: w2;"></div>
+    <div id="ptWinner" class="player-status" style="grid-area: winner;"></div>
+</div>
 </div>
