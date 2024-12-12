@@ -25,9 +25,25 @@ function start_pong_game(left_player, right_player) {
     let winningScore = 11;
 	let obstacles = [];
 
-    let ball = { x: canvas.width, y: canvas.height / 2, dx: 4, dy: -4, speed: ballSpeed, radius: ballSize, color: '#FFFFFF' };
-    let playerLeft = { x: 10, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#FF0000' };
-    let playerRight = { x: canvas.width * 2 - 20, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#0000FF' };
+    let ball = {
+        x: canvas.width,
+        y: canvas.height / 2,
+        dx: 4,
+        dy: -4,
+        speed: ballSpeed,
+        radius: ballSize,
+        color: '#FFFFFF'
+    };
+    let playerLeft = {x: 10, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#FF0000'};
+    let playerRight = {
+        x: canvas.width * 2 - 20,
+        y: canvas.height / 2 - 50,
+        width: 10,
+        height: 100,
+        dy: 0,
+        score: 0,
+        color: '#0000FF'
+    };
 
     if (validateName(left_player.name) && validateName(right_player.name) && checkForUniqueNames([left_player.name, right_player.name])) {
         applySettings();
@@ -90,13 +106,13 @@ function start_pong_game(left_player, right_player) {
         context.fillText(playerRight.score, (3 * canvas.width) / 4, 50);
     }
 
-	// Drawing obstacles on the canvas
-	function drawObstacles() {
-		context.fillStyle = '#FFD700'; // Gold color for obstacles
-		obstacles.forEach(obstacle => {
-			context.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-		});
-	}
+    // Drawing obstacles on the canvas
+    function drawObstacles() {
+        context.fillStyle = '#FFD700'; // Gold color for obstacles
+        obstacles.forEach(obstacle => {
+            context.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        });
+    }
 
 //MOVING
 
@@ -109,21 +125,23 @@ function start_pong_game(left_player, right_player) {
     }
 
     // End the game and display the winner
-	function endGame(winner, leftScore, rightScore) {
-		gameRunning = false;
-		alert(`${winner} wins!`);
-		gameOverlay.style.display = 'none';
-        sendGameData(leftScore, rightScore);
+    function endGame(winner, leftScore, rightScore) {
+        if (winner) {
+            alert(`${winner} wins!`);
+            sendGameData(leftScore, rightScore);
+        }
+        gameRunning = false;
+        gameOverlay.style.display = 'none';
         resetScore();
         resetBallsChanges();
-		giveUpButtons.forEach(button => button.style.display = 'none');
-		if (obstaclesEnabled)
-			obstacles = [];
-	}
+        giveUpButtons.forEach(button => button.style.display = 'none');
+        if (obstaclesEnabled)
+            obstacles = [];
+    }
 
-    async function sendGameData(leftScore, rightScore){
+    async function sendGameData(leftScore, rightScore) {
         const response = await sendGame(leftScore, rightScore, false, true, leftScore > rightScore);
-        if (response.status !== 200){
+        if (response.status !== 200) {
             alert('There has been an error. GameData could not be stored');
         }
     }
@@ -147,13 +165,37 @@ function start_pong_game(left_player, right_player) {
             ball.dy *= -1;
         }
 
-        if (ball.x - ball.radius < playerLeft.x + playerLeft.width && ball.y > playerLeft.y && ball.y < playerLeft.y + playerLeft.height) {
-            ball.dx *= -1;
+        if (ball.x - ball.radius < playerLeft.x + playerLeft.width &&
+            ball.x > playerLeft.x &&
+            ball.y + ball.radius > playerLeft.y &&
+            ball.y - ball.radius < playerLeft.y + playerLeft.height) {
+
+            // collision is from the top, bottom or side
+            if (ball.y + ball.radius > playerLeft.y && ball.y - ball.radius < playerLeft.y + playerLeft.height) {
+
+                // Adjust ball position to prevent sticking
+                ball.x = playerLeft.x + playerLeft.width + ball.radius;
+                ball.dx *= -1;
+            } else
+                ball.dy *= -1;
+
             if (obstaclesEnabled) checkObstacleCollision();
         }
 
-        if (ball.x + ball.radius > playerRight.x && ball.y > playerRight.y && ball.y < playerRight.y + playerRight.height) {
-            ball.dx *= -1;
+        if (ball.x + ball.radius > playerRight.x &&
+            ball.x < playerRight.x + playerRight.width &&
+            ball.y + ball.radius > playerRight.y &&
+            ball.y - ball.radius < playerRight.y + playerRight.height) {
+
+            // collision is from the top, bottom or side
+            if (ball.y + ball.radius > playerRight.y && ball.y - ball.radius < playerRight.y + playerRight.height) {
+
+                // adjust ball position to prevent sticking
+                ball.x = playerRight.x - ball.radius;
+                ball.dx *= -1;
+            } else
+                ball.dy *= -1;
+
             if (obstaclesEnabled) checkObstacleCollision();
         }
 
@@ -194,7 +236,7 @@ function start_pong_game(left_player, right_player) {
         }
     }
 
-	// Toggle obstacles on or off
+    // Toggle obstacles on or off
     toggleObstaclesButton.addEventListener('click', () => {
         obstaclesEnabled = !obstaclesEnabled;
         if (obstaclesEnabled)
@@ -234,46 +276,47 @@ function start_pong_game(left_player, right_player) {
 
 //MAIN
     // Draw paddles, ball, and UI elements
-	function draw() {
-		context.clearRect(0, 0, canvas.width, canvas.height);
-		drawPaddle(playerLeft);
-		drawPaddle(playerRight);
-		drawBall();
-		drawDashedLine();
-		drawScores();
-		if (obstaclesEnabled) {
-			drawObstacles();
-		}
-	}
+    function draw() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        drawPaddle(playerLeft);
+        drawPaddle(playerRight);
+        drawBall();
+        drawDashedLine();
+        drawScores();
+        if (obstaclesEnabled)
+            drawObstacles();
+    }
 
     // Update game loop
-	function update_game() {
-		if (gameRunning) {
-			movePaddles();
-			moveBall();
-			// detectCollisions();
-			checkObstacleCollision();
-			draw();
-			requestAnimationFrame(update_game);
-		}
-	}
+    function update_game() {
+        if (gameRunning) {
+            movePaddles();
+            moveBall();
+            // detectCollisions();
+            checkObstacleCollision();
+            draw();
+            requestAnimationFrame(update_game);
+        }
+    }
 
 
     increaseSpeedButton.addEventListener('click', () => {
-        ball.speed ++;
+        if (!gameOnPause())
+            ball.speed++;
     });
 
     decreaseSpeedButton.addEventListener('click', () => {
-        if (ball.speed > 1)
-            ball.speed --;
+        if (ball.speed > 1 && !gameOnPause())
+            ball.speed--;
     });
 
     increaseSizeButton.addEventListener('click', () => {
-        ball.radius +=  2;
+        if (!gameOnPause())
+            ball.radius += 2;
     });
 
     decreaseSizeButton.addEventListener('click', () => {
-        if (ball.radius > 2)
+        if (ball.radius > 2 && !gameOnPause())
             ball.radius -= 2;
     });
 
@@ -287,14 +330,33 @@ function start_pong_game(left_player, right_player) {
 
     // Handle user keyboard inputs for paddle control
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'w') playerLeft.dy = -5;
-        if (e.key === 's') playerLeft.dy = 5;
-        if (e.key === 'ArrowUp') playerRight.dy = -5;
-        if (e.key === 'ArrowDown') playerRight.dy = 5;
+        if (!gameOnPause()) {
+            if (e.key === 'w') playerLeft.dy = -5;
+            if (e.key === 's') playerLeft.dy = 5;
+            if (e.key === 'ArrowUp') playerRight.dy = -5;
+            if (e.key === 'ArrowDown') playerRight.dy = 5;
+        }
     });
 
     document.addEventListener('keyup', (e) => {
         if (e.key === 'w' || e.key === 's') playerLeft.dy = 0;
         if (e.key === 'ArrowUp' || e.key === 'ArrowDown') playerRight.dy = 0;
+        if (e.key === 'Escape') endGame()
+        if (e.key === 'p') pauseGame();
+    });
+
+    function gameOnPause() {
+        return ball.speed === 0;
+    }
+
+    function pauseGame() {
+        if (!gameOnPause())
+            ball.speed = 0
+        else
+            ball.speed = 4
+    }
+
+    window.addEventListener('popstate', function (event) {
+        endGame();
     });
 };
