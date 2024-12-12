@@ -39,6 +39,9 @@ function handleRouting() {
             document.getElementById('viewPongTourn').classList.add('active');
             // window.history.pushState({}, '', path);
             break;
+        case '/games/pong/pongCanvas':
+            document.getElementById('viewPongCanvas').classList.add('active');
+            break;
         case '/games/ticTacToe':
             document.getElementById('viewTicTacToeMain').classList.add('active');
             // window.history.pushState({}, '', path);
