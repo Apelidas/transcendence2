@@ -1,0 +1,147 @@
+
+/* Full-screen overlay for the game */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.game-container {
+    width: 80vw;
+    height: 80vh;
+    background-color: #222;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+/* Header Controls */
+.header-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+/* Footer Controls */
+.footer-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+
+/* Horizontal line to divide the header parts */
+.header-divider {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #fff;
+    margin: 5px 0;
+}
+
+.playerInfo {
+	display: flex;
+    flex-direction: column;
+	color: white;
+
+}
+
+/* Each header part takes equal space */
+.header-part {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+/* Each footer part takes equal space */
+.footer-part {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.header-part button {
+    padding: 5px 10px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.header-part button:hover {
+    background-color: #555;
+}
+
+.header-part span {
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+
+.instructions {
+    font-size: 1.2rem;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+canvas {
+
+    border: 2px solid white;
+    background-color: #333;
+}
+
+
+/* Footer controls for give up buttons */
+.footer-controls {
+	flex: 1;
+    display: flex;
+	align-items: center;
+    justify-content: center;
+    padding: 20px;
+	gap: 5px;
+}
+
+.give-up-button {
+    padding: 5px 10px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.give-up-button:hover {
+    background-color: #555;
+}
+
+
+@media (max-width: 768px) {
+	.game-container {
+        width: 90vw;
+        height: 90vh;
+    }
+    .header-controls, .footer-controls {
+        flex-direction: column;
+    }
+}

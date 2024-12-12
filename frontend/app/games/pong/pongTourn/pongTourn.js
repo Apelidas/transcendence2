@@ -74,26 +74,28 @@ function run_tournament(players) {
     const winner = document.getElementById("ptWinner");
 
     // Initial stage
-    let player = get_player_at_pos(players, 1);
-    set_player_at_element(player, p1);
-    player = get_player_at_pos(players, 2);
-    set_player_at_element(player, p2);
+    const player1 = get_player_at_pos(players, 1);
+    set_player_at_element(player1, p1);
+    const player2 = get_player_at_pos(players, 2);
+    set_player_at_element(player2, p2);
     document.getElementById("ptSemi1").style.display = "inline";
-    player = get_player_at_pos(players, 3);
-    set_player_at_element(player, p3);
+    const player3 = get_player_at_pos(players, 3);
+    set_player_at_element(player3, p3);
+    const player4 = {};
     if (players.length >= 4) {
-        player = get_player_at_pos(players, 4);
-        set_player_at_element(player, p4);
+        player4 = get_player_at_pos(players, 4);
+        set_player_at_element(player4, p4);
         document.getElementById("ptSemi2").style.display = "inline";
     }
 
+    document.getElementById("ptSemi1").addEventListener('click', () => {
+        start_pong_game(player1, player2);
+    });
+
     // DEBUG
-    player = get_player_at_pos(players, 2);
-    set_player_at_element(player, w1);
-    player = get_player_at_pos(players, 3);
-    set_player_at_element(player, w2);
-    player = get_player_at_pos(players, 2);
-    set_player_at_element(player, winner);
+    set_player_at_element(player2, w1);
+    set_player_at_element(player3, w2);
+    set_player_at_element(player2, winner);
 
     // TODO run_statemachine?
 }
@@ -109,10 +111,6 @@ function get_player_at_pos(players, pos) {
             return players[i];
     }
 }
-
-document.getElementById("ptSemi1").addEventListener('click', () => {
-    // TODO
-});
 
 document.getElementById("ptSemi2").addEventListener('click', () => {
     // TODO
