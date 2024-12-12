@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('startPongAi', function () {
     (function() {
         function updateAI(aiPlayer, ball) {
             const aiSpeed = 4;

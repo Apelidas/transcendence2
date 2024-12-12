@@ -157,4 +157,9 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
         openPopup('login');
     });
+
+	document.getElementById('viewProfileButton').addEventListener('click', function() {
+		changeRoute('/profile'); 
+		document.dispatchEvent(new Event("viewProfilePage"));
+	});
 });

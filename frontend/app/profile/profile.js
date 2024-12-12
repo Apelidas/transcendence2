@@ -84,7 +84,7 @@ function setProfileData(userData) {
 }
 
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('viewProfilePage', function () {
     // Example data fetching or setting for profile
     const profileName = document.getElementById('profileName');
     const profilePicture = document.getElementById('profilePicture');

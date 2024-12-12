@@ -1,11 +1,14 @@
 document.getElementById('pongPvpButton').addEventListener('click', function() {
-    changeRoute('/games/pong/pongPvP'); 
+    changeRoute('/games/pong/pongPvP');
+	document.dispatchEvent(new Event("startPongPvp"));
 });
 
 document.getElementById('pongAiButton').addEventListener('click', function() {
-    changeRoute('/games/pong/pongAI'); 
+    changeRoute('/games/pong/pongAI');
+	document.dispatchEvent(new Event("startPongAi")); 
 });
 
 document.getElementById('pongTournButton').addEventListener('click', function() {
-    changeRoute('/games/pong/pongTourn'); 
+    changeRoute('/games/pong/pongTourn');
+	document.dispatchEvent(new Event("startPongTourn"));
 });
