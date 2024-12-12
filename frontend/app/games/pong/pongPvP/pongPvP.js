@@ -169,13 +169,37 @@ document.addEventListener('DOMContentLoaded', function () {
             ball.dy *= -1;
         }
 
-        if (ball.x - ball.radius < playerLeft.x + playerLeft.width && ball.y > playerLeft.y && ball.y < playerLeft.y + playerLeft.height) {
-            ball.dx *= -1;
+        if (ball.x - ball.radius < playerLeft.x + playerLeft.width &&
+            ball.x > playerLeft.x &&
+            ball.y + ball.radius > playerLeft.y &&
+            ball.y - ball.radius < playerLeft.y + playerLeft.height) {
+
+            // collision is from the top, bottom or side
+            if (ball.y + ball.radius > playerLeft.y && ball.y - ball.radius < playerLeft.y + playerLeft.height) {
+
+                // Adjust ball position to prevent sticking
+                ball.x = playerLeft.x + playerLeft.width + ball.radius;
+                ball.dx *= -1;
+            } else
+                ball.dy *= -1;
+
             if (obstaclesEnabled) checkObstacleCollision();
         }
 
-        if (ball.x + ball.radius > playerRight.x && ball.y > playerRight.y && ball.y < playerRight.y + playerRight.height) {
-            ball.dx *= -1;
+        if (ball.x + ball.radius > playerRight.x &&
+            ball.x < playerRight.x + playerRight.width &&
+            ball.y + ball.radius > playerRight.y &&
+            ball.y - ball.radius < playerRight.y + playerRight.height) {
+
+            // collision is from the top, bottom or side
+            if (ball.y + ball.radius > playerRight.y && ball.y - ball.radius < playerRight.y + playerRight.height) {
+
+                // adjust ball position to prevent sticking
+                ball.x = playerRight.x - ball.radius;
+                ball.dx *= -1;
+            } else
+                ball.dy *= -1;
+
             if (obstaclesEnabled) checkObstacleCollision();
         }
 
