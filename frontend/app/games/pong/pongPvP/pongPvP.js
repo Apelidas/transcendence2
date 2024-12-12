@@ -130,10 +130,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // End the game and display the winner
 	function endGame(winner, leftScore, rightScore) {
+        if(winner) {
+            alert(`${winner} wins!`);
+            sendGameData(leftScore, rightScore);
+        }
 		gameRunning = false;
-		alert(`${winner} wins!`);
 		gameOverlay.style.display = 'none';
-        sendGameData(leftScore, rightScore);
         resetScore();
         resetBallsChanges();
 		giveUpButtons.forEach(button => button.style.display = 'none');
@@ -316,5 +318,9 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('keyup', (e) => {
         if (e.key === 'w' || e.key === 's') playerLeft.dy = 0;
         if (e.key === 'ArrowUp' || e.key === 'ArrowDown') playerRight.dy = 0;
+    });
+
+    window.addEventListener('popstate', function (event) {
+        endGame();
     });
 });
