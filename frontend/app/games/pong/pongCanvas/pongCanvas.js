@@ -1,5 +1,8 @@
 
-function start_pong_game() {
+function start_pong_game(left_player, right_player) {
+
+    changeRoute('/games/pong/pongCanvas')
+
     const canvas = document.getElementById('pongCanvas');
     const context = canvas.getContext('2d');
     const gameOverlay = document.getElementById('gameOverlay');
@@ -8,10 +11,6 @@ function start_pong_game() {
     const decreaseSizeButton = document.getElementById('decreaseSize');
     const increaseSizeButton = document.getElementById('increaseSize');
     const toggleObstaclesButton = document.getElementById('toggleObstacles');
-    const leftPlayerNameInput = document.getElementById('leftPlayerName');
-    const rightPlayerNameInput = document.getElementById('rightPlayerName');
-    const leftPlayerColorInput = document.getElementById('leftPlayerColor');
-    const rightPlayerColorInput = document.getElementById('rightPlayerColor');
     const backgroundColorInput = document.getElementById('backgroundColor');
     const leftGiveUp = document.getElementById('left-give-up');
     const rightGiveUp = document.getElementById('right-give-up');
@@ -46,20 +45,16 @@ function start_pong_game() {
         color: '#0000FF'
     };
 
-    // Helper function to validate player names
-    function validateNames() {
-        const leftName = leftPlayerNameInput.value.trim();
-        const rightName = rightPlayerNameInput.value.trim();
-        const namePattern = /^[A-Za-z]{3,}$/; // At least 3 letters, no special characters or numbers
-        if (!namePattern.test(leftName) || !namePattern.test(rightName)) {
-            alert("Names must be at least 3 letters long and contain only letters.");
-            return false;
-        }
-        if (leftName === rightName) {
-            alert("Player names must be unique.");
-            return false;
-        }
-        return true;
+    // Code that executes
+    if (validateName(left_player.name) && validateName(right_player.name) && checkForUniqueNames([left_player.name, right_player.name])) {
+        applySettings();
+        gameOverlay.style.display = 'flex';
+        giveUpButtons.forEach(button => button.style.display = 'block');
+        gameRunning = true;
+        resetBall();
+        if (obstaclesEnabled)
+            createObstacles();
+        requestAnimationFrame(update_game);
     }
 
     // Apply settings for game initialization
@@ -68,23 +63,11 @@ function start_pong_game() {
         canvas.height = 400;
         canvas.style.backgroundColor = backgroundColorInput ? backgroundColorInput.value : '#222'; // Add fallback
         ball.color = ballColorInput ? ballColorInput.value : '#FFFFFF';
-        playerLeft.color = leftPlayerColorInput ? leftPlayerColorInput.value : '#FF0000';
-        playerRight.color = rightPlayerColorInput ? rightPlayerColorInput.value : '#0000FF';
-        playerLeft.name = leftPlayerNameInput.value || 'Left Player';
-        playerRight.name = rightPlayerNameInput.value || 'Right Player';
+        playerLeft.color = left_player.color ? left_player.color : '#FF0000';
+        playerRight.color = right_player.color ? right_player.color : '#0000FF';
+        playerLeft.name = left_player.name || 'Left Player';
+        playerRight.name = right_player.name || 'Right Player';
         winningScore = parseInt(winningScoreSelect ? winningScoreSelect.value : 11);
-    }
-
-    // Code that executes
-    if (validateNames()) {
-        applySettings();
-        gameOverlay.style.display = 'flex';
-        giveUpButtons.forEach(button => button.style.display = 'block');
-        gameRunning = true;
-        resetBall();
-        if (obstaclesEnabled)
-            createObstacles();
-        requestAnimationFrame(update);
     }
 
 //////////////////////////GAME////////////////////////////
@@ -340,14 +323,14 @@ function start_pong_game() {
     }
 
     // Update game loop
-    function update() {
+    function update_game() {
         if (gameRunning) {
             movePaddles();
             moveBall();
             // detectCollisions();
             checkObstacleCollision();
             draw();
-            requestAnimationFrame(update);
+            requestAnimationFrame(update_game);
         }
     }
 

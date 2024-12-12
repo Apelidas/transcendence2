@@ -2,10 +2,10 @@
 document.getElementById("startPongTournament").addEventListener('click', () => {
 
     document.getElementById("pt-tournament-bracket").style.display = "grid";
-    const player1 = create_player("player1Name", "player1Color");
-    const player2 = create_player("player2Name", "player2Color");
-    const player3 = create_player("player3Name", "player3Color");
-    const player4 = create_player("player4Name", "player4Color");
+    const player1 = create_player("pongPlayer1Name", "player1Color");
+    const player2 = create_player("pongPlayer2Name", "player2Color");
+    const player3 = create_player("pongPlayer3Name", "player3Color");
+    const player4 = create_player("pongPlayer4Name", "player4Color");
 
     const players = [];
 
