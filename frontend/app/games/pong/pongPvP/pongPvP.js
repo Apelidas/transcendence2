@@ -19,7 +19,7 @@ document.addEventListener('startPongPvp', function () {
     const winningScoreSelect = document.getElementById('winningScore');
     const giveUpButtons = document.querySelectorAll('.give-up-button');
 
-    let ballSpeed = 4;
+    let ballSpeed = 3;
     let ballSize = 10;
     let obstaclesEnabled = false;
     let gameRunning = false;
@@ -65,7 +65,7 @@ document.addEventListener('startPongPvp', function () {
     // Apply settings for game initialization
     function applySettings() {
         canvas.width = 600;
-        canvas.height = 400
+        canvas.height = 400;
         canvas.style.backgroundColor = backgroundColorInput ? backgroundColorInput.value : '#222'; // Add fallback
         ball.color = ballColorInput ? ballColorInput.value : '#FFFFFF';
         playerLeft.color = leftPlayerColorInput ? leftPlayerColorInput.value : '#FF0000';
@@ -232,13 +232,46 @@ document.addEventListener('startPongPvp', function () {
         }
     }
 
-    // Reset the ball to the center
-    function resetBall() {
-        ball.x = canvas.width / 2;
-        ball.y = canvas.height / 2;
-        ball.dx = (Math.random() < 0.5 ? -1 : 1);
-        ball.dy = (Math.random() < 0.5 ? -1 : 1);
-    }
+	function resetBall() {
+		// Set the ball to the center of the canvas
+		ball.x = canvas.width / 2;
+		ball.y = canvas.height / 2;
+	
+		// Paddle and field dimensions
+		const paddleDistance = canvas.width / 2 - 50; // Distance from center to paddle
+		const maxVerticalDistance = canvas.height / 2; // Half the canvas height (for one bounce max)
+	
+		// Calculate maximum allowed angle for one bounce
+		const maxBounceAngle = Math.atan(maxVerticalDistance / paddleDistance); // In radians
+		const minAngle = 10 * Math.PI / 180; // Prevent too shallow angles
+	
+		let angle;
+	
+		// Randomize horizontal direction (left or right)
+		const direction = Math.random() > 0.5 ? 1 : -1;
+	
+		// Generate angle based on horizontal direction
+		if (direction === 1) {
+			// Rightward ball: generate angle in lower-right or upper-right diagonal
+			angle = Math.random() > 0.5
+				? Math.random() * (maxBounceAngle - minAngle) + minAngle // Lower-right
+				: Math.PI - (Math.random() * (maxBounceAngle - minAngle) + minAngle); // Upper-right
+		} else {
+			// Leftward ball: generate angle in lower-left or upper-left diagonal
+			angle = Math.random() > 0.5
+				? Math.PI + (Math.random() * (maxBounceAngle - minAngle) + minAngle) // Lower-left
+				: 2 * Math.PI - (Math.random() * (maxBounceAngle - minAngle) + minAngle); // Upper-left
+		}
+	
+		// Ensure the ball speed remains constant
+		const speed = ball.speed || 3;
+	
+		// Set the ball's velocity
+		ball.dx = Math.cos(angle) * speed;
+		ball.dy = Math.sin(angle) * speed;
+	}
+	
+	
 
 //OBSTACLE FUNCTIONS
 

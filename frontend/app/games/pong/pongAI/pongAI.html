@@ -1,53 +1,97 @@
 <div class="pongGame">
-    <section id="startScreen" class="start-screen">
-        <h2>Pong: Player vs AI</h2>
-        <div class="row">
-            <div class="col">
-                <p>Enter Player Name:</p>
-                <input type="text" id="leftPlayerName" placeholder="Player Name" required aria-label="Left Player Name">
-                <input type="text" id="rightPlayerName" value="AI-ko" disabled aria-label="Right Player Name (AI)">
-            </div>
+    <h2>Pong: Player vs AI</h2>
+    <!-- Settings Containers -->
+    <div class="options-container">
+        <!-- Left Player Options -->
+        <div class="player-options">
+            <label for="leftPlayerNameAi">Player Name:</label>
+            <input type="text" id="leftPlayerNameAi" placeholder="Enter Player Name" required>
+            <label for="leftPlayerColorAi">Player Color:</label>
+            <input type="color" id="leftPlayerColorAi" value="#FF0000">
         </div>
-        <div class="row">
-            <div class="col">
-                <label for="backgroundColor">Background:</label>
-                <input type="color" id="backgroundColor" value="#000000" aria-label="Background Color">
-            </div>
-            <div class="col">
-                <label for="ballColor">Ball Color:</label>
-                <input type="color" id="ballColor" value="#FFFFFF" aria-label="Ball Color">
-            </div>
+
+        <!-- AI Options -->
+        <div class="player-options">
+            <label for="rightPlayerNameAi">AI Name:</label>
+            <input type="text" id="rightPlayerNameAi" value="AI" disabled>
+            <label for="rightPlayerColorAi">AI Color:</label>
+            <input type="color" id="rightPlayerColorAi" value="#0000FF">
         </div>
-        <div class="row">
-            <div class="col">
-                <label for="leftPlayerColor">Player Color:</label>
-                <input type="color" id="leftPlayerColor" value="#FF0000" aria-label="Player Color">
-            </div>
-            <div class="col">
-                <label for="rightPlayerColor">AI Color:</label>
-                <input type="color" id="rightPlayerColor" value="#0000FF" aria-label="AI Color">
-            </div>
+    </div>
+
+    <!-- Game Settings Container -->
+    <div class="options-container">
+        <div class="settings-container">
+            <label for="backgroundColorAi">Background Color:</label>
+            <input type="color" id="backgroundColorAi" value="#000000">
+            <label for="ballColorAi">Ball Color:</label>
+            <input type="color" id="ballColorAi" value="#FFFFFF">
+            <label for="winningScoreAi">Winning Score:</label>
+            <select id="winningScoreAi">
+                <option value="3">3 Points</option>
+                <option value="5">5 Points</option>
+                <option value="11" selected>11 Points</option>
+            </select>
         </div>
-        <button id="startButton" class="btn" aria-label="Start Game Button">Start Game</button>
-    </section>
-    <section id="overlay" class="overlay" role="dialog" aria-labelledby="winnerMessage"></section>
-    <section id="popup" class="popup" role="dialog" aria-labelledby="winnerMessage">
-        <h2 id="winnerMessage"></h2>
-        <button onclick="PongGame.restartGame()" class="btn" aria-label="Restart Game Button">Restart Game</button>
-    </section>
-    <section id="gameContainer">
-        <canvas id="pongCanvas" width="800" height="600" style="display:none;" aria-label="Pong Game Canvas"></canvas>
-        <div id="controlsContainer" class="controls-container" style="display:none;">
-            <button id="leftGiveUp" class="give-up-button btn" onclick="PongGame.giveUp('left')" aria-label="Left Player Give Up Button">Give Up</button>
-            <div id="ballSpeedControl" class="ball-speed-control">
-                <label for="ballSpeed">Adjust Ball Speed</label>
-                <div>
-                    <span>-</span>
-                    <input type="range" id="ballSpeed" min="1" max="10" value="4" aria-label="Ball Speed Control">
-                    <span>+</span>
-                </div>
-            </div>
-            <button id="rightGiveUp" class="give-up-button btn" onclick="PongGame.giveUp('right')" aria-label="Right Player Give Up Button">Give Up</button>
+
+        <!-- Start Game Button Container -->
+        <div class="start-container">
+            <button id="startButtonAi" class="start-btn">Start Game</button>
         </div>
-    </section>
+    </div>
 </div>
+
+<div id="gameOverlayAi" class="overlay">
+    <div class="game-container">
+        <!-- Upper Header with Controls -->
+        <div class="header-controls">
+            <div class="header-part">
+                <span>Use "Esc" to exit.</span>
+            </div>
+            <div class="header-part">
+                <span>Use "P" to pause.</span>
+            </div>
+            <div class="header-part">
+                <button id="decreaseSpeedAi">-</button>
+                <span>Ball Speed</span>
+                <button id="increaseSpeedAi">+</button>
+            </div>
+            <div class="header-part">
+                <button id="decreaseSizeAi">-</button>
+                <span>Ball Size</span>
+                <button id="increaseSizeAi">+</button>
+            </div>
+        </div>
+
+        <!-- Horizontal Line -->
+        <hr class="header-divider">
+
+        <!-- Lower Header Part -->
+        <div class="header-controls">
+            <div id="leftPlayerInfoAi" class="header-part playerInfo">
+                <div id="leftPlayerNameDisplayAi" class="player-name">Player Name</div>
+                <div>Use W/S to move</div>
+            </div>
+            <div id="rightPlayerInfoAi" class="header-part playerInfo">
+                <div id="rightPlayerNameDisplayAi" class="player-name">AI</div>
+                <div>AI moves automatically</div>
+            </div>
+        </div>
+
+        <!-- Playing Field -->
+        <div class="game-container">
+            <canvas id="pongCanvasAi"></canvas>
+            <div class="score left-score" id="leftPlayerScoreAi">0</div>
+            <div class="score right-score" id="rightPlayerScoreAi">0</div>
+        </div>
+
+        <!-- Footer with Give Up Buttons -->
+        <div class="footer-controls">
+            <div id="left-give-upAi" class="footer-part">
+                <button class="give-up-button left-give-up">Give Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

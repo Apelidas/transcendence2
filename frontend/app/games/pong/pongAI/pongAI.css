@@ -1,8 +1,22 @@
-/* Inherit general styles from pong.css */
-@import url('pong.css');
+@import url('pongPvp.css');
 
-/* Styles for the disabled input */
-input[disabled] {
-    background-color: #e9ecef;
-    cursor: not-allowed;
+/* Override unique identifiers for AI mode */
+#pongCanvasAi {
+    border: 2px solid white;
+    background-color: #333;
 }
+
+#gameOverlayAi {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+
