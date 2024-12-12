@@ -1,4 +1,22 @@
 /* profile.css */
+.profilePage {
+    display: flex;
+    justify-content: center; /* Centers the two containers horizontally */
+    align-items: flex-start; /* Aligns them at the top */
+    gap: 20px; /* Adds space between the two containers */
+    padding: 20px;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+}
+
+.friends-container {
+    flex: 1; /* Allows it to grow/shrink proportionally */
+    max-width: 400px; /* Ensures it doesn’t become too wide */
+}
+
+.profile-container {
+    flex: 2; /* Allows it to take up more space */
+    max-width: 800px; /* Maintains the current max width */
+}
 
 .profile-container {
     display: flex;
@@ -81,4 +99,96 @@
 
 #mfaDisableButton {
     display: none;
+}
+
+/* Friends container card styling */
+.friends-container {
+    max-width: 400px; /* Limit the width of the card */
+    margin: 1rem auto; /* Center the card */
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Friends header styling */
+.friends-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+    text-align: center;
+}
+
+/* Friends list styling */
+.friends-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Add friend button styling */
+#addFriendPopUpButton {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#addFriendPopUpButton:hover {
+    background-color: #0056b3;
+}
+
+/* Individual friend card styling remains the same */
+.friend-card {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.friend-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.status-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.status-dot.online {
+    background-color: green;
+}
+
+.status-dot.offline {
+    background-color: red;
+}
+
+.friend-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
 }

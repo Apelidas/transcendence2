@@ -46,6 +46,8 @@ function openPopup(popup, pushState = true) {
         document.getElementById('changePasswordPopup').style.display = 'block';
     } else if(popup === 'changeEmail'){
         document.getElementById('changeEmailPopup').style.display = 'block';
+    } else if(popup === 'addFriend'){
+        document.getElementById('addFriendPopup').style.display = 'block';
     }
 
     document.getElementById('overlay').style.display = 'block';
@@ -61,6 +63,7 @@ function closeAllPopups(removeBlur = true) {
     document.getElementById('pictureUploadPopup').style.display = 'none';
     document.getElementById('changePasswordPopup').style.display = 'none';
     document.getElementById('changeEmailPopup').style.display = 'none';
+    document.getElementById('addFriendPopup').style.display = 'none';
 
     if (removeBlur) {
         toggleBlur(false);

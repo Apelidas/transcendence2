@@ -14,6 +14,11 @@ tasks:
     cmds:
       - task: frontend:kill
 
+  create-certificate:
+    cmds:
+      - ./certificate/create_certificate.sh
+
+
   run:
     cmds:
       - task: stop-dependencies

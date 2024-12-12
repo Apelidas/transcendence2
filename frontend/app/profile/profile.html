@@ -1,54 +1,64 @@
 <!-- profile.html -->
 
-<div class="profile-container">
-    <img src="../0-assets/default-profile.png" alt="Profile Picture" class="profile-picture" id="profilePicture">
-    <h1 class="profile-header">Welcome, <span id="profileName">User</span>!</h1>
-
-    <!-- Pong Section -->
-    <div class="stats-section">
-        <h2>PONG</h2>
-        <table class="stats-table">
-            <tr>
-                <th>PvP</th>
-                <td>Wins: <span id="pvpWins">0</span></td>
-                <td>Loses: <span id="pvpLoses">0</span></td>
-                <td>Most wins in a row: <span id="pvpStreak">0</span></td>
-            </tr>
-            <tr>
-                <th>AI</th>
-                <td>Wins: <span id="aiWins">0</span></td>
-                <td>Loses: <span id="aiLoses">0</span></td>
-                <td>Most wins in a row: <span id="aiStreak">0</span></td>
-            </tr>
-            <tr>
-                <th>Tournament</th>
-                <td>Wins: <span id="tournamentWins">0</span></td>
-                <td>Loses: <span id="tournamentLoses">0</span></td>
-                <td>Most wins in a row: <span id="tournamentStreak">0</span></td>
-            </tr>
-        </table>
+<div class="profilePage">
+    <div class="friends-container">
+        <h1 class="friends-header">Friends</h1>
+        <ul id="friendsList" class="friends-list">
+        </ul>
+        <button id="addFriendPopUpButton">Add Friend</button>
     </div>
 
-    <!-- ticTacToe Section -->
-    <div class="stats-section">
-        <h2>ticTacToe</h2>
-        <table class="stats-table">
-            <tr>
-                <th>ticTacToe</th>
-                <td>Wins: <span id="ticTacToeWins">0</span></td>
-                <td>Loses: <span id="ticTacToeLoses">0</span></td>
-                <td>Most wins in a row: <span id="ticTacToeStreak">0</span></td>
-            </tr>
-        </table>
-    </div>
+    <div class="profile-container">
 
-    <!-- Profile Actions -->
-    <div class="profile-actions">
-        <button id="changeEmailButton">Change login Email</button>
-        <button id="changePasswordButton">Change Password</button>
-        <button id="changeAliasButton">Choose Default Alias for Tournaments</button>
-        <button id="mfaEnableButton">Enable 2FA</button>
-        <button id="mfaDisableButton">Disable 2FA</button>
-        <button id="ChangeProfilePictureButton">change Profile Picture</button>
+        <img src="../0-assets/default-profile.png" alt="Profile Picture" class="profile-picture" id="profilePicture">
+        <h1 class="profile-header">Welcome, <span id="profileName">User</span>!</h1>
+
+        <!-- Pong Section -->
+        <div class="stats-section">
+            <h2>PONG</h2>
+            <table class="stats-table">
+                <tr>
+                    <th>PvP</th>
+                    <td>Wins: <span id="pvpWins">0</span></td>
+                    <td>Loses: <span id="pvpLoses">0</span></td>
+                    <td>Most wins in a row: <span id="pvpStreak">0</span></td>
+                </tr>
+                <tr>
+                    <th>AI</th>
+                    <td>Wins: <span id="aiWins">0</span></td>
+                    <td>Loses: <span id="aiLoses">0</span></td>
+                    <td>Most wins in a row: <span id="aiStreak">0</span></td>
+                </tr>
+                <tr>
+                    <th>Tournament</th>
+                    <td>Wins: <span id="tournamentWins">0</span></td>
+                    <td>Loses: <span id="tournamentLoses">0</span></td>
+                    <td>Most wins in a row: <span id="tournamentStreak">0</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- ticTacToe Section -->
+        <div class="stats-section">
+            <h2>ticTacToe</h2>
+            <table class="stats-table">
+                <tr>
+                    <th>ticTacToe</th>
+                    <td>Wins: <span id="ticTacToeWins">0</span></td>
+                    <td>Loses: <span id="ticTacToeLoses">0</span></td>
+                    <td>Most wins in a row: <span id="ticTacToeStreak">0</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Profile Actions -->
+        <div class="profile-actions">
+            <button id="changeEmailButton">Change login Email</button>
+            <button id="changePasswordButton">Change Password</button>
+            <button id="changeAliasButton">Choose Default Alias for Tournaments</button>
+            <button id="mfaEnableButton">Enable 2FA</button>
+            <button id="mfaDisableButton">Disable 2FA</button>
+            <button id="ChangeProfilePictureButton">change Profile Picture</button>
+        </div>
     </div>
 </div>

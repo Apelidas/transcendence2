@@ -1,4 +1,8 @@
 
+document.getElementById('addFriendPopUpButton').addEventListener('click', function () {
+    setupFriendsPopup();
+    openPopup('addFriend');
+});
 
 document.getElementById('changePasswordButton').addEventListener('click', function () {
     openPopup('changePassword')
@@ -108,3 +112,31 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('ticTacToeStreak').textContent = localStorage.getItem('ticTacToeStreak') || 0;
 
 });
+
+async function setupFriendslist(){
+    const allFriends = await getAllFriends();
+    populateFriendsList(allFriends);
+}
+
+
+function populateFriendsList(friends) {
+    const friendsList = document.getElementById('friendsList');
+    friendsList.innerHTML = ''; // Clear the list before adding new items
+
+    friends.forEach(friend => {
+        const card = document.createElement('div');
+        card.classList.add('friend-card');
+
+        const statusDot = document.createElement('span');
+        statusDot.classList.add('status-dot', friend.status ? 'online' : 'offline');
+
+        const nameElement = document.createElement('span');
+        nameElement.classList.add('friend-name');
+        nameElement.textContent = friend.username;
+
+        card.appendChild(statusDot);
+        card.appendChild(nameElement);
+
+        friendsList.appendChild(card);
+    });
+}
