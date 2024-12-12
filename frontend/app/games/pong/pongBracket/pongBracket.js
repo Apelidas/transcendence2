@@ -70,7 +70,7 @@ function run_tournament(players) {
     document.getElementById("ptSemi1").style.display = "inline";
     const player3 = get_player_at_pos(players, 3);
     set_player_at_element(player3, p3);
-    const player4 = {};
+    let player4 = {};
     if (players.length >= 4) {
         player4 = get_player_at_pos(players, 4);
         set_player_at_element(player4, p4);
@@ -79,6 +79,10 @@ function run_tournament(players) {
 
     document.getElementById("ptSemi1").addEventListener('click', () => {
         start_pong_game(player1, player2);
+    });
+
+    document.getElementById("ptSemi2").addEventListener('click', () => {
+        start_pong_game(player3, player4);
     });
 
     // DEBUG
@@ -100,10 +104,6 @@ function get_player_at_pos(players, pos) {
             return players[i];
     }
 }
-
-document.getElementById("ptSemi2").addEventListener('click', () => {
-    // TODO
-});
 
 document.getElementById("ptFinal").addEventListener('click', () => {
     // TODO
