@@ -1,5 +1,8 @@
 
-function start_pong_game(left_player, right_player) {
+let pong_winner1 = "";
+let pong_winner2 = "";
+
+function start_pong_game(left_player, right_player, settings) {
 
     changeRoute('/games/pong/pongCanvas')
 
@@ -133,6 +136,16 @@ function start_pong_game(left_player, right_player) {
         if (winner) {
             alert(`${winner} wins!`);
             sendGameData(leftScore, rightScore);
+            if (settings.type === 'pong_game_1') {
+                pong_winner1 = winner;
+                changeRoute('/games/pong/pongBracket');
+                display_bracket(players);
+            }
+            else if (settings.type === 'pong_game_2') {
+                pong_winner2 = winner;
+                changeRoute('/games/pong/pongBracket');
+                display_bracket(players);
+            }
         }
         gameRunning = false;
         gameOverlay.style.display = 'none';

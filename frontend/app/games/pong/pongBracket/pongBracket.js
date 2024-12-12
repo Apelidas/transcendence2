@@ -1,4 +1,6 @@
 
+const players = [];
+
 document.getElementById("startPongTournament").addEventListener('click', () => {
 
     document.getElementById("pt-tournament-bracket").style.display = "grid";
@@ -6,8 +8,6 @@ document.getElementById("startPongTournament").addEventListener('click', () => {
     const player2 = create_player("pongPlayer2Name", "player2Color");
     const player3 = create_player("pongPlayer3Name", "player3Color");
     const player4 = create_player("pongPlayer4Name", "player4Color");
-
-    const players = [];
 
     if (player1) {
         if (!validateName(player1.name)) return ;
@@ -36,8 +36,11 @@ document.getElementById("startPongTournament").addEventListener('click', () => {
     //     console.log("player" + i + " pos = " + players[i].position); // DEBUG
     // }
 
+    pong_winner1 = "";
+    pong_winner2 = "";
+
     changeRoute('/games/pong/pongBracket')
-    run_tournament(players); // , settings TODO
+    display_bracket(players); // , settings TODO
 });
 
 function set_player_postitions(players) {
@@ -52,7 +55,7 @@ function set_player_postitions(players) {
     }
 }
 
-function run_tournament(players) {
+function display_bracket(players) {
     const p1 = document.getElementById("ptPlayer1");
     const p2 = document.getElementById("ptPlayer2");
     const p3 = document.getElementById("ptPlayer3");
@@ -67,28 +70,46 @@ function run_tournament(players) {
     set_player_at_element(player1, p1);
     const player2 = get_player_at_pos(players, 2);
     set_player_at_element(player2, p2);
-    document.getElementById("ptSemi1").style.display = "inline";
+    if (pong_winner1 === "") {
+        document.getElementById("ptSemi1").style.display = "inline";
+    } else {
+        document.getElementById("ptSemi1").style.display = "none";
+    }
     const player3 = get_player_at_pos(players, 3);
     set_player_at_element(player3, p3);
     let player4 = {};
     if (players.length >= 4) {
         player4 = get_player_at_pos(players, 4);
         set_player_at_element(player4, p4);
-        document.getElementById("ptSemi2").style.display = "inline";
+        if (pong_winner2 === "") {
+            document.getElementById("ptSemi2").style.display = "inline";
+        } else {
+            document.getElementById("ptSemi2").style.display = "none";
+        }
     }
 
     document.getElementById("ptSemi1").addEventListener('click', () => {
-        start_pong_game(player1, player2);
+        const settings = {};
+        settings.type = "pong_game_1";
+        start_pong_game(player1, player2, settings);
     });
 
     document.getElementById("ptSemi2").addEventListener('click', () => {
-        start_pong_game(player3, player4);
+        const settings = {};
+        settings.type = "pong_game_2";
+        start_pong_game(player3, player4, settings);
     });
 
-    // DEBUG
-    set_player_at_element(player2, w1);
-    set_player_at_element(player3, w2);
-    set_player_at_element(player2, winner);
+    if (pong_winner1 !== "") {
+        const winner1 = get_player(players, pong_winner1)
+        set_player_at_element(winner1, w1);
+    }
+    if (pong_winner2 !== "") {
+        const winner2 = get_player(players, pong_winner2)
+        set_player_at_element(winner2, w1);
+    }
+
+    // set_player_at_element(player2, winner);
 
     // TODO run_statemachine?
 }
@@ -101,6 +122,13 @@ function set_player_at_element(player, element) {
 function get_player_at_pos(players, pos) {
     for (i = 0; i < players.length; i++) {
         if (players[i].position === pos)
+            return players[i];
+    }
+}
+
+function get_player(players, name) {
+    for (i = 0; i < players.length; i++) {
+        if (players[i].name === name)
             return players[i];
     }
 }
