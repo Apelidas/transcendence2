@@ -122,44 +122,30 @@ overlay.addEventListener('click', function () {
     closeAllPopups(true);
 });
 
+// Links within popups to switch between them
+document.getElementById('signupLink').addEventListener('click', function (event) {
+    event.preventDefault();
+    openPopup('signup');
+});
 
-// DOMContentLoaded event listener for the initial setup
-document.addEventListener('DOMContentLoaded', function () {
-    // Initialize navbar based on login state
+document.getElementById('loginLink').addEventListener('click', function (event) {
+    event.preventDefault();
+    openPopup('login');
+});
 
-    // Handle back/forward navigation and URL changes
-    window.addEventListener('popstate', function (event) {
-        const state = event.state || {};
-        if (state.section) {
-            changeRoute(`/${state.section}`);
-        } else if (state.popup) {
-            openPopup(state.popup, false); // Open the popup without pushing a new state
-        } else {
-            // changeRoute('/home');
-        }
-    });
+document.getElementById('viewProfileButton').addEventListener('click', function() {
+	changeRoute('/profile'); 
+	document.dispatchEvent(new Event("viewProfilePage"));
+});
 
-    // Initialize based on the current URL
-    const initialPath = window.location.pathname;
-    if (initialPath.includes('login') || initialPath.includes('signup')) {
-        openPopup(initialPath.slice(1), false);
-    } else {
-        changeRoute(initialPath);
-    }
-
-    // Links within popups to switch between them
-    document.getElementById('signupLink').addEventListener('click', function (event) {
-        event.preventDefault();
-        openPopup('signup');
-    });
-
-    document.getElementById('loginLink').addEventListener('click', function (event) {
-        event.preventDefault();
-        openPopup('login');
-    });
-
-	document.getElementById('viewProfileButton').addEventListener('click', function() {
-		changeRoute('/profile'); 
-		document.dispatchEvent(new Event("viewProfilePage"));
-	});
+// Handle back/forward navigation and URL changes
+window.addEventListener('popstate', function (event) {
+	const state = event.state || {};
+	if (state.section) {
+		changeRoute(`/${state.section}`);
+	} else if (state.popup) {
+		openPopup(state.popup, false); // Open the popup without pushing a new state
+	} else {
+		// changeRoute('/home');
+	}
 });
