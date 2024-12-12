@@ -19,7 +19,6 @@ function start_pong_game(left_player, right_player, settings) {
     const leftGiveUp = document.getElementById('left-give-up');
     const rightGiveUp = document.getElementById('right-give-up');
     const ballColorInput = document.getElementById('ballColor');
-    const winningScoreSelect = document.getElementById('winningScore');
     const giveUpButtons = document.querySelectorAll('.give-up-button');
 
     let ballSpeed = 3;
@@ -73,7 +72,7 @@ function start_pong_game(left_player, right_player, settings) {
         document.getElementById("leftPlayerNameDisplay").innerHTML = playerLeft.name;
         playerRight.name = right_player.name ? right_player.name : 'Right Player';
         document.getElementById("rightPlayerNameDisplay").innerHTML = playerRight.name;
-        winningScore = parseInt(winningScoreSelect ? winningScoreSelect.value : 11);
+        winningScore = parseInt(settings.winningScore ? settings.winningScore : 11);
     }
 
 //////////////////////////GAME////////////////////////////
