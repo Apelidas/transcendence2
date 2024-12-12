@@ -15,6 +15,7 @@ const Locations = [
 ];
 
 function getContentType(extname) {
+
     let contentType = 'text/html';
     switch (extname) {
         case '.js':
@@ -33,26 +34,50 @@ function getContentType(extname) {
             contentType = 'image/gif';
             break;
     }
+    console.log('for ' + extname + ': ' + contentType );
     return contentType;
 }
 
+function extractLastSegment(path) {
+    const segments = path.split('/');
+    return '/' + segments.pop();
+}
+
+function countSlashes(inputString) {
+    let count = 0;
+    for (let char of inputString) {
+        if (char === '/') {
+            count++;
+        }
+    }
+
+    return count;
+}
+
 const server = http.createServer((request, response) => {
-    // Construct the file path
-    let url = request.url;
+    console.log('request url: ' + request.url);
+    let url = request.url.endsWith('/') && request.url !== '/' ? request.url.slice(0, -1) : request.url;
+    console.log('url before: ' + url);
+    // if (countSlashes(url) > 1){
+    //     url  = extractLastSegment(url);
+    // }
+    if (url.startsWith('/games/') && !url.startsWith('/games/pong') && !url.startsWith('/games/tic') && !url.startsWith('/games/selection')){
+        url = url.slice(6);
+    }
+    console.log('url after: ' + url);
 
     const filePath = path.join(__dirname, 'app', Locations.includes(url) ? 'index.html' : url);
-
-    // Determine the file extension to set the content type
     const extname = path.extname(filePath);
 
     let contentType = getContentType(extname);
 
-    if(extname === '.png' || extname === '.jpeg'){
+    if(extname === '.png' || extname === '.jpeg' || extname === '.jpg' || extname === '.gif'){
         readPictures(contentType, filePath, response)
     }
     else {
         readText(extname, contentType, filePath, response)
     }
+    console.log('');
 });
 
 function error(err, response) {
@@ -75,8 +100,10 @@ function error(err, response) {
 }
 
 function readText(extname, contentType, filePath, response){
+    console.log('reading: ' + filePath);
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
+            console.log('encountered error: ' + err);
             error(err, response);
             return;
         }

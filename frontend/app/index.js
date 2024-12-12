@@ -35,18 +35,18 @@ function handleRouting() {
             document.getElementById('viewPongAI').classList.add('active');
             // window.history.pushState({}, '', path);
             break;
-        case '/games/pong/pongTourn':
-            document.getElementById('viewPongTourn').classList.add('active');
-            // window.history.pushState({}, '', path);
-            break;
-        case '/games/pong/pongTournPage':
-            document.getElementById('viewPongTournPage').classList.add('active');
-            // window.history.pushState({}, '', path);
-            break;
-        case '/games/pong/pongCanvas':
-            document.getElementById('viewPongCanvas').classList.add('active');
-            // window.history.pushState({}, '', path);
-            break;
+            case '/games/pong/pongTourn':
+                document.getElementById('viewPongTourn').classList.add('active');
+                // window.history.pushState({}, '', path);
+                break;
+            case '/games/pong/pongTournPage':
+                document.getElementById('viewPongTournPage').classList.add('active');
+                // window.history.pushState({}, '', path);
+                break;
+            case '/games/pong/pongCanvas':
+                document.getElementById('viewPongCanvas').classList.add('active');
+                // window.history.pushState({}, '', path);
+                break;
         case '/games/ticTacToe':
             document.getElementById('viewTicTacToeMain').classList.add('active');
             // window.history.pushState({}, '', path);
@@ -67,11 +67,8 @@ function handleRouting() {
             document.getElementById('viewProfile').classList.add('active');
             // window.history.pushState({}, '', path);
             getProfileData().then(value => {
-                if (value === undefined) {
-                    handleRouting();
-                } else {
                     setProfileData(value)
-                }
+                    setupFriendslist();
             })
             break;
         default:
@@ -80,6 +77,8 @@ function handleRouting() {
             break;
     }
 }
+
+
 
 // Update URL and content based on route
 function changeRoute(path) {

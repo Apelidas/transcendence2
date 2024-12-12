@@ -1,19 +1,18 @@
 //only interaction with the signup pop up
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('loginLink').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent default anchor behavior
+document.getElementById('loginLink').addEventListener('click', function(event) {
+	event.preventDefault(); // Prevent default anchor behavior
 
-        // Use the globally available function to close the signup popup and open the login popup
-        closeAllPopups(false);
-        openPopup('login', true);
-    });
-
-    document.getElementById('signupForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
-        await signup();
-    });
+	// Use the globally available function to close the signup popup and open the login popup
+	closeAllPopups(false);
+	openPopup('login', true);
 });
+
+document.getElementById('signupForm').addEventListener('submit', async function(event) {
+	event.preventDefault();
+	await signup();
+});
+
 
 async function signup() {
     const email = document.getElementById('EmailFieldSignup').value;

@@ -1,5 +1,5 @@
 
-document.getElementById('startButton').addEventListener('click', () => {
+document.getElementById('startPongPvp').addEventListener('click', () => {
 
     const left_player = create_player("leftPlayerName", "leftPlayerColor");
     const right_player = create_player("rightPlayerName", "rightPlayerColor");

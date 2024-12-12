@@ -1,0 +1,128 @@
+/* Main container styling */
+.tictactoeAI {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styling */
+.tictactoeAI h2 {
+    margin-bottom: 20px;
+}
+
+/* Player options container */
+.ai-options-container {
+    margin-bottom: 20px;
+}
+
+.player-settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Input styling */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    width: 80%;
+    padding: 8px;
+    margin: 5px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Game board styling */
+#ai-game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 5px;
+    margin: 20px auto;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cell.taken {
+    cursor: not-allowed;
+}
+
+/* Status and reset button */
+#ai-status {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+#ai-reset {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#ai-reset:hover {
+    background-color: #0056b3;
+}
+
+/* Footer buttons for giving up */
+.ai-footer-controls {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.ai-give-up-button {
+    padding: 10px 20px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ai-give-up-button:hover {
+    background-color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #ai-game-board {
+        grid-template-columns: repeat(3, 80px);
+        grid-gap: 4px;
+    }
+
+    .cell {
+        width: 80px;
+        height: 80px;
+    }
+}
