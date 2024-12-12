@@ -65,8 +65,10 @@ function start_pong_game(left_player, right_player) {
         ball.color = ballColorInput ? ballColorInput.value : '#FFFFFF';
         playerLeft.color = left_player.color ? left_player.color : '#FF0000';
         playerRight.color = right_player.color ? right_player.color : '#0000FF';
-        playerLeft.name = left_player.name || 'Left Player';
-        playerRight.name = right_player.name || 'Right Player';
+        playerLeft.name = left_player.name ?  left_player.name : 'Left Player';
+        document.getElementById("leftPlayerNameDisplay").innerHTML = playerLeft.name;
+        playerRight.name = right_player.name ? right_player.name : 'Right Player';
+        document.getElementById("rightPlayerNameDisplay").innerHTML = playerRight.name;
         winningScore = parseInt(winningScoreSelect ? winningScoreSelect.value : 11);
     }
 
