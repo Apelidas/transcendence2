@@ -1,6 +1,5 @@
 document.getElementById('pongPvpButton').addEventListener('click', function() {
     changeRoute('/games/pong/pongPvP');
-	document.dispatchEvent(new Event("startPongPvp"));
 });
 
 document.getElementById('pongAiButton').addEventListener('click', function() {

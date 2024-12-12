@@ -1,8 +1,8 @@
-document.addEventListener('startPongPvp', function () {
+
+document.getElementById('startButton').addEventListener('click', () => {
     const canvas = document.getElementById('pongCanvas');
     const context = canvas.getContext('2d');
     const gameOverlay = document.getElementById('gameOverlay');
-    const startButton = document.getElementById('startButton');
     const decreaseSpeedButton = document.getElementById('decreaseSpeed');
     const increaseSpeedButton = document.getElementById('increaseSpeed');
     const decreaseSizeButton = document.getElementById('decreaseSize');
@@ -75,19 +75,17 @@ document.addEventListener('startPongPvp', function () {
         winningScore = parseInt(winningScoreSelect ? winningScoreSelect.value : 11);
     }
 
-    // Start button event listener
-    startButton.addEventListener('click', () => {
-        if (validateNames()) {
-            applySettings();
-            gameOverlay.style.display = 'flex';
-            giveUpButtons.forEach(button => button.style.display = 'block');
-            gameRunning = true;
-            resetBall();
-            if (obstaclesEnabled)
-                createObstacles();
-            requestAnimationFrame(update);
-        }
-    });
+    // Code that executes
+    if (validateNames()) {
+        applySettings();
+        gameOverlay.style.display = 'flex';
+        giveUpButtons.forEach(button => button.style.display = 'block');
+        gameRunning = true;
+        resetBall();
+        if (obstaclesEnabled)
+            createObstacles();
+        requestAnimationFrame(update);
+    }
 
 //////////////////////////GAME////////////////////////////
 //DRAWING
