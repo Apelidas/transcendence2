@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework_simplejwt.views import TokenRefreshView
 
+from transcendence.adapter.friends import FriendsView
 from transcendence.adapter.pong import PongView
 from transcendence.adapter.profile import ProfileView
 from transcendence.adapter.signup import SignUpView
@@ -28,6 +29,7 @@ from transcendence.adapter.upload_picture import UploadProfilePictureView
 from django.conf import settings
 from django.conf.urls.static import static
 
+from transcendence.adapter.users import UsersView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,6 +41,8 @@ urlpatterns = [
     path('profile/upload-picture', UploadProfilePictureView.as_view(), name='upload_picture_view'),
     path('profile/change-email', ChangeEmailView.as_view(), name='upload_picture_view'),
     path('pong/', PongView.as_view(), name='pong_view'),
+    path('friends/', FriendsView.as_view(), name='friends_view'),
+    path('users/', UsersView.as_view(), name='friends_view'),
 
 ]
 

@@ -59,11 +59,8 @@ function handleRouting() {
             document.getElementById('viewProfile').classList.add('active');
             // window.history.pushState({}, '', path);
             getProfileData().then(value => {
-                if (value === undefined) {
-                    handleRouting();
-                } else {
                     setProfileData(value)
-                }
+                    setupFriendslist();
             })
             break;
         default:
@@ -72,6 +69,8 @@ function handleRouting() {
             break;
     }
 }
+
+
 
 // Update URL and content based on route
 function changeRoute(path) {
