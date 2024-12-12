@@ -19,7 +19,7 @@ document.addEventListener('startPongPvp', function () {
     const winningScoreSelect = document.getElementById('winningScore');
     const giveUpButtons = document.querySelectorAll('.give-up-button');
 
-    let ballSpeed = 3;
+    let ballSpeed = 2;
     let ballSize = 10;
     let obstaclesEnabled = false;
     let gameRunning = false;
@@ -264,7 +264,7 @@ document.addEventListener('startPongPvp', function () {
 		}
 	
 		// Ensure the ball speed remains constant
-		const speed = ball.speed || 3;
+		const speed = ball.speed || 2;
 	
 		// Set the ball's velocity
 		ball.dx = Math.cos(angle) * speed;
