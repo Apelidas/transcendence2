@@ -1,10 +1,165 @@
-.ticTacToe {
+/* Main container styling */
+.tictactoeGame {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #fff;
+    background: #f4f4f4;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styling */
+.tictactoeGame h2 {
+    margin-bottom: 20px;
+}
+
+/* Player and game settings containers */
+.options-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.player-options,
+.game-settings-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 10px;
+    text-align: center;
+}
+
+/* Input styling */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="color"],
+select {
+    width: 80%;
+    padding: 8px;
+    margin: 5px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Start button styling */
+.start-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.start-btn:hover {
+    background-color: #218838;
+}
+
+/* Game board styling */
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 5px;
+    margin: 20px auto;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cell.taken {
+    cursor: not-allowed;
+}
+
+/* Status and reset button */
+#status {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+#reset {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#reset:hover {
+    background-color: #0056b3;
+}
+
+/* Footer buttons for giving up */
+.footer-controls {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.give-up-button {
+    padding: 10px 20px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.give-up-button:hover {
+    background-color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .options-container {
+        flex-direction: column;
+    }
+
+    .player-options,
+    .game-settings-container {
+        width: 80%;
+        margin: 10px 0;
+    }
+
+    #game-board {
+        grid-template-columns: repeat(3, 80px);
+        grid-gap: 4px;
+    }
+
+    .cell {
+        width: 80px;
+        height: 80px;
+    }
 }

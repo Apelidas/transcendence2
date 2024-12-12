@@ -1,17 +1,29 @@
-<div class="card ticTacToe" id="ticTacToe">
-  <h1 class="mt-5">Rock Paper Scissors</h1>
+<div class="tictactoeGame">
+    <h2>Tic Tac Toe: Player vs Player</h2>
 
-  <div class="container-fluid mt-4 mb-5">
-    <h3 class="fw-light">Choose one:</h3>
-    <button class="btn btn-info rock-game" id="rock">rock👊</button>
-    <button class="btn btn-info rock-game" id="paper">paper🖐</button>
-    <button class="btn btn-info rock-game" id="scissors">scissors✌</button>
-  </div>
-  <div class="square">
-    <div class="container-fluid mt-4 mb-5">
-      <h2>User: <span class="text-muted" id="user-choice"></span></h2>
-      <h2>PC: <span class="text-muted" id="computer-choice"></span></h2>
-      <h2 class="fw-bolder">Result: <span id="result"></span></h2>
+    <!-- Player Names and Settings -->
+    <div class="options-container">
+        <!-- Player 1 Options -->
+        <div class="player-options">
+            <label for="player1Name">Player 1 Name:</label>
+            <input type="text" id="player1Name" placeholder="Enter Player 1 Name">
+        </div>
+
+        <!-- Player 2 Options -->
+        <div class="player-options">
+            <label for="player2Name">Player 2 Name:</label>
+            <input type="text" id="player2Name" placeholder="Enter Player 2 Name">
+        </div>
     </div>
-  </div>
+
+    <!-- Game Board -->
+    <div id="game-board"></div>
+    <div id="status">Player X's turn</div>
+
+    <!-- Footer Controls -->
+    <div class="footer-controls">
+        <button id="reset">Reset Game</button>
+        <button class="give-up-button" id="giveUpPlayer1">Player 1 Gives Up</button>
+        <button class="give-up-button" id="giveUpPlayer2">Player 2 Gives Up</button>
+    </div>
 </div>
