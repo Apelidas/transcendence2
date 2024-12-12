@@ -47,7 +47,7 @@ const server = http.createServer((request, response) => {
 
     let contentType = getContentType(extname);
 
-    if(extname === '.png' || extname === '.jpeg'){
+    if(extname === '.png' || extname === '.jpeg' || extname === '.jpg' || extname === '.gif'){
         readPictures(contentType, filePath, response)
     }
     else {
