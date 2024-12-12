@@ -8,8 +8,8 @@ class GameDataManager(models.Manager):
     def getAllGamesWonBy(self, user, againstAi):
         return self.filter(user=user, user_won=True, against_ai=againstAi)
 
-    def getAllGamesPlayedBy(self, user, againstAi):
-        return self.filter(user=user, against_ai=againstAi)
+    def getAllGamesPlayedBy(self, user, isPong):
+        return self.filter(user=user, isPong= isPong)
 
     def getMostWinsInARow(self, user, againstAi):
         games = self.filter(user=user, against_ai=againstAi).order_by('played_at')
@@ -30,6 +30,8 @@ class GameData(models.Model):
     id = models.AutoField(primary_key=True)
     left_score = models.IntegerField()
     right_score = models.IntegerField()
+    left_player = models.CharField(max_length=25)
+    right_player = models.CharField(max_length=25)
     against_ai = models.BooleanField()
     played_at = models.DateTimeField()
     user = models.ForeignKey(

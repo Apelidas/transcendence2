@@ -1,0 +1,66 @@
+
+#historyColumns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+#historyPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.history {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 4px;
+    padding: 8px;
+    flex: 1;
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    padding: 16px;
+    text-align: center;
+    margin: 4px;
+}
+
+.card.won {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.card.lost {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.card p {
+    margin: 8px 0;
+    font-size: 1em;
+}
+
+.card .highlight {
+    font-weight: bold;
+
+}
+.historyTitle {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px; /* Space between title and history container */
+    text-align: center;
+    color: #333; /* Color of the title */
+}
+
+#historyColumns {
+    display: flex;
+    flex-direction: row;
+    gap: 20px; /* Space between the columns */
+}

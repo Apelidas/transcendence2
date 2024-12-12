@@ -50,6 +50,7 @@ body {
 /* Show the active section */
 #mainContent > div.active {
     display: block;
+    height: 100vh;
 }
 
 /* Media query for smaller screens */
