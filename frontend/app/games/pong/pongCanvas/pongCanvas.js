@@ -144,6 +144,7 @@ function start_pong_game() {
 
     // End the game and display the winner
     function endGame(winner, leftScore, rightScore) {
+        // TODO move to correct page
         if (winner) {
             alert(`${winner} wins!`);
             sendGameData(leftScore, rightScore);
