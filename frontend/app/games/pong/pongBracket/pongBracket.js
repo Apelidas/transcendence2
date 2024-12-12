@@ -36,8 +36,9 @@ document.getElementById("startPongTournament").addEventListener('click', () => {
     //     console.log("player" + i + " pos = " + players[i].position); // DEBUG
     // }
 
-    pong_winner1 = "";
-    pong_winner2 = "";
+    pong_finalist_1 = "";
+    pong_finalist_2 = "";
+    pong_winner = "";
 
     changeRoute('/games/pong/pongBracket')
     display_bracket(players); // , settings TODO
@@ -70,7 +71,7 @@ function display_bracket(players) {
     set_player_at_element(player1, p1);
     const player2 = get_player_at_pos(players, 2);
     set_player_at_element(player2, p2);
-    if (pong_winner1 === "") {
+    if (pong_finalist_1 === "") {
         document.getElementById("ptSemi1").style.display = "inline";
     } else {
         document.getElementById("ptSemi1").style.display = "none";
@@ -81,37 +82,55 @@ function display_bracket(players) {
     if (players.length >= 4) {
         player4 = get_player_at_pos(players, 4);
         set_player_at_element(player4, p4);
-        if (pong_winner2 === "") {
+        if (pong_finalist_2 === "") {
             document.getElementById("ptSemi2").style.display = "inline";
         } else {
             document.getElementById("ptSemi2").style.display = "none";
         }
     }
+    else {
+        pong_finalist_2 = player3.name;
+    }
+
+    if (pong_finalist_1 !== "") {
+        const winner1 = get_player(players, pong_finalist_1)
+        set_player_at_element(winner1, w1);
+    }
+    if (pong_finalist_2 !== "") {
+        const winner2 = get_player(players, pong_finalist_2)
+        set_player_at_element(winner2, w2);
+    }
+
+    if (pong_winner === "" && (pong_finalist_1 !== "" && pong_finalist_2 !== "")) {
+        document.getElementById("ptFinal").style.display = "inline";
+    } else {
+        document.getElementById("ptFinal").style.display = "none";
+    }
+
+    if (pong_winner !== "") {
+        const champ = get_player(players, pong_winner)
+        set_player_at_element(champ, winner);
+    }
 
     document.getElementById("ptSemi1").addEventListener('click', () => {
         const settings = {};
-        settings.type = "pong_game_1";
+        settings.type = "pong_semi_1";
         start_pong_game(player1, player2, settings);
     });
 
     document.getElementById("ptSemi2").addEventListener('click', () => {
         const settings = {};
-        settings.type = "pong_game_2";
+        settings.type = "pong_semi_2";
         start_pong_game(player3, player4, settings);
     });
 
-    if (pong_winner1 !== "") {
-        const winner1 = get_player(players, pong_winner1)
-        set_player_at_element(winner1, w1);
-    }
-    if (pong_winner2 !== "") {
-        const winner2 = get_player(players, pong_winner2)
-        set_player_at_element(winner2, w1);
-    }
-
-    // set_player_at_element(player2, winner);
-
-    // TODO run_statemachine?
+    document.getElementById("ptFinal").addEventListener('click', () => {
+        const settings = {};
+        settings.type = "pong_finals";
+        const finalist_1 = get_player(players, pong_finalist_1);
+        const finalist_2 = get_player(players, pong_finalist_2);
+        start_pong_game(finalist_1, finalist_2, settings);
+    });
 }
 
 function set_player_at_element(player, element) {
@@ -132,7 +151,3 @@ function get_player(players, name) {
             return players[i];
     }
 }
-
-document.getElementById("ptFinal").addEventListener('click', () => {
-    // TODO
-});

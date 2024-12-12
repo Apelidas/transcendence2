@@ -1,6 +1,7 @@
 
-let pong_winner1 = "";
-let pong_winner2 = "";
+let pong_finalist_1 = "";
+let pong_finalist_2 = "";
+let pong_winner = "";
 
 function start_pong_game(left_player, right_player, settings) {
 
@@ -136,13 +137,18 @@ function start_pong_game(left_player, right_player, settings) {
         if (winner) {
             alert(`${winner} wins!`);
             sendGameData(leftScore, rightScore);
-            if (settings.type === 'pong_game_1') {
-                pong_winner1 = winner;
+            if (settings.type === 'pong_semi_1') {
+                pong_finalist_1 = winner;
                 changeRoute('/games/pong/pongBracket');
                 display_bracket(players);
             }
-            else if (settings.type === 'pong_game_2') {
-                pong_winner2 = winner;
+            else if (settings.type === 'pong_semi_2') {
+                pong_finalist_2 = winner;
+                changeRoute('/games/pong/pongBracket');
+                display_bracket(players);
+            }
+            else if (settings.type === 'pong_finals') {
+                pong_winner = winner;
                 changeRoute('/games/pong/pongBracket');
                 display_bracket(players);
             }
