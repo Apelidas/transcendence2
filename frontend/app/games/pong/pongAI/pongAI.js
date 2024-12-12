@@ -19,7 +19,7 @@ document.addEventListener('startPongAi', function () {
     const winningScoreSelect = document.getElementById('winningScoreAi');
     const giveUpButton = document.querySelectorAll('.give-up-button');
 
-    let ballSpeed = 3;
+    let ballSpeed = 2;
     let ballSize = 10;
     let obstaclesEnabled = false;
     let gameRunning = false;
@@ -271,7 +271,7 @@ document.addEventListener('startPongAi', function () {
 		}
 	
 		// Ensure the ball speed remains constant
-		const speed = ball.speed || 3;
+		const speed = ball.speed || 2;
 	
 		// Set the ball's velocity
 		ball.dx = Math.cos(angle) * speed;
@@ -393,6 +393,8 @@ document.addEventListener('startPongAi', function () {
         if (!gameOnPause()) {
             if (e.key === 'w') playerLeft.dy = -5;
             if (e.key === 's') playerLeft.dy = 5;
+			if (e.key === 'ESC') endGame();
+			if (e.key === 'p') pauseGame();
             //if (e.key === 'ArrowUp') playerRight.dy = -5;
             //if (e.key === 'ArrowDown') playerRight.dy = 5;
         }
