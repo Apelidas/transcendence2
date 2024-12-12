@@ -32,3 +32,14 @@ function checkForUniqueNames(names) {
     }
     return true;
 }
+
+function create_player(name_id, color_id) {
+    let player = {};
+    player.name = document.getElementById(name_id).value.trim();
+    if (!player.name)
+        return;
+    player.color = document.getElementById(color_id).value;
+    player.number = Math.floor(Math.random() * 100); // Random number beetween 0 and 99
+    player.position = 0;
+    return player;
+}
