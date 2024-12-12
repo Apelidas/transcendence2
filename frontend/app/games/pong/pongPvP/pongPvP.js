@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const increaseSpeedButton = document.getElementById('increaseSpeed');
     const decreaseSizeButton = document.getElementById('decreaseSize');
     const increaseSizeButton = document.getElementById('increaseSize');
-	const toggleObstaclesButton = document.getElementById('toggleObstacles');
+    const toggleObstaclesButton = document.getElementById('toggleObstacles');
     const leftPlayerNameInput = document.getElementById('leftPlayerName');
     const rightPlayerNameInput = document.getElementById('rightPlayerName');
     const leftPlayerColorInput = document.getElementById('leftPlayerColor');
@@ -24,11 +24,27 @@ document.addEventListener('DOMContentLoaded', function () {
     let obstaclesEnabled = false;
     let gameRunning = false;
     let winningScore = 11;
-	let obstacles = [];
+    let obstacles = [];
 
-    let ball = { x: canvas.width, y: canvas.height / 2, dx: 4, dy: -4, speed: ballSpeed, radius: ballSize, color: '#FFFFFF' };
-    let playerLeft = { x: 10, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#FF0000' };
-    let playerRight = { x: canvas.width * 2 - 20, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#0000FF' };
+    let ball = {
+        x: canvas.width,
+        y: canvas.height / 2,
+        dx: 4,
+        dy: -4,
+        speed: ballSpeed,
+        radius: ballSize,
+        color: '#FFFFFF'
+    };
+    let playerLeft = {x: 10, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#FF0000'};
+    let playerRight = {
+        x: canvas.width * 2 - 20,
+        y: canvas.height / 2 - 50,
+        width: 10,
+        height: 100,
+        dy: 0,
+        score: 0,
+        color: '#0000FF'
+    };
 
     // Helper function to validate player names
     function validateNames() {
@@ -67,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
             giveUpButtons.forEach(button => button.style.display = 'block');
             gameRunning = true;
             resetBall();
-			if (obstaclesEnabled)
+            if (obstaclesEnabled)
                 createObstacles();
             requestAnimationFrame(update);
         }
@@ -110,13 +126,13 @@ document.addEventListener('DOMContentLoaded', function () {
         context.fillText(playerRight.score, (3 * canvas.width) / 4, 50);
     }
 
-	// Drawing obstacles on the canvas
-	function drawObstacles() {
-		context.fillStyle = '#FFD700'; // Gold color for obstacles
-		obstacles.forEach(obstacle => {
-			context.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-		});
-	}
+    // Drawing obstacles on the canvas
+    function drawObstacles() {
+        context.fillStyle = '#FFD700'; // Gold color for obstacles
+        obstacles.forEach(obstacle => {
+            context.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        });
+    }
 
 //MOVING
 
@@ -129,23 +145,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // End the game and display the winner
-	function endGame(winner, leftScore, rightScore) {
-        if(winner) {
+    function endGame(winner, leftScore, rightScore) {
+        if (winner) {
             alert(`${winner} wins!`);
             sendGameData(leftScore, rightScore);
         }
-		gameRunning = false;
-		gameOverlay.style.display = 'none';
+        gameRunning = false;
+        gameOverlay.style.display = 'none';
         resetScore();
         resetBallsChanges();
-		giveUpButtons.forEach(button => button.style.display = 'none');
-		if (obstaclesEnabled)
-			obstacles = [];
-	}
+        giveUpButtons.forEach(button => button.style.display = 'none');
+        if (obstaclesEnabled)
+            obstacles = [];
+    }
 
-    async function sendGameData(leftScore, rightScore){
+    async function sendGameData(leftScore, rightScore) {
         const response = await sendGame(leftScore, rightScore, false, true, leftScore > rightScore);
-        if (response.status !== 200){
+        if (response.status !== 200) {
             alert('There has been an error. GameData could not be stored');
         }
     }
@@ -169,13 +185,37 @@ document.addEventListener('DOMContentLoaded', function () {
             ball.dy *= -1;
         }
 
-        if (ball.x - ball.radius < playerLeft.x + playerLeft.width && ball.y > playerLeft.y && ball.y < playerLeft.y + playerLeft.height) {
-            ball.dx *= -1;
+        if (ball.x - ball.radius < playerLeft.x + playerLeft.width &&
+            ball.x > playerLeft.x &&
+            ball.y + ball.radius > playerLeft.y &&
+            ball.y - ball.radius < playerLeft.y + playerLeft.height) {
+
+            // collision is from the top, bottom or side
+            if (ball.y + ball.radius > playerLeft.y && ball.y - ball.radius < playerLeft.y + playerLeft.height) {
+
+                // Adjust ball position to prevent sticking
+                ball.x = playerLeft.x + playerLeft.width + ball.radius;
+                ball.dx *= -1;
+            } else
+                ball.dy *= -1;
+
             if (obstaclesEnabled) checkObstacleCollision();
         }
 
-        if (ball.x + ball.radius > playerRight.x && ball.y > playerRight.y && ball.y < playerRight.y + playerRight.height) {
-            ball.dx *= -1;
+        if (ball.x + ball.radius > playerRight.x &&
+            ball.x < playerRight.x + playerRight.width &&
+            ball.y + ball.radius > playerRight.y &&
+            ball.y - ball.radius < playerRight.y + playerRight.height) {
+
+            // collision is from the top, bottom or side
+            if (ball.y + ball.radius > playerRight.y && ball.y - ball.radius < playerRight.y + playerRight.height) {
+
+                // adjust ball position to prevent sticking
+                ball.x = playerRight.x - ball.radius;
+                ball.dx *= -1;
+            } else
+                ball.dy *= -1;
+
             if (obstaclesEnabled) checkObstacleCollision();
         }
 
@@ -216,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-	// Toggle obstacles on or off
+    // Toggle obstacles on or off
     toggleObstaclesButton.addEventListener('click', () => {
         obstaclesEnabled = !obstaclesEnabled;
         if (obstaclesEnabled)
@@ -256,46 +296,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //MAIN
     // Draw paddles, ball, and UI elements
-	function draw() {
-		context.clearRect(0, 0, canvas.width, canvas.height);
-		drawPaddle(playerLeft);
-		drawPaddle(playerRight);
-		drawBall();
-		drawDashedLine();
-		drawScores();
-		if (obstaclesEnabled) {
-			drawObstacles();
-		}
-	}
+    function draw() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        drawPaddle(playerLeft);
+        drawPaddle(playerRight);
+        drawBall();
+        drawDashedLine();
+        drawScores();
+        if (obstaclesEnabled)
+            drawObstacles();
+    }
 
     // Update game loop
-	function update() {
-		if (gameRunning) {
-			movePaddles();
-			moveBall();
-			// detectCollisions();
-			checkObstacleCollision();
-			draw();
-			requestAnimationFrame(update);
-		}
-	}
+    function update() {
+        if (gameRunning) {
+            movePaddles();
+            moveBall();
+            // detectCollisions();
+            checkObstacleCollision();
+            draw();
+            requestAnimationFrame(update);
+        }
+    }
 
 
     increaseSpeedButton.addEventListener('click', () => {
-        ball.speed ++;
+        if (!gameOnPause())
+            ball.speed++;
     });
 
     decreaseSpeedButton.addEventListener('click', () => {
-        if (ball.speed > 1)
-            ball.speed --;
+        if (ball.speed > 1 && !gameOnPause())
+            ball.speed--;
     });
 
     increaseSizeButton.addEventListener('click', () => {
-        ball.radius +=  2;
+        if (!gameOnPause())
+            ball.radius += 2;
     });
 
     decreaseSizeButton.addEventListener('click', () => {
-        if (ball.radius > 2)
+        if (ball.radius > 2 && !gameOnPause())
             ball.radius -= 2;
     });
 
@@ -309,16 +350,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Handle user keyboard inputs for paddle control
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'w') playerLeft.dy = -5;
-        if (e.key === 's') playerLeft.dy = 5;
-        if (e.key === 'ArrowUp') playerRight.dy = -5;
-        if (e.key === 'ArrowDown') playerRight.dy = 5;
+        if (!gameOnPause()) {
+            if (e.key === 'w') playerLeft.dy = -5;
+            if (e.key === 's') playerLeft.dy = 5;
+            if (e.key === 'ArrowUp') playerRight.dy = -5;
+            if (e.key === 'ArrowDown') playerRight.dy = 5;
+        }
     });
 
     document.addEventListener('keyup', (e) => {
         if (e.key === 'w' || e.key === 's') playerLeft.dy = 0;
         if (e.key === 'ArrowUp' || e.key === 'ArrowDown') playerRight.dy = 0;
+        if (e.key === 'Escape') endGame()
+        if (e.key === 'p') pauseGame();
     });
+
+    function gameOnPause() {
+        return ball.speed === 0;
+    }
+
+    function pauseGame() {
+        if (!gameOnPause())
+            ball.speed = 0
+        else
+            ball.speed = 4
+    }
 
     window.addEventListener('popstate', function (event) {
         endGame();
