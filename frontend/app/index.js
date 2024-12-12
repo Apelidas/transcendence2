@@ -27,6 +27,11 @@ function handleRouting() {
             document.getElementById('viewPongMain').classList.add('active');
             // window.history.pushState({}, '', path);
             break;
+        case '/games/history':
+            document.getElementById('viewHistory').classList.add('active');
+            setUpHistory();
+            // window.history.pushState({}, '', path);
+            break;
         case '/games/pong/pongPvP':
             document.getElementById('viewPongPvP').classList.add('active');
             // window.history.pushState({}, '', path);
@@ -81,7 +86,6 @@ function handleRouting() {
 // Update URL and content based on route
 function changeRoute(path) {
     window.history.pushState({}, '', path); // Update the URL without reloading
-    console.log('changeRoute: ' + path);
     handleRouting(); // Call handleRouting to update the displayed content
 }
 
@@ -91,7 +95,6 @@ function changeRoute(path) {
 // Initialize routing on page load
 document.addEventListener('DOMContentLoaded', function () {
     // Initialize page content based on the current URL
-    console.log('onLoad')
     handleRouting();
     checkIfLoggedIn();
     window.addEventListener('popstate', handleRouting);

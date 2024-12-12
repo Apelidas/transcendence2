@@ -88,9 +88,7 @@ function updateNavbarBasedOnLogin() {
     const viewProfileButton = document.getElementById('viewProfileButton');
     const logoutButton = document.getElementById('logoutButton');
 
-    console.log('updating navBar')
     const username = localStorage.getItem('username');
-    console.log(username)
     loginButton.style.display = 'none';
     signupButton.style.display = 'none';
     userGreeting.querySelector('span').textContent = `Welcome, ${username}!`;

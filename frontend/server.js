@@ -10,6 +10,7 @@ const Locations = [
     '/games',
     '/games/pong',
     '/games/tic-tac-toe',
+    '/games/history',
     '/login',
     '/signup',
 ];
@@ -58,10 +59,8 @@ const server = http.createServer((request, response) => {
     console.log('request url: ' + request.url);
     let url = request.url.endsWith('/') && request.url !== '/' ? request.url.slice(0, -1) : request.url;
     console.log('url before: ' + url);
-    // if (countSlashes(url) > 1){
-    //     url  = extractLastSegment(url);
-    // }
-    if (url.startsWith('/games/') && !url.startsWith('/games/pong') && !url.startsWith('/games/tic') && !url.startsWith('/games/selection')){
+
+    if (url.startsWith('/games/') && !url.startsWith('/games/pong') && !url.startsWith('/games/tic') && !url.startsWith('/games/selection') && !url.startsWith('/games/history')){
         url = url.slice(6);
     }
     console.log('url after: ' + url);
