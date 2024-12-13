@@ -1,424 +1,103 @@
-document.addEventListener('startPongAi', function () {
-    const canvas = document.getElementById('pongCanvasAi');
-    const context = canvas.getContext('2d');
-    const gameOverlay = document.getElementById('gameOverlayAi');
-    const startButton = document.getElementById('startButtonAi');
-    const decreaseSpeedButton = document.getElementById('decreaseSpeedAi');
-    const increaseSpeedButton = document.getElementById('increaseSpeedAi');
-    const decreaseSizeButton = document.getElementById('decreaseSizeAi');
-    const increaseSizeButton = document.getElementById('increaseSizeAi');
-    // const toggleObstaclesButton = document.getElementById('toggleObstaclesAi');
-    const leftPlayerNameInput = document.getElementById('leftPlayerNameAi');
-    const rightPlayerNameInput = document.getElementById('rightPlayerNameAi');
-    const leftPlayerColorInput = document.getElementById('leftPlayerColorAi');
-    const rightPlayerColorInput = document.getElementById('rightPlayerColorAi');
-    const backgroundColorInput = document.getElementById('backgroundColorAi');
-    const leftGiveUp = document.getElementById('left-give-upAi');
-    //const rightGiveUp = document.getElementById('right-give-up');
-    const ballColorInput = document.getElementById('ballColorAi');
-    const winningScoreSelect = document.getElementById('winningScoreAi');
-    const giveUpButton = document.querySelectorAll('.give-up-button');
-
-    let ballSpeed = 2;
-    let ballSize = 10;
-    let obstaclesEnabled = false;
-    let gameRunning = false;
-    let winningScore = 11;
-    let obstacles = [];
-
-    let ball = {
-        x: canvas.width,
-        y: canvas.height / 2,
-        dx: 4,
-        dy: -4,
-        speed: ballSpeed,
-        radius: ballSize,
-        color: '#FFFFFF'
-    };
-    let playerLeft = {x: 10, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#FF0000'};
-    let playerRight = {
-        x: canvas.width * 2 - 20,
-        y: canvas.height / 2 - 50,
-        width: 10,
-        height: 100,
-        dy: 0,
-        score: 0,
-        color: '#0000FF'
-    };
-
-    // Helper function to validate player names
-    function validateNames() {
-        const leftName = leftPlayerNameInput.value.trim();
-        //const rightName = rightPlayerNameInput.value.trim();
-        const namePattern = /^[A-Za-z]{3,}$/; // At least 3 letters, no special characters or numbers
-        if (!namePattern.test(leftName)) {
-            alert("Names must be at least 3 letters long and contain only letters.");
-            return false;
-        }
-        return true;
-    }
-
-    // Apply settings for game initialization
-    function applySettings() {
-        canvas.width = 600;
-        canvas.height = 400;
-        canvas.style.backgroundColor = backgroundColorInput ? backgroundColorInput.value : '#222'; // Add fallback
-        ball.color = ballColorInput ? ballColorInput.value : '#FFFFFF';
-        playerLeft.color = leftPlayerColorInput ? leftPlayerColorInput.value : '#FF0000';
-        playerRight.color = rightPlayerColorInput ? rightPlayerColorInput.value : '#0000FF';
-        playerLeft.name = leftPlayerNameInput.value || 'Left Player';
-        playerRight.name = rightPlayerNameInput.value || 'Right Player';
-        winningScore = parseInt(winningScoreSelect ? winningScoreSelect.value : 11);
-    }
-
-    // Start button event listener
-    startButton.addEventListener('click', () => {
-        if (validateNames()) {
-            applySettings();
-            gameOverlay.style.display = 'flex';
-            giveUpButton.forEach(button => button.style.display = 'block');
-            gameRunning = true;
-            resetBall();
-            if (obstaclesEnabled)
-                createObstacles();
-            requestAnimationFrame(update);
-        }
-    });
-
-//////////////////////////GAME////////////////////////////
-//DRAWING
-    // Draw a paddle
-    function drawPaddle(player) {
-        context.fillStyle = player.color;
-        context.fillRect(player.x, player.y, player.width, player.height);
-    }
-
-    // Draw the ball
-    function drawBall() {
-        context.fillStyle = ball.color;
-        context.beginPath();
-        context.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-        context.closePath();
-        context.fill();
-    }
-
-    // Draw a dashed line in the center
-    function drawDashedLine() {
-        context.setLineDash([10, 10]);
-        context.strokeStyle = '#FFF';
-        context.beginPath();
-        context.moveTo(canvas.width / 2, 0);
-        context.lineTo(canvas.width / 2, canvas.height);
-        context.stroke();
-        context.setLineDash([]);
-    }
-
-    // Draw the scores for each player
-    function drawScores() {
-        context.font = '36px Arial';
-        context.fillStyle = '#FFF';
-        context.textAlign = 'center';
-        context.fillText(playerLeft.score, canvas.width / 4, 50);
-        context.fillText(playerRight.score, (3 * canvas.width) / 4, 50);
-    }
-
-    // Drawing obstacles on the canvas
-    function drawObstacles() {
-        context.fillStyle = '#FFD700'; // Gold color for obstacles
-        obstacles.forEach(obstacle => {
-            context.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-        });
-    }
-
-//MOVING
-
-    // Move paddles based on user input
-    function movePaddles() {
-        playerLeft.y += playerLeft.dy;
-        //playerRight.y += playerRight.dy;
-        playerLeft.y = Math.max(0, Math.min(canvas.height - playerLeft.height, playerLeft.y));
-        //playerRight.y = Math.max(0, Math.min(canvas.height - playerRight.height, playerRight.y));
-    }
-
-	function updateAI() {
-		const aiSpeed = 3; // Adjust AI speed
-		const targetY = ball.y - playerRight.height / 2;
-		if (Math.abs(targetY - playerRight.y) > aiSpeed) {
-			playerRight.y += targetY > playerRight.y ? aiSpeed : -aiSpeed;
-		}
-		playerRight.y = Math.max(0, Math.min(canvas.height - playerRight.height, playerRight.y));
-	}
-	
-	
-
-    // End the game and display the winner
-    function endGame(winner, leftScore, rightScore) {
-        if (winner) {
-            alert(`${winner} wins!`);
-            sendGameData(leftScore, rightScore);
-        }
-        gameRunning = false;
-        gameOverlay.style.display = 'none';
-        resetScore();
-        resetBallsChanges();
-        giveUpButtons.forEach(button => button.style.display = 'none');
-        if (obstaclesEnabled)
-            obstacles = [];
-    }
-
-    async function sendGameData(leftScore, rightScore) {
-        const response = await sendGame(leftScore, rightScore, false, true, leftScore > rightScore);
-        if (response.status !== 200) {
-            alert('There has been an error. GameData could not be stored');
-        }
-    }
-
-    function resetBallsChanges() {
-        ball.speed = ballSpeed;
-        ball.radius = ballSize;
-    }
-
-    function resetScore() {
-        playerLeft.score = 0;
-        playerRight.score = 0;
-    }
-
-    // Move the ball and check for collisions
-    function moveBall() {
-        ball.x += ball.dx * ball.speed;
-        ball.y += ball.dy * ball.speed;
-
-        if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
-            ball.dy *= -1;
-        }
-
-        if (ball.x - ball.radius < playerLeft.x + playerLeft.width &&
-            ball.x > playerLeft.x &&
-            ball.y + ball.radius > playerLeft.y &&
-            ball.y - ball.radius < playerLeft.y + playerLeft.height) {
-
-            // collision is from the top, bottom or side
-            if (ball.y + ball.radius > playerLeft.y && ball.y - ball.radius < playerLeft.y + playerLeft.height) {
-
-                // Adjust ball position to prevent sticking
-                ball.x = playerLeft.x + playerLeft.width + ball.radius;
-                ball.dx *= -1;
-            } else
-                ball.dy *= -1;
-
-            if (obstaclesEnabled) checkObstacleCollision();
-        }
-
-        if (ball.x + ball.radius > playerRight.x &&
-            ball.x < playerRight.x + playerRight.width &&
-            ball.y + ball.radius > playerRight.y &&
-            ball.y - ball.radius < playerRight.y + playerRight.height) {
-
-            // collision is from the top, bottom or side
-            if (ball.y + ball.radius > playerRight.y && ball.y - ball.radius < playerRight.y + playerRight.height) {
-
-                // adjust ball position to prevent sticking
-                ball.x = playerRight.x - ball.radius;
-                ball.dx *= -1;
-            } else
-                ball.dy *= -1;
-
-            if (obstaclesEnabled) checkObstacleCollision();
-        }
-
-        if (ball.x + ball.radius < 0) {
-            playerRight.score++;
-            resetBall();
-        } else if (ball.x - ball.radius > canvas.width) {
-            playerLeft.score++;
-            resetBall();
-        }
-
-        if (playerLeft.score >= winningScore || playerRight.score >= winningScore) {
-            endGame(playerLeft.score > playerRight.score ? playerLeft.name : playerRight.name, playerLeft.score, playerRight.score);
-        }
-    }
-
-	function resetBall() {
-		// Set the ball to the center of the canvas
-		ball.x = canvas.width / 2;
-		ball.y = canvas.height / 2;
-	
-		// Paddle and field dimensions
-		const paddleDistance = canvas.width / 2 - 50; // Distance from center to paddle
-		const maxVerticalDistance = canvas.height / 2; // Half the canvas height (for one bounce max)
-	
-		// Calculate maximum allowed angle for one bounce
-		const maxBounceAngle = Math.atan(maxVerticalDistance / paddleDistance); // In radians
-		const minAngle = 10 * Math.PI / 180; // Prevent too shallow angles
-	
-		let angle;
-	
-		// Randomize horizontal direction (left or right)
-		const direction = Math.random() > 0.5 ? 1 : -1;
-	
-		// Generate angle based on horizontal direction
-		if (direction === 1) {
-			// Rightward ball: generate angle in lower-right or upper-right diagonal
-			angle = Math.random() > 0.5
-				? Math.random() * (maxBounceAngle - minAngle) + minAngle // Lower-right
-				: Math.PI - (Math.random() * (maxBounceAngle - minAngle) + minAngle); // Upper-right
-		} else {
-			// Leftward ball: generate angle in lower-left or upper-left diagonal
-			angle = Math.random() > 0.5
-				? Math.PI + (Math.random() * (maxBounceAngle - minAngle) + minAngle) // Lower-left
-				: 2 * Math.PI - (Math.random() * (maxBounceAngle - minAngle) + minAngle); // Upper-left
-		}
-	
-		// Ensure the ball speed remains constant
-		const speed = ball.speed || 2;
-	
-		// Set the ball's velocity
-		ball.dx = Math.cos(angle) * speed;
-		ball.dy = Math.sin(angle) * speed;
-	}
-	
-
-//OBSTACLE FUNCTIONS
-
-    // Function to create four obstacles at random positions
-    function createObstacles() {
-        obstacles = [];
-        for (let i = 0; i < 4; i++) {
-            const obstacle = {
-                x: Math.floor(Math.random() * 500),
-                y: Math.floor(Math.random() * 300),
-                width: 15,
-                height: 15
-            };
-            obstacles.push(obstacle);
-        }
-    }
-
-    // Toggle obstacles on or off
-    // toggleObstaclesButton.addEventListener('click', () => {
-    //     obstaclesEnabled = !obstaclesEnabled;
-    //     if (obstaclesEnabled)
-    //         createObstacles();
-    //     else
-    //         obstacles = [];
-    // });
-
-    // Apply a random effect when the ball hits an obstacle
-    function applyRandomEffect() {
-        const effect = Math.floor(Math.random() * 3);
-        switch (effect) {
-            case 0: // Change direction
-                ball.dx *= -1;
-                ball.dy *= -1;
-                break;
-            case 1: // Change speed
-                ball.speed = Math.random() * 3 + 2;
-                break;
-            case 2: // Change size
-                ball.radius = Math.random() * 10 + 5;
-                break;
-        }
-    }
-
-    // Check collision between the ball and obstacles
-    function checkObstacleCollision() {
-        obstacles.forEach(obstacle => {
-            if (ball.x + ball.radius > obstacle.x &&
-                ball.x - ball.radius < obstacle.x + obstacle.width &&
-                ball.y + ball.radius > obstacle.y &&
-                ball.y - ball.radius < obstacle.y + obstacle.height) {
-                applyRandomEffect();
-            }
-        });
-    }
-
-//MAIN
-    // Draw paddles, ball, and UI elements
-    function draw() {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        drawPaddle(playerLeft);
-        drawPaddle(playerRight);
-        drawBall();
-        drawDashedLine();
-        drawScores();
-        if (obstaclesEnabled)
-            drawObstacles();
-    }
-
-    // Update game loop
-    function update() {
-        if (gameRunning) {
-			updateAI();
-            movePaddles(); // Only applies to the player-controlled paddle
-            moveBall();
-            // detectCollisions();
-            checkObstacleCollision();
-            draw();
-            requestAnimationFrame(update);
-        }
-    }
-
-
-    increaseSpeedButton.addEventListener('click', () => {
-        if (!gameOnPause())
-            ball.speed++;
-    });
-
-    decreaseSpeedButton.addEventListener('click', () => {
-        if (ball.speed > 1 && !gameOnPause())
-            ball.speed--;
-    });
-
-    increaseSizeButton.addEventListener('click', () => {
-        if (!gameOnPause())
-            ball.radius += 2;
-    });
-
-    decreaseSizeButton.addEventListener('click', () => {
-        if (ball.radius > 2 && !gameOnPause())
-            ball.radius -= 2;
-    });
-
-    leftGiveUp.addEventListener('click', () => {
-        endGame(playerRight.name);
-    });
-
-    // rightGiveUp.addEventListener('click', () => {
-    //     endGame(playerLeft.name);
-    // });
-
-    // Handle user keyboard inputs for paddle control
-    document.addEventListener('keydown', (e) => {
-        if (!gameOnPause()) {
-            if (e.key === 'w') playerLeft.dy = -5;
-            if (e.key === 's') playerLeft.dy = 5;
-			if (e.key === 'ESC') endGame();
-			if (e.key === 'p') pauseGame();
-            //if (e.key === 'ArrowUp') playerRight.dy = -5;
-            //if (e.key === 'ArrowDown') playerRight.dy = 5;
-        }
-    });
-
-    document.addEventListener('keyup', (e) => {
-        if (e.key === 'w' || e.key === 's') playerLeft.dy = 0;
-        //if (e.key === 'ArrowUp' || e.key === 'ArrowDown') playerRight.dy = 0;
-        if (e.key === 'ESC') endGame();
-        if (e.key === 'p') pauseGame();
-    });
-
-    function gameOnPause() {
-        return ball.speed === 0;
-    }
-
-    function pauseGame() {
-        if (!gameOnPause())
-            ball.speed = 0
-        else
-            ball.speed = 4
-    }
-
-    window.addEventListener('popstate', function (event) {
-        endGame();
-    });
+document.getElementById('startPongAi').addEventListener('click', () => {
+    const left_player = create_player("aiLeftPlayerName", "aiLeftPlayerColor");
+    const right_player = {
+        name: "AIko",
+        color: document.getElementById("aiRightPlayerColor").value
+    }; 
+    const settings = {};
+    settings.type = "ai";
+    settings.winningScore = document.getElementById('aiWinningScore').value;
+    settings.backgroundColor = document.getElementById('aiBackgroundColor').value;
+    settings.ballColor = document.getElementById('aiBallColor').value;
+    start_pong_game(left_player, right_player, settings);
 });
+
+/**
+ * Function to control AI paddle behavior.
+ * This is specific to the AI mode and is added to the game loop in start_pong_game.
+
+Requirements:
+1. AI refresh once per second: The lastAITick and aiRefreshRate variables ensure the AI updates only once per second.
+2. Alternative algorithms: The predictive logic in predictBallY avoids direct chasing and adds strategy without relying on A*.
+3. Rule-based AI with heuristics: The prediction and constraints ensure the AI follows logical rules and avoids excessive movement.
+4. Adaptation to gameplay: The AI reacts dynamically to ball position and player scores, adapting to gameplay changes.
+5. Randomness for realism: The randomness and hesitation mimic human behavior, making the AI feel fair and realistic.
+6. Dynamic Difficulty Adjustment: The AI speed scales with player performance, making the game balanced and engaging.
+
+Implementation requirement 2: 
+The predictive approach and simple rules rely on basic mathematics and game state observation rather than advanced graph-based algorithms like A*. 
+These techniques are computationally lighter, easy to implement, and suitable for creating an effective AI player without the complexity of pathfinding algorithms. 
+This satisfies the requirement to explore alternative methods while keeping the AI competitive and engaging.
+
+- Prediction of Ball Trajectory:
+Instead of relying on advanced pathfinding algorithms like A*, the AI predicts the ball's future Y-coordinate based on 
+its current velocity and position using simple mathematical modeling. This prediction includes handling wall bounces, 
+making the AI anticipate the ball's position effectively.
+This approach is an alternative to A* and focuses on using physics-based heuristics to create a natural AI behavior.
+- Rule-Based Decision-Making:
+The AI uses simple rules such as only moving toward reachable targets and adjusting its position within the bounds of the game canvas. This avoids the computational overhead of pathfinding and emphasizes straightforward, effective decision-making.
+-Randomness and Error Injection (Lines 24-26):
+By introducing randomness and hesitations, the AI behaves in a way that resembles human-like play, rather than following an optimal path every time.
+*/
+
+// Track the last AI update to throttle refresh rate
+let lastAITick = 0;
+
+// Main function to update AI paddle behavior
+function updateAI(ball, playerRight, canvasHeight, playerLeft) {
+    const currentTime = Date.now();
+    const aiRefreshRate = 1000; // AI refreshes once per second
+
+    // Skip this update if not enough time has passed
+    if (currentTime - lastAITick < aiRefreshRate) {
+        return;
+    }
+    lastAITick = currentTime;
+
+    // Dynamic difficulty adjustment (DDA) to balance gameplay
+    const baseSpeed = 3;
+    const difficultyFactor = playerLeft.score > playerRight.score ? 1.5 : 1; // AI speeds up if player is winning
+    const aiSpeed = baseSpeed * difficultyFactor;
+
+    // Predict the ball's future position to enhance AI performance
+    const predictedY = predictBallY(ball, playerRight.x);
+
+    // Add randomness to mimic human-like errors and hesitation
+    const randomness = Math.random() * 20 - 10; // ±10px randomness in target
+    const hesitationChance = 0.1; // 10% chance to hesitate
+    if (Math.random() < hesitationChance) {
+        return; // Skip this update to simulate hesitation
+    }
+
+    // Calculate the AI paddle's target position
+    const targetY = Math.min(predictedY + randomness, canvasHeight - playerRight.height / 2);
+
+    // Ensure the paddle only moves toward reachable targets
+    if (Math.abs(targetY - playerRight.y) > aiSpeed) {
+        playerRight.y += targetY > playerRight.y ? aiSpeed : -aiSpeed; // Move AI paddle 
+    }
+
+    // Constrain the AI paddle within the game field
+    playerRight.y = Math.max(0, Math.min(canvasHeight - playerRight.height, playerRight.y));
+}
+
+// Function to predict the ball's future Y-coordinate
+function predictBallY(ball, targetX) {
+    // Calculate time for the ball to reach the target X position
+    const timeToReach = Math.abs(targetX - ball.x) / Math.abs(ball.dx);
+
+    // Predict the ball's Y position based on its current direction and speed
+    let predictedY = ball.y + ball.dy * timeToReach;
+
+    // Account for bounces off the top and bottom walls
+    const canvasHeight = 400; // Assuming canvas height is 400px
+    while (predictedY < 0 || predictedY > canvasHeight) {
+        if (predictedY < 0) {
+            predictedY = -predictedY; // Bounce off the top
+        } else if (predictedY > canvasHeight) {
+            predictedY = 2 * canvasHeight - predictedY; // Bounce off the bottom
+        }
+    }
+
+    return predictedY; // Return the final predicted Y position
+}

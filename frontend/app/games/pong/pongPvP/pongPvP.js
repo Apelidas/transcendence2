@@ -9,5 +9,7 @@ document.getElementById('startPongPvp').addEventListener('click', () => {
     const settings = {};
     pongSettings.type = "pvp";
     pongSettings.winningScore = document.getElementById('winningScorePvp').value;
+    
     start_pong_game(left_player, right_player, pongSettings);
 });
+

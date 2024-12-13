@@ -28,6 +28,10 @@ function start_pong_game(left_player, right_player, local_settings) {
     let winningScore = 11;
     let obstacles = [];
 
+    // These need to be set before player positions are calculated
+    canvas.width = 600;
+    canvas.height = 400;
+
     let ball = {
         x: canvas.width,
         y: canvas.height / 2,
@@ -35,22 +39,30 @@ function start_pong_game(left_player, right_player, local_settings) {
         dy: -4,
         speed: ballSpeed,
         radius: ballSize,
-        color: '#FFFFFF'
+        color: ballColorInput ? ballColorInput.value : '#FFFFFF',
     };
-    let playerLeft = {x: 10, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#FF0000'};
+    let playerLeft = {
+        x: 10, 
+        y: canvas.height / 2 - 50, 
+        width: 10, 
+        height: 100, 
+        dy: 0, 
+        score: 0, 
+        color: left_player.color || '#FF0000',
+    };
     let playerRight = {
-        x: canvas.width * 2 - 20,
+        x: canvas.width - 20,
         y: canvas.height / 2 - 50,
         width: 10,
         height: 100,
         dy: 0,
         score: 0,
-        color: '#0000FF'
+        color: right_player.color || '#0000FF',
     };
 
     // Code that executes
     if (!left_player || !right_player) {
-        return_to_prev_page(local_settings.type);
+        return_to_page(local_settings.type);
         return ;
     }
 
@@ -69,19 +81,28 @@ function start_pong_game(left_player, right_player, local_settings) {
     }
 
     // Apply settings for game initialization
-    function applySettings() {
-        canvas.width = 600;
-        canvas.height = 400;
-        canvas.style.backgroundColor = backgroundColorInput ? backgroundColorInput.value : '#222'; // Add fallback
-        ball.color = ballColorInput ? ballColorInput.value : '#FFFFFF';
-        playerLeft.color = left_player.color ? left_player.color : '#FF0000';
-        playerRight.color = right_player.color ? right_player.color : '#0000FF';
-        playerLeft.name = left_player.name ?  left_player.name : 'Left Player';
-        document.getElementById("leftPlayerNameDisplay").innerHTML = playerLeft.name;
-        playerRight.name = right_player.name ? right_player.name : 'Right Player';
-        document.getElementById("rightPlayerNameDisplay").innerHTML = playerRight.name;
-        winningScore = parseInt(local_settings.winningScore ? local_settings.winningScore : 11);
-    }
+	function applySettings() {
+		// Apply background color
+		canvas.style.backgroundColor = local_settings.backgroundColor || '#222';
+	
+		// Apply ball color
+		ball.color = local_settings.ballColor || '#FFFFFF';
+	
+		// Apply paddle colors
+		playerLeft.color = left_player.color || '#FF0000';
+		playerRight.color = right_player.color || '#0000FF';
+	
+		// Set player names
+		playerLeft.name = left_player.name || 'Left Player';
+		document.getElementById("leftPlayerNameDisplay").innerHTML = playerLeft.name;
+		playerRight.name = right_player.name || 'Right Player';
+		document.getElementById("rightPlayerNameDisplay").innerHTML = playerRight.name;
+	
+		// Set winning score
+		winningScore = parseInt(local_settings.winningScore || 11);
+	}
+	
+	
 
 //////////////////////////GAME////////////////////////////
 //DRAWING
@@ -140,29 +161,6 @@ function start_pong_game(left_player, right_player, local_settings) {
 
     // End the game and display the winner
     function endGame(winner, leftScore, rightScore) {
-        // TODO move to correct page after game
-        if (winner) {
-            alert(`${winner} wins!`);
-            sendGameData(leftScore, rightScore);
-            if (local_settings.type === 'pong_semi_1') {
-                pong_finalist_1 = winner;
-                changeRoute('/games/pong/pongBracket');
-                display_bracket(players);
-            }
-            else if (local_settings.type === 'pong_semi_2') {
-                pong_finalist_2 = winner;
-                changeRoute('/games/pong/pongBracket');
-                display_bracket(players);
-            }
-            else if (local_settings.type === 'pong_finals') {
-                pong_winner = winner;
-                changeRoute('/games/pong/pongBracket');
-                display_bracket(players);
-            }
-            else if (local_settings.type === 'pvp') {
-                changeRoute('/games/pong/pongPvP');
-            }
-        }
         gameRunning = false;
         gameOverlay.style.display = 'none';
         resetScore();
@@ -170,7 +168,24 @@ function start_pong_game(left_player, right_player, local_settings) {
         giveUpButtons.forEach(button => button.style.display = 'none');
         if (obstaclesEnabled)
             obstacles = [];
-        return_to_prev_page(local_settings.type); // TODO called twice?
+        console.log("type " + local_settings.type);
+        return_to_page(local_settings.type);
+        if (winner) {
+            alert(`${winner} wins!`);
+            sendGameData(leftScore, rightScore);
+            if (local_settings.type === 'pong_semi_1') {
+                pong_finalist_1 = winner;
+                display_bracket(players);
+            }
+            else if (local_settings.type === 'pong_semi_2') {
+                pong_finalist_2 = winner;
+                display_bracket(players);
+            }
+            else if (local_settings.type === 'pong_finals') {
+                pong_winner = winner;
+                display_bracket(players);
+            }
+        }
     }
 
     async function sendGameData(leftScore, rightScore) {
@@ -343,21 +358,28 @@ function start_pong_game(left_player, right_player, local_settings) {
 
 //MAIN
     // Draw paddles, ball, and UI elements
-    function draw() {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        drawPaddle(playerLeft);
-        drawPaddle(playerRight);
-        drawBall();
-        drawDashedLine();
-        drawScores();
-        if (obstaclesEnabled)
-            drawObstacles();
-    }
+	function draw() {
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		canvas.style.backgroundColor = canvas.style.backgroundColor || local_settings.backgroundColor || '#222';
+	
+		drawPaddle(playerLeft);
+		drawPaddle(playerRight);
+		drawBall();
+		drawDashedLine();
+		drawScores();
+		if (obstaclesEnabled)
+			drawObstacles();
+	}
+	
 
     // Update game loop
     function update_game() {
         if (gameRunning) {
             movePaddles();
+			// Update AI paddle only in AI mode
+			if (local_settings.type === "ai") { 
+				updateAI(ball, playerRight, canvas.height, playerLeft);
+			}
             moveBall();
             // detectCollisions();
             checkObstacleCollision();

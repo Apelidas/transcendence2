@@ -1,6 +1,10 @@
 document.getElementById('ticTacToePvpButton').addEventListener('click', function() {
+
+    document.getElementById("tttPlayer1Name").disabled = false;
+	document.getElementById("tttPlayer2Name").disabled = false;
+    document.getElementById("startTTTGame").style.display = "inline";
+	document.getElementById("TTTGameBoard").style.display = "none";
     changeRoute('/games/ticTacToe/ticTacToePvP'); 
-	document.dispatchEvent(new Event("startTTTpvp"));
 });
 
 document.getElementById('ticTacToeAiButton').addEventListener('click', function() {

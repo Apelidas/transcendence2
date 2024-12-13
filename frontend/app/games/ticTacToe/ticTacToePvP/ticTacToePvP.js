@@ -1,11 +1,23 @@
-document.addEventListener("startTTTpvp", () => {
+
+document.getElementById("startTTTGame").addEventListener('click', () => {
+	const player1 = document.getElementById("tttPlayer1Name").value.trim();
+	const player2 = document.getElementById("tttPlayer2Name").value.trim();
+	start_ttt_game(player1, player2);
+});
+
+function start_ttt_game(player1, player2) {
+
+	document.getElementById("startTTTGame").style.display = "none";
+	document.getElementById("TTTGameBoard").style.display = "flex";
+	document.getElementById("tttPlayer1Name").disabled = true;
+	document.getElementById("tttPlayer2Name").disabled = true;
+
 	const gameBoard = document.getElementById("game-board");
 	const statusDisplay = document.getElementById("status");
 	const resetButton = document.getElementById("reset");
-	const giveUpPlayer1 = document.getElementById("giveUpPlayer1");
-	const giveUpPlayer2 = document.getElementById("giveUpPlayer2");
   
 	let currentPlayer = "X";
+	let currentPlayerName = player1;
 	let gameState = Array(9).fill("");
 	let gameActive = true;
   
@@ -25,7 +37,7 @@ document.addEventListener("startTTTpvp", () => {
 	  gameState = Array(9).fill("");
 	  gameActive = true;
 	  currentPlayer = "X";
-	  statusDisplay.textContent = `Player ${currentPlayer}'s turn`;
+	  statusDisplay.textContent = `Player ${currentPlayer}'s turn (${currentPlayerName})`;
   
 	  for (let i = 0; i < 9; i++) {
 		const cell = document.createElement("div");
@@ -52,16 +64,18 @@ document.addEventListener("startTTTpvp", () => {
 	  cell.classList.add("taken");
   
 	  const winner = checkWinner();
+	  const winnerName = winner === 'X' ? player1 : player2;
   
 	  if (winner) {
 		gameActive = false;
 		statusDisplay.textContent =
 		  winner === "Tie"
 			? "It's a tie!"
-			: `Player ${winner} wins!`;
+			: `${winnerName} wins!`;
 	  } else {
 		currentPlayer = currentPlayer === "X" ? "O" : "X";
-		statusDisplay.textContent = `Player ${currentPlayer}'s turn`;
+		currentPlayerName = currentPlayer === "X" ? player1 : player2;
+		statusDisplay.textContent = `Player ${currentPlayer}'s turn (${currentPlayerName})`;
 	  }
 	};
   
@@ -80,16 +94,9 @@ document.addEventListener("startTTTpvp", () => {
 	};
   
 	const resetGame = () => createBoard();
-  
-	const giveUp = (player) => {
-	  gameActive = false;
-	  statusDisplay.textContent = `${player} gave up!`;
-	};
-  
+
 	resetButton.addEventListener("click", resetGame);
-	giveUpPlayer1.addEventListener("click", () => giveUp("Player 1"));
-	giveUpPlayer2.addEventListener("click", () => giveUp("Player 2"));
   
 	createBoard(); // Initialize the game
-  });
+  };
   

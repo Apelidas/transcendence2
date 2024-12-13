@@ -7,7 +7,7 @@ document.getElementById("startPongTournament").addEventListener('click', () => {
     const player1 = create_player("pongPlayer1Name", "player1Color");
     const player2 = create_player("pongPlayer2Name", "player2Color");
     const player3 = create_player("pongPlayer3Name", "player3Color");
-    const player4 = create_player("pongPlayer4Name", "player4Color");
+    const player4 = create_player("pongPlayer4Name", "player4Color", false);
 
     if (player1) {
         if (!validateName(player1.name)) return ;
@@ -116,19 +116,19 @@ function display_bracket(players) {
 
     document.getElementById("ptSemi1").addEventListener('click', () => {
         pongSettings.type = "pong_semi_1";
-        start_pong_game(player1, player2, settings);
+        start_pong_game(player1, player2, pongSettings);
     });
 
     document.getElementById("ptSemi2").addEventListener('click', () => {
         pongSettings.type = "pong_semi_2";
-        start_pong_game(player3, player4, settings);
+        start_pong_game(player3, player4, pongSettings);
     });
 
     document.getElementById("ptFinal").addEventListener('click', () => {
         pongSettings.type = "pong_finals";
         const finalist_1 = get_player(players, pong_finalist_1);
         const finalist_2 = get_player(players, pong_finalist_2);
-        start_pong_game(finalist_1, finalist_2, settings);
+        start_pong_game(finalist_1, finalist_2, pongSettings);
     });
 }
 
