@@ -158,3 +158,6 @@ SESSION_ENGINE = "django.contrib.sessions.backends.db"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'transcendence', 'media')
 MEDIA_URL = '/media/'
+
+SECURE_SSL_REDIRECT = True  # Redirect HTTP to HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
