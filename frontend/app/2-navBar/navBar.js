@@ -131,11 +131,6 @@ document.getElementById('loginLink').addEventListener('click', function (event) 
     openPopup('login');
 });
 
-document.getElementById('viewProfileButton').addEventListener('click', function() {
-	changeRoute('/profile'); 
-	document.dispatchEvent(new Event("viewProfilePage"));
-});
-
 // Handle back/forward navigation and URL changes
 window.addEventListener('popstate', function (event) {
 	const state = event.state || {};

@@ -1,4 +1,5 @@
 const PongEndpoint = 'http://127.0.0.1:8000/pong/';
+const TTTEndpoint = 'http://127.0.0.1:8000/ttt/';
 
 async function sendGame(leftScore, rightScore, againstAi, isPong, userWon, leftPlayer, rightPlayer) {
     const dataObject = {
@@ -17,6 +18,21 @@ async function sendGame(leftScore, rightScore, againstAi, isPong, userWon, leftP
 async function getAllPongGames(){
     try {
         const response = await fetchWithToken(PongEndpoint, 'GET', {})
+        if (response.status === 200) {
+            const data = await response.json();
+            return data.map((game) => {
+                return new GameHistory(game);
+            })
+        }
+    } catch (exception) {
+        alert('something went wrong: ' + exception);
+    }
+    return [];
+}
+
+async function getAllTicTacToeGames(){
+    try {
+        const response = await fetchWithToken(TTTEndpoint, 'GET', {})
         if (response.status === 200) {
             const data = await response.json();
             return data.map((game) => {

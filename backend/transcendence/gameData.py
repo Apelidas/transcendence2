@@ -11,6 +11,9 @@ class GameDataManager(models.Manager):
     def getAllGamesPlayedBy(self, user, isPong):
         return self.filter(user=user, isPong= isPong)
 
+    def getAllGamesAgainst(self, user, againstAi):
+        return self.filter(user=user, against_ai=againstAi)
+
     def getMostWinsInARow(self, user, againstAi):
         games = self.filter(user=user, against_ai=againstAi).order_by('played_at')
         max_streak = 0

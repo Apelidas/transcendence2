@@ -32,7 +32,6 @@ class ProfileView(APIView):
             'pvpData': pvpData,
             'aiData': aiData
         }
-        print('profile/email:' + user.email);
         return Response(profile_data, status=200)
 
     def put(self, request):
@@ -49,7 +48,7 @@ class ProfileView(APIView):
 
 def getGameData(user, againstAi):
     wins = GameData.objects.getAllGamesWonBy(user, againstAi=againstAi).count()
-    loses = GameData.objects.getAllGamesPlayedBy(user, againstAi=againstAi).count() - wins
+    loses = GameData.objects.getAllGamesAgainst(user, againstAi=againstAi).count() - wins
 
     streak = GameData.objects.getMostWinsInARow(user, againstAi=againstAi)
 

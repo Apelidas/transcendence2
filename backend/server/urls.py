@@ -25,6 +25,7 @@ from transcendence.adapter.signup import SignUpView
 from transcendence.adapter.login import LoginView
 from transcendence.adapter.mfa import MfaDataView
 from transcendence.adapter.change_email import ChangeEmailView
+from transcendence.adapter.tictactoe import TicTacToeView
 from transcendence.adapter.upload_picture import UploadProfilePictureView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -41,8 +42,9 @@ urlpatterns = [
     path('profile/upload-picture', UploadProfilePictureView.as_view(), name='upload_picture_view'),
     path('profile/change-email', ChangeEmailView.as_view(), name='upload_picture_view'),
     path('pong/', PongView.as_view(), name='pong_view'),
+    path('ttt/', TicTacToeView.as_view(), name='ttt_view'),
     path('friends/', FriendsView.as_view(), name='friends_view'),
-    path('users/', UsersView.as_view(), name='friends_view'),
+    path('users/', UsersView.as_view(), name='users_view'),
 
 ]
 

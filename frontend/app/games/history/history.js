@@ -9,9 +9,12 @@ const tttHistoryPage = document.getElementById('tttHistory')
 
 async function setUpHistory(){
     const pongGames = await getAllPongGames();
-    console.log('games: ' + pongGames);
     pongGames.forEach((game) => {
         createCard(game, pongHistoryPage)
+    })
+    const tttGames = await getAllTicTacToeGames();
+    tttGames.forEach((game) => {
+        createCard(game, tttHistoryPage)
     })
     // allGames.forEach((game) => {
     //     createCard(game, pongHistoryPage);
@@ -19,7 +22,6 @@ async function setUpHistory(){
 }
 function createCard(game, page) {
     const card = document.createElement('div');
-    console.log(game);
     card.className = 'card ' + (game.leftScore > game.rightScore ? 'won' : 'lost');
     const dateOnly = game.playedAt.toISOString().split('T')[0];
     card.innerHTML = `
