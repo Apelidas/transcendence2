@@ -156,6 +156,7 @@ function start_pong_game(left_player, right_player, local_settings) {
         giveUpButtons.forEach(button => button.style.display = 'none');
         if (obstaclesEnabled)
             obstacles = [];
+        console.log("type " + local_settings.type);
         return_to_page(local_settings.type);
         if (winner) {
             alert(`${winner} wins!`);
@@ -361,7 +362,7 @@ function start_pong_game(left_player, right_player, local_settings) {
         if (gameRunning) {
             movePaddles();
 			// Update AI paddle only in AI mode
-			if (local_settings.type === "ai") {
+			if (local_settings.type === "ai") { 
 				updateAI(ball, playerRight, canvas.height);
 			}
             moveBall();

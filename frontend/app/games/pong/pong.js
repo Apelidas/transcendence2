@@ -66,6 +66,6 @@ function return_to_page(type) {
         changeRoute('/games/pong/pongBracket');
     }
     else if (type === 'ai') {
-        changeRoute('/games/pong/pongAi');
+        changeRoute('/games/pong/pongAI');
     }
 }

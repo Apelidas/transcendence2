@@ -1,9 +1,9 @@
 document.getElementById('startPongAi').addEventListener('click', () => {
-    const left_player = create_player("aiLeftPlayerName", "aiLeftPlayerColor");
-    const right_player = { name: "AIko", color: "#0000FF" }; // AI player is fixed
     const settings = {};
     settings.type = "ai";
     settings.winningScore = document.getElementById('aiWinningScore').value;
+    const left_player = create_player("aiLeftPlayerName", "aiLeftPlayerColor");
+    const right_player = { name: "AIko", color: "#0000FF" }; // AI player is fixed
     start_pong_game(left_player, right_player, settings);
 });
 
