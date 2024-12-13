@@ -55,11 +55,6 @@ MIDDLEWARE = [
     'transcendence.middleWare.lastAction.LastAction',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4242',
-    'https://localhost:4242',
-]
-
 CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'server.urls'
@@ -159,10 +154,9 @@ SESSION_ENGINE = "django.contrib.sessions.backends.db"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'transcendence', 'media')
 MEDIA_URL = '/media/'
 
-# SECURE_SSL_REDIRECT = True  # Redirect HTTP to HTTPS
+SECURE_SSL_REDIRECT = True  # Redirect HTTP to HTTPS
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-SECURE_SSL_REDIRECT = True  # Redirect HTTP to HTTPS
 SECURE_HSTS_SECONDS = 3600  # HTTP Strict Transport Security
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
@@ -170,7 +164,8 @@ SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
 ALLOWED_HOSTS=[
-    '.localhost', 
+    'https://localhost', 
     '127.0.0.1',
+    'https://192.168.122.1',
     '192.168.122.1'
 ]

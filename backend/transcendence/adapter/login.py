@@ -14,13 +14,14 @@ class LoginView(APIView):
     def post(self, request):
         try:
             data = request.data
-            email = data.get('email')
+            username = data.get('username')
             password = data.get('password')
 
-            if not email or not password:
-                return Response({'error': 'Email and password are required.'}, status=400)
-
-            user = authenticate(request, email=email, password=password)
+            if not username or not password:
+                return Response({'error': 'username and password are required.'}, status=400)
+            
+            print('this is data: ' + str(data))
+            user = authenticate(request, username=username, password=password)
             if user is not None:
                 if user.is_active:
                     refresh = RefreshToken.for_user(user)
@@ -41,7 +42,7 @@ class LoginView(APIView):
                 else:
                     return Response({'error': 'Account is inactive.'}, status=403)
             else:
-                return Response({'error': 'Invalid email or password.'}, status=401)
+                return Response({'error': 'Invalid username or password.'}, status=401)
         except Exception as e:
             logger.error(f"Unexpected error: {str(e)}", exc_info=True)
             return Response({'error': 'An unexpected error occurred. Please try again later.'}, status=500)

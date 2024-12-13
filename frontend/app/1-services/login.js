@@ -1,14 +1,14 @@
 // nur endpoint communication or communication to the outside
 
 
-async function loginAdapter(email, password, mfaCode) {
+async function loginAdapter(username, password, mfaCode) {
 	try {
 		const response = await fetch(loginEndpoint, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ email, password, mfaCode})
+			body: JSON.stringify({ username, password, mfaCode})
 		});
 		if (response.status === 200) {
 			// Parse the response body to get the data
