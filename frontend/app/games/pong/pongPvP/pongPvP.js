@@ -7,3 +7,4 @@ document.getElementById('startPongPvp').addEventListener('click', () => {
     settings.winningScore = document.getElementById('winningScorePvp').value;
     start_pong_game(left_player, right_player, settings);
 });
+

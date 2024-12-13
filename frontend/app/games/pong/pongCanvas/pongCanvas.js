@@ -10,16 +10,31 @@ function start_pong_game(left_player, right_player, settings) {
     const canvas = document.getElementById('pongCanvas');
     const context = canvas.getContext('2d');
     const gameOverlay = document.getElementById('gameOverlay');
+    const backgroundColorInput = document.getElementById('backgroundColor');
+    const ballColorInput = document.getElementById('ballColor');
     const decreaseSpeedButton = document.getElementById('decreaseSpeed');
     const increaseSpeedButton = document.getElementById('increaseSpeed');
     const decreaseSizeButton = document.getElementById('decreaseSize');
     const increaseSizeButton = document.getElementById('increaseSize');
     const toggleObstaclesButton = document.getElementById('toggleObstacles');
-    const backgroundColorInput = document.getElementById('backgroundColor');
     const leftGiveUp = document.getElementById('left-give-up');
     const rightGiveUp = document.getElementById('right-give-up');
-    const ballColorInput = document.getElementById('ballColor');
     const giveUpButtons = document.querySelectorAll('.give-up-button');
+
+	// Apply settings for game initialization
+	function applySettings() {
+		canvas.width = 600;
+		canvas.height = 400;
+		canvas.style.backgroundColor = backgroundColorInput ? backgroundColorInput.value : '#222'; // Add fallback
+		ball.color = ballColorInput ? ballColorInput.value : '#FFFFFF';
+		playerLeft.color = left_player.color ? left_player.color : '#FF0000';
+		playerRight.color = right_player.color ? right_player.color : '#0000FF';
+		playerLeft.name = left_player.name ?  left_player.name : 'Left Player';
+		document.getElementById("leftPlayerNameDisplay").innerHTML = playerLeft.name;
+		playerRight.name = right_player.name ? right_player.name : 'Right Player';
+		document.getElementById("rightPlayerNameDisplay").innerHTML = playerRight.name;
+		winningScore = parseInt(settings.winningScore ? settings.winningScore : 11);
+	}
 
     let ballSpeed = 3;
     let ballSize = 10;
@@ -27,6 +42,7 @@ function start_pong_game(left_player, right_player, settings) {
     let gameRunning = false;
     let winningScore = 11;
     let obstacles = [];
+	
 
     let ball = {
         x: canvas.width,
@@ -48,32 +64,19 @@ function start_pong_game(left_player, right_player, settings) {
         color: '#0000FF'
     };
 
-    // Code that executes
-    if (validateName(left_player.name) && validateName(right_player.name) && checkForUniqueNames([left_player.name, right_player.name])) {
-        applySettings();
-        gameOverlay.style.display = 'flex';
-        giveUpButtons.forEach(button => button.style.display = 'block');
-        gameRunning = true;
-        resetBall();
-        if (obstaclesEnabled)
-            createObstacles();
-        requestAnimationFrame(update_game);
-    }
 
-    // Apply settings for game initialization
-    function applySettings() {
-        canvas.width = 600;
-        canvas.height = 400;
-        canvas.style.backgroundColor = backgroundColorInput ? backgroundColorInput.value : '#222'; // Add fallback
-        ball.color = ballColorInput ? ballColorInput.value : '#FFFFFF';
-        playerLeft.color = left_player.color ? left_player.color : '#FF0000';
-        playerRight.color = right_player.color ? right_player.color : '#0000FF';
-        playerLeft.name = left_player.name ?  left_player.name : 'Left Player';
-        document.getElementById("leftPlayerNameDisplay").innerHTML = playerLeft.name;
-        playerRight.name = right_player.name ? right_player.name : 'Right Player';
-        document.getElementById("rightPlayerNameDisplay").innerHTML = playerRight.name;
-        winningScore = parseInt(settings.winningScore ? settings.winningScore : 11);
-    }
+
+	// Code that executes
+	if (validateName(left_player.name) && validateName(right_player.name) && checkForUniqueNames([left_player.name, right_player.name])) {
+		applySettings();
+		gameOverlay.style.display = 'flex';
+		giveUpButtons.forEach(button => button.style.display = 'block');
+		gameRunning = true;
+		resetBall();
+		if (obstaclesEnabled)
+			createObstacles();
+		requestAnimationFrame(update_game);
+	}
 
 //////////////////////////GAME////////////////////////////
 //DRAWING
@@ -346,8 +349,11 @@ function start_pong_game(left_player, right_player, settings) {
     function update_game() {
         if (gameRunning) {
             movePaddles();
+			// Update AI paddle only in AI mode
+			if (settings.type === "ai") {
+				updateAI(ball, playerRight, canvas.height);
+			}			
             moveBall();
-            // detectCollisions();
             checkObstacleCollision();
             draw();
             requestAnimationFrame(update_game);

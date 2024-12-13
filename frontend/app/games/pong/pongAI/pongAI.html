@@ -4,30 +4,30 @@
     <div class="options-container">
         <!-- Left Player Options -->
         <div class="player-options">
-            <label for="leftPlayerNameAi">Player Name:</label>
-            <input type="text" id="leftPlayerNameAi" placeholder="Enter Player Name" required>
-            <label for="leftPlayerColorAi">Player Color:</label>
-            <input type="color" id="leftPlayerColorAi" value="#FF0000">
+            <label for="aiLeftPlayerName">Player Name:</label>
+            <input type="text" id="aiLeftPlayerName" placeholder="Enter Player Name" required>
+            <label for="aiLeftPlayerColor">Player Color:</label>
+            <input type="color" id="aiLeftPlayerColor" value="#FF0000">
         </div>
 
         <!-- AI Options -->
         <div class="player-options">
-            <label for="rightPlayerNameAi">AI Name:</label>
-            <input type="text" id="rightPlayerNameAi" value="AI" disabled>
-            <label for="rightPlayerColorAi">AI Color:</label>
-            <input type="color" id="rightPlayerColorAi" value="#0000FF">
+            <label for="aiRightPlayerName">AI Name:</label>
+            <input type="text" id="aiRightPlayerName" value="AIko" disabled>
+            <label for="aiRightPlayerColor">AI Color:</label>
+            <input type="color" id="aiRightPlayerColor" value="#0000FF" disabled>
         </div>
     </div>
 
     <!-- Game Settings Container -->
     <div class="options-container">
         <div class="settings-container">
-            <label for="backgroundColorAi">Background Color:</label>
-            <input type="color" id="backgroundColorAi" value="#000000">
-            <label for="ballColorAi">Ball Color:</label>
-            <input type="color" id="ballColorAi" value="#FFFFFF">
-            <label for="winningScoreAi">Winning Score:</label>
-            <select id="winningScoreAi">
+            <label for="aiBackgroundColor">Background Color:</label>
+            <input type="color" id="aiBackgroundColor" value="#000000">
+            <label for="aiBallColor">Ball Color:</label>
+            <input type="color" id="aiBallColor" value="#FFFFFF">
+            <label for="aiWinningScore">Winning Score:</label>
+            <select id="aiWinningScore">
                 <option value="3">3 Points</option>
                 <option value="5">5 Points</option>
                 <option value="11" selected>11 Points</option>
@@ -36,62 +36,7 @@
 
         <!-- Start Game Button Container -->
         <div class="start-container">
-            <button id="startButtonAi" class="start-btn">Start Game</button>
+            <button id="startPongAi" class="start-btn">Start Game</button>
         </div>
     </div>
 </div>
-
-<div id="gameOverlayAi" class="overlay">
-    <div class="game-container">
-        <!-- Upper Header with Controls -->
-        <div class="header-controls">
-            <div class="header-part">
-                <span>Use "Esc" to exit.</span>
-            </div>
-            <div class="header-part">
-                <span>Use "P" to pause.</span>
-            </div>
-            <div class="header-part">
-                <button id="decreaseSpeedAi">-</button>
-                <span>Ball Speed</span>
-                <button id="increaseSpeedAi">+</button>
-            </div>
-            <div class="header-part">
-                <button id="decreaseSizeAi">-</button>
-                <span>Ball Size</span>
-                <button id="increaseSizeAi">+</button>
-            </div>
-        </div>
-
-        <!-- Horizontal Line -->
-        <hr class="header-divider">
-
-        <!-- Lower Header Part -->
-        <div class="header-controls">
-            <div id="leftPlayerInfoAi" class="header-part playerInfo">
-                <div id="leftPlayerNameDisplayAi" class="player-name">Player Name</div>
-                <div>Use W/S to move</div>
-            </div>
-            <div id="rightPlayerInfoAi" class="header-part playerInfo">
-                <div id="rightPlayerNameDisplayAi" class="player-name">AI</div>
-                <div>AI moves automatically</div>
-            </div>
-        </div>
-
-        <!-- Playing Field -->
-        <div class="game-container">
-            <canvas id="pongCanvasAi"></canvas>
-            <div class="score left-score" id="leftPlayerScoreAi">0</div>
-            <div class="score right-score" id="rightPlayerScoreAi">0</div>
-        </div>
-
-        <!-- Footer with Give Up Buttons -->
-        <div class="footer-controls">
-            <div id="left-give-upAi" class="footer-part">
-                <button class="give-up-button left-give-up">Give Up</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
