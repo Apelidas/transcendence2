@@ -1,6 +1,5 @@
 
 const players = [];
-const settings = {};
 
 document.getElementById("startPongTournament").addEventListener('click', () => {
 
@@ -41,7 +40,7 @@ document.getElementById("startPongTournament").addEventListener('click', () => {
     pong_finalist_2 = "";
     pong_winner = "";
 
-    settings.winningScore = document.getElementById('winningScoreTournament').value;
+    pongSettings.winningScore = document.getElementById('winningScoreTournament').value;
 
     changeRoute('/games/pong/pongBracket')
     display_bracket(players); // , settings TODO
@@ -116,17 +115,17 @@ function display_bracket(players) {
     }
 
     document.getElementById("ptSemi1").addEventListener('click', () => {
-        settings.type = "pong_semi_1";
+        pongSettings.type = "pong_semi_1";
         start_pong_game(player1, player2, settings);
     });
 
     document.getElementById("ptSemi2").addEventListener('click', () => {
-        settings.type = "pong_semi_2";
+        pongSettings.type = "pong_semi_2";
         start_pong_game(player3, player4, settings);
     });
 
     document.getElementById("ptFinal").addEventListener('click', () => {
-        settings.type = "pong_finals";
+        pongSettings.type = "pong_finals";
         const finalist_1 = get_player(players, pong_finalist_1);
         const finalist_2 = get_player(players, pong_finalist_2);
         start_pong_game(finalist_1, finalist_2, settings);
