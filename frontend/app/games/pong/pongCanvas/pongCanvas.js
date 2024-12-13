@@ -171,6 +171,9 @@ function start_pong_game(left_player, right_player, local_settings) {
             else if (local_settings.type === 'pvp') {
                 changeRoute('/games/pong/pongPvP');
             }
+			else if (local_settings.type === 'ai') {
+                changeRoute('/games/pong/pongAi');
+            }
         }
         gameRunning = false;
         gameOverlay.style.display = 'none';
@@ -367,6 +370,10 @@ function start_pong_game(left_player, right_player, local_settings) {
     function update_game() {
         if (gameRunning) {
             movePaddles();
+			// Update AI paddle only in AI mode
+			if (local_settings.type === "ai") {
+				updateAI(ball, playerRight, canvas.height);
+			}
             moveBall();
             // detectCollisions();
             checkObstacleCollision();
