@@ -43,11 +43,12 @@ function checkForUniqueNames(names) {
     return true;
 }
 
-function create_player(name_id, color_id) {
+function create_player(name_id, color_id, throw_alert=true) {
     let player = {};
     player.name = document.getElementById(name_id).value.trim();
     if (!player.name) {
-        alert("Player names must not be empty.");
+        if (throw_alert)
+            alert("Player names must not be empty.");
         return_to_prev_page(pongSettings.type);
         return;
     }
