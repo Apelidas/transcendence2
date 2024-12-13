@@ -27,6 +27,7 @@ function start_pong_game(left_player, right_player, local_settings) {
     let gameRunning = false;
     let winningScore = 11;
     let obstacles = [];
+
     // These need to be set before player positions are calculated
     canvas.width = 600;
     canvas.height = 400;
@@ -38,7 +39,7 @@ function start_pong_game(left_player, right_player, local_settings) {
         dy: -4,
         speed: ballSpeed,
         radius: ballSize,
-        color: '#FFFFFF'
+        color: ballColorInput ? ballColorInput.value : '#FFFFFF',
     };
     let playerLeft = {
         x: 10, 
@@ -47,7 +48,7 @@ function start_pong_game(left_player, right_player, local_settings) {
         height: 100, 
         dy: 0, 
         score: 0, 
-        color: '#FF0000'
+        color: left_player.color || '#FF0000',
     };
     let playerRight = {
         x: canvas.width - 20,
@@ -56,7 +57,7 @@ function start_pong_game(left_player, right_player, local_settings) {
         height: 100,
         dy: 0,
         score: 0,
-        color: '#0000FF'
+        color: right_player.color || '#0000FF',
     };
 
     // Code that executes
@@ -80,17 +81,28 @@ function start_pong_game(left_player, right_player, local_settings) {
     }
 
     // Apply settings for game initialization
-    function applySettings() {
-        canvas.style.backgroundColor = backgroundColorInput ? backgroundColorInput.value : '#222'; // Add fallback
-        ball.color = ballColorInput ? ballColorInput.value : '#FFFFFF';
-        playerLeft.color = left_player.color ? left_player.color : '#FF0000';
-        playerRight.color = right_player.color ? right_player.color : '#0000FF';
-        playerLeft.name = left_player.name ?  left_player.name : 'Left Player';
-        document.getElementById("leftPlayerNameDisplay").innerHTML = playerLeft.name;
-        playerRight.name = right_player.name ? right_player.name : 'Right Player';
-        document.getElementById("rightPlayerNameDisplay").innerHTML = playerRight.name;
-        winningScore = parseInt(local_settings.winningScore ? local_settings.winningScore : 11);
-    }
+	function applySettings() {
+		// Apply background color
+		canvas.style.backgroundColor = local_settings.backgroundColor || '#222';
+	
+		// Apply ball color
+		ball.color = local_settings.ballColor || '#FFFFFF';
+	
+		// Apply paddle colors
+		playerLeft.color = left_player.color || '#FF0000';
+		playerRight.color = right_player.color || '#0000FF';
+	
+		// Set player names
+		playerLeft.name = left_player.name || 'Left Player';
+		document.getElementById("leftPlayerNameDisplay").innerHTML = playerLeft.name;
+		playerRight.name = right_player.name || 'Right Player';
+		document.getElementById("rightPlayerNameDisplay").innerHTML = playerRight.name;
+	
+		// Set winning score
+		winningScore = parseInt(local_settings.winningScore || 11);
+	}
+	
+	
 
 //////////////////////////GAME////////////////////////////
 //DRAWING
@@ -355,16 +367,19 @@ function start_pong_game(left_player, right_player, local_settings) {
 
 //MAIN
     // Draw paddles, ball, and UI elements
-    function draw() {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        drawPaddle(playerLeft);
-        drawPaddle(playerRight);
-        drawBall();
-        drawDashedLine();
-        drawScores();
-        if (obstaclesEnabled)
-            drawObstacles();
-    }
+	function draw() {
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		canvas.style.backgroundColor = canvas.style.backgroundColor || local_settings.backgroundColor || '#222';
+	
+		drawPaddle(playerLeft);
+		drawPaddle(playerRight);
+		drawBall();
+		drawDashedLine();
+		drawScores();
+		if (obstaclesEnabled)
+			drawObstacles();
+	}
+	
 
     // Update game loop
     function update_game() {
