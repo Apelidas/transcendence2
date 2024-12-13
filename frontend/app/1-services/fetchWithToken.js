@@ -1,4 +1,5 @@
-const TokenRefreshEndpoint = 'http://127.0.0.1:8000/api/token/refresh/'
+
+
 
 async function fetchWithToken(url, method, headers = {}, body) {
 

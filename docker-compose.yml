@@ -10,7 +10,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data     
 
 
   backend:
@@ -24,7 +24,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./certificate:/etc/ssl/certs
+      - ./nginx/ssl:/etc/ssl/certs
 
   frontend:
     build: ./frontend
@@ -33,7 +33,7 @@ services:
     ports:
       - "4242:4242"
     volumes:
-      - ./certificate:/etc/ssl/certs
+      - ./nginx/ssl:/etc/ssl/certs
 
   nginx:
     image: nginx:latest

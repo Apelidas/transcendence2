@@ -1,6 +1,5 @@
 // nur endpoint communication or communication to the outside
 
-const loginEndpoint = 'http://127.0.0.1:8000/login/'
 
 async function loginAdapter(email, password, mfaCode) {
 	try {

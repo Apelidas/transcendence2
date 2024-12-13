@@ -34,17 +34,17 @@ from transcendence.adapter.users import UsersView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('signup/', SignUpView.as_view(), name='signup_view'),
+    path('api/signup/', SignUpView.as_view(), name='signup_view'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('login/', LoginView.as_view(), name='login_view'),
-    path('profile/', ProfileView.as_view(), name='profile_view'),
-    path('mfa_data/', MfaDataView.as_view(), name='mfa_view'),
-    path('profile/upload-picture', UploadProfilePictureView.as_view(), name='upload_picture_view'),
-    path('profile/change-email', ChangeEmailView.as_view(), name='upload_picture_view'),
-    path('pong/', PongView.as_view(), name='pong_view'),
-    path('ttt/', TicTacToeView.as_view(), name='ttt_view'),
-    path('friends/', FriendsView.as_view(), name='friends_view'),
-    path('users/', UsersView.as_view(), name='users_view'),
+    path('api/login/', LoginView.as_view(), name='login_view'),
+    path('api/profile/', ProfileView.as_view(), name='profile_view'),
+    path('api/mfa_data/', MfaDataView.as_view(), name='mfa_view'),
+    path('api/profile/upload-picture', UploadProfilePictureView.as_view(), name='upload_picture_view'),
+    path('api/profile/change-email', ChangeEmailView.as_view(), name='upload_picture_view'),
+    path('api/pong/', PongView.as_view(), name='pong_view'),
+    path('api/ttt/', TicTacToeView.as_view(), name='ttt_view'),
+    path('api/friends/', FriendsView.as_view(), name='friends_view'),
+    path('api/users/', UsersView.as_view(), name='users_view'),
 
 ]
 

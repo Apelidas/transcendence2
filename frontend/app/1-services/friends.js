@@ -1,5 +1,4 @@
-const friendsEndpoint = 'http://127.0.0.1:8000/friends/'
-const userEndpoint = 'http://127.0.0.1:8000/users/'
+
 
 async function getAllFriends() {
     try {

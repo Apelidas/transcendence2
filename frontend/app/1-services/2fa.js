@@ -1,5 +1,5 @@
 
-const mfaDataEndpoint = 'http://127.0.0.1:8000/mfa_data/'
+const mfaDataEndpoint = BACKEND_PATH + '/mfa_data/'
 
 async function auth_2fa_get_secret() {
 

@@ -1,5 +1,4 @@
-const PongEndpoint = 'http://127.0.0.1:8000/pong/';
-const TTTEndpoint = 'http://127.0.0.1:8000/ttt/';
+
 
 async function sendGame(leftScore, rightScore, againstAi, isPong, userWon, leftPlayer, rightPlayer) {
     const dataObject = {

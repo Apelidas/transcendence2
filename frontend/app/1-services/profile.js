@@ -1,6 +1,5 @@
 
-const profileEndpoint = 'http://127.0.0.1:8000/profile/'
-const changeEmailEndpoint = 'http://127.0.0.1:8000/profile/change-email'
+
 
 async function getProfileData(){
     try {
