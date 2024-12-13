@@ -10,7 +10,15 @@ async function readImage(){
     const file = fileInput.files[0];
 
     if (!file){
-        alert('cannot read file. Please change it and try again');
+        alert('Cannot read file. Please change it and try again');
+        return;
+    }
+    if(!isValidProfilePicture(file)){
+        alert('Wrong file type. Please change it and try again');
+        return;
+    }
+    if(isFileTooBig(file)){
+        alert('File is too big!. Please change it and try again');
         return;
     }
     try{
@@ -43,4 +51,13 @@ async function sendImagetoBackend(image){
     }
     alert('Image succesfully changed');
     closeAllPopups(true);
+}
+
+function isValidProfilePicture(file) {
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+    return allowedTypes.includes(file.type);
+}
+
+function isFileTooBig(file) {
+    return file.size > 2 * 1024 * 1024;
 }

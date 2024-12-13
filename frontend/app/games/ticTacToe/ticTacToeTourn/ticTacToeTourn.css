@@ -1,0 +1,33 @@
+
+/* Tournament bracket*/
+.tournament-bracket {
+    display: none;
+    grid-template-columns: 120px 120px 120px;
+    grid-template-areas:
+    'p1 .. ..'
+    'semi1 w1 ..'
+    'p2 .. ..'
+    '.. final winner'
+    'p3 .. ..'
+    'semi2 w2 ..'
+    'p4 .. ..';
+    gap: 20px;
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.player-status {
+    display: inline;
+    border: solid 1px;
+    text-align: center;
+}
+
+.play-game {
+    display: inline;
+    border: solid 1px;
+    text-align: center;
+}

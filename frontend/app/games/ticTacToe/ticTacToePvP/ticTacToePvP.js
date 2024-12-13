@@ -2,6 +2,7 @@
 document.getElementById("startTTTGame").addEventListener('click', () => {
 	const player1 = document.getElementById("tttPlayer1Name").value.trim();
 	const player2 = document.getElementById("tttPlayer2Name").value.trim();
+	// TODO check names
 	start_ttt_game(player1, player2);
 });
 

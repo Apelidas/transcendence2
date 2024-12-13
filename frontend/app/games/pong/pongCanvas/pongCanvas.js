@@ -2,6 +2,7 @@
 let pong_finalist_1 = "";
 let pong_finalist_2 = "";
 let pong_winner = "";
+let gamePaused = false; // Tracks whether the game is paused
 
 function start_pong_game(left_player, right_player, local_settings) {
 
@@ -374,20 +375,27 @@ function start_pong_game(left_player, right_player, local_settings) {
 
     // Update game loop
     function update_game() {
-        if (gameRunning) {
+        if (!gamePaused && gameRunning) {
+            // Move human player paddles
             movePaddles();
-			// Update AI paddle only in AI mode
-			if (local_settings.type === "ai") { 
-				updateAI(ball, playerRight, canvas.height, playerLeft);
-			}
+    
+            // Simulate AI behavior (only in AI mode)
+            if (local_settings.type === "ai") {
+                updateAI(ball, playerRight, canvas.height, playerLeft);
+                rightGiveUp.style.display = 'none'; // Hide the button
+            }
+    
+            // Move the ball
             moveBall();
-            // detectCollisions();
+    
+            // Check for collisions and draw the game state
             checkObstacleCollision();
             draw();
+    
+            // Request the next frame
             requestAnimationFrame(update_game);
         }
     }
-
 
     increaseSpeedButton.addEventListener('click', () => {
         if (!gameOnPause())
@@ -426,7 +434,18 @@ function start_pong_game(left_player, right_player, local_settings) {
             if (e.key === 'ArrowDown') playerRight.dy = 5;
         }
     });
-
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'p' || e.key === 'P') {
+            gamePaused = !gamePaused; // Toggle the paused state
+            if (gamePaused) {
+                console.log("Game Paused");
+            } else {
+                console.log("Game Resumed");
+            }
+        }
+    });
+    
     document.addEventListener('keyup', (e) => {
         if (e.key === 'w' || e.key === 's') playerLeft.dy = 0;
         if (e.key === 'ArrowUp' || e.key === 'ArrowDown') playerRight.dy = 0;

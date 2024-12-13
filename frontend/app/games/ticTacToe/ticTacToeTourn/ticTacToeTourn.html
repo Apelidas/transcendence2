@@ -1,0 +1,39 @@
+<div class="tictactoeGame">
+    <h2>Tic Tac Toe: Tournament</h2>
+
+    <!-- Player Names and Settings -->
+    <div class="options-container">
+        <div class="player-options">
+            <label for="tttTournPlayer1Name">Player 1:</label>
+            <input type="text" id="tttTournPlayer1Name" placeholder="Enter Name">
+        </div>
+        <div class="player-options">
+            <label for="tttTournPlayer2Name">Player 2:</label>
+            <input type="text" id="tttTournPlayer2Name" placeholder="Enter Name">
+        </div>
+        <div class="player-options">
+            <label for="tttTournPlayer3Name">Player 3:</label>
+            <input type="text" id="tttTournPlayer3Name" placeholder="Enter Name">
+        </div>
+        <div class="player-options">
+            <label for="tttTournPlayer4Name">Player 4:</label>
+            <input type="text" id="tttTournPlayer4Name" placeholder="Enter Name">
+        </div>
+    </div>
+    <div id="ttt-game-start">
+        <button id="startTTTTournament">Start Game</button>
+    </div>
+    <!-- Game Bracket -->
+    <div id="ttt-tournament-bracket" class="tournament-bracket">
+        <div id="ttPlayer1" class="player-status" style="grid-area: p1;"></div>
+        <button id="ttSemi1" class="play-game" style="grid-area: semi1; display: none" onclick="">Play Game</button>
+        <div id="ttPlayer2" class="player-status" style="grid-area: p2;"></div>
+        <button id="ttSemi2" class="play-game" style="grid-area: semi2; display: none;" onclick="">Play Game</button>
+        <div id="ttPlayer3" class="player-status" style="grid-area: p3;"></div>
+        <div id="ttPlayer4" class="player-status" style="grid-area: p4;"></div>
+        <div id="ttWinner1" class="player-status" style="grid-area: w1;"></div>
+        <button id="ttFinal" class="play-game" style="grid-area: final; display: none" onclick="">Play Game</button>
+        <div id="ttWinner2" class="player-status" style="grid-area: w2;"></div>
+        <div id="ttWinner" class="player-status" style="grid-area: winner;"></div>
+    </div>
+</div>
