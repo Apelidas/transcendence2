@@ -23,7 +23,7 @@ function validateName(name, throw_alert=true) {
     if (!namePattern.test(name)) {
         if (throw_alert) {
             alert("Names must be at least 3 letters long and contain only letters (" + name + ").");
-            return_to_prev_page(pongSettings.type);
+            return_to_page(pongSettings.type);
         }
         return false;
     }
@@ -35,7 +35,7 @@ function checkForUniqueNames(names) {
         for (j = i + 1; j < names.length; j++) {
             if (names[i] === names[j]) {
                 alert("Player names must be unique.");
-                return_to_prev_page(pongSettings.type);
+                return_to_page(pongSettings.type);
                 return false;
             }
         }
@@ -49,7 +49,7 @@ function create_player(name_id, color_id, throw_alert=true) {
     if (!player.name) {
         if (throw_alert)
             alert("Player names must not be empty.");
-        return_to_prev_page(pongSettings.type);
+        return_to_page(pongSettings.type);
         return;
     }
     player.color = document.getElementById(color_id).value;
@@ -58,7 +58,7 @@ function create_player(name_id, color_id, throw_alert=true) {
     return player;
 }
 
-function return_to_prev_page(type) {
+function return_to_page(type) {
     if (type === 'pvp') {
         changeRoute('/games/pong/pongPvP');
     }
