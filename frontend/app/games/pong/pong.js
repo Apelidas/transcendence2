@@ -65,4 +65,7 @@ function return_to_page(type) {
     else if (type === 'pong_semi_1' || type === 'pong_semi_2' || type === 'pong_finals') {
         changeRoute('/games/pong/pongBracket');
     }
+    else if (type === 'ai') {
+        changeRoute('/games/pong/pongAi');
+    }
 }
