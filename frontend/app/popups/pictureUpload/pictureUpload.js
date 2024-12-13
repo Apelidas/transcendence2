@@ -10,7 +10,11 @@ async function readImage(){
     const file = fileInput.files[0];
 
     if (!file){
-        alert('cannot read file. Please change it and try again');
+        alert('Cannot read file. Please change it and try again');
+        return;
+    }
+    if(!isValidProfilePicture(file.type)){
+        alert('Wrong file type. Please change it and try again');
         return;
     }
     try{
@@ -43,4 +47,9 @@ async function sendImagetoBackend(image){
     }
     alert('Image succesfully changed');
     closeAllPopups(true);
+}
+
+function isValidProfilePicture(file) {
+    const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp", "image/bmp", "image/svg+xml"];
+    return allowedTypes.includes(file.type);
 }
