@@ -12,3 +12,4 @@ document.getElementById('startPongPvp').addEventListener('click', () => {
     
     start_pong_game(left_player, right_player, pongSettings);
 });
+
