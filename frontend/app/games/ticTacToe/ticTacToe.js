@@ -13,6 +13,9 @@ document.getElementById('ticTacToeAiButton').addEventListener('click', function(
 });
 
 document.getElementById('ticTacToeTournButton').addEventListener('click', function() {
-    changeRoute('/games/ticTacToe/ticTacToeTourn');
-	document.dispatchEvent(new Event("startTTTtourn"));
+    
+    document.getElementById("tttTournPlayer1Name").disabled = false;
+	document.getElementById("tttTournPlayer2Name").disabled = false;
+    document.getElementById("tttTournPlayer3Name").disabled = false;
+	document.getElementById("tttTournPlayer4Name").disabled = false;
 });
