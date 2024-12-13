@@ -16,68 +16,71 @@ document.getElementById('startPongAi').addEventListener('click', () => {
  * Function to control AI paddle behavior.
  * This is specific to the AI mode and is added to the game loop in start_pong_game.
 */
-
-// Track the last AI update to throttle refresh rate
+// Track the last AI update for prediction
 let lastAITick = 0;
 
-// Main function to update AI paddle behavior
+// Simulate keypress-based movement
+let aiKeyPress = {
+    up: false,
+    down: false,
+};
+
 function updateAI(ball, playerRight, canvasHeight, playerLeft) {
     const currentTime = Date.now();
     const aiRefreshRate = 1000; // AI refreshes once per second
 
-    // Skip this update if not enough time has passed
-    if (currentTime - lastAITick < aiRefreshRate) {
-        return;
-    }
-    lastAITick = currentTime;
+    // Refresh AI view and prediction only once per second
+    if (currentTime - lastAITick >= aiRefreshRate) {
+        lastAITick = currentTime;
 
-    // Dynamic difficulty adjustment (DDA) to balance gameplay
-    const baseSpeed = 3;
-    const difficultyFactor = playerLeft.score > playerRight.score ? 1.5 : 1; // AI speeds up if player is winning
-    const aiSpeed = baseSpeed * difficultyFactor;
+        // Predict the ball's future Y position
+        const predictedY = predictBallY(ball, playerRight.x);
 
-    // Predict the ball's future position to enhance AI performance
-    const predictedY = predictBallY(ball, playerRight.x);
+        // Determine target position for the paddle center
+        const paddleCenter = playerRight.y + playerRight.height / 2;
+        const targetY = predictedY;
 
-    // Add randomness to mimic human-like errors and hesitation
-    const randomness = Math.random() * 20 - 10; // ±10px randomness in target
-    const hesitationChance = 0.1; // 10% chance to hesitate
-    if (Math.random() < hesitationChance) {
-        return; // Skip this update to simulate hesitation
+        // Simulate human-like keypresses based on target position
+        aiKeyPress.up = paddleCenter > targetY + 5; // Move up if target is below paddle center
+        aiKeyPress.down = paddleCenter < targetY - 5; // Move down if target is above paddle center
     }
 
-    // Calculate the AI paddle's target position
-    const targetY = Math.min(predictedY + randomness, canvasHeight - playerRight.height / 2);
-
-    // Ensure the paddle only moves toward reachable targets
-    if (Math.abs(targetY - playerRight.y) > aiSpeed) {
-        playerRight.y += targetY > playerRight.y ? aiSpeed : -aiSpeed; // Move AI paddle 
+    // Apply simulated keypresses to adjust paddle speed
+    const aiSpeed = 3; // Adjust for smoother or faster movement
+    if (aiKeyPress.up) {
+        playerRight.dy = -aiSpeed;
+    } else if (aiKeyPress.down) {
+        playerRight.dy = aiSpeed;
+    } else {
+        playerRight.dy = 0; // Stop paddle movement if close to the target
     }
 
-    // Constrain the AI paddle within the game field
+    // Constrain paddle within the canvas
     playerRight.y = Math.max(0, Math.min(canvasHeight - playerRight.height, playerRight.y));
 }
 
 // Function to predict the ball's future Y-coordinate
 function predictBallY(ball, targetX) {
-    // Calculate time for the ball to reach the target X position
+    const canvasHeight = 400; // Assuming canvas height is 400px
+
+    // Calculate the time for the ball to reach the target X position
     const timeToReach = Math.abs(targetX - ball.x) / Math.abs(ball.dx);
 
-    // Predict the ball's Y position based on its current direction and speed
+    // Predict the ball's Y position based on its direction and speed
     let predictedY = ball.y + ball.dy * timeToReach;
 
     // Account for bounces off the top and bottom walls
-    const canvasHeight = 400; // Assuming canvas height is 400px
     while (predictedY < 0 || predictedY > canvasHeight) {
         if (predictedY < 0) {
-            predictedY = -predictedY; // Bounce off the top
+            predictedY = -predictedY; // Bounce off the top wall
         } else if (predictedY > canvasHeight) {
-            predictedY = 2 * canvasHeight - predictedY; // Bounce off the bottom
+            predictedY = 2 * canvasHeight - predictedY; // Bounce off the bottom wall
         }
     }
 
     return predictedY; // Return the final predicted Y position
 }
+
 
 /*
 AI module requirements:
