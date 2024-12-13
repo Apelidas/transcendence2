@@ -1,18 +1,23 @@
 
 document.getElementById("startTTTGame").addEventListener('click', () => {
-	start_ttt_game();
+	const player1 = document.getElementById("tttPlayer1Name").value.trim();
+	const player2 = document.getElementById("tttPlayer2Name").value.trim();
+	start_ttt_game(player1, player2);
 });
 
-function start_ttt_game() {
+function start_ttt_game(player1, player2) {
 
 	document.getElementById("startTTTGame").style.display = "none";
 	document.getElementById("TTTGameBoard").style.display = "flex";
+	document.getElementById("tttPlayer1Name").disabled = true;
+	document.getElementById("tttPlayer2Name").disabled = true;
 
 	const gameBoard = document.getElementById("game-board");
 	const statusDisplay = document.getElementById("status");
 	const resetButton = document.getElementById("reset");
   
 	let currentPlayer = "X";
+	let currentPlayerName = player1;
 	let gameState = Array(9).fill("");
 	let gameActive = true;
   
@@ -32,7 +37,7 @@ function start_ttt_game() {
 	  gameState = Array(9).fill("");
 	  gameActive = true;
 	  currentPlayer = "X";
-	  statusDisplay.textContent = `Player ${currentPlayer}'s turn`;
+	  statusDisplay.textContent = `Player ${currentPlayer}'s turn (${currentPlayerName})`;
   
 	  for (let i = 0; i < 9; i++) {
 		const cell = document.createElement("div");
@@ -59,16 +64,18 @@ function start_ttt_game() {
 	  cell.classList.add("taken");
   
 	  const winner = checkWinner();
+	  const winnerName = winner === 'X' ? player1 : player2;
   
 	  if (winner) {
 		gameActive = false;
 		statusDisplay.textContent =
 		  winner === "Tie"
 			? "It's a tie!"
-			: `Player ${winner} wins!`;
+			: `${winnerName} wins!`;
 	  } else {
 		currentPlayer = currentPlayer === "X" ? "O" : "X";
-		statusDisplay.textContent = `Player ${currentPlayer}'s turn`;
+		currentPlayerName = currentPlayer === "X" ? player1 : player2;
+		statusDisplay.textContent = `Player ${currentPlayer}'s turn (${currentPlayerName})`;
 	  }
 	};
   
