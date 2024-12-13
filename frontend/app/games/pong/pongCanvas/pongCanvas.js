@@ -379,7 +379,8 @@ function start_pong_game(left_player, right_player, local_settings) {
 			// Update AI paddle only in AI mode
 			if (local_settings.type === "ai") { 
 				updateAI(ball, playerRight, canvas.height, playerLeft);
-			}
+                rightGiveUp.style.display = 'none'; // Hide the button
+            }
             moveBall();
             // detectCollisions();
             checkObstacleCollision();
