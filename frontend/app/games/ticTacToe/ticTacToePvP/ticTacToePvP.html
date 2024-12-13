@@ -5,25 +5,27 @@
     <div class="options-container">
         <!-- Player 1 Options -->
         <div class="player-options">
-            <label for="player1Name">Player 1 Name:</label>
-            <input type="text" id="player1Name" placeholder="Enter Player 1 Name">
+            <label for="player1Name">Player 1:</label>
+            <input type="text" id="player1Name" placeholder="Enter Name">
         </div>
 
         <!-- Player 2 Options -->
         <div class="player-options">
-            <label for="player2Name">Player 2 Name:</label>
-            <input type="text" id="player2Name" placeholder="Enter Player 2 Name">
+            <label for="player2Name">Player 2:</label>
+            <input type="text" id="player2Name" placeholder="Enter Name">
         </div>
     </div>
-
+    <div id="ttt-game-start">
+        <button id="startTTTGame">Start Game</button>
+    </div>
     <!-- Game Board -->
-    <div id="game-board"></div>
-    <div id="status">Player X's turn</div>
-
-    <!-- Footer Controls -->
-    <div class="footer-controls">
-        <button id="reset">Reset Game</button>
-        <button class="give-up-button" id="giveUpPlayer1">Player 1 Gives Up</button>
-        <button class="give-up-button" id="giveUpPlayer2">Player 2 Gives Up</button>
+    <div id="TTTGameBoard" class="ttt-game">
+        <div id="game-board"></div>
+        <div id="status">Player X's turn</div>
+    
+        <!-- Footer Controls -->
+        <div class="footer-controls">
+            <button id="reset">Reset Game</button>
+        </div>
     </div>
 </div>
