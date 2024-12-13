@@ -378,7 +378,7 @@ function start_pong_game(left_player, right_player, local_settings) {
             movePaddles();
 			// Update AI paddle only in AI mode
 			if (local_settings.type === "ai") { 
-				updateAI(ball, playerRight, canvas.height);
+				updateAI(ball, playerRight, canvas.height, playerLeft);
 			}
             moveBall();
             // detectCollisions();
