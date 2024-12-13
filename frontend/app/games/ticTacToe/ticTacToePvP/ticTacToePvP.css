@@ -163,3 +163,19 @@ select {
         height: 80px;
     }
 }
+
+.ttt-game {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#startTTTGame {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}

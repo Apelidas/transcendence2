@@ -1,9 +1,16 @@
-document.addEventListener("startTTTpvp", () => {
+
+document.getElementById("startTTTGame").addEventListener('click', () => {
+	start_ttt_game();
+});
+
+function start_ttt_game() {
+
+	document.getElementById("startTTTGame").style.display = "none";
+	document.getElementById("TTTGameBoard").style.display = "flex";
+
 	const gameBoard = document.getElementById("game-board");
 	const statusDisplay = document.getElementById("status");
 	const resetButton = document.getElementById("reset");
-	const giveUpPlayer1 = document.getElementById("giveUpPlayer1");
-	const giveUpPlayer2 = document.getElementById("giveUpPlayer2");
   
 	let currentPlayer = "X";
 	let gameState = Array(9).fill("");
@@ -80,16 +87,9 @@ document.addEventListener("startTTTpvp", () => {
 	};
   
 	const resetGame = () => createBoard();
-  
-	const giveUp = (player) => {
-	  gameActive = false;
-	  statusDisplay.textContent = `${player} gave up!`;
-	};
-  
+
 	resetButton.addEventListener("click", resetGame);
-	giveUpPlayer1.addEventListener("click", () => giveUp("Player 1"));
-	giveUpPlayer2.addEventListener("click", () => giveUp("Player 2"));
   
 	createBoard(); // Initialize the game
-  });
+  };
   
