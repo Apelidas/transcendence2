@@ -3,7 +3,7 @@ let pong_finalist_1 = "";
 let pong_finalist_2 = "";
 let pong_winner = "";
 
-function start_pong_game(left_player, right_player, settings) {
+function start_pong_game(left_player, right_player, local_settings) {
 
     changeRoute('/games/pong/pongCanvas')
 
@@ -49,7 +49,15 @@ function start_pong_game(left_player, right_player, settings) {
     };
 
     // Code that executes
-    if (validateName(left_player.name) && validateName(right_player.name) && checkForUniqueNames([left_player.name, right_player.name])) {
+    if (!left_player || !right_player) {
+        return_to_prev_page(local_settings.type);
+        return ;
+    }
+
+    if (validateName(left_player.name) 
+        && validateName(right_player.name) 
+        && checkForUniqueNames([left_player.name, right_player.name]))
+    {
         applySettings();
         gameOverlay.style.display = 'flex';
         giveUpButtons.forEach(button => button.style.display = 'block');
@@ -72,7 +80,7 @@ function start_pong_game(left_player, right_player, settings) {
         document.getElementById("leftPlayerNameDisplay").innerHTML = playerLeft.name;
         playerRight.name = right_player.name ? right_player.name : 'Right Player';
         document.getElementById("rightPlayerNameDisplay").innerHTML = playerRight.name;
-        winningScore = parseInt(settings.winningScore ? settings.winningScore : 11);
+        winningScore = parseInt(local_settings.winningScore ? local_settings.winningScore : 11);
     }
 
 //////////////////////////GAME////////////////////////////
@@ -136,20 +144,23 @@ function start_pong_game(left_player, right_player, settings) {
         if (winner) {
             alert(`${winner} wins!`);
             sendGameData(leftScore, rightScore);
-            if (settings.type === 'pong_semi_1') {
+            if (local_settings.type === 'pong_semi_1') {
                 pong_finalist_1 = winner;
                 changeRoute('/games/pong/pongBracket');
                 display_bracket(players);
             }
-            else if (settings.type === 'pong_semi_2') {
+            else if (local_settings.type === 'pong_semi_2') {
                 pong_finalist_2 = winner;
                 changeRoute('/games/pong/pongBracket');
                 display_bracket(players);
             }
-            else if (settings.type === 'pong_finals') {
+            else if (local_settings.type === 'pong_finals') {
                 pong_winner = winner;
                 changeRoute('/games/pong/pongBracket');
                 display_bracket(players);
+            }
+            else if (local_settings.type === 'pvp') {
+                changeRoute('/games/pong/pongPvP');
             }
         }
         gameRunning = false;
@@ -159,6 +170,7 @@ function start_pong_game(left_player, right_player, settings) {
         giveUpButtons.forEach(button => button.style.display = 'none');
         if (obstaclesEnabled)
             obstacles = [];
+        return_to_prev_page(local_settings.type); // TODO called twice?
     }
 
     async function sendGameData(leftScore, rightScore) {
