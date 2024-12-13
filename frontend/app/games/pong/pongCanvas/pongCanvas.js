@@ -27,6 +27,9 @@ function start_pong_game(left_player, right_player, local_settings) {
     let gameRunning = false;
     let winningScore = 11;
     let obstacles = [];
+    // These need to be set before player positions are calculated
+    canvas.width = 600;
+    canvas.height = 400;
 
     let ball = {
         x: canvas.width,
@@ -37,9 +40,17 @@ function start_pong_game(left_player, right_player, local_settings) {
         radius: ballSize,
         color: '#FFFFFF'
     };
-    let playerLeft = {x: 10, y: canvas.height / 2 - 50, width: 10, height: 100, dy: 0, score: 0, color: '#FF0000'};
+    let playerLeft = {
+        x: 10, 
+        y: canvas.height / 2 - 50, 
+        width: 10, 
+        height: 100, 
+        dy: 0, 
+        score: 0, 
+        color: '#FF0000'
+    };
     let playerRight = {
-        x: canvas.width * 2 - 20,
+        x: canvas.width - 20,
         y: canvas.height / 2 - 50,
         width: 10,
         height: 100,
@@ -70,8 +81,6 @@ function start_pong_game(left_player, right_player, local_settings) {
 
     // Apply settings for game initialization
     function applySettings() {
-        canvas.width = 600;
-        canvas.height = 400;
         canvas.style.backgroundColor = backgroundColorInput ? backgroundColorInput.value : '#222'; // Add fallback
         ball.color = ballColorInput ? ballColorInput.value : '#FFFFFF';
         playerLeft.color = left_player.color ? left_player.color : '#FF0000';
