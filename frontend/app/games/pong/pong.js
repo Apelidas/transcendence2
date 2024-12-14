@@ -32,6 +32,10 @@ function validateName(name) {
         return_to_page(type); // Redirect using type
         return false;
     }
+    // Allow the name "Ai"
+    if (name.toLowerCase() === "ai") {
+        return true; // Valid name for the right player
+    }
     const namePattern = /^[A-Za-z]{3,}$/; // At least 3 letters, no special characters or numbers
     if (!namePattern.test(name)) {
         alert("Names must be at least 3 letters long and contain only letters (" + name + ").");
