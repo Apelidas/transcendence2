@@ -18,6 +18,11 @@ async function getProfileData(){
     return undefined;
 }
 
+async function getGraphData(){
+    const response = await fetchWithToken(graphEndpoint, 'GET', {});
+    return await response.json();
+}
+
 function isValidProfileData(data) {
     return (
         typeof data === 'object' &&

@@ -110,3 +110,46 @@ function populateFriendsList(friends) {
         friendsList.appendChild(card);
     });
 }
+
+// Fetch wins per day data from the backend API and render the chart
+    function renderWinsChart(data) {
+
+        const labels = data.map(item => item.date);
+        const winCounts = data.map(item => item.win_count);
+        const graph =  document.getElementById('winsChart').getContext('2d');
+
+        new Chart(graph, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Wins Per Day',
+                    data: winCounts,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true },
+                    tooltip: { enabled: true },
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Date' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Wins' },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    console.log(data);
+    console.log(labels);
+    console.log(winCounts);
+}
+

@@ -1,9 +1,21 @@
-
 document.getElementById("startTTTGame").addEventListener('click', () => {
-	const player1 = document.getElementById("tttPlayer1Name").value.trim();
-	const player2 = document.getElementById("tttPlayer2Name").value.trim();
-	// TODO check names
-	start_ttt_game(player1, player2);
+    // Retrieve and trim player names
+    const player1 = document.getElementById("tttPlayer1Name").value.trim();
+    const player2 = document.getElementById("tttPlayer2Name").value.trim();
+
+    // Validate player names and check uniqueness
+    const isPlayer1Valid = validateNameTTT(player1);
+    const isPlayer2Valid = validateNameTTT(player2);
+    const areNamesUnique = checkForUniqueNamesTTT([player1, player2]);
+
+    // Start the game only if all checks pass
+    if (isPlayer1Valid && isPlayer2Valid && areNamesUnique) {
+        start_ttt_game(player1, player2);
+    } else {
+        // Show error message and prevent game from starting
+        console.log("Validation failed: Game cannot start.");
+        return false;
+    }
 });
 
 function start_ttt_game(player1, player2) {

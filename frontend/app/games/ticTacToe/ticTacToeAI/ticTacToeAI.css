@@ -23,7 +23,7 @@
     margin-bottom: 20px;
 }
 
-.player-settings {
+.ai-player-settings {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,7 +56,7 @@ input[type="text"] {
     margin: 20px auto;
 }
 
-.cell {
+.ai-cell {
     width: 100px;
     height: 100px;
     background-color: #fff;
@@ -69,7 +69,7 @@ input[type="text"] {
     cursor: pointer;
 }
 
-.cell.taken {
+.ai-cell.taken {
     cursor: not-allowed;
 }
 
@@ -116,13 +116,38 @@ input[type="text"] {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .ai-options-container {
+        flex-direction: column;
+    }
+
+    .ai-player-options,
+    .ai-game-settings-container {
+        width: 80%;
+        margin: 10px 0;
+    }
     #ai-game-board {
         grid-template-columns: repeat(3, 80px);
         grid-gap: 4px;
     }
 
-    .cell {
+    .ai-cell {
         width: 80px;
         height: 80px;
     }
+}
+
+.ai-ttt-game {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#ai-startTTTGame {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
 }

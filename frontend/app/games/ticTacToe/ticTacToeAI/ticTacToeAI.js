@@ -1,9 +1,30 @@
-document.addEventListener("startTTTai", () => {
+document.getElementById("ai-startTTTGame").addEventListener("click", () => {
+    // Retrieve and trim player name
+    const player1 = document.getElementById("aiPlayerName").value.trim();
+
+    // Validate player name
+    const isPlayer1Valid = validateNameTTT(player1);
+
+    // Start the game only if validation passes
+    if (isPlayer1Valid) {
+        start_ttt_ai(player1);
+    } else {
+        // Show error message or handle invalid input
+        console.log("Validation failed: Game cannot start.");
+        return false;
+    }
+});
+
+function start_ttt_ai(player1) {
+	document.getElementById("ai-startTTTGame").style.display = "none";
+	document.getElementById("ai-TTTGameBoard").style.display = "flex";
+	document.getElementById("aiPlayerName").disabled = true;
+
 	const gameBoard = document.getElementById("ai-game-board");
 	const statusDisplay = document.getElementById("ai-status");
 	const resetButton = document.getElementById("ai-reset");
 	const giveUpButton = document.getElementById("ai-give-up");
-  
+
 	let currentPlayer = "X";
 	let gameState = Array(9).fill("");
 	let gameActive = true;
@@ -28,7 +49,7 @@ document.addEventListener("startTTTai", () => {
   
 	  for (let i = 0; i < 9; i++) {
 		const cell = document.createElement("div");
-		cell.classList.add("cell");
+		cell.classList.add("ai-cell");
 		cell.setAttribute("data-index", i);
 		cell.addEventListener("click", handleCellClick);
 		gameBoard.appendChild(cell);
@@ -134,7 +155,11 @@ document.addEventListener("startTTTai", () => {
 	  }
 	};
   
-	const resetGame = () => createBoard();
+	const resetGame = () => {
+		document.getElementById("ai-startTTTGame").style.display = "block";
+		document.getElementById("ai-TTTGameBoard").style.display = "none";
+		createBoard();
+	};
   
 	const giveUp = () => {
 	  gameActive = false;
@@ -145,5 +170,5 @@ document.addEventListener("startTTTai", () => {
 	giveUpButton.addEventListener("click", giveUp);
   
 	createBoard(); // Initialize the game
-  });
+  };
   
