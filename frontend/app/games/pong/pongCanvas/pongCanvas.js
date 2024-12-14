@@ -67,7 +67,6 @@ function start_pong_game(left_player, right_player, local_settings) {
         return ;
     }
 
-
     applySettings();
     gameOverlay.style.display = 'flex';
     giveUpButtons.forEach(button => button.style.display = 'block');
@@ -76,7 +75,6 @@ function start_pong_game(left_player, right_player, local_settings) {
     if (obstaclesEnabled)
         createObstacles();
     requestAnimationFrame(update_game);
-
 
     // Apply settings for game initialization
 	function applySettings() {

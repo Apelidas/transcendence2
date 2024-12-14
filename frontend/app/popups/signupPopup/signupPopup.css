@@ -30,3 +30,7 @@ input[type="password"] {
 .login-link a:hover {
     text-decoration: underline;
 }
+
+.error { color: red; }
+
+.valid { color: green; }

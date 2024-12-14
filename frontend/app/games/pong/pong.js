@@ -17,6 +17,9 @@ document.getElementById('pongTournButton').addEventListener('click', function() 
 });
 
 function validateName(name) {
+    // Ensure `name` is always treated as a string
+    name = String(name || "").trim();
+    
     if (name === "") { // Handle empty name
         alert("Player name cannot be empty.");
         return_to_page(type); // Redirect using type
@@ -32,9 +35,11 @@ function validateName(name) {
 }
 
 function checkForUniqueNames(names) {
-    for (i = 0; i < names.length - 1; i++) {
-        for (j = i + 1; j < names.length; j++) {
-            if (names[i] === names[j]) {
+    const normalizedNames = names.map(name => name.trim().toLowerCase()); // Normalize to lowercase
+
+    for (i = 0; i < normalizedNames.length - 1; i++) {
+        for (j = i + 1; j < normalizedNames.length; j++) {
+            if (normalizedNames[i] === normalizedNames[j]) {
                 alert("Player names must be unique.");
                 return_to_page(pongSettings.type);
                 return false;
