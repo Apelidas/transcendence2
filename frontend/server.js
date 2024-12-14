@@ -15,14 +15,6 @@ const Locations = [
     '/games/tictactoe/tictactoepvp', //> 404
     '/games/ticTacToe/ticTacToeai', //> 404
     '/games/ticTacToe/tictactoetourn', //> 404
-    '/games/history', //> something went wrong: TypeError: Cannot read properties of undefined (reading 'status')
-                      //> homepage redirect
-
-
-    ///games/pong/pongCanvas
-
-    //only if logged in
-    '/profile' //>opens >error message >homepage redirect
 ];
 
 function getContentType(extname) {

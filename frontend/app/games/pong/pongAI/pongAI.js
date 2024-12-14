@@ -3,7 +3,7 @@ document.getElementById('startPongAi').addEventListener('click', () => {
     if (!left_player)
         return ;
     const right_player = {
-        name: "AIko",
+        name: "AI",
         color: document.getElementById("aiRightPlayerColor").value
     };
     if (!right_player)
@@ -14,10 +14,6 @@ document.getElementById('startPongAi').addEventListener('click', () => {
      // Validate names
      if (!validateName(aiLeftPlayerName)) {
         return; // Do not proceed if validation fails
-    }
-
-    if (!checkForUniqueNames([aiLeftPlayerName, "AIko"])) {
-        return; // Do not proceed if names are not unique
     }
     
     pongSettings.type = 'ai';

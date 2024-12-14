@@ -15,12 +15,11 @@ document.getElementById('pongTournButton').addEventListener('click', function() 
     changeRoute('/games/pong/pongTourn');
 	document.dispatchEvent(new Event("startPongTourn"));
 });
-
+    
 function prefillPlayerName(inputField){
     const username = getCookie('username'); // Replace 'username' with your cookie's name
     if (username) {
         inputField.value = username; // Set value if the cookie exists
-    }
 }
 
 function validateName(name) {
@@ -32,8 +31,11 @@ function validateName(name) {
         return_to_page(type); // Redirect using type
         return false;
     }
+
     const namePattern = /^[A-Za-z]{3,}$/; // At least 3 letters, no special characters or numbers
     if (!namePattern.test(name)) {
+        alert("Names must be at least 3 letters long and contain only letters (" + name + ").");
+        return_to_page();
         alert("Names must be at least 3 letters long and contain only letters (" + name + ").");
         return_to_page(pongSettings.type);
         return false;
@@ -48,7 +50,7 @@ function checkForUniqueNames(names) {
         for (j = i + 1; j < normalizedNames.length; j++) {
             if (normalizedNames[i] === normalizedNames[j]) {
                 alert("Player names must be unique.");
-                return_to_page(pongSettings.type);
+                return_to_page();
                 return false;
             }
         }
@@ -71,14 +73,21 @@ function create_player(name_id, color_id, throw_alert=true) {
     return player;
 }
 
-function return_to_page(type) {
-    if (type === 'pvp') {
-        changeRoute('/games/pong/pongPvP');
-    }
-    else if (type === 'pong_semi_1' || type === 'pong_semi_2' || type === 'pong_finals') {
+function return_to_page() {
+    const type = pongSettings.type; // Use global setting
+    console.log('pongsettingtype: ' + type);
+    if (type === 'pong_semi_1' || type === 'pong_semi_2' || type === 'pong_finals') {
+        // Tournament-specific logic
         changeRoute('/games/pong/pongBracket');
-    }
-    else if (type === 'ai') {
+    } else if (type === 'pvp') {
+        changeRoute('/games/pong/pongPvP');
+    } else if (type === 'ai') {
         changeRoute('/games/pong/pongAI');
+    } else if (window.history.length > 1) {
+        window.history.back(); // Use browser's history for other scenarios
+    } else {
+        changeRoute('/games/pong'); // Default route
     }
 }
+
+

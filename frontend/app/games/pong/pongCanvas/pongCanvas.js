@@ -63,7 +63,7 @@ function start_pong_game(left_player, right_player, local_settings) {
 
     // Code that executes
     if (!left_player || !right_player) {
-        return_to_page(local_settings.type);
+        return_to_page();
         return ;
     }
 
@@ -168,7 +168,7 @@ function start_pong_game(left_player, right_player, local_settings) {
         if (obstaclesEnabled)
             obstacles = [];
         console.log("type " + local_settings.type);
-        return_to_page(local_settings.type);
+        return_to_page();
         if (winner) {
             alert(`${winner} wins!`);
             if (local_settings.type === 'pong_semi_1') {
