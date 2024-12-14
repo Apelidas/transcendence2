@@ -21,6 +21,9 @@ function prefillPlayerName(inputField){
     if (username) {
         inputField.value = username; // Set value if the cookie exists
     }
+    else {
+        inputField.value = '';
+    }
 }
 
 function validateName(name) {

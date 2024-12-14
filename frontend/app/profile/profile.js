@@ -13,7 +13,7 @@ document.getElementById('changeEmailButton').addEventListener('click', function 
 });
 
 document.getElementById('changeAliasButton').addEventListener('click', function () {
-    alert('Change Alias functionality here');
+    openPopup('changeUsername');
 });
 
 document.getElementById('ChangeProfilePictureButton').addEventListener('click', function () {
@@ -72,9 +72,9 @@ function setProfileData(userData) {
     document.getElementById('pvpWins').textContent = userData.pvpData.wins;
     document.getElementById('pvpLoses').textContent = userData.pvpData.loses;
     document.getElementById('pvpStreak').textContent = userData.pvpData.streak;
-    // document.getElementById('aiWins').textContent = userData.aiData.wins;
-    // document.getElementById('aiLoses').textContent = userData.aiData.loses;
-    // document.getElementById('aiStreak').textContent = userData.aiData.streak;
+    document.getElementById('aiWins').textContent = userData.aiData.wins;
+    document.getElementById('aiLoses').textContent = userData.aiData.loses;
+    document.getElementById('aiStreak').textContent = userData.aiData.streak;
     // document.getElementById('tournamentWins').textContent = userData.tournamentData.wins;
     // document.getElementById('tournamentLoses').textContent = userData.tournamentData.loses;
     // document.getElementById('tournamentStreak').textContent = userData.tournamentData.streak;

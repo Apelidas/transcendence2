@@ -63,6 +63,15 @@ class CustomUser(AbstractBaseUser):
         self.save()
         self.refresh_from_db()
 
+    def update_username(self, newUsername):
+        if not newUsername:
+            raise ValueError("The Username field must be set.")
+        if CustomUser.objects.filter(username=newUsername).exists():
+            raise ValueError("This Username is already in use.")
+        self.username = newUsername
+        self.save()
+        self.refresh_from_db()
+
     def updateLastAction(self):
         self.lastAction = timezone.now()
         self.save(update_fields=['lastAction'])

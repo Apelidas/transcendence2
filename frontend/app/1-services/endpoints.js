@@ -7,4 +7,5 @@ const TTTEndpoint = BACKEND_PATH + '/ttt/';
 const loginEndpoint = BACKEND_PATH + '/login/';
 const profileEndpoint = BACKEND_PATH + '/profile/';
 const changeEmailEndpoint = BACKEND_PATH + '/profile/change-email';
+const changeUsernameEndpoint = BACKEND_PATH + '/profile/username';
 const signupEndpoint = BACKEND_PATH + '/signup/';

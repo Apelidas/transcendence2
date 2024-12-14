@@ -63,6 +63,18 @@ async function requestEmailChange(newEmail){
     return false;
 }
 
+async function requestUsernameChange(newUsername){
+    try {
+        const response = await fetchWithToken(changeUsernameEndpoint, 'PUT', {}, {'newUsername': newUsername});
+        if (response.status === 200) {
+            return true;
+        }
+    } catch (exception) {
+        alert('something went wrong: ' + exception);
+    }
+    return false;
+}
+
 function toGameData(gameData){
     return GameData(gameData.win | undefined, gameData.loses | undefined, gameData.streak | undefined) | undefined;
 }

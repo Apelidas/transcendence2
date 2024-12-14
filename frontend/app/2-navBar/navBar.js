@@ -28,6 +28,7 @@ function updateNavbarBasedOnLogout() {
     logoutButton.classList.add('d-none');
     setCookie('access_token', '', -10);
     setCookie('refresh_token', '', -10);
+    setCookie('username','', -10);
 }
 
 // Utility function to open popups
@@ -48,6 +49,8 @@ function openPopup(popup, pushState = true) {
         document.getElementById('changeEmailPopup').style.display = 'block';
     } else if(popup === 'addFriend'){
         document.getElementById('addFriendPopup').style.display = 'block';
+    } else if(popup === 'changeUsername'){
+        document.getElementById('changeUsernamePopup').style.display = 'block';
     }
 
     document.getElementById('overlay').style.display = 'block';
@@ -64,6 +67,7 @@ function closeAllPopups(removeBlur = true) {
     document.getElementById('changePasswordPopup').style.display = 'none';
     document.getElementById('changeEmailPopup').style.display = 'none';
     document.getElementById('addFriendPopup').style.display = 'none';
+    document.getElementById('changeUsernamePopup').style.display = 'none';
 
     if (removeBlur) {
         toggleBlur(false);
