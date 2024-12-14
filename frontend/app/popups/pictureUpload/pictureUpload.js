@@ -1,5 +1,5 @@
 
-const PictureEndpoint = 'http://127.0.0.1:8000/profile/upload-picture'
+const PictureEndpoint = BACKEND_PATH + '/profile/upload-picture'
 document.getElementById('file-upload-form').addEventListener('submit', async function(event) {
     event.preventDefault();
     await readImage();
