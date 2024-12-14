@@ -3,7 +3,7 @@ import pyotp
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 from datetime import timedelta, timezone
-from django.utils.timezone import now
+from django.utils import timezone
 
 
 class CustomUserManager(BaseUserManager):
@@ -64,7 +64,7 @@ class CustomUser(AbstractBaseUser):
         self.refresh_from_db()
 
     def updateLastAction(self):
-        self.lastAction = now()
+        self.lastAction = timezone.now()
         self.save(update_fields=['lastAction'])
 
     def getAllFriends(self):
