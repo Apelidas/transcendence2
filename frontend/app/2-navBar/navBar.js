@@ -3,8 +3,13 @@ document.addEventListener('loggedIn', function () {
 });
 
 document.addEventListener('loggedOut', function () {
+    changeRoute('/');
     updateNavbarBasedOnLogout();
 });
+
+function logout(){
+    document.dispatchEvent(new Event('loggedOut'));
+}
 
 function updateNavbarBasedOnLogout() {
     const loginButton = document.getElementById('loginButton');
@@ -12,23 +17,16 @@ function updateNavbarBasedOnLogout() {
     const userGreeting = document.getElementById('userGreeting');
     const viewProfileButton = document.getElementById('viewProfileButton');
     const logoutButton = document.getElementById('logoutButton');
-
-    console.log('updating navBar')
-    const username = localStorage.getItem('username');
-    console.log(username)
+    
     loginButton.style.display = 'block';
     signupButton.style.display = 'block';
     userGreeting.querySelector('span').textContent = ``;
     userGreeting.classList.add('d-none');
     viewProfileButton.classList.add('d-none');
     logoutButton.classList.add('d-none');
-    document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    setCookie('access_token', '', -10);
+    setCookie('refresh_token', '', -10);
 }
-
-document.addEventListener('loggedOut', function (){
-    updateNavbarBasedOnLogout();
-})
 
 // Utility function to open popups
 function openPopup(popup, pushState = true) {
@@ -88,7 +86,7 @@ function updateNavbarBasedOnLogin() {
     const viewProfileButton = document.getElementById('viewProfileButton');
     const logoutButton = document.getElementById('logoutButton');
 
-    const username = localStorage.getItem('username');
+    const username = getCookie('username');
     loginButton.style.display = 'none';
     signupButton.style.display = 'none';
     userGreeting.querySelector('span').textContent = `Welcome, ${username}!`;

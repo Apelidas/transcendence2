@@ -38,6 +38,7 @@ class LoginView(APIView):
                         'message': 'Login successful',
                         'refresh': str(refresh),
                         'access': str(refresh.access_token),
+                        'username': user.username
                     }, status=200)
                 else:
                     return Response({'error': 'Account is inactive.'}, status=403)

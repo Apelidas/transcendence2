@@ -13,7 +13,7 @@ async function loginAdapter(username, password, mfaCode) {
 		if (response.status === 200) {
 			// Parse the response body to get the data
 			const data = await response.json();
-
+			setCookie('username', data.username, 86400000);
 			// Store the tokens in localStorage
 			setCookie('access_token', data.access, 1800000);
 			setCookie('refresh_token', data.refresh, 86400000);

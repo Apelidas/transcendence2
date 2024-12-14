@@ -9,7 +9,7 @@ async function fetchWithToken(url, method, headers = {}, body) {
         if (!isrefreshed){
             const loggedOutEvent = new CustomEvent('loggedOut');
             document.dispatchEvent(loggedOutEvent);
-            throw 'InvalidTokenError'
+            return;
         }
     }
     headers['Authorization'] = 'Bearer ' + accessToken;

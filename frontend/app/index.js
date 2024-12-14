@@ -68,10 +68,12 @@ function handleRouting() {
             break;
         case '/profile':
             document.getElementById('viewProfile').classList.add('active');
+            console.log('switch to profile');
             // window.history.pushState({}, '', path);
             getProfileData().then(value => {
                     setProfileData(value)
                     setupFriendslist();
+                    return;
             })
             break;
         default:
