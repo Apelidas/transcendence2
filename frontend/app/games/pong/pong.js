@@ -16,6 +16,13 @@ document.getElementById('pongTournButton').addEventListener('click', function() 
 	document.dispatchEvent(new Event("startPongTourn"));
 });
 
+function prefillPlayerName(inputField){
+    const username = getCookie('username'); // Replace 'username' with your cookie's name
+    if (username) {
+        inputField.value = username; // Set value if the cookie exists
+    }
+}
+
 function validateName(name) {
     // Ensure `name` is always treated as a string
     name = String(name || "").trim();

@@ -34,10 +34,14 @@ function handleRouting() {
             break;
         case '/games/pong/pongPvP':
             document.getElementById('viewPongPvP').classList.add('active');
+            const pvpField = document.getElementById('leftPlayerName');
+            prefillPlayerName(pvpField);
             // window.history.pushState({}, '', path);
             break;
         case '/games/pong/pongAI':
             document.getElementById('viewPongAI').classList.add('active');
+            const aiField = document.getElementById('aiLeftPlayerName');
+            prefillPlayerName(aiField);
             // window.history.pushState({}, '', path);
             break;
         case '/games/pong/pongTourn':
@@ -56,10 +60,14 @@ function handleRouting() {
             break;
         case '/games/ticTacToe/ticTacToePvP':
             document.getElementById('viewTicTacToePvP').classList.add('active');
+            const tttpvpField = document.getElementById('tttPlayer1Name');
+            prefillPlayerName(tttpvpField);
             // window.history.pushState({}, '', path);
             break;
         case '/games/ticTacToe/ticTacToeAI':
             document.getElementById('viewTicTacToeAI').classList.add('active');
+            const inputField = document.getElementById('aiPlayerName');
+            prefillPlayerName(inputField);
             // window.history.pushState({}, '', path);
             break;
         case '/games/ticTacToe/ticTacToeTourn':
