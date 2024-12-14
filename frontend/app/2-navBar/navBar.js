@@ -17,7 +17,9 @@ function updateNavbarBasedOnLogout() {
     const userGreeting = document.getElementById('userGreeting');
     const viewProfileButton = document.getElementById('viewProfileButton');
     const logoutButton = document.getElementById('logoutButton');
+    const viewHistoryButton = document.getElementById('viewHistoryButton');
     
+    viewHistoryButton.classList.add('d-none');
     loginButton.style.display = 'block';
     signupButton.style.display = 'block';
     userGreeting.querySelector('span').textContent = ``;
@@ -85,7 +87,9 @@ function updateNavbarBasedOnLogin() {
     const userGreeting = document.getElementById('userGreeting');
     const viewProfileButton = document.getElementById('viewProfileButton');
     const logoutButton = document.getElementById('logoutButton');
-
+    const viewHistoryButton = document.getElementById('viewHistoryButton');
+    
+    viewHistoryButton.classList.remove('d-none');
     const username = getCookie('username');
     loginButton.style.display = 'none';
     signupButton.style.display = 'none';
