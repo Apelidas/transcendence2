@@ -3,6 +3,7 @@
 
 create-certificate:
 	./create_certificate.sh
+	sleep 5
 
 run: stop-dependencies create-certificate
 	docker compose up -d --build
