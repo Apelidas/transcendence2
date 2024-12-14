@@ -1,15 +1,32 @@
 document.getElementById('startPongAi').addEventListener('click', () => {
     const left_player = create_player("aiLeftPlayerName", "aiLeftPlayerColor");
+    if (!left_player)
+        return ;
     const right_player = {
         name: "AIko",
         color: document.getElementById("aiRightPlayerColor").value
-    }; 
-    const settings = {};
-    settings.type = "ai";
-    settings.winningScore = document.getElementById('aiWinningScore').value;
-    settings.backgroundColor = document.getElementById('aiBackgroundColor').value;
-    settings.ballColor = document.getElementById('aiBallColor').value;
-    start_pong_game(left_player, right_player, settings);
+    };
+    if (!right_player)
+        return ;
+
+    const aiLeftPlayerName = document.getElementById("aiLeftPlayerName").value;
+    
+     // Validate names
+     if (!validateName(aiLeftPlayerName)) {
+        return; // Do not proceed if validation fails
+    }
+
+    if (!checkForUniqueNames([aiLeftPlayerName, "AIko"])) {
+        return; // Do not proceed if names are not unique
+    }
+    
+    pongSettings.type = 'ai';
+    
+    pongSettings.winningScore = document.getElementById('aiWinningScore').value;
+    pongSettings.backgroundColor = document.getElementById('aiBackgroundColor').value;
+    pongSettings.ballColor = document.getElementById('aiBallColor').value;
+
+    start_pong_game(left_player, right_player, pongSettings);
 });
 
 /**
