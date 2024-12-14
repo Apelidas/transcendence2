@@ -7,15 +7,36 @@ const Locations = [
     '/home',
     '/about',
     '/games',
+    '/profile',
     '/games/pong',
+    '/games/history',
     '/games/pong/pongpvp', //the whole SPA
     '/games/pong/pongai',  //the whole SPA
     '/games/pong/pongtourn', //the whole SPA
     '/games/tictactoe', //> 404
     '/games/tictactoe/tictactoepvp', //> 404
-    '/games/ticTacToe/ticTacToeai', //> 404
-    '/games/ticTacToe/tictactoetourn', //> 404
+    '/games/tictactoe/tictactoeai', //> 404
+    '/games/tictactoe/tictactoetourn', //> 404
 ];
+
+function findValidPath(filePath) {
+    if (fs.existsSync(filePath)) {
+        return filePath
+    }
+    const segments = filePath.split('/');
+
+    for (let i = 0; i < segments.length; i++) {
+        const slicedPath = segments.slice(i).join(path.sep);
+        console.log('checking: ' + slicedPath);
+        const newPath = path.join(__dirname, 'app', slicedPath);
+        if (fs.existsSync(newPath)) {
+            return slicedPath;
+        }
+    }
+
+    return '';
+}
+
 
 function getContentType(extname) {
 
@@ -41,33 +62,16 @@ function getContentType(extname) {
     return contentType;
 }
 
-function extractLastSegment(path) {
-    const segments = path.split('/');
-    return '/' + segments.pop();
-}
-
-function countSlashes(inputString) {
-    let count = 0;
-    for (let char of inputString) {
-        if (char === '/') {
-            count++;
-        }
-    }
-
-    return count;
-}
 
 const server = http.createServer((request, response) => {
     console.log('request url: ' + request.url);
     let url = request.url.endsWith('/') && request.url !== '/' ? request.url.slice(0, -1) : request.url;
+    let lowUrl = url.toLowerCase();
     console.log('url before: ' + url);
-
-    if (url.startsWith('/games/') && !url.startsWith('/games/pong') && !url.startsWith('/games/tic') && !url.startsWith('/games/selection') && !url.startsWith('/games/history')){
-        url = url.slice(6);
-    }
+    url = findValidPath(url);
     console.log('url after: ' + url);
 
-    const filePath = path.join(__dirname, 'app', Locations.includes(url) ? 'index.html' : url);
+    const filePath = path.join(__dirname, 'app', Locations.includes(lowUrl) ? 'index.html' : url);
     const extname = path.extname(filePath);
 
     let contentType = getContentType(extname);
