@@ -8,6 +8,8 @@ const tttHistoryPage = document.getElementById('tttHistory')
 
 
 async function setUpHistory(){
+    pongHistoryPage.innerHTML = '';
+    tttHistoryPage.innerHTML = '';
     const pongGames = await getAllPongGames();
     pongGames.forEach((game) => {
         createCard(game, pongHistoryPage)
