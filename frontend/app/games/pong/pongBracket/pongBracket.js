@@ -31,6 +31,11 @@ document.getElementById("startPongTournament").addEventListener('click', () => {
         return ;
     }
 
+    if (!checkForUniqueNames([player1.name, player2.name, player3.name, player4.name])) {
+        alert("Names should be unique.");
+        return; // Do not proceed if names are not unique
+    }
+
     set_player_postitions(players);
     // for (i = 0; i < players.length; i++) {
     //     console.log("player" + i + " pos = " + players[i].position); // DEBUG
