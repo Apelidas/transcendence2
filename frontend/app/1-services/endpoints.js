@@ -1,4 +1,4 @@
-const BACKEND_PATH = 'https://192.168.122.1/api';
+const BACKEND_PATH = 'https://' + 'localhost' +'/api';
 const TokenRefreshEndpoint = BACKEND_PATH + '/token/refresh/';
 const friendsEndpoint = BACKEND_PATH + '/friends/';
 const userEndpoint = BACKEND_PATH + '/users/';

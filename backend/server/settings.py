@@ -26,8 +26,6 @@ SECRET_KEY = 'django-insecure-y&dyq(r++t7zm#+)r^0=&d7_6a94y8e&+r^7wo8+rdv9-+bqmo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -156,6 +154,8 @@ MEDIA_URL = '/media/'
 
 SECURE_SSL_REDIRECT = True  # Redirect HTTP to HTTPS
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 SECURE_HSTS_SECONDS = 3600  # HTTP Strict Transport Security
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
@@ -166,6 +166,11 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 ALLOWED_HOSTS=[
     'https://localhost', 
     '127.0.0.1',
+    'localhost',
     'https://192.168.122.1',
     '192.168.122.1'
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Default backend
 ]

@@ -24,11 +24,11 @@ class CustomUserManager(BaseUserManager):
         except CustomUser.DoesNotExist:
             return None
 
-    def create_superuser(self, email, password=None, **extra_fields):
+    def create_superuser(self,username,  email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
-        return self.create_user(email, password, **extra_fields)
+        return self.create_user(username, email, password, **extra_fields)
 
     def user_exists(self, email):
         return self.model.objects.filter(email=email).exists()
@@ -100,7 +100,7 @@ class CustomUser(AbstractBaseUser):
     def getAllUsernames(self):
         return list(CustomUser.objects.exclude(username=self.username).values_list('username', flat=True))
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
 
     def __str__(self):

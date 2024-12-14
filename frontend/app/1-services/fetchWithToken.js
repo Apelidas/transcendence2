@@ -2,7 +2,7 @@
 
 
 async function fetchWithToken(url, method, headers = {}, body) {
-
+    console.log('send to: ' + url);
     const accessToken = getCookie('access_token');
     if (!accessToken){
         const isrefreshed = await refreshToken();
