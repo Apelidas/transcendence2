@@ -10,7 +10,7 @@ async function signupAdapter(email, username, password) {
             },
             body: JSON.stringify({ email, username, password }),
         });
-        return response.status === 200;
+        return response;
     } catch (error) {
 		return false;
 	}

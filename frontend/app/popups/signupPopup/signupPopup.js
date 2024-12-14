@@ -28,11 +28,15 @@ async function signup() {
     const submitButton = document.querySelector('#signupForm button[type="submit"]');
     submitButton.disabled = true;
     
-    const isSuccess = await signupAdapter(email, username, password);
+    const response = await signupAdapter(email, username, password);
 
-    if (isSuccess) {
+    if (response.status === 200) {
         closeAllPopups(true); // Close all popups and remove blur effect
         alert('Sign-up successful!');
+    } else if(response.status === 409){
+        response.json().then( error => {
+            alert(error.error);
+        })
     } else {
         alert('Sign-up failed. Please try again.');
     }
