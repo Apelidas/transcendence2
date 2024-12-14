@@ -16,15 +16,16 @@ document.getElementById('pongTournButton').addEventListener('click', function() 
 	document.dispatchEvent(new Event("startPongTourn"));
 });
 
-function validateName(name, throw_alert=true) {
-    if (name === "")
+function validateName(name) {
+    if (name === "") { // Handle empty name
+        alert("Player name cannot be empty.");
+        return_to_page(type); // Redirect using type
         return false;
+    }
     const namePattern = /^[A-Za-z]{3,}$/; // At least 3 letters, no special characters or numbers
     if (!namePattern.test(name)) {
-        if (throw_alert) {
-            alert("Names must be at least 3 letters long and contain only letters (" + name + ").");
-            return_to_page(pongSettings.type);
-        }
+        alert("Names must be at least 3 letters long and contain only letters (" + name + ").");
+        return_to_page(pongSettings.type);
         return false;
     }
     return true;

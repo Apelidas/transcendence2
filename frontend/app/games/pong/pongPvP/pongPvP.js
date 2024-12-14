@@ -6,7 +6,18 @@ document.getElementById('startPongPvp').addEventListener('click', () => {
     const right_player = create_player("rightPlayerName", "rightPlayerColor");
     if (!right_player)
         return ;
-    const settings = {};
+
+    const leftPlayerName = document.getElementById("leftPlayerName").value;
+    const rightPlayerName = document.getElementById("rightPlayerName").value;
+    
+    // Validate names
+    if (!validateName(leftPlayerName)) {
+       return; // Do not proceed if validation fails
+   }
+
+   if (!checkForUniqueNames([leftPlayerName, rightPlayerName])) {
+       return; // Do not proceed if names are not unique
+   }
     pongSettings.type = "pvp";
     pongSettings.winningScore = document.getElementById('winningScorePvp').value;
     

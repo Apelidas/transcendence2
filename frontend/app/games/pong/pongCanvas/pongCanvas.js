@@ -67,19 +67,16 @@ function start_pong_game(left_player, right_player, local_settings) {
         return ;
     }
 
-    if (validateName(left_player.name) 
-        && validateName(right_player.name) 
-        && checkForUniqueNames([left_player.name, right_player.name]))
-    {
-        applySettings();
-        gameOverlay.style.display = 'flex';
-        giveUpButtons.forEach(button => button.style.display = 'block');
-        gameRunning = true;
-        resetBall();
-        if (obstaclesEnabled)
-            createObstacles();
-        requestAnimationFrame(update_game);
-    }
+
+    applySettings();
+    gameOverlay.style.display = 'flex';
+    giveUpButtons.forEach(button => button.style.display = 'block');
+    gameRunning = true;
+    resetBall();
+    if (obstaclesEnabled)
+        createObstacles();
+    requestAnimationFrame(update_game);
+
 
     // Apply settings for game initialization
 	function applySettings() {
