@@ -20,6 +20,7 @@ function prefillPlayerName(inputField){
     const username = getCookie('username'); // Replace 'username' with your cookie's name
     if (username) {
         inputField.value = username; // Set value if the cookie exists
+    }
 }
 
 function validateName(name) {
