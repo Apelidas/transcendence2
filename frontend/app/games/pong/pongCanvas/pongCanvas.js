@@ -187,7 +187,7 @@ function start_pong_game(left_player, right_player, local_settings) {
     }
 
     async function sendGameData(leftScore, rightScore, leftPlayer, rightPlayer) {
-        const response = await sendGame(leftScore, rightScore, false, true, leftScore > rightScore, leftPlayer, rightPlayer);
+        const response = await sendGame(leftScore, rightScore, true, leftScore > rightScore, leftPlayer, rightPlayer);
         if (response.status !== 200) {
             alert('There has been an error. GameData could not be stored');
         }

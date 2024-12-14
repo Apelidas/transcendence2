@@ -1,10 +1,10 @@
 
 
-async function sendGame(leftScore, rightScore, againstAi, isPong, userWon, leftPlayer, rightPlayer) {
+async function sendGame(leftScore, rightScore, isPong, userWon, leftPlayer, rightPlayer) {
     const dataObject = {
         'leftScore': leftScore,
         'rightScore': rightScore,
-        'againstAi': againstAi,
+        'againstAi': rightPlayer === 'AI',
         'isPong': isPong,
         'userWon': userWon,
         'leftPlayer': leftPlayer,
