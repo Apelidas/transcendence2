@@ -79,9 +79,11 @@ function handleRouting() {
             console.log('switch to profile');
             // window.history.pushState({}, '', path);
             getProfileData().then(value => {
-                    setProfileData(value)
-                    setupFriendslist();
-                    return;
+                setProfileData(value)
+                setupFriendslist();
+            })
+            getGraphData().then(value => {
+                renderWinsChart(value);
             })
             break;
         default:
