@@ -28,7 +28,11 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             closeAllPopups(true); // Close all popups and remove blur effect
             const loggedInEvent = new CustomEvent('loggedIn');
             document.dispatchEvent(loggedInEvent);
-        } else if (isSuccess === undefined){
+            document.getElementById('UsernameFieldLogin').value = '';
+            document.getElementById('PasswordField').value = '';
+            document.getElementById('MfaField').value = '';
+        } else if (isSuccess === null){
+
             document.getElementById('2faGroup').style.display = 'block';
         } else {
             alert('Login failed. Please try again.');

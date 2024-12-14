@@ -70,7 +70,11 @@ const server = http.createServer((request, response) => {
     console.log('url before: ' + url);
     url = findValidPath(url);
     console.log('url after: ' + url);
-
+    if (url === ''){
+        response.writeHead(404, {'Content-Type': 'text/plain'});
+        response.end('Not Found');
+        return;
+    }
     const filePath = path.join(__dirname, 'app', Locations.includes(lowUrl) ? 'index.html' : url);
     const extname = path.extname(filePath);
 

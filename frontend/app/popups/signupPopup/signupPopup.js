@@ -71,6 +71,9 @@ async function signup() {
     if (response.status === 200) {
         closeAllPopups(true); // Close all popups and remove blur effect
         alert('Sign-up successful!');
+        email.value = '';
+        username.value = '';
+        passwordSignup.value = '';
     } else if(response.status === 409){
         response.json().then( error => {
             alert(error.error);

@@ -30,7 +30,6 @@ async function readImage(){
         return;
     }
     closeAllPopups(true);
-    alert('image changed succsefully');
 }
 async function sendImagetoBackend(image){
     const formdata = new FormData();

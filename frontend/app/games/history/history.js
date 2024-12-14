@@ -24,7 +24,12 @@ async function setUpHistory(){
 }
 function createCard(game, page) {
     const card = document.createElement('div');
-    card.className = 'card ' + (game.leftScore > game.rightScore ? 'won' : 'lost');
+    if (game.leftScore === game.rightScore){
+        card.className = 'card '
+    }
+    else {
+        card.className = 'card ' + (game.leftScore > game.rightScore ? 'won' : 'lost');
+    }
     const dateOnly = game.playedAt.toISOString().split('T')[0];
     card.innerHTML = `
                 <p><span class="highlight">${game.leftPlayer}</span> vs. <span class="highlight">${game.rightPlayer}</span></p>
