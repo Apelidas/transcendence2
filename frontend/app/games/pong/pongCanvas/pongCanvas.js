@@ -161,6 +161,9 @@ function start_pong_game(left_player, right_player, local_settings) {
     function endGame(winner, leftScore, rightScore) {
         gameRunning = false;
         gameOverlay.style.display = 'none';
+        if (winner){
+            sendGameData(leftScore, rightScore, playerLeft.name, playerRight.name)
+        }
         resetScore();
         resetBallsChanges();
         giveUpButtons.forEach(button => button.style.display = 'none');
@@ -170,7 +173,6 @@ function start_pong_game(left_player, right_player, local_settings) {
         return_to_page(local_settings.type);
         if (winner) {
             alert(`${winner} wins!`);
-            sendGameData(leftScore, rightScore);
             if (local_settings.type === 'pong_semi_1') {
                 pong_finalist_1 = winner;
                 display_bracket(players);
@@ -186,8 +188,8 @@ function start_pong_game(left_player, right_player, local_settings) {
         }
     }
 
-    async function sendGameData(leftScore, rightScore) {
-        const response = await sendGame(leftScore, rightScore, false, true, leftScore > rightScore);
+    async function sendGameData(leftScore, rightScore, leftPlayer, rightPlayer) {
+        const response = await sendGame(leftScore, rightScore, false, true, leftScore > rightScore, leftPlayer, rightPlayer);
         if (response.status !== 200) {
             alert('There has been an error. GameData could not be stored');
         }
