@@ -15,17 +15,11 @@ document.getElementById('pongTournButton').addEventListener('click', function() 
     changeRoute('/games/pong/pongTourn');
 	document.dispatchEvent(new Event("startPongTourn"));
 });
-
-function validateName(name) {
-    if (name.trim() === "") { // Handle empty name
-        alert("Player name cannot be empty.");
-        return_to_page(); // Use `return_to_page` for navigation
-
-    function prefillPlayerName(inputField){
-        const username = getCookie('username'); // Replace 'username' with your cookie's name
-        if (username) {
-            inputField.value = username; // Set value if the cookie exists
-    }
+    
+function prefillPlayerName(inputField){
+    const username = getCookie('username'); // Replace 'username' with your cookie's name
+    if (username) {
+        inputField.value = username; // Set value if the cookie exists
 }
 
 function validateName(name) {
@@ -37,11 +31,7 @@ function validateName(name) {
         return_to_page(type); // Redirect using type
         return false;
     }
-    }
-    // Allow the name "Ai"
-    if (name.toLowerCase() === "ai") {
-        return true;
-    }
+
     const namePattern = /^[A-Za-z]{3,}$/; // At least 3 letters, no special characters or numbers
     if (!namePattern.test(name)) {
         alert("Names must be at least 3 letters long and contain only letters (" + name + ").");
