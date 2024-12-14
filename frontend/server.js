@@ -6,19 +6,23 @@ const Locations = [
     '/',
     '/home',
     '/about',
-    '/profile',
     '/games',
     '/games/pong',
-    '/games/pong/pongPvP',
-    '/games/pong/pongAI',
-    '/games/pong/pongTourn',
-    '/games/ticTacToe',
-    '/games/ticTacToe/ticTacToePvP',
-    '/games/ticTacToe/ticTacToeAI',
-    '/games/ticTacToe/ticTacToeTourn',
-    '/games/history',
-    '/login',
-    '/signup',
+    '/games/pong/pongpvp', //the whole SPA
+    '/games/pong/pongai',  //the whole SPA
+    '/games/pong/pongtourn', //the whole SPA
+    '/games/tictactoe', //> 404
+    '/games/tictactoe/tictactoepvp', //> 404
+    '/games/ticTacToe/ticTacToeai', //> 404
+    '/games/ticTacToe/tictactoetourn', //> 404
+    '/games/history', //> something went wrong: TypeError: Cannot read properties of undefined (reading 'status')
+                      //> homepage redirect
+
+
+    ///games/pong/pongCanvas
+
+    //only if logged in
+    '/profile' //>opens >error message >homepage redirect
 ];
 
 function getContentType(extname) {
