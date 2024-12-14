@@ -28,9 +28,14 @@ function handleRouting() {
             // window.history.pushState({}, '', path);
             break;
         case '/games/history':
-            document.getElementById('viewHistory').classList.add('active');
-            setUpHistory();
-            // window.history.pushState({}, '', path);
+            checkIfLoggedIn().then(isLoggedIn => {
+                if (!isLoggedIn){
+                    changeRoute('/');
+                    return;
+                }
+                document.getElementById('viewHistory').classList.add('active');
+                setUpHistory();
+            })
             break;
         case '/games/pong/pongPvP':
             document.getElementById('viewPongPvP').classList.add('active');
@@ -75,15 +80,20 @@ function handleRouting() {
             // window.history.pushState({}, '', path);
             break;
         case '/profile':
-            document.getElementById('viewProfile').classList.add('active');
-            console.log('switch to profile');
-            // window.history.pushState({}, '', path);
-            getProfileData().then(value => {
-                setProfileData(value)
+            checkIfLoggedIn().then(isLoggedIn => {
+                if (!isLoggedIn){
+                    changeRoute('/');
+                    return;
+                }
+                document.getElementById('viewProfile').classList.add('active');
+                console.log('switch to profile');
+                getProfileData().then(value => {
+                    setProfileData(value)
+                })
                 setupFriendslist();
-            })
-            getGraphData().then(value => {
-                renderWinsChart(value);
+                getGraphData().then(value => {
+                    renderWinsChart(value);
+                })
             })
             break;
         default:
@@ -112,20 +122,22 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('popstate', handleRouting);
 });
 
-function checkIfLoggedIn() {
+async function checkIfLoggedIn() {
     const token = getCookie('refresh_token');
-    console.log('refreshToken before: ' + token);
     if (token !== undefined) {
-        refreshToken().then((ifSuccess) => {
+        return refreshToken().then((ifSuccess) => {
             console.log('Token refresh was: ' + ifSuccess + '-----')
             if (ifSuccess) {
                 const loggedInEvent = new CustomEvent('loggedIn');
                 document.dispatchEvent(loggedInEvent);
+                return true;
             } else {
-                localStorage.setItem('refresh_token', null);
-                localStorage.setItem('access_token', null);
+                const loggedOutEvent = new CustomEvent('loggedOut');
+                document.dispatchEvent(loggedOutEvent);
+                return false;
             }
         })
     }
-    console.log('refreshToken after: ' + localStorage.getItem('refresh_token'));
+    return Promise.resolve(false);
+
 }
