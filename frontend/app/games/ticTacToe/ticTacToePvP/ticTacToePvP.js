@@ -1,11 +1,19 @@
+
+let pvpPlayer1Symbol = "";
+let pvpPlayer2Symbol = "";
+
 document.getElementById("startTTTGame").addEventListener("click", () => {
+    
     const player1 = document.getElementById("tttPlayer1Name").value.trim();
+    pvpPlayer1Symbol = document.getElementById("tttPlayer1Symbol").value;
     const player2 = document.getElementById("tttPlayer2Name").value.trim();
+    pvpPlayer2Symbol = document.getElementById("tttPlayer2Symbol").value;
 
     const isPlayer1Valid = validateNameTTT(player1);
     const isPlayer2Valid = validateNameTTT(player2);
+    const validSymbols = pvpPlayer1Symbol === pvpPlayer2Symbol;
 
-    if (isPlayer1Valid && isPlayer2Valid) {
+    if (isPlayer1Valid && isPlayer2Valid && !validSymbols) {
         start_ttt_pvp_game(player1, player2);
     } else {
         console.log("Validation failed: Game cannot start.");
@@ -19,7 +27,9 @@ function start_ttt_pvp_game(player1, player2) {
     document.getElementById("TTTGameBoard").style.display = "flex";
 
     document.getElementById("tttPlayer1Name").disabled = true;
+    document.getElementById("tttPlayer1Symbol").disabled = true;
     document.getElementById("tttPlayer2Name").disabled = true;
+    document.getElementById("tttPlayer2Symbol").disabled = true;
 
     const gameBoard = document.getElementById("game-board");
     const statusDisplay = document.getElementById("status");
@@ -28,7 +38,7 @@ function start_ttt_pvp_game(player1, player2) {
     const newGameButton = document.getElementById("new-game-button");
 
     const whoStarts = document.getElementById("whoStarts").value;
-    let currentPlayer = whoStarts === "player1" ? "X" : "O";
+    let currentPlayer = whoStarts === "player1" ? pvpPlayer1Symbol : pvpPlayer2Symbol;
     let currentPlayerName = whoStarts === "player1" ? player1 : player2;
 
     let gameState = Array(9).fill("");
@@ -50,7 +60,7 @@ function start_ttt_pvp_game(player1, player2) {
         gameActive = true;
         giveUpButton.disabled = false;
 
-        currentPlayer = whoStarts === "player1" ? "X" : "O";
+        currentPlayer = whoStarts === "player1" ? pvpPlayer1Symbol : pvpPlayer2Symbol;
         currentPlayerName = whoStarts === "player1" ? player1 : player2;
         updateStatusDisplay(currentPlayer, currentPlayerName);
 
@@ -66,7 +76,7 @@ function start_ttt_pvp_game(player1, player2) {
 
     const updateStatusDisplay = (currentPlayer, currentPlayerName) => {
         statusDisplay.textContent = `Player ${currentPlayer}'s turn (${currentPlayerName})`;
-        statusDisplay.style.color = currentPlayer === "X" ? "blue" : "red";
+        statusDisplay.style.color = currentPlayer === pvpPlayer1Symbol ? "blue" : "red";
     };
 
     const handleCellClick = (event) => {
@@ -85,7 +95,7 @@ function start_ttt_pvp_game(player1, player2) {
         cell.classList.add("taken");
 
         const winner = checkWinner();
-        const winnerName = winner === "X" ? player1 : player2;
+        const winnerName = winner === pvpPlayer1Symbol ? player1 : player2;
 
         if (winner) {
             gameActive = false;
@@ -94,8 +104,8 @@ function start_ttt_pvp_game(player1, player2) {
             statusDisplay.textContent =
                 winner === "Tie" ? "It's a tie!" : `${winnerName} wins!`;
         } else {
-            currentPlayer = currentPlayer === "X" ? "O" : "X";
-            currentPlayerName = currentPlayer === "X" ? player1 : player2;
+            currentPlayer = currentPlayer === pvpPlayer1Symbol ? pvpPlayer2Symbol : pvpPlayer1Symbol;
+            currentPlayerName = currentPlayer === pvpPlayer1Symbol ? player1 : player2;
             updateStatusDisplay(currentPlayer, currentPlayerName);
         }
     };
@@ -126,7 +136,9 @@ function start_ttt_pvp_game(player1, player2) {
 
     newGameButton.addEventListener("click", () => {
         document.getElementById("tttPlayer1Name").disabled = false;
+        document.getElementById("tttPlayer1Symbol").disabled = false;
         document.getElementById("tttPlayer2Name").disabled = false;
+        document.getElementById("tttPlayer2Symbol").disabled = false;
         document.getElementById("startTTTGame").style.display = "block";
         document.getElementById("whoStartsContainer").style.display = "block";
         document.getElementById("TTTGameBoard").style.display = "none";
