@@ -180,15 +180,15 @@ function endGame(winner, leftScore, rightScore) {
     return_to_page();
     if (winner) {
         alert(`${winner} wins!`);
-        if (local_settings.type === 'pong_semi_1') {
+        if (pongSettings.type === 'pong_semi_1') {
             pong_finalist_1 = winner;
             display_bracket(players);
         }
-        else if (local_settings.type === 'pong_semi_2') {
+        else if (pongSettings.type === 'pong_semi_2') {
             pong_finalist_2 = winner;
             display_bracket(players);
         }
-        else if (local_settings.type === 'pong_finals') {
+        else if (pongSettings.type === 'pong_finals') {
             pong_winner = winner;
             display_bracket(players);
             finishTournament(getCookie('tournamentId'), winner);
