@@ -333,7 +333,7 @@ function createObstacles() {
 // Toggle obstacles on or off
 toggleObstaclesButton.addEventListener('click', () => {
     obstaclesEnabled = !obstaclesEnabled;
-    if (obstaclesEnabled || !isTournament())
+    if (obstaclesEnabled && !isTournament())
         createObstacles();
     else
         obstacles = [];
