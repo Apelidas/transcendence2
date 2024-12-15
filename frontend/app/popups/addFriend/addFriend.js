@@ -21,7 +21,8 @@ async function getAFriend(){
         emit(friendsChangeEvent);
         return ;
     }
-    alert('somethingwent wrong: ' + response.body.message);
+    const json = await response.json();
+    alert(json.message);
 }
 
 async function setupUserlist(){

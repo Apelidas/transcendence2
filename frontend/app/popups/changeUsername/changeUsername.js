@@ -16,6 +16,7 @@ async function changeUsername(){
     if (isSuccess){
         alert('Username Succesfully Changed');
         closeAllPopups(true);
+        setCookie('username', newUsername, 86400000);
     }
     submitButton.disabled = false;
 }

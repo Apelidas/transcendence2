@@ -5,9 +5,9 @@ async function getAllFriends() {
         const response = await fetchWithToken(friendsEndpoint, 'GET', {});
         if (response.status === 200) {
             const body = await response.json();
-            // if (verifyFriendsList(body)) {
+            if (verifyFriendsList(body)) {
                 return body;
-            // }
+            }
         }
     } catch (exception) {
         alert('something went wrong: ' + exception);
@@ -31,7 +31,9 @@ async function getAllUsers() {
     const response = await fetchWithToken(userEndpoint, 'GET', {});
     if (response.status === 200) {
         const data = await response.json();
-        return data;
+        if(verifyUsernames(data)){
+            return data;
+        }
     }
     return [];
 }
@@ -39,8 +41,7 @@ async function getAllUsers() {
 function verifyUsernames(object) {
     if (Array.isArray(object)) {
         return object.every(item =>
-            item.hasOwnProperty('username') &&
-            typeof item.username === 'string')
+            typeof item === 'string')
     }
     return false
 }
