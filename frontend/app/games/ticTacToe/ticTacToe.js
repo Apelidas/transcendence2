@@ -38,14 +38,12 @@ function validateNameTTT(name) {
     
     if (name === "") { // Handle empty name
         alert("Player name cannot be empty.");
-        return_to_page(); // Redirect using type
         return false;
     }
 
     const namePattern = /^[A-Za-z]{3,}$/; // At least 3 letters, no special characters or numbers
     if (!namePattern.test(name)) {
         alert("Names must be at least 3 letters long and contain only letters (" + name + ").");
-        return_to_page();
         return false;
     }
     return true;
@@ -58,7 +56,6 @@ function checkForUniqueNamesTTT(names) {
         for (j = i + 1; j < normalizedNames.length; j++) {
             if (normalizedNames[i] === normalizedNames[j]) {
                 alert("Player names must be unique.");
-                return_to_page();
                 return false;
             }
         }
