@@ -48,6 +48,7 @@ function checkForUniqueNames(names) {
     for (i = 0; i < normalizedNames.length - 1; i++) {
         for (j = i + 1; j < normalizedNames.length - 1; j++) {
             if (normalizedNames[i] === normalizedNames[j]) {
+                console.log(normalizedNames[i] + ' vs ' + normalizedNames[j]);
                 alert("Player names must be unique.");
                 return false;
             }
