@@ -1,42 +1,71 @@
-/* Hide all sections by default */
-#mainContent > div {
-    display: none;
+/* Full-Screen Background Container */
+.background-container {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full-screen height */
+    overflow: hidden;
 }
 
-/* Show the active section */
-#mainContent > div.active {
-    display: block;
+.background-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('0-assets/just-passin-cat.gif') center center / cover no-repeat; /* GIF as background */
+    z-index: -1; /* Place GIF behind the content */
 }
 
-/* Homepage-Specific Styles */
+/* Center Content */
 .content {
+    position: relative;
     text-align: center;
+    color: black; /* Black text for better contrast */
+    font-family: Arial, sans-serif;
+    z-index: 1; /* Ensure content is above the background */
     padding: 2rem;
 }
 
 .content h1 {
     font-size: 2.5rem;
-    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for readability */
+    margin-bottom: 1rem;
 }
 
 .content p {
     font-size: 1.2rem;
-    color: #555;
-    max-width: 600px;
-    margin: 1rem auto;
     line-height: 1.5;
-}
-
-/* Custom responsive image class to avoid conflict with Bootstrap's img-fluid */
-.custom-img-fluid {
-    max-width: 100%;
-    height: auto;
-    margin: 20px 0;
-}
-
-/* Optional: Control the width of the content to prevent it from being too wide */
-.container {
-    max-width: 1200px;
+    max-width: 600px;
     margin: 0 auto;
-    padding: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for readability */
+}
+
+/* Optional: Make the layout responsive */
+@media (max-width: 768px) {
+    .content h1 {
+        font-size: 2rem;
+    }
+
+    .content p {
+        font-size: 1rem;
+    }
+}
+
+.background-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('0-assets/just-passin-cat.gif') center center / cover no-repeat; /* Scale to cover the screen */
+    z-index: -1; /* Place GIF behind the content */
+}
+
+
+@media (max-width: 768px) {
+    .background-container::before {
+        background: url('0-assets/just-passin-cat.gif') center center / contain no-repeat; /* Contain for smaller screens */
+    }
 }

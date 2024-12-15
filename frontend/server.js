@@ -19,6 +19,11 @@ const Locations = [
     '/games/tictactoe/tictactoetourn', //> 404
 ];
 
+const redirects = new Map([
+    ['/games/tictactoe/tictactoebracket', '/games/ticTacToe/ticTacToeTourn']
+]);
+
+
 function findValidPath(filePath) {
     if (fs.existsSync(filePath)) {
         return filePath
@@ -40,7 +45,7 @@ function findValidPath(filePath) {
 
 function getContentType(extname) {
 
-    let contentType = 'text/html';
+    let contentType = null;
     switch (extname) {
         case '.js':
             contentType = 'text/javascript';
@@ -57,16 +62,32 @@ function getContentType(extname) {
         case '.gif':
             contentType = 'image/gif';
             break;
+        case '.html':
+            contentType = 'text/html';
+            break;
     }
     console.log('for ' + extname + ': ' + contentType );
     return contentType;
 }
 
+function handleRedirects(url, response){
+    if (redirects.has(url)){
+        response.writeHead(302, { Location: redirects.get(url) });
+        response.end();
+        return true;
+    }
+    return false;
+}
 
 const server = http.createServer((request, response) => {
     console.log('request url: ' + request.url);
     let url = request.url.endsWith('/') && request.url !== '/' ? request.url.slice(0, -1) : request.url;
     let lowUrl = url.toLowerCase();
+
+    if (handleRedirects(lowUrl, response)){
+        return;
+    }
+
     console.log('url before: ' + url);
     url = findValidPath(url);
     console.log('url after: ' + url);
@@ -80,6 +101,10 @@ const server = http.createServer((request, response) => {
 
     let contentType = getContentType(extname);
 
+    if (contentType === null){
+        error({}, response);
+        return;
+    }
     if(extname === '.png' || extname === '.jpeg' || extname === '.jpg' || extname === '.gif'){
         readPictures(contentType, filePath, response)
     }
@@ -90,22 +115,16 @@ const server = http.createServer((request, response) => {
 });
 
 function error(err, response) {
-    if (err.code === 'ENOENT') {
-        // Handle file not found error
-        const errorFilePath = path.join(__dirname, 'app', 'error', '404.html');
-        fs.readFile(errorFilePath, 'utf8', (err, data) => {
-            if (err) {
-                error(err, response);
-                return;
-            }
-            response.writeHead(200, {'Content-Type': 'text/html'});
-            response.end(data);
-        });
-    } else {
-        // Handle other errors
-        response.writeHead(500, {'Content-Type': 'text/plain'});
-        response.end('Server Error');
-    }
+    // Handle file not found error
+    const errorFilePath = path.join(__dirname, 'app', 'error', '404.html');
+    fs.readFile(errorFilePath, 'utf8', (err, data) => {
+        if (err) {
+            error(err, response);
+            return;
+        }
+        response.writeHead(200, {'Content-Type': 'text/html'});
+        response.end(data);
+    });
 }
 
 function readText(extname, contentType, filePath, response){
