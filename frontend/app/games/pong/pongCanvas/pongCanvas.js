@@ -333,7 +333,7 @@ function createObstacles() {
 // Toggle obstacles on or off
 toggleObstaclesButton.addEventListener('click', () => {
     obstaclesEnabled = !obstaclesEnabled;
-    if (obstaclesEnabled)
+    if (obstaclesEnabled || !isTournament())
         createObstacles();
     else
         obstacles = [];
@@ -414,27 +414,35 @@ function update_game() {
 }
 
 increaseSpeedButton.addEventListener('click', () => {
-    if (!gamePaused) {
-        ballSpeed++;
-        ball.speed = ballSpeed;
+    if(!isTournament()){
+        if (!gamePaused) {
+            ballSpeed++;
+            ball.speed = ballSpeed;
+        }
     }
 });
 
 decreaseSpeedButton.addEventListener('click', () => {
-    if (ball.speed > 1 && !gamePaused) {
-        ballSpeed--;
-        ball.speed = ballSpeed;
+    if(!isTournament()){
+        if (ball.speed > 1 && !gamePaused) {
+            ballSpeed--;
+            ball.speed = ballSpeed;
+        }
     }
 });
 
 increaseSizeButton.addEventListener('click', () => {
-    if (!gamePaused)
-        ball.radius += 2;
+    if(!isTournament()){
+        if (!gamePaused)
+            ball.radius += 2;
+    }
 });
 
 decreaseSizeButton.addEventListener('click', () => {
-    if (ball.radius > 2 && !gamePaused)
-        ball.radius -= 2;
+    if(!isTournament()){
+        if (ball.radius > 2 && !gamePaused)
+            ball.radius -= 2;
+    }
 });
 
 leftGiveUp.addEventListener('click', () => {
@@ -473,6 +481,10 @@ document.addEventListener('keyup', (e) => {
         playerRight.dy = 0;
     }
 });
+
+function isTournament() {
+    return pongSettings.type === 'pong_semi_1' || pongSettings.type === 'pong_semi_2' || pongSettings.type === 'pong_finals';
+}
 
 // window.addEventListener('popstate', function (event) {
 //     endGame();
