@@ -5,7 +5,6 @@
 IP=$(ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}' | awk 'NR==3')
 
 # Set other variables
-EMAIL="admin@example.com"
 COUNTRY="DE"
 STATE="Niedersachsen"
 CITY="Wolfsburg"
@@ -18,14 +17,7 @@ if [ -z "$IP" ]; then
   exit 1
 fi
 
-# Generate Private Key
-openssl genrsa -out "$CERT_DIRECTORY/private.key" 2048
-
-# Generate CSR
-openssl req -new -key "$CERT_DIRECTORY/private.key" -out "$CERT_DIRECTORY/request.csr" -subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG/CN=$IP/emailAddress=$EMAIL"
-
-# Generate Self-Signed Certificate
-openssl x509 -req -days 365 -in "$CERT_DIRECTORY/request.csr" -signkey "$CERT_DIRECTORY/private.key" -out "$CERT_DIRECTORY/certificate.crt"
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout "$CERT_DIRECTORY/private.key" -out "$CERT_DIRECTORY/certificate.crt" -subj "/C=$COUNTRY/ST=$STATE/L=$CITY/O=$ORG/CN=$IP"
 
 echo "Self-signed certificate and key have been created:"
 echo " - Certificate: certificate.crt"
