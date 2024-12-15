@@ -64,3 +64,9 @@ body {
         height: auto;
     }
 }
+
+#error-message {
+    font-size: 0.9rem;
+    color: red;
+    margin-top: 5px;
+}
