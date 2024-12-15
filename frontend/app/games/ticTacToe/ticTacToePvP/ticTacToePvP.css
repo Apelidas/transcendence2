@@ -192,3 +192,58 @@ select {
     cursor: pointer;
     border-radius: 5px;
 }
+
+/* Center alignment for "Choose Who Starts" dropdown */
+.choose-who-starts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: right;
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+/* Align "Choose who starts" and dropdown menu next to each other on the same line */
+.dd-options-container {
+    display: flex;
+    flex-direction: row; /* Arrange label and dropdown side by side */
+    align-items: center; /* Vertically align label and dropdown */
+    justify-content: center; /* Center the entire container horizontally */
+    margin: 15px auto; /* Add vertical spacing between sections */
+    gap: 10px; /* Add space between label and dropdown */
+    text-align: center;
+}
+
+/* Ensure the dropdown menu matches the input fields */
+#whoStarts {
+    width: auto; /* Adjust width dynamically to fit the dropdown content */
+    padding: 8px; /* Consistent padding for better aesthetics */
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Updated style for Give Up Button */
+#give-up {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+#give-up:hover {
+    background-color: #0056b3;
+}
+
+#give-up:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}

@@ -15,17 +15,30 @@
             <input type="text" id="tttPlayer2Name" placeholder="Enter Name">
         </div>
     </div>
+
+    <!-- Choose Who Starts -->
+    <div class="dd-options-container" id="whoStartsContainer">
+        <label for="whoStarts">Choose who starts:</label>
+        <select id="whoStarts">
+            <option value="player1">Player 1</option>
+            <option value="player2">Player 2</option>
+        </select>
+    </div>
+
     <div id="ttt-game-start">
         <button id="startTTTGame">Start Game</button>
     </div>
+
     <!-- Game Board -->
-    <div id="TTTGameBoard" class="ttt-game">
+    <div id="TTTGameBoard" class="ttt-game" style="display: none;">
         <div id="game-board"></div>
         <div id="status">Player X's turn</div>
-    
+
         <!-- Footer Controls -->
         <div class="footer-controls">
             <button id="reset">Reset Game</button>
+            <button id="give-up">Give Up</button>
+            <button id="new-game-button">New Game / Change Player</button>
         </div>
     </div>
 </div>
