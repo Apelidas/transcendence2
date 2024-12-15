@@ -4,20 +4,18 @@ const tttSettings = {};
 
 document.getElementById('ticTacToePvpButton').addEventListener('click', function() {
 
+    document.getElementById("startTTTGame").style.display = "inline";
     document.getElementById("tttPlayer1Name").disabled = false;
 	document.getElementById("tttPlayer2Name").disabled = false;
-    document.getElementById("startTTTGame").style.display = "inline";
 	document.getElementById("TTTGameBoard").style.display = "none";
     changeRoute('/games/ticTacToe/ticTacToePvP'); 
 });
 
 document.getElementById('ticTacToeAiButton').addEventListener('click', function() {
-    document.getElementById("tttPlayer1Name").disabled = false;
-    document.getElementById("startTTTGame").style.display = "inline";
-    document.getElementById("ai-game-board").style.display = "none";
-
+    document.getElementById("ai-startTTTGame").style.display = "inline";
+    document.getElementById("aiPlayerName").disabled = false;
+    document.getElementById("ai-TTTGameBoard").style.display = "none";
     changeRoute('/games/ticTacToe/ticTacToeAI'); 
-	document.dispatchEvent(new Event("startTTTai"));
 });
 
 document.getElementById('ticTacToeTournButton').addEventListener('click', function() {
@@ -41,9 +39,9 @@ function validateNameTTT(name) {
         return false;
     }
 
-    const namePattern = /^[A-Za-z]{3,}$/; // At least 3 letters, no special characters or numbers
+    const namePattern = /^[\x20-\x7E]{3,}$/; // At least 3 letters
     if (!namePattern.test(name)) {
-        alert("Names must be at least 3 letters long and contain only letters (" + name + ").");
+        alert("Names must be at least 3 letters long (" + name + ").");
         return false;
     }
     return true;
@@ -63,6 +61,7 @@ function checkForUniqueNamesTTT(names) {
     return true;
 }
 
+//do we need return_to_page here?
 function create_ttt_player(name_id, throw_alert=true) {
     let player = {};
     player.name = document.getElementById(name_id).value.trim();

@@ -7,7 +7,7 @@ document.getElementById("ai-startTTTGame").addEventListener("click", () => {
 
     // Start the game only if validation passes
     if (isPlayer1Valid) {
-        start_ttt_ai(player1);
+        start_ttt_ai_game(player1);
     } else {
         // Show error message or handle invalid input
         console.log("Validation failed: Game cannot start.");
@@ -15,12 +15,12 @@ document.getElementById("ai-startTTTGame").addEventListener("click", () => {
     }
 });
 
-function start_ttt_ai(player1) {
+function start_ttt_ai_game(player1) {
 	document.getElementById("ai-startTTTGame").style.display = "none";
 	document.getElementById("ai-TTTGameBoard").style.display = "flex";
 	document.getElementById("aiPlayerName").disabled = true;
 
-	const gameBoard = document.getElementById("ai-game-board");
+	const ai-gameBoard = document.getElementById("ai-game-board");
 	const statusDisplay = document.getElementById("ai-status");
 	const resetButton = document.getElementById("ai-reset");
 	const giveUpButton = document.getElementById("ai-give-up");
@@ -41,7 +41,7 @@ function start_ttt_ai(player1) {
 	];
   
 	const createBoard = () => {
-	  gameBoard.innerHTML = ""; // Clear existing cells
+	  ai-gameBoard.innerHTML = ""; // Clear existing cells
 	  gameState = Array(9).fill("");
 	  gameActive = true;
 	  currentPlayer = "X";
@@ -52,7 +52,7 @@ function start_ttt_ai(player1) {
 		cell.classList.add("ai-cell");
 		cell.setAttribute("data-index", i);
 		cell.addEventListener("click", handleCellClick);
-		gameBoard.appendChild(cell);
+		ai-gameBoard.appendChild(cell);
 	  }
 	};
   
@@ -155,11 +155,7 @@ function start_ttt_ai(player1) {
 	  }
 	};
   
-	const resetGame = () => {
-		document.getElementById("ai-startTTTGame").style.display = "block";
-		document.getElementById("ai-TTTGameBoard").style.display = "none";
-		createBoard();
-	};
+	const resetGame = () => createBoard();
   
 	const giveUp = () => {
 	  gameActive = false;
