@@ -25,5 +25,5 @@ document.getElementById('startPongPvp').addEventListener('click', () => {
         return; // Do not proceed if names are not unique
     }
 
-    start_pong_game(left_player, right_player, pongSettings);
+    start_pong_game(left_player, right_player);
 });

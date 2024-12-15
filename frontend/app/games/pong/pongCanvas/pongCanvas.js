@@ -25,7 +25,9 @@ let ball = {};
 let playerLeft = {};
 let playerRight = {};
 
-function start_pong_game(left_player, right_player, local_settings) {
+let animateFrame;
+
+function start_pong_game(left_player, right_player) {
 
     changeRoute('/games/pong/pongCanvas')
 
@@ -82,7 +84,7 @@ function start_pong_game(left_player, right_player, local_settings) {
     if (obstaclesEnabled)
         createObstacles();
 
-    requestAnimationFrame(update_game);
+    animateFrame = requestAnimationFrame(update_game);
 };
 
 // Apply settings for game initialization
@@ -166,6 +168,7 @@ function movePaddles() {
 function endGame(winner, leftScore, rightScore) {
     console.log("END GAME type: " + pongSettings.type);
     gameRunning = false;
+    cancelAnimationFrame(animateFrame);
     gameOverlay.style.display = 'none';
     if (winner){
         sendGameData(leftScore, rightScore, playerLeft.name, playerRight.name)
@@ -181,10 +184,12 @@ function endGame(winner, leftScore, rightScore) {
         if (pongSettings.type === 'pong_semi_1') {
             pong_finalist_1 = winner;
             display_bracket(players);
+            console.log("DEBUG FIRST SEMIFINALIST");
         }
         else if (pongSettings.type === 'pong_semi_2') {
             pong_finalist_2 = winner;
             display_bracket(players);
+            console.log("DEBUG SECOND SEMIFINALIST");
         }
         else if (pongSettings.type === 'pong_finals') {
             pong_winner = winner;
@@ -305,7 +310,7 @@ function resetBall() {
     const speed = ball.speed || 3; // TODO
 
     // Set the ball's velocity
-    ball.dx = Math.cos(angle) * speed;
+    ball.dx =  Math.cos(angle) * speed;
     ball.dy = Math.sin(angle) * speed;
 }
 
@@ -408,6 +413,7 @@ function update_game() {
     }
     // Request the next frame
     requestAnimationFrame(update_game);
+    console.log(i++);
 }
 
 increaseSpeedButton.addEventListener('click', () => {

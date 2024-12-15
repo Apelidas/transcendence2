@@ -20,7 +20,7 @@ document.getElementById('startPongAi').addEventListener('click', () => {
         return; // Do not proceed if validation fails
     }
 
-    start_pong_game(left_player, right_player, pongSettings);
+    start_pong_game(left_player, right_player);
 });
 
 /**

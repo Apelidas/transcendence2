@@ -1,5 +1,5 @@
 
-const players = [];
+let players = [];
 let pong_finalist_1 = "";
 let pong_finalist_2 = "";
 let pong_winner = "";
@@ -8,6 +8,7 @@ document.getElementById("startPongTournament").addEventListener('click', () => {
 
     pongSettings.type = "tournament";
 
+    players = [];
     document.getElementById("pt-tournament-bracket").style.display = "grid";
     const player1 = create_player("pongPlayer1Name", "player1Color");
     if (!player1) return ;
@@ -126,24 +127,24 @@ function display_bracket(players) {
         const champ = get_player(players, pong_winner)
         set_player_at_element(champ, winner);
     }
-
-    document.getElementById("ptSemi1").addEventListener('click', () => {
-        pongSettings.type = "pong_semi_1";
-        start_pong_game(player1, player2, pongSettings);
-    });
-
-    document.getElementById("ptSemi2").addEventListener('click', () => {
-        pongSettings.type = "pong_semi_2";
-        start_pong_game(player3, player4, pongSettings);
-    });
-
-    document.getElementById("ptFinal").addEventListener('click', () => {
-        pongSettings.type = "pong_finals";
-        const finalist_1 = get_player(players, pong_finalist_1);
-        const finalist_2 = get_player(players, pong_finalist_2);
-        start_pong_game(finalist_1, finalist_2, pongSettings);
-    });
 }
+
+document.getElementById("ptSemi1").addEventListener('click', () => {
+    pongSettings.type = "pong_semi_1";
+    start_pong_game(get_player_at_pos(players, 1), get_player_at_pos(players, 2));
+});
+
+document.getElementById("ptSemi2").addEventListener('click', () => {
+    pongSettings.type = "pong_semi_2";
+    start_pong_game(get_player_at_pos(players, 3), get_player_at_pos(players, 4));
+});
+
+document.getElementById("ptFinal").addEventListener('click', () => {
+    pongSettings.type = "pong_finals";
+    const finalist_1 = get_player(players, pong_finalist_1);
+    const finalist_2 = get_player(players, pong_finalist_2);
+    start_pong_game(finalist_1, finalist_2);
+});
 
 function set_player_at_element(player, element) {
     element.innerHTML = player.name;
