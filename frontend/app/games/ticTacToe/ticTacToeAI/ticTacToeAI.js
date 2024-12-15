@@ -12,21 +12,6 @@ document.getElementById("ai-startTTTGame").addEventListener("click", () => {
     start_ttt_ai_game(player1);
 });
 
-async function sendTTTData(winner, leftPlayer, rightPlayer){
-    let response = undefined;
-    console.log('tttWinner: ' + winner);
-    if (winner === 'tie'){
-        response = await sendGame(0,0, false, false, leftPlayer, rightPlayer);
-    }
-    else {
-        const didLeftWin = winner === leftPlayer;
-        response = await sendGame(didLeftWin ? 1 : 0, didLeftWin ? 0 : 1, false, didLeftWin, leftPlayer, rightPlayer);
-    }
-    if (response.status !== 200){
-        alert('There has been an error. GameData could not be stored');
-    }
-}
-
 function start_ttt_ai_game(player1) {
     // Hide the Start button and show the game board
     document.getElementById("ai-startTTTGame").style.display = "none";
