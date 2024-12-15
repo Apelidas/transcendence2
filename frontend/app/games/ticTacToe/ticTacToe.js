@@ -69,8 +69,15 @@ function checkForUniqueNamesTTT(names) {
     return true;
 }
 
-function checkForUniqueSymbolsTTT() {
-    // TODO
+function checkForUniqueSymbolsTTT(symbols) {
+    for (i = 0; i < symbols.length - 1; i++) {
+        for (j = i + 1; j < symbols.length - 1; j++) {
+            if (symbols[i] === symbols[j]) {
+                alert("Symbols names must be unique.");
+                return false;
+            }
+        }
+    }
     return true;
 }
 
