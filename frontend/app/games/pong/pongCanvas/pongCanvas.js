@@ -67,6 +67,7 @@ function start_pong_game(left_player, right_player, local_settings) {
         gameOverlay.style.display = 'flex';
         giveUpButtons.forEach(button => button.style.display = 'block');
         gameRunning = true;
+        gamePaused = false;
         resetBall();
         if (obstaclesEnabled)
             createObstacles();
@@ -92,8 +93,6 @@ function start_pong_game(left_player, right_player, local_settings) {
 	
 		// Set winning score
 		winningScore = parseInt(local_settings.winningScore || 11);
-        
-        resetBall();
 	}
 	
 	
