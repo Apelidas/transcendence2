@@ -13,7 +13,6 @@ document.getElementById('pongAiButton').addEventListener('click', function() {
 
 document.getElementById('pongTournButton').addEventListener('click', function() {
     changeRoute('/games/pong/pongTourn');
-	document.dispatchEvent(new Event("startPongTourn"));
 });
     
 function prefillPlayerName(inputField){
@@ -81,6 +80,8 @@ function return_to_page() {
     if (type === 'pong_semi_1' || type === 'pong_semi_2' || type === 'pong_finals') {
         // Tournament-specific logic
         changeRoute('/games/pong/pongBracket');
+    } else if (type === "tournament") {
+        changeRoute('/games/pong/pongTourn');
     } else if (type === 'pvp') {
         changeRoute('/games/pong/pongPvP');
     } else if (type === 'ai') {
