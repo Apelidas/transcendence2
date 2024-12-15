@@ -160,3 +160,4 @@ cython_debug/
 .idea/
 nohup.out
 frontend/node_modules
+nginx/ssl
