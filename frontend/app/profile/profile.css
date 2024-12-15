@@ -42,9 +42,17 @@
 .profile-picture {
     width: 150px;
     height: 150px;
+    object-fit: cover;
     border-radius: 50%;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 3px solid #ccc;
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transitions */
+    display: block;
+    margin: 0 auto;
+}
+
+.profile-picture:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3); /* Add a more prominent shadow */
 }
 
 .stats-section {
