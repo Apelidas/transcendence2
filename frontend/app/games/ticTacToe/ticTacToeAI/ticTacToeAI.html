@@ -1,25 +1,36 @@
 <div class="tictactoeAI">
-    <h2>Tic Tac Toe: Player vs AI</h2>
+  <h2>Tic Tac Toe: Player vs AI</h2>
 
-    <!-- Player Settings -->
-    <div class="ai-options-container">
+  <!-- Player Settings -->
+  <div class="ai-options-container">
       <div class="player-settings">
-        <label for="aiPlayerName">Your Name:</label>
-        <input type="text" id="aiPlayerName" placeholder="Enter Your Name">
+          <label for="aiPlayerName">Your Name:</label>
+          <input type="text" id="aiPlayerName" placeholder="Enter Your Name">
+          <div id="ai-error-message" style="color: red; display: none;"></div>
       </div>
-    </div>
+  </div>
 
- 
-    <div id="ai-ttt-game-start">
+  <!-- Who starts -->
+  <div class="ai-options-container" id="whoStartsContainer">
+      <label for="whoStarts">Choose who starts:</label>
+      <select id="whoStarts">
+          <option value="player">Player</option>
+          <option value="ai">AI</option>
+      </select>
+  </div>
+
+  <div id="ai-ttt-game-start">
       <button id="ai-startTTTGame">Start Game</button>
-    </div>
-    
-    <!-- Game Board -->
-    <div id="ai-TTTGameBoard" class="ttt-game">
+  </div>
+
+  <!-- Game Board -->
+  <div id="ai-TTTGameBoard" class="ttt-game" style="display: none;"> <!-- Default hidden -->
       <div id="ai-game-board"></div>
       <div id="ai-status">Your turn as X</div>
       <div class="footer-controls">
           <button id="ai-reset">Reset Game</button>
+          <button id="ai-give-up">Give Up</button>
+          <button id="new-game-button">New Game / Change Player</button>
       </div>
-    </div>
+  </div>
 </div>
