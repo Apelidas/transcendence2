@@ -46,7 +46,6 @@ document.getElementById("startTTTTournament").addEventListener('click', () => {
     }
 
     if (!checkForUniqueSymbolsTTT([player1.symbol, player2.symbol, player3.symbol, player4.symbol])) {
-        alert("Symbols should be unique.");
         return; // Do not proceed if symbols are not unique
     }
 
