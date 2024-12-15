@@ -31,7 +31,6 @@ function validateName(name) {
     
     if (name === "") { // Handle empty name
         alert("Player name cannot be empty.");
-        return_to_page(); // Redirect using type
         return false;
     }
 
@@ -44,15 +43,12 @@ function validateName(name) {
 }
 
 function checkForUniqueNames(names) {
-    // TODO !!!!!
-    return true;
-    const normalizedNames = names.map(name => name.trim().toLowerCase()); // Normalize to lowercase
-
+    const normalizedNames = names.map(item=> String(item.name || "").trim().toLowerCase()); // Normalize to lowercase
+ 
     for (i = 0; i < normalizedNames.length - 1; i++) {
-        for (j = i + 1; j < normalizedNames.length; j++) {
+        for (j = i + 1; j < normalizedNames.length - 1; j++) {
             if (normalizedNames[i] === normalizedNames[j]) {
                 alert("Player names must be unique.");
-                return_to_page();
                 return false;
             }
         }
@@ -66,7 +62,6 @@ function create_player(name_id, color_id, throw_alert=true) {
     if (!player.name) {
         if (throw_alert)
             alert("Player names must not be empty.");
-        return_to_page();
         return;
     }
     player.color = document.getElementById(color_id).value;

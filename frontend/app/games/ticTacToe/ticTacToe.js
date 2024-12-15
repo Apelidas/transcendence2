@@ -47,11 +47,11 @@ function validateNameTTT(name) {
     return true;
 }
 
-function checkForUniqueNamesTTT(names) {
-    const normalizedNames = names.map(name => String(name || "").trim().toLowerCase()); // Normalize to lowercase
-
+function checkForUniqueNames(names) {
+    const normalizedNames = names.map(item=> String(item.name || "").trim().toLowerCase()); // Normalize to lowercase
+ 
     for (i = 0; i < normalizedNames.length - 1; i++) {
-        for (j = i + 1; j < normalizedNames.length; j++) {
+        for (j = i + 1; j < normalizedNames.length - 1; j++) {
             if (normalizedNames[i] === normalizedNames[j]) {
                 alert("Player names must be unique.");
                 return false;
@@ -61,14 +61,12 @@ function checkForUniqueNamesTTT(names) {
     return true;
 }
 
-//do we need return_to_page here?
 function create_ttt_player(name_id, throw_alert=true) {
     let player = {};
     player.name = document.getElementById(name_id).value.trim();
     if (!player.name) {
         if (throw_alert)
             alert("Player names must not be empty.");
-        return_to_page();
         return;
     }
     player.number = Math.floor(Math.random() * 100); // Random number beetween 0 and 99
