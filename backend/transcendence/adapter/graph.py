@@ -44,6 +44,18 @@ class GraphView(APIView):
                         output_field=IntegerField(),
                     )
                 ),  # Count the number of losses
+                pong_win_count = Count(
+                    Case(
+                        When(user_won=True, isPong=True, then=1),
+                        output_field=IntegerField(),
+                    )
+                ),
+                pong_lose_count = Count(
+                    Case(
+                        When(user_won=False, isPong=True, then=1),
+                        output_field=IntegerField(),
+                    )
+                )
             )
             .order_by('date')  # Order by date
         )

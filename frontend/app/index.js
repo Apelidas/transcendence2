@@ -96,7 +96,8 @@ function handleRouting() {
                 })
                 setupFriendslist();
                 getGraphData().then(value => {
-                    renderWinsChart(value);
+                    renderGeneralChart(value);
+                    renderPongChart(value);
                 })
             })
             break;

@@ -1,24 +1,35 @@
 <!-- profile.html -->
-
 <div class="profilePage">
-    <div class="friends-container">
-        <h1 class="friends-header">Friends</h1>
-        <ul id="friendsList" class="friends-list">
-        </ul>
-        <button id="addFriendPopUpButton">Add Friend</button>
+    <div class="column">
+        <div class="friends-container">
+            <h1 class="friends-header">Friends</h1>
+            <ul id="friendsList" class="friends-list">
+            </ul>
+            <button id="addFriendPopUpButton">Add Friend</button>
+        </div>
 
-        <title>Wins Per Day Chart</title>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        </head>
-        <body>
-        <canvas id="winsChart" width="400" height="200"></canvas>
-        </body>
+        <div class="friends-container">
+            <title>General info</title>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            </head>
+            <body>
+            <canvas id="generalChart" width="500" height="300"></canvas>
+            </body>
+        </div>
+
+        <div class="friends-container">
+            <title>Pong info</title>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            </head>
+            <body>
+            <canvas id="pongChart" width="500" height="300"></canvas>
+            </body>
+        </div>
 
     </div>
-
     <div class="profile-container">
 
-    <img src="../0-assets/default-profile.png" alt="Profile Picture" class="profile-picture" id="profilePicture">
+        <img src="../0-assets/default-profile.png" alt="Profile Picture" class="profile-picture" id="profilePicture">
         <h1 class="profile-header">Welcome, <span id="profileName">User</span>!</h1>
 
         <!-- Pong Section -->

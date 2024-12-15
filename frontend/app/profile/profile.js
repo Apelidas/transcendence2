@@ -107,15 +107,22 @@ function populateFriendsList(friends) {
     });
 }
 
+let generalChart = null;
+let pongChart = null;
+
 // Fetch wins per day data from the backend API and render the chart
-function renderWinsChart(data) {
+function renderGeneralChart(data) {
 
     const labels = data.map(item => item.date);
     const winCounts = data.map(item => item.win_count);
     const loseCounts = data.map(item => item.lose_count);
-    const graph = document.getElementById('winsChart').getContext('2d');
+    const graph = document.getElementById('generalChart').getContext('2d');
 
-    new Chart(graph, {
+    if (generalChart) {
+        generalChart.destroy();
+    }
+
+    generalChart = new Chart(graph, {
         type: 'line',
         data: {
             labels: labels,
@@ -153,9 +160,56 @@ function renderWinsChart(data) {
             }
         }
     });
-
     console.log(data);
-    console.log(labels);
-    console.log(winCounts);
 }
 
+function renderPongChart(data) {
+    const labels = data.map(item => item.date);
+    const pongWinCounts = data.map(item => item.pong_win_count)
+    const pongLoseCounts = data.map(item => item.pong_lose_count)
+    const graph = document.getElementById('pongChart').getContext('2d');
+
+    if (pongChart) {
+        pongChart.destroy();
+    }
+
+    pongChart = new Chart(graph, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Wins Per Day',
+                    data: pongWinCounts,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false
+                },
+                {
+                    label: 'Loses Per Day',
+                    data: pongLoseCounts,
+                    borderColor: 'rgb(184,67,130)',
+                    borderWidth: 2,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {display: true},
+                tooltip: {enabled: true},
+            },
+            scales: {
+                x: {
+                    title: {display: true, text: 'Date'}
+                },
+                y: {
+                    title: {display: true, text: 'Wins'},
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+}
