@@ -1,6 +1,6 @@
 import pyotp
 from django.contrib.auth import authenticate, login
-from rest_framework.response import Response
+from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 import logging
@@ -18,7 +18,7 @@ class LoginView(APIView):
             password = data.get('password')
 
             if not username or not password:
-                return Response({'error': 'username and password are required.'}, status=400)
+                return JsonResponse({'error': 'username and password are required.'}, status=400)
             
             print('this is data: ' + str(data))
             user = authenticate(request, username=username, password=password)
@@ -28,22 +28,22 @@ class LoginView(APIView):
                     if user.mfa_enabled:
                         mfaCode = data.get('mfaCode')
                         if not mfaCode:
-                            return Response({'message': '2FA AUTH required'}, status=401)
+                            return JsonResponse({'message': '2FA AUTH required'}, status=401)
                         secret = user.secret_2fa
                         totp = pyotp.TOTP(secret)
                         if not totp.verify(mfaCode):
-                            return Response({'message': '2FA Code not valid'}, status=401)
+                            return JsonResponse({'message': '2FA Code not valid'}, status=401)
                     login(request, user)
-                    return Response({
+                    return JsonResponse({
                         'message': 'Login successful',
                         'refresh': str(refresh),
                         'access': str(refresh.access_token),
                         'username': user.username
                     }, status=200)
                 else:
-                    return Response({'error': 'Account is inactive.'}, status=403)
+                    return JsonResponse({'error': 'Account is inactive.'}, status=403)
             else:
-                return Response({'error': 'Invalid username or password.'}, status=401)
+                return JsonResponse({'error': 'Invalid username or password.'}, status=401)
         except Exception as e:
             logger.error(f"Unexpected error: {str(e)}", exc_info=True)
-            return Response({'error': 'An unexpected error occurred. Please try again later.'}, status=500)
+            return JsonResponse({'error': 'An unexpected error occurred. Please try again later.'}, status=500)
