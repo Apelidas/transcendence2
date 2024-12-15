@@ -35,6 +35,12 @@ function start_pong_game(left_player, right_player) {
     canvas.width = 600;
     canvas.height = 400;
 
+    ballSpeed = 3;
+    ballSize = 10;
+    obstaclesEnabled = false;    
+    winningScore = 11;
+    obstacles = [];
+
     playerLeft = {
         x: 10, 
         y: canvas.height / 2 - 50, 
@@ -62,12 +68,6 @@ function start_pong_game(left_player, right_player) {
         radius: ballSize,
         color: ballColorInput ? ballColorInput.value : '#FFFFFF',
     };
-
-    ballSpeed = 3;
-    ballSize = 10;
-    obstaclesEnabled = false;    
-    winningScore = 11;
-    obstacles = [];
 
     // Code that executes
     if (!left_player || !right_player) {
