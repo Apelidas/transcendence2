@@ -1,5 +1,8 @@
 
 const players = [];
+let pong_finalist_1 = "";
+let pong_finalist_2 = "";
+let pong_winner = "";
 
 document.getElementById("startPongTournament").addEventListener('click', () => {
 

@@ -1,7 +1,4 @@
 
-let pong_finalist_1 = "";
-let pong_finalist_2 = "";
-let pong_winner = "";
 let gamePaused = false; // Tracks whether the game is paused
 let gameRunning = false;
 
