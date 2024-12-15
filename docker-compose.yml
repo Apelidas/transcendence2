@@ -24,7 +24,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./transcendence/media:/app/transcendence/media
+      - ./backend/transcendence/media:/app/transcendence/media
 
   frontend:
     build: ./frontend
