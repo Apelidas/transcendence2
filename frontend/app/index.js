@@ -79,6 +79,10 @@ function handleRouting() {
             document.getElementById('viewTicTacToeTourn').classList.add('active');
             // window.history.pushState({}, '', path);
             break;
+        case '/games/ticTacToe/ticTacToeBracket':
+            document.getElementById('viewTicTacToeBracket').classList.add('active');
+            // window.history.pushState({}, '', path);
+            break;
         case '/profile':
             checkIfLoggedIn().then(isLoggedIn => {
                 if (!isLoggedIn){

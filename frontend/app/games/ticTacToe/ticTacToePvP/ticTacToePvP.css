@@ -84,6 +84,13 @@ select {
     margin: 20px auto;
 }
 
+#tourn-game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 5px;
+    margin: 20px auto;
+}
+
 .cell {
     width: 100px;
     height: 100px;
@@ -103,6 +110,11 @@ select {
 
 /* Status and reset button */
 #status {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+#tourn-status {
     font-size: 1.2rem;
     margin: 10px 0;
 }

@@ -1,4 +1,10 @@
 document.getElementById('startPongAi').addEventListener('click', () => {
+
+    pongSettings.type = 'ai';
+    pongSettings.winningScore = document.getElementById('aiWinningScore').value;
+    pongSettings.backgroundColor = document.getElementById('aiBackgroundColor').value;
+    pongSettings.ballColor = document.getElementById('aiBallColor').value;
+
     const left_player = create_player("aiLeftPlayerName", "aiLeftPlayerColor");
     if (!left_player)
         return ;
@@ -9,18 +15,10 @@ document.getElementById('startPongAi').addEventListener('click', () => {
     if (!right_player)
         return ;
 
-    const aiLeftPlayerName = document.getElementById("aiLeftPlayerName").value;
-    
      // Validate names
-     if (!validateName(aiLeftPlayerName)) {
+     if (!validateName(left_player.name)) {
         return; // Do not proceed if validation fails
     }
-    
-    pongSettings.type = 'ai';
-    
-    pongSettings.winningScore = document.getElementById('aiWinningScore').value;
-    pongSettings.backgroundColor = document.getElementById('aiBackgroundColor').value;
-    pongSettings.ballColor = document.getElementById('aiBallColor').value;
 
     start_pong_game(left_player, right_player, pongSettings);
 });

@@ -10,7 +10,7 @@ document.getElementById("startTTTGame").addEventListener('click', () => {
 
     // Start the game only if all checks pass
     if (isPlayer1Valid && isPlayer2Valid && areNamesUnique) {
-        start_ttt_game(player1, player2);
+        start_ttt_pvp_game(player1, player2);
     } else {
         // Show error message and prevent game from starting
         console.log("Validation failed: Game cannot start.");
@@ -18,7 +18,7 @@ document.getElementById("startTTTGame").addEventListener('click', () => {
     }
 });
 
-function start_ttt_game(player1, player2) {
+function start_ttt_pvp_game(player1, player2) {
 
 	document.getElementById("startTTTGame").style.display = "none";
 	document.getElementById("TTTGameBoard").style.display = "flex";
