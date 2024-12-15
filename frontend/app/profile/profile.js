@@ -71,12 +71,14 @@ function setProfileData(userData) {
     document.getElementById('aiWins').textContent = userData.aiData.wins;
     document.getElementById('aiLoses').textContent = userData.aiData.loses;
     document.getElementById('aiStreak').textContent = userData.aiData.streak;
-    // document.getElementById('tournamentWins').textContent = userData.tournamentData.wins;
-    // document.getElementById('tournamentLoses').textContent = userData.tournamentData.loses;
-    // document.getElementById('tournamentStreak').textContent = userData.tournamentData.streak;
-    // document.getElementById('ticTacToeWins').textContent = userData.ticTacToeData.wins;
-    // document.getElementById('ticTacToeLoses').textContent = userData.ticTacToeData.loses;
-    // document.getElementById('ticTacToeStreak').textContent = userData.ticTacToeData.streak;
+    document.getElementById('ticTacToePvpWins').textContent = userData.tiTacToePvpData.wins;
+    document.getElementById('ticTacToePvpLoses').textContent = userData.tiTacToePvpData.loses;
+    document.getElementById('ticTacToePvpStreak').textContent = userData.tiTacToePvpData.streak;
+    document.getElementById('ticTacToeAiWins').textContent = userData.tiTacToeAiData.wins;
+    document.getElementById('ticTacToeAiLoses').textContent = userData.tiTacToeAiData.loses;
+    document.getElementById('ticTacToeAiStreak').textContent = userData.tiTacToeAiData.streak;
+
+    console.log(userData);
 }
 
 async function setupFriendslist() {
@@ -160,7 +162,7 @@ function renderGeneralChart(data) {
             }
         }
     });
-    console.log(data);
+    // console.log(data);
 }
 
 function renderPongChart(data) {

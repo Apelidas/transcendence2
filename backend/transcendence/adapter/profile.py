@@ -22,8 +22,11 @@ class ProfileView(APIView):
                 if user.profile_picture else None
             )
 
-            pvpData = getGameData(user=user, againstAi=False)
-            aiData = getGameData(user=user, againstAi=True)
+            pvpData = getGameData(user=user, againstAi=False, ticTacToe=False)
+            aiData = getGameData(user=user, againstAi=True, ticTacToe=False)
+            tiTacToeAiData = getGameData(user=user, againstAi=True, ticTacToe=True)
+            tiTacToePvpData = getGameData(user=user, againstAi=False, ticTacToe=True)
+
 
 
             profile_data = {
@@ -32,7 +35,9 @@ class ProfileView(APIView):
                 'is_2fa_enabled': user.mfa_enabled,
                 'profile_picture': profile_picture_url,
                 'pvpData': pvpData,
-                'aiData': aiData
+                'aiData': aiData,
+                'tiTacToePvpData': tiTacToePvpData,
+                'tiTacToeAiData': tiTacToeAiData
             }
             return JsonResponse(profile_data, status=200)
         except Exception as e:
@@ -55,11 +60,16 @@ class ProfileView(APIView):
             logger.error(f"Unexpected error: {str(e)}", exc_info=True)
             return JsonResponse({'error': 'An unexpected error occurred. Please try again later.'}, status=500)
 
-def getGameData(user, againstAi):
-    wins = GameData.objects.getAllGamesWonBy(user, againstAi=againstAi).count()
-    loses = GameData.objects.getAllGamesAgainst(user, againstAi=againstAi).count() - wins
-
-    streak = GameData.objects.getMostWinsInARow(user, againstAi=againstAi)
+def getGameData(user, againstAi, ticTacToe):
+    if not ticTacToe:
+        wins = GameData.objects.getAllGamesWonBy(user, againstAi=againstAi).count()
+        loses = GameData.objects.getAllGamesAgainst(user, againstAi=againstAi).count() - wins
+        streak = GameData.objects.getMostWinsInARow(user, againstAi=againstAi, isPong=True)
+    else:
+        wins = GameData.objects.filter(user=user, isPong=False,against_ai=againstAi, user_won=True).count()
+        draw = GameData.objects.filter(user=user, isPong=False, against_ai=againstAi, left_score=0, right_score=0).count()
+        loses = GameData.objects.filter(user=user, isPong=False, against_ai=againstAi, user_won=False).count() - draw
+        streak = GameData.objects.getMostWinsInARow(user, againstAi=againstAi, isPong=False)
 
     return {
         'wins': wins,

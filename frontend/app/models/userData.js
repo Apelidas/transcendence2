@@ -1,10 +1,10 @@
 class UserData {
-    constructor(username, email, pvpData, aiData, tournamentData, ticTacToeData) {
+    constructor(username, email, pvpData, aiData, tiTacToePvpData, tiTacToeAiData) {
         this.username = username;
         this.email = email;
         this.pvpData = pvpData;
         this.aiData = aiData;
-        this.tournamentData = tournamentData;
-        this.ticTacToeData = ticTacToeData;
+        this.tiTacToePvpData = tiTacToePvpData;
+        this.tiTacToeAiData = tiTacToeAiData
     }
 }

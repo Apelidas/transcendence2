@@ -161,3 +161,4 @@ cython_debug/
 nohup.out
 frontend/node_modules
 nginx/ssl
+backend/transcendence/media

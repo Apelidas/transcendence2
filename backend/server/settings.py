@@ -167,8 +167,6 @@ ALLOWED_HOSTS=[
     'https://localhost', 
     '127.0.0.1',
     'localhost',
-    'https://192.168.122.1',
-    '192.168.122.1'
 ]
 
 AUTHENTICATION_BACKENDS = [
