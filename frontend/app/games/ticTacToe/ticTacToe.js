@@ -80,7 +80,6 @@ function create_ttt_player(name_id, throw_alert=true) {
 
 async function sendTTTData(winner, leftPlayer, rightPlayer){
     let response = undefined;
-    console.log('tttWinner: ' + winner);
     if (winner === 'Tie'){
         response = await sendGame(0,0, false, false, leftPlayer, rightPlayer);
     }
@@ -88,7 +87,7 @@ async function sendTTTData(winner, leftPlayer, rightPlayer){
         const didLeftWin = winner === 'X';
         response = await sendGame(didLeftWin ? 1 : 0, didLeftWin ? 0 : 1, false, didLeftWin, leftPlayer, rightPlayer);
     }
-    if (response.status !== 200){
+    if (response !== undefined && response.status !== 200){
         alert('There has been an error. GameData could not be stored');
     }
 }
