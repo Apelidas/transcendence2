@@ -474,6 +474,6 @@ document.addEventListener('keyup', (e) => {
     }
 });
 
-window.addEventListener('popstate', function (event) {
-    endGame();
-});
+// window.addEventListener('popstate', function (event) {
+//     endGame();
+// });

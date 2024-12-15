@@ -1,7 +1,15 @@
 
-
+function seeIfLoggedIn(){
+    if (getCookie('refresh_token')){
+        return true;
+    }
+    return false;
+}
 
 async function fetchWithToken(url, method, headers = {}, body) {
+    if (!seeIfLoggedIn()){
+        return undefined;
+    }
     console.log('send to: ' + url);
     const accessToken = getCookie('access_token');
     if (!accessToken){
