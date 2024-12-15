@@ -1,5 +1,9 @@
+
+let aiPlayerSymbol = "";
+
 document.getElementById("ai-startTTTGame").addEventListener("click", () => {
     const player1 = document.getElementById("aiPlayerName").value.trim();
+    aiPlayerSymbol = document.getElementById("aiPlayerSymbol").value;
     const errorMessage = document.getElementById("ai-error-message");
 
     if (!validateNameTTT(player1)) {
@@ -23,6 +27,7 @@ function start_ttt_ai_game(player1) {
 
     // Disable the player name input
     document.getElementById("aiPlayerName").disabled = true;
+    document.getElementById("aiPlayerSymbol").disabled = true;
 
     // Get who starts (Player or AI)
     const whoStarts = document.getElementById("aiwhoStarts").value;
@@ -34,7 +39,7 @@ function start_ttt_ai_game(player1) {
     const giveUpButton = document.getElementById("ai-give-up");
     const newGameButton = document.getElementById("ainew-game-button");
 
-    let currentPlayer = whoStarts === "player" ? "X" : "O";
+    let currentPlayer = whoStarts === "player" ? aiPlayerSymbol : "O";
     let gameState = Array(9).fill("");
     let gameActive = true;
 
@@ -53,7 +58,7 @@ function start_ttt_ai_game(player1) {
         gameState = Array(9).fill("");
         gameActive = true;
         giveUpButton.disabled = false; // Enable the give-up button
-        currentPlayer = whoStarts === "player" ? "X" : "O";
+        currentPlayer = whoStarts === "player" ? aiPlayerSymbol : "O";
 
         updateStatusDisplay(currentPlayer);
 
@@ -73,12 +78,12 @@ function start_ttt_ai_game(player1) {
 
     const updateStatusDisplay = (currentPlayer) => {
         statusDisplay.textContent =
-            currentPlayer === "X" ? "Your turn as X" : "AI's turn";
-        statusDisplay.style.color = currentPlayer === "X" ? "blue" : "red";
+            currentPlayer === aiPlayerSymbol ? "Your turn as " + aiPlayerSymbol : "AI's turn";
+        statusDisplay.style.color = currentPlayer === aiPlayerSymbol ? "blue" : "red";
     };
 
     const handleCellClick = (event) => {
-        if (!gameActive || currentPlayer !== "X") return; // Ensure it's the player's turn
+        if (!gameActive || currentPlayer !== aiPlayerSymbol) return; // Ensure it's the player's turn
 
         const cell = event.target;
         const cellIndex = parseInt(cell.getAttribute("data-index"));
@@ -88,8 +93,8 @@ function start_ttt_ai_game(player1) {
             return;
         }
 
-        gameState[cellIndex] = "X";
-        cell.textContent = "X";
+        gameState[cellIndex] = aiPlayerSymbol;
+        cell.textContent = aiPlayerSymbol;
         cell.classList.add("taken");
 
         const winner = checkWinner();
@@ -105,7 +110,7 @@ function start_ttt_ai_game(player1) {
     const aiMove = () => {
         if (!gameActive) return;
 
-        const preventWinMove = getBestMove([...gameState], "X"); // Block player win
+        const preventWinMove = getBestMove([...gameState], aiPlayerSymbol); // Block player win
         const aiWinningMove = getBestMove([...gameState], "O"); // Find AI win
 
         let bestMoveIndex = aiWinningMove || preventWinMove || getRandomMove(gameState);
@@ -121,7 +126,7 @@ function start_ttt_ai_game(player1) {
             if (winner) {
                 displayWinner(winner);
             } else {
-                currentPlayer = "X";
+                currentPlayer = aiPlayerSymbol;
                 updateStatusDisplay(currentPlayer);
             }
         }
@@ -187,6 +192,7 @@ function start_ttt_ai_game(player1) {
 
     newGameButton.addEventListener("click", () => {
         document.getElementById("aiPlayerName").disabled = false;
+        document.getElementById("aiPlayerSymbol").disabled = false;
         document.getElementById("ai-startTTTGame").style.display = "block";
         document.getElementById("aiwhoStartsContainer").style.display = "block";
         gameBoardContainer.style.display = "none";
