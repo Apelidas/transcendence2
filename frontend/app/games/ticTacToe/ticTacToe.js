@@ -47,7 +47,8 @@ function validateNameTTT(name) {
     return true;
 }
 
-function checkForUniqueNames(names) {
+function checkForUniqueNamesTTT(names) {
+    return true; // TODO
     const normalizedNames = names.map(item=> String(item.name || "").trim().toLowerCase()); // Normalize to lowercase
  
     for (i = 0; i < normalizedNames.length - 1; i++) {
