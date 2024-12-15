@@ -169,7 +169,7 @@ input[type="text"] {
     margin-top: 5px;
 }
 
-#new-game-button {
+#ainew-game-button {
     padding: 10px 20px;
     background-color: #28a745;
     color: white;
@@ -179,11 +179,11 @@ input[type="text"] {
     margin-top: 15px;
 }
 
-#new-game-button:hover {
+#ainew-game-button:hover {
     background-color: #218838;
 }
 
-#whoStarts {
+#aiwhoStarts {
     width: 80%;
     padding: 8px;
     margin: 5px 0 15px;

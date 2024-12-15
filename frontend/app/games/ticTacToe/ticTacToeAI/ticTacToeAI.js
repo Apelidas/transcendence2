@@ -13,26 +13,26 @@ document.getElementById("ai-startTTTGame").addEventListener("click", () => {
 });
 
 function start_ttt_ai_game(player1) {
-    // Hide the Start button and show the game board
+    // Hide the Start button and "Who starts" dropdown
     document.getElementById("ai-startTTTGame").style.display = "none";
+    document.getElementById("aiwhoStartsContainer").style.display = "none";
 
-    // Show the game board container and hide "Choose who starts"
+    // Show the game board container
     const gameBoardContainer = document.getElementById("ai-TTTGameBoard");
     gameBoardContainer.style.display = "flex";
-    document.getElementById("whoStartsContainer").style.display = "none";
 
     // Disable the player name input
     document.getElementById("aiPlayerName").disabled = true;
 
     // Get who starts (Player or AI)
-    const whoStarts = document.getElementById("whoStarts").value;
+    const whoStarts = document.getElementById("aiwhoStarts").value;
 
-    // Initialize the game state and game board
+    // Initialize game state
     const aiGameBoard = document.getElementById("ai-game-board");
     const statusDisplay = document.getElementById("ai-status");
     const resetButton = document.getElementById("ai-reset");
     const giveUpButton = document.getElementById("ai-give-up");
-    const newGameButton = document.getElementById("new-game-button");
+    const newGameButton = document.getElementById("ainew-game-button");
 
     let currentPlayer = whoStarts === "player" ? "X" : "O";
     let gameState = Array(9).fill("");
@@ -50,13 +50,14 @@ function start_ttt_ai_game(player1) {
     ];
 
     const createBoard = () => {
-        gameState = Array(9).fill(""); // Reset game state
+        gameState = Array(9).fill("");
         gameActive = true;
-		enableGiveUpButton(); // Re-enable the give up button
+        giveUpButton.disabled = false; // Enable the give-up button
         currentPlayer = whoStarts === "player" ? "X" : "O";
+
         updateStatusDisplay(currentPlayer);
 
-        aiGameBoard.innerHTML = ""; // Clear the board container
+        aiGameBoard.innerHTML = ""; // Clear board
         for (let i = 0; i < 9; i++) {
             const cell = document.createElement("div");
             cell.classList.add("ai-cell");
@@ -65,18 +66,19 @@ function start_ttt_ai_game(player1) {
             aiGameBoard.appendChild(cell);
         }
 
-        if (currentPlayer === "O") {
-            aiMove(); // AI makes the first move if it starts
+        if (currentPlayer === "O" && whoStarts === "ai") {
+            aiMove(); // AI makes the first move
         }
     };
 
     const updateStatusDisplay = (currentPlayer) => {
-        statusDisplay.textContent = currentPlayer === "X" ? "Your turn as X" : "AI's turn";
+        statusDisplay.textContent =
+            currentPlayer === "X" ? "Your turn as X" : "AI's turn";
         statusDisplay.style.color = currentPlayer === "X" ? "blue" : "red";
     };
 
     const handleCellClick = (event) => {
-        if (!gameActive || currentPlayer !== "X") return;
+        if (!gameActive || currentPlayer !== "X") return; // Ensure it's the player's turn
 
         const cell = event.target;
         const cellIndex = parseInt(cell.getAttribute("data-index"));
@@ -103,18 +105,10 @@ function start_ttt_ai_game(player1) {
     const aiMove = () => {
         if (!gameActive) return;
 
-        // Improved AI logic
-        const preventWinMove = getBestMove([...gameState], "X"); // Look for player's winning move
-        const aiWinningMove = getBestMove([...gameState], "O"); // Look for AI's winning move
+        const preventWinMove = getBestMove([...gameState], "X"); // Block player win
+        const aiWinningMove = getBestMove([...gameState], "O"); // Find AI win
 
-        let bestMoveIndex;
-        if (aiWinningMove) {
-            bestMoveIndex = aiWinningMove;
-        } else if (preventWinMove && Math.random() < 0.9) {
-            bestMoveIndex = preventWinMove; // 90% chance to block player
-        } else {
-            bestMoveIndex = getRandomMove([...gameState]); // Fallback to random move
-        }
+        let bestMoveIndex = aiWinningMove || preventWinMove || getRandomMove(gameState);
 
         if (bestMoveIndex !== null) {
             gameState[bestMoveIndex] = "O";
@@ -142,10 +136,10 @@ function start_ttt_ai_game(player1) {
                 line.filter((cell) => cell === player).length === 2 &&
                 line.includes("")
             ) {
-                return condition[line.indexOf("")]; // Return the index to complete/block a win
+                return condition[line.indexOf("")];
             }
         }
-        return null; // No immediate winning or blocking move
+        return null;
     };
 
     const getRandomMove = (board) => {
@@ -170,33 +164,22 @@ function start_ttt_ai_game(player1) {
                 return gameState[a];
             }
         }
-
         return gameState.includes("") ? null : "Tie";
     };
 
-	const displayWinner = (winner) =>{
-        sendTTTData(winner,  player1, 'AI');
-		gameActive = false;
-		giveUpButton.disabled = true; // Disable the give up button
-		if (winner === "Tie") {
-			statusDisplay.textContent = "It's a tie!";
-		} else {
-			statusDisplay.textContent = `Player ${winner} wins!`;
-		}
-	};
-	
-	// Enable the give up button when the game starts
-	const enableGiveUpButton = () => {
-		giveUpButton.disabled = false;
-	};
+    const displayWinner = (winner) => {
+        gameActive = false;
+        giveUpButton.disabled = true;
+        statusDisplay.textContent =
+            winner === "Tie" ? "It's a tie!" : `Player ${winner} wins!`;
+    };
 
-    resetButton.addEventListener("click", () => {
-        createBoard(); // Reset the board
-    });
+    resetButton.addEventListener("click", createBoard);
 
     giveUpButton.addEventListener("click", () => {
         if (gameActive) {
             gameActive = false;
+            giveUpButton.disabled = true;
             statusDisplay.textContent = "You gave up! AI wins!";
         }
     });
@@ -204,10 +187,10 @@ function start_ttt_ai_game(player1) {
     newGameButton.addEventListener("click", () => {
         document.getElementById("aiPlayerName").disabled = false;
         document.getElementById("ai-startTTTGame").style.display = "block";
-        document.getElementById("whoStartsContainer").style.display = "block";
+        document.getElementById("aiwhoStartsContainer").style.display = "block";
         gameBoardContainer.style.display = "none";
         statusDisplay.textContent = "Your turn as X";
     });
 
-    createBoard(); // Initialize the board immediately
+    createBoard();
 }

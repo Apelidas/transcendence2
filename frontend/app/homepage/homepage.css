@@ -2,7 +2,7 @@
 .background-container {
     position: relative;
     width: 100%;
-    height: 100vh; /* Full-screen height */
+    height: 60vh; /* Full-screen height */
     overflow: hidden;
 }
 
@@ -28,9 +28,9 @@
 }
 
 .content h1 {
-    font-size: 2.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for readability */
-    margin-bottom: 1rem;
+    font-size: 4rem;
+    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); Shadow for readability */
+    margin-bottom: 2rem;
 }
 
 .content p {

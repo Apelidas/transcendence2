@@ -1,36 +1,34 @@
 <div class="tictactoeAI">
-  <h2>Tic Tac Toe: Player vs AI</h2>
-
-  <!-- Player Settings -->
-  <div class="ai-options-container">
-      <div class="player-settings">
-          <label for="aiPlayerName">Your Name:</label>
-          <input type="text" id="aiPlayerName" placeholder="Enter Your Name">
-          <div id="ai-error-message" style="color: red; display: none;"></div>
-      </div>
+    <h2>Tic Tac Toe: Player vs AI</h2>
+  
+    <div class="ai-options-container">
+        <div class="player-settings">
+            <label for="aiPlayerName">Your Name:</label>
+            <input type="text" id="aiPlayerName" placeholder="Enter Your Name">
+            <div id="ai-error-message" style="color: red; display: none;"></div>
+        </div>
+    </div>
+  
+    <div class="ai-options-container" id="aiwhoStartsContainer">
+        <label for="aiwhoStarts">Choose who starts:</label>
+        <select id="aiwhoStarts">
+            <option value="player">Player</option>
+            <option value="ai">AI</option>
+        </select>
+    </div>
+  
+    <div id="ai-ttt-game-start">
+        <button id="ai-startTTTGame">Start Game</button>
+    </div>
+  
+    <div id="ai-TTTGameBoard" class="ttt-game" style="display: none;">
+        <div id="ai-game-board"></div>
+        <div id="ai-status">Your turn as X</div>
+        <div class="footer-controls">
+            <button id="ai-reset">Reset Game</button>
+            <button id="ai-give-up">Give Up</button>
+            <button id="ainew-game-button">New Game / Change Player</button>
+        </div>
+    </div>
   </div>
-
-  <!-- Who starts -->
-  <div class="ai-options-container" id="whoStartsContainer">
-      <label for="whoStarts">Choose who starts:</label>
-      <select id="whoStarts">
-          <option value="player">Player</option>
-          <option value="ai">AI</option>
-      </select>
-  </div>
-
-  <div id="ai-ttt-game-start">
-      <button id="ai-startTTTGame">Start Game</button>
-  </div>
-
-  <!-- Game Board -->
-  <div id="ai-TTTGameBoard" class="ttt-game" style="display: none;"> <!-- Default hidden -->
-      <div id="ai-game-board"></div>
-      <div id="ai-status">Your turn as X</div>
-      <div class="footer-controls">
-          <button id="ai-reset">Reset Game</button>
-          <button id="ai-give-up">Give Up</button>
-          <button id="new-game-button">New Game / Change Player</button>
-      </div>
-  </div>
-</div>
+  
