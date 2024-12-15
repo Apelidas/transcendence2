@@ -43,12 +43,10 @@ function validateName(name) {
 }
 
 function checkForUniqueNames(names) {
-    // TODO !!!!!
-    return true;
-    const normalizedNames = names.map(name => name.trim().toLowerCase()); // Normalize to lowercase
-
+    const normalizedNames = names.map(item=> String(item.name || "").trim().toLowerCase()); // Normalize to lowercase
+ 
     for (i = 0; i < normalizedNames.length - 1; i++) {
-        for (j = i + 1; j < normalizedNames.length; j++) {
+        for (j = i + 1; j < normalizedNames.length - 1; j++) {
             if (normalizedNames[i] === normalizedNames[j]) {
                 alert("Player names must be unique.");
                 return false;

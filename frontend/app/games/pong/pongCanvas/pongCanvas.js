@@ -164,6 +164,37 @@ function movePaddles() {
     playerRight.y = Math.max(0, Math.min(canvas.height - playerRight.height, playerRight.y));
 }
 
+    // End the game and display the winner
+    function endGame(winner, leftScore, rightScore) {
+        console.log("END GAME type: " + local_settings.type);
+        gameRunning = false;
+        gameOverlay.style.display = 'none';
+        if (winner){
+            sendGameData(leftScore, rightScore, playerLeft.name, playerRight.name)
+        }
+        resetScore();
+        resetBallsChanges();
+        giveUpButtons.forEach(button => button.style.display = 'none');
+        if (obstaclesEnabled)
+            obstacles = [];
+        return_to_page();
+        if (winner) {
+            alert(`${winner} wins!`);
+            if (local_settings.type === 'pong_semi_1') {
+                pong_finalist_1 = winner;
+                display_bracket(players);
+            }
+            else if (local_settings.type === 'pong_semi_2') {
+                pong_finalist_2 = winner;
+                display_bracket(players);
+            }
+            else if (local_settings.type === 'pong_finals') {
+                pong_winner = winner;
+                display_bracket(players);
+                finishTournament(getCookie('tournamentId'), winner);
+            }
+        }
+    }
 // End the game and display the winner
 function endGame(winner, leftScore, rightScore) {
     console.log("END GAME type: " + pongSettings.type);

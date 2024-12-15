@@ -43,6 +43,5 @@ docker exec -it my_postgres_container psql -U myuser -c "SELECT 'DROP DATABASE '
 
 to access the database:
 `
-docker exec -it my_postgres_container
- psql -U myuser -d mydatabase
+docker exec -it my_postgres_container psql -U myuser -d mydatabase
 `
