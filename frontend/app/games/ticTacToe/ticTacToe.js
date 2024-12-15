@@ -38,7 +38,7 @@ function validateNameTTT(name) {
     
     if (name === "") { // Handle empty name
         alert("Player name cannot be empty.");
-        return_to_page(type); // Redirect using type
+        return_to_page(); // Redirect using type
         return false;
     }
 
@@ -72,7 +72,7 @@ function create_ttt_player(name_id, throw_alert=true) {
     if (!player.name) {
         if (throw_alert)
             alert("Player names must not be empty.");
-        return_to_page(tttSettings.type);
+        return_to_page();
         return;
     }
     player.number = Math.floor(Math.random() * 100); // Random number beetween 0 and 99

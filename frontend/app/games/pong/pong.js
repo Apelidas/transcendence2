@@ -31,14 +31,14 @@ function validateName(name) {
     
     if (name === "") { // Handle empty name
         alert("Player name cannot be empty.");
-        return_to_page(type); // Redirect using type
+        return_to_page(); // Redirect using type
         return false;
     }
 
     const namePattern = /^[A-Za-z]{3,}$/; // At least 3 letters, no special characters or numbers
     if (!namePattern.test(name)) {
         alert("Names must be at least 3 letters long and contain only letters (" + name + ").");
-        return_to_page(pongSettings.type);
+        return_to_page();
         return false;
     }
     return true;
@@ -67,7 +67,7 @@ function create_player(name_id, color_id, throw_alert=true) {
     if (!player.name) {
         if (throw_alert)
             alert("Player names must not be empty.");
-        return_to_page(pongSettings.type);
+        return_to_page();
         return;
     }
     player.color = document.getElementById(color_id).value;
