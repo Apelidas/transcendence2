@@ -61,14 +61,12 @@ function checkForUniqueNamesTTT(names) {
     return true;
 }
 
-//do we need return_to_page here?
 function create_ttt_player(name_id, throw_alert=true) {
     let player = {};
     player.name = document.getElementById(name_id).value.trim();
     if (!player.name) {
         if (throw_alert)
             alert("Player names must not be empty.");
-        return_to_page();
         return;
     }
     player.number = Math.floor(Math.random() * 100); // Random number beetween 0 and 99
