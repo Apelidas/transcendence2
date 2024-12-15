@@ -14,16 +14,24 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 });
 
 
+
     async function login(event) {
         const username = document.getElementById('UsernameFieldLogin').value;
         const password = document.getElementById('PasswordField').value;
         const mfa = document.getElementById('MfaField').value;
+        const errorMessage = document.getElementById('ErrorMessage'); // Assuming you have an element to display errors
+    
 
         const submitButton = document.querySelector('#loginForm button[type="submit"]');
         submitButton.disabled = true;
 
-        const isSuccess = await loginAdapter(username, password, mfa);
+        // Clear any previous error messages
+        errorMessage.style.display = "none";
+        errorMessage.textContent = "";
 
+        // Attempt login
+        const isSuccess = await loginAdapter(username, password, mfa);
+        
         if (isSuccess) {
             closeAllPopups(true); // Close all popups and remove blur effect
             const loggedInEvent = new CustomEvent('loggedIn');
@@ -32,8 +40,10 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             document.getElementById('PasswordField').value = '';
             document.getElementById('MfaField').value = '';
         } else if (isSuccess === null){
-
+            mfa.required = true;
             document.getElementById('2faGroup').style.display = 'block';
+            errorMessage.textContent = "MFA field is required.";
+            errorMessage.style.display = "block";
         } else {
             alert('Login failed. Please try again.');
         }
