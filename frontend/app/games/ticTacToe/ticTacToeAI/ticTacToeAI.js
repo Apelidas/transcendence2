@@ -170,10 +170,12 @@ function start_ttt_ai_game(player1) {
                 return gameState[a];
             }
         }
+
         return gameState.includes("") ? null : "Tie";
     };
 
-	const displayWinner = (winner) => {
+	const displayWinner = (winner) =>{
+        sendTTTData(winner,  player1, 'AI');
 		gameActive = false;
 		giveUpButton.disabled = true; // Disable the give up button
 		if (winner === "Tie") {

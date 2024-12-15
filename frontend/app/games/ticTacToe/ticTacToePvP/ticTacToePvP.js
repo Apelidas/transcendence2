@@ -90,6 +90,7 @@ function start_ttt_pvp_game(player1, player2) {
         if (winner) {
             gameActive = false;
             giveUpButton.disabled = true;
+            sendTTTData(winner, player1, player2);
             statusDisplay.textContent =
                 winner === "Tie" ? "It's a tie!" : `${winnerName} wins!`;
         } else {
