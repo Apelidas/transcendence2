@@ -1,11 +1,7 @@
 
 .PHONY: create-certificate run stop-dependencies clean re
 
-create-certificate:
-	sh create_certificate.sh
-	sleep 5
-
-run: stop-dependencies create-certificate
+run: stop-dependencies
 	docker compose up -d --build
 
 stop-dependencies:
