@@ -455,20 +455,22 @@ rightGiveUp.addEventListener('click', () => {
 
 // Handle user keyboard inputs for paddle control
 document.addEventListener('keydown', (e) => {
-    if (!gamePaused) {
-        if (e.key === 'w') playerLeft.dy = -5;
-        if (e.key === 's') playerLeft.dy = 5;
-        if (e.key === 'ArrowUp') playerRight.dy = -5;
-        if (e.key === 'ArrowDown') playerRight.dy = 5;
-    }
-    if (e.key === 'Escape') { endGame(); }
-    if (e.key === 'p' || e.key === 'P') {
-        gamePaused = !gamePaused; // Toggle the paused state
-        ball.speed = gamePaused ? 0 : ballSpeed;
-        if (gamePaused) {
-            console.log("Game Paused");
-        } else {
-            console.log("Game Resumed");
+    if (gameRunning) {
+        if (!gamePaused) {
+            if (e.key === 'w') playerLeft.dy = -5;
+            if (e.key === 's') playerLeft.dy = 5;
+            if (e.key === 'ArrowUp') playerRight.dy = -5;
+            if (e.key === 'ArrowDown') playerRight.dy = 5;
+        }
+        if (e.key === 'Escape') { endGame(); }
+        if (e.key === 'p' || e.key === 'P') {
+            gamePaused = !gamePaused; // Toggle the paused state
+            ball.speed = gamePaused ? 0 : ballSpeed;
+            if (gamePaused) {
+                console.log("Game Paused");
+            } else {
+                console.log("Game Resumed");
+            }
         }
     }
 });
