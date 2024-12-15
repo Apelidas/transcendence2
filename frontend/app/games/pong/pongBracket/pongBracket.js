@@ -7,8 +7,11 @@ document.getElementById("startPongTournament").addEventListener('click', () => {
 
     document.getElementById("pt-tournament-bracket").style.display = "grid";
     const player1 = create_player("pongPlayer1Name", "player1Color");
+    if (!player1) return ;
     const player2 = create_player("pongPlayer2Name", "player2Color");
+    if (!player2) return ;
     const player3 = create_player("pongPlayer3Name", "player3Color");
+    if (!player3) return ;
     const player4 = create_player("pongPlayer4Name", "player4Color", false);
 
     if (player1) {
@@ -33,7 +36,7 @@ document.getElementById("startPongTournament").addEventListener('click', () => {
         return ;
     }
 
-    if (!checkForUniqueNames([player1.name, player2.name, player3.name, player4.name])) {
+    if (!checkForUniqueNames(players)) {
         alert("Names should be unique.");
         return; // Do not proceed if names are not unique
     }
