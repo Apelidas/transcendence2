@@ -13,7 +13,7 @@
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             </head>
             <body>
-            <canvas id="generalChart" width="500" height="300"></canvas>
+            <canvas id="generalChart" width="350" height="300"></canvas>
             </body>
         </div>
 
@@ -22,7 +22,7 @@
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             </head>
             <body>
-            <canvas id="pongChart" width="500" height="300"></canvas>
+            <canvas id="pongChart" width="350" height="300"></canvas>
             </body>
         </div>
 
@@ -48,12 +48,6 @@
                     <td>Loses: <span id="aiLoses">0</span></td>
                     <td>Most wins in a row: <span id="aiStreak">0</span></td>
                 </tr>
-                <tr>
-                    <th>Tournament</th>
-                    <td>Wins: <span id="tournamentWins">0</span></td>
-                    <td>Loses: <span id="tournamentLoses">0</span></td>
-                    <td>Most wins in a row: <span id="tournamentStreak">0</span></td>
-                </tr>
             </table>
         </div>
 
@@ -62,10 +56,16 @@
             <h2>ticTacToe</h2>
             <table class="stats-table">
                 <tr>
-                    <th>ticTacToe</th>
-                    <td>Wins: <span id="ticTacToeWins">0</span></td>
-                    <td>Loses: <span id="ticTacToeLoses">0</span></td>
-                    <td>Most wins in a row: <span id="ticTacToeStreak">0</span></td>
+                    <th>PvP</th>
+                    <td>Wins: <span id="ticTacToePvpWins">0</span></td>
+                    <td>Loses: <span id="ticTacToePvpLoses">0</span></td>
+                    <td>Most wins in a row: <span id="ticTacToePvpStreak">0</span></td>
+                </tr>
+                <tr>
+                    <th>AI</th>
+                    <td>Wins: <span id="ticTacToeAiWins">0</span></td>
+                    <td>Loses: <span id="ticTacToeAiLoses">0</span></td>
+                    <td>Most wins in a row: <span id="ticTacToeAiStreak">0</span></td>
                 </tr>
             </table>
         </div>
