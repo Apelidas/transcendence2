@@ -77,7 +77,7 @@ function create_player(name_id, color_id, throw_alert=true) {
 
 function return_to_page() {
     const type = pongSettings.type; // Use global setting
-    console.log('pongsettingtype: ' + type);
+    console.log('return_to_page type: ' + type);
     if (type === 'pong_semi_1' || type === 'pong_semi_2' || type === 'pong_finals') {
         // Tournament-specific logic
         changeRoute('/games/pong/pongBracket');

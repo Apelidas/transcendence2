@@ -3,6 +3,7 @@ let pong_finalist_1 = "";
 let pong_finalist_2 = "";
 let pong_winner = "";
 let gamePaused = false; // Tracks whether the game is paused
+let gameRunning = false;
 
 function start_pong_game(left_player, right_player, local_settings) {
 
@@ -23,8 +24,7 @@ function start_pong_game(left_player, right_player, local_settings) {
 
     let ballSpeed = 3;
     let ballSize = 10;
-    let obstaclesEnabled = false;
-    let gameRunning = false;
+    let obstaclesEnabled = false;    
     let winningScore = 11;
     let obstacles = [];
 
@@ -33,7 +33,7 @@ function start_pong_game(left_player, right_player, local_settings) {
     canvas.height = 400;
 
     let ball = {
-        x: canvas.width,
+        x: canvas.width / 2,
         y: canvas.height / 2,
         dx: 4,
         dy: -4,
@@ -61,19 +61,19 @@ function start_pong_game(left_player, right_player, local_settings) {
     };
 
     // Code that executes
-    if (!left_player || !right_player) {
-        return_to_page();
-        return ;
-    }
+        if (!left_player || !right_player) {
+            return_to_page();
+            return ;
+        }
 
-    applySettings();
-    gameOverlay.style.display = 'flex';
-    giveUpButtons.forEach(button => button.style.display = 'block');
-    gameRunning = true;
-    resetBall();
-    if (obstaclesEnabled)
-        createObstacles();
-    requestAnimationFrame(update_game);
+        applySettings();
+        gameOverlay.style.display = 'flex';
+        giveUpButtons.forEach(button => button.style.display = 'block');
+        gameRunning = true;
+        resetBall();
+        if (obstaclesEnabled)
+            createObstacles();
+        requestAnimationFrame(update_game);
 
     // Apply settings for game initialization
 	function applySettings() {
@@ -95,6 +95,8 @@ function start_pong_game(left_player, right_player, local_settings) {
 	
 		// Set winning score
 		winningScore = parseInt(local_settings.winningScore || 11);
+        
+        resetBall();
 	}
 	
 	
@@ -156,6 +158,7 @@ function start_pong_game(left_player, right_player, local_settings) {
 
     // End the game and display the winner
     function endGame(winner, leftScore, rightScore) {
+        console.log("END GAME type: " + local_settings.type);
         gameRunning = false;
         gameOverlay.style.display = 'none';
         if (winner){
@@ -166,7 +169,6 @@ function start_pong_game(left_player, right_player, local_settings) {
         giveUpButtons.forEach(button => button.style.display = 'none');
         if (obstaclesEnabled)
             obstacles = [];
-        console.log("type " + local_settings.type);
         return_to_page();
         if (winner) {
             alert(`${winner} wins!`);
@@ -245,15 +247,19 @@ function start_pong_game(left_player, right_player, local_settings) {
             if (obstaclesEnabled) checkObstacleCollision();
         }
 
+        // console.log("DEBUG ball.x = " + ball.x + " ball.y = " + ball.y + " radius = " + ball.radius + " canvas-width = " + canvas.width);
         if (ball.x + ball.radius < 0) {
             playerRight.score++;
+            console.log("DEBUG Right player scored (" + playerRight.score + ")");
             resetBall();
         } else if (ball.x - ball.radius > canvas.width) {
             playerLeft.score++;
+            console.log("DEBUG Left player scored (" + playerLeft.score + ")");
             resetBall();
         }
 
         if (playerLeft.score >= winningScore || playerRight.score >= winningScore) {
+            console.log("DEBUG End game by score");
             endGame(playerLeft.score > playerRight.score ? playerLeft.name : playerRight.name, playerLeft.score, playerRight.score);
         }
     }
@@ -290,7 +296,7 @@ function start_pong_game(left_player, right_player, local_settings) {
 		}
 	
 		// Ensure the ball speed remains constant
-		const speed = ball.speed || 3;
+		const speed = ball.speed || 3; // TODO
 	
 		// Set the ball's velocity
 		ball.dx = Math.cos(angle) * speed;
@@ -387,29 +393,32 @@ function start_pong_game(left_player, right_player, local_settings) {
             // Check for collisions and draw the game state
             checkObstacleCollision();
             draw();
-    
-            // Request the next frame
-            requestAnimationFrame(update_game);
         }
+        // Request the next frame
+        requestAnimationFrame(update_game);
     }
 
     increaseSpeedButton.addEventListener('click', () => {
-        if (!gameOnPause())
-            ball.speed++;
+        if (!gamePaused) {
+            ballSpeed++;
+            ball.speed = ballSpeed;
+        }
     });
 
     decreaseSpeedButton.addEventListener('click', () => {
-        if (ball.speed > 1 && !gameOnPause())
-            ball.speed--;
+        if (ball.speed > 1 && !gamePaused) {
+            ballSpeed--;
+            ball.speed = ballSpeed;
+        }
     });
 
     increaseSizeButton.addEventListener('click', () => {
-        if (!gameOnPause())
+        if (!gamePaused)
             ball.radius += 2;
     });
 
     decreaseSizeButton.addEventListener('click', () => {
-        if (ball.radius > 2 && !gameOnPause())
+        if (ball.radius > 2 && !gamePaused)
             ball.radius -= 2;
     });
 
@@ -423,17 +432,16 @@ function start_pong_game(left_player, right_player, local_settings) {
 
     // Handle user keyboard inputs for paddle control
     document.addEventListener('keydown', (e) => {
-        if (!gameOnPause()) {
+        if (!gamePaused) {
             if (e.key === 'w') playerLeft.dy = -5;
             if (e.key === 's') playerLeft.dy = 5;
             if (e.key === 'ArrowUp') playerRight.dy = -5;
             if (e.key === 'ArrowDown') playerRight.dy = 5;
         }
-    });
-    
-    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { endGame(); }
         if (e.key === 'p' || e.key === 'P') {
             gamePaused = !gamePaused; // Toggle the paused state
+            ball.speed = gamePaused ? 0 : ballSpeed;
             if (gamePaused) {
                 console.log("Game Paused");
             } else {
@@ -441,24 +449,15 @@ function start_pong_game(left_player, right_player, local_settings) {
             }
         }
     });
-    
+
     document.addEventListener('keyup', (e) => {
-        if (e.key === 'w' || e.key === 's') playerLeft.dy = 0;
-        if (e.key === 'ArrowUp' || e.key === 'ArrowDown') playerRight.dy = 0;
-        if (e.key === 'Escape') endGame()
-        if (e.key === 'p') pauseGame();
+        if (e.key === 'w' || e.key === 's') {
+            playerLeft.dy = 0;
+        }
+        if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+            playerRight.dy = 0;
+        }
     });
-
-    function gameOnPause() {
-        return ball.speed === 0;
-    }
-
-    function pauseGame() {
-        if (!gameOnPause())
-            ball.speed = 0
-        else
-            ball.speed = 4
-    }
 
     window.addEventListener('popstate', function (event) {
         endGame();
