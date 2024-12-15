@@ -39,8 +39,6 @@ function validateName(name) {
     const namePattern = /^[A-Za-z]{3,}$/; // At least 3 letters, no special characters or numbers
     if (!namePattern.test(name)) {
         alert("Names must be at least 3 letters long and contain only letters (" + name + ").");
-        return_to_page();
-        alert("Names must be at least 3 letters long and contain only letters (" + name + ").");
         return_to_page(pongSettings.type);
         return false;
     }
