@@ -164,40 +164,8 @@ function movePaddles() {
     playerRight.y = Math.max(0, Math.min(canvas.height - playerRight.height, playerRight.y));
 }
 
-    // End the game and display the winner
-    function endGame(winner, leftScore, rightScore) {
-        console.log("END GAME type: " + local_settings.type);
-        gameRunning = false;
-        gameOverlay.style.display = 'none';
-        if (winner){
-            sendGameData(leftScore, rightScore, playerLeft.name, playerRight.name)
-        }
-        resetScore();
-        resetBallsChanges();
-        giveUpButtons.forEach(button => button.style.display = 'none');
-        if (obstaclesEnabled)
-            obstacles = [];
-        return_to_page();
-        if (winner) {
-            alert(`${winner} wins!`);
-            if (local_settings.type === 'pong_semi_1') {
-                pong_finalist_1 = winner;
-                display_bracket(players);
-            }
-            else if (local_settings.type === 'pong_semi_2') {
-                pong_finalist_2 = winner;
-                display_bracket(players);
-            }
-            else if (local_settings.type === 'pong_finals') {
-                pong_winner = winner;
-                display_bracket(players);
-                finishTournament(getCookie('tournamentId'), winner);
-            }
-        }
-    }
 // End the game and display the winner
 function endGame(winner, leftScore, rightScore) {
-    console.log("END GAME type: " + pongSettings.type);
     gameRunning = false;
     cancelAnimationFrame(animateFrame);
     gameOverlay.style.display = 'none';
@@ -212,19 +180,18 @@ function endGame(winner, leftScore, rightScore) {
     return_to_page();
     if (winner) {
         alert(`${winner} wins!`);
-        if (pongSettings.type === 'pong_semi_1') {
+        if (local_settings.type === 'pong_semi_1') {
             pong_finalist_1 = winner;
             display_bracket(players);
-            console.log("DEBUG FIRST SEMIFINALIST");
         }
-        else if (pongSettings.type === 'pong_semi_2') {
+        else if (local_settings.type === 'pong_semi_2') {
             pong_finalist_2 = winner;
             display_bracket(players);
-            console.log("DEBUG SECOND SEMIFINALIST");
         }
-        else if (pongSettings.type === 'pong_finals') {
+        else if (local_settings.type === 'pong_finals') {
             pong_winner = winner;
             display_bracket(players);
+            finishTournament(getCookie('tournamentId'), winner);
         }
     }
 }
@@ -444,11 +411,9 @@ function update_game() {
     }
     // Request the next frame
     requestAnimationFrame(update_game);
-    console.log(i++);
 }
 
 increaseSpeedButton.addEventListener('click', () => {
-    console.log("DEBUD Increase speed.");
     if (!gamePaused) {
         ballSpeed++;
         ball.speed = ballSpeed;
