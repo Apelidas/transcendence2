@@ -247,3 +247,43 @@ select {
     background-color: #cccccc;
     cursor: not-allowed;
 }
+
+/* Styling for Player 1 Symbol dropdown */
+#tttPlayer1Symbol {
+    width: 80%;
+    padding: 8px;
+    margin: 5px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff; /* White background */
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Styling for Player 2 Symbol dropdown */
+#tttPlayer2Symbol {
+    width: 80%;
+    padding: 8px;
+    margin: 5px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff; /* White background */
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+#new-game-button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+#new-game-button:hover {
+    background-color: #218838;
+}
