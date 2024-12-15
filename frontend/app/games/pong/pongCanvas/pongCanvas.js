@@ -16,7 +16,6 @@ function start_pong_game(left_player, right_player, local_settings) {
     const decreaseSizeButton = document.getElementById('decreaseSize');
     const increaseSizeButton = document.getElementById('increaseSize');
     const toggleObstaclesButton = document.getElementById('toggleObstacles');
-    const backgroundColorInput = document.getElementById('backgroundColor');
     const leftGiveUp = document.getElementById('left-give-up');
     const rightGiveUp = document.getElementById('right-give-up');
     const ballColorInput = document.getElementById('ballColor');

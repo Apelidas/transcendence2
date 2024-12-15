@@ -3,6 +3,8 @@ document.getElementById('startPongPvp').addEventListener('click', () => {
 
     pongSettings.type = "pvp";
     pongSettings.winningScore = document.getElementById('winningScorePvp').value;
+    pongSettings.backgroundColor = document.getElementById('backgroundColor').value;
+    pongSettings.ballColor = document.getElementById('ballColor').value;
 
     const left_player = create_player("leftPlayerName", "leftPlayerColor");
     if (!left_player)
