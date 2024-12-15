@@ -9,9 +9,14 @@ document.getElementById("startTTTTournament").addEventListener('click', () => {
 
     document.getElementById("ttt-tournament-bracket").style.display = "grid";
     const player1 = create_ttt_player("tttTournPlayer1Name");
+    player1.symbol = document.getElementById("tttTournPlayer1Symbol").value;
     const player2 = create_ttt_player("tttTournPlayer2Name");
+    player2.symbol = document.getElementById("tttTournPlayer2Symbol").value;
     const player3 = create_ttt_player("tttTournPlayer3Name");
+    player3.symbol = document.getElementById("tttTournPlayer3Symbol").value;
     const player4 = create_ttt_player("tttTournPlayer4Name", false);
+    if (player4)
+        player4.symbol = document.getElementById("tttTournPlayer4Symbol").value;
 
     if (player1) {
         if (!validateNameTTT(player1.name)) return ;
@@ -40,6 +45,11 @@ document.getElementById("startTTTTournament").addEventListener('click', () => {
         return; // Do not proceed if names are not unique
     }
 
+    if (!checkForUniqueSymbolsTTT([player1.symbol, player2.symbol, player3.symbol, player4.symbol])) {
+        alert("Symbols should be unique.");
+        return; // Do not proceed if symbols are not unique
+    }
+
     set_player_postitions(ttt_players);
 
     ttt_finalist_1 = "";
@@ -48,9 +58,13 @@ document.getElementById("startTTTTournament").addEventListener('click', () => {
 
     document.getElementById("startTTTTournament").style.display = "none";
     document.getElementById("tttTournPlayer1Name").disabled = true;
+    document.getElementById("tttTournPlayer1Symbol").disabled = true;
 	document.getElementById("tttTournPlayer2Name").disabled = true;
+    document.getElementById("tttTournPlayer2Symbol").disabled = true;
     document.getElementById("tttTournPlayer3Name").disabled = true;
+    document.getElementById("tttTournPlayer3Symbol").disabled = true;
 	document.getElementById("tttTournPlayer4Name").disabled = true;
+    document.getElementById("tttTournPlayer4Symbol").disabled = true;
     const bracket = document.getElementById("ttt-tournament-bracket");
     bracket.style.display = 'grid';
 
@@ -128,19 +142,19 @@ function display_ttt_bracket(ttt_players) {
 
     document.getElementById("ttSemi1").addEventListener('click', () => {
         tttSettings.type = "ttt_semi_1";
-        start_ttt_game(player1.name, player2.name, tttSettings);
+        start_ttt_game(player1, player2, tttSettings);
     });
 
     document.getElementById("ttSemi2").addEventListener('click', () => {
         tttSettings.type = "ttt_semi_2";
-        start_ttt_game(player3.name, player4.name, tttSettings);
+        start_ttt_game(player3, player4, tttSettings);
     });
 
     document.getElementById("ttFinal").addEventListener('click', () => {
         tttSettings.type = "ttt_finals";
         const finalist_1 = get_player(ttt_players, ttt_finalist_1);
         const finalist_2 = get_player(ttt_players, ttt_finalist_2);
-        start_ttt_game(finalist_1.name, finalist_2.name, tttSettings);
+        start_ttt_game(finalist_1, finalist_2, tttSettings);
     });
 }
 
@@ -160,8 +174,8 @@ function start_ttt_game(player1, player2, local_settings) {
 	const gameBoard = document.getElementById("tourn-game-board");
 	const statusDisplay = document.getElementById("tourn-status");
   
-	let currentPlayer = "X";
-	let currentPlayerName = player1;
+	let currentPlayer = player1.symbol;
+	let currentPlayerName = player1.name;
 	let gameState = Array(9).fill("");
 	let gameActive = true;
   
@@ -180,7 +194,7 @@ function start_ttt_game(player1, player2, local_settings) {
 	  gameBoard.innerHTML = ""; // Clear existing cells
 	  gameState = Array(9).fill("");
 	  gameActive = true;
-	  currentPlayer = "X";
+	  currentPlayer = player1.symbol;
 	  statusDisplay.textContent = `Player ${currentPlayer}'s turn (${currentPlayerName})`;
   
 	  for (let i = 0; i < 9; i++) {
@@ -208,7 +222,7 @@ function start_ttt_game(player1, player2, local_settings) {
 	  cell.classList.add("taken");
   
 	  const winner = checkWinner();
-	  const winnerName = winner === 'X' ? player1 : player2;
+	  const winnerName = winner === player1.symbol ? player1.name : player2.name;
   
 	  if (winner) {
         gameActive = false;
@@ -216,7 +230,7 @@ function start_ttt_game(player1, player2, local_settings) {
             createBoard();
             return ;
         }
-        sendTTTData(winner, player1, player2);
+        sendTTTData(winner, player1.name, player2.name);
 		statusDisplay.textContent = winner === "Tie" ? "It's a tie!" : `${winnerName} wins!`;
         document.getElementById("TTTTournGameBoard").style.display = "none";
         if (tttSettings.type === "ttt_semi_1") {
@@ -229,8 +243,8 @@ function start_ttt_game(player1, player2, local_settings) {
         }
         display_ttt_bracket(ttt_players);
 	  } else {
-		currentPlayer = currentPlayer === "X" ? "O" : "X";
-		currentPlayerName = currentPlayer === "X" ? player1 : player2;
+		currentPlayer = currentPlayer === player1.symbol ? player2.symbol : player1.symbol;
+		currentPlayerName = currentPlayer === player1.symbol ? player1.name : player2.name;
 		statusDisplay.textContent = `Player ${currentPlayer}'s turn (${currentPlayerName})`;
 	  }
 	};

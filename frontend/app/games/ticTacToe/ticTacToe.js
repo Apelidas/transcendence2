@@ -25,9 +25,13 @@ document.getElementById('ticTacToeTournButton').addEventListener('click', functi
     
     document.getElementById("startTTTTournament").style.display = "inline";
     document.getElementById("tttTournPlayer1Name").disabled = false;
+    document.getElementById("tttTournPlayer1Symbol").disabled = false;
 	document.getElementById("tttTournPlayer2Name").disabled = false;
+    document.getElementById("tttTournPlayer2Symbol").disabled = false;
     document.getElementById("tttTournPlayer3Name").disabled = false;
+    document.getElementById("tttTournPlayer3Symbol").disabled = false;
 	document.getElementById("tttTournPlayer4Name").disabled = false;
+    document.getElementById("tttTournPlayer4Symbol").disabled = false;
     document.getElementById("ttt-tournament-bracket").style.display = "none";
     changeRoute('/games/ticTacToe/ticTacToeTourn'); 
 });
@@ -62,6 +66,11 @@ function checkForUniqueNamesTTT(names) {
             }
         }
     }
+    return true;
+}
+
+function checkForUniqueSymbolsTTT() {
+    // TODO
     return true;
 }
 
