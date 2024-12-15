@@ -40,7 +40,6 @@ document.getElementById("startPongTournament").addEventListener('click', () => {
     }
 
     if (!checkForUniqueNames(players)) {
-        alert("Names should be unique.");
         return; // Do not proceed if names are not unique
     }
 

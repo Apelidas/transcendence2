@@ -47,11 +47,11 @@ function validateNameTTT(name) {
     return true;
 }
 
-function checkForUniqueNamesTTT(names) {
-    const normalizedNames = names.map(name => String(name || "").trim().toLowerCase()); // Normalize to lowercase
-
+function checkForUniqueNames(names) {
+    const normalizedNames = names.map(item=> String(item.name || "").trim().toLowerCase()); // Normalize to lowercase
+ 
     for (i = 0; i < normalizedNames.length - 1; i++) {
-        for (j = i + 1; j < normalizedNames.length; j++) {
+        for (j = i + 1; j < normalizedNames.length - 1; j++) {
             if (normalizedNames[i] === normalizedNames[j]) {
                 alert("Player names must be unique.");
                 return false;
