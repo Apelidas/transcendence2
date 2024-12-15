@@ -1,3 +1,7 @@
+
+// Global settings
+const tttSettings = {};
+
 document.getElementById('ticTacToePvpButton').addEventListener('click', function() {
 
     document.getElementById("tttPlayer1Name").disabled = false;
@@ -24,6 +28,7 @@ document.getElementById('ticTacToeTournButton').addEventListener('click', functi
     document.getElementById("tttTournPlayer3Name").disabled = false;
 	document.getElementById("tttTournPlayer4Name").disabled = false;
     document.getElementById("ttt-tournament-bracket").style.display = "none";
+    changeRoute('/games/ticTacToe/ticTacToeTourn'); 
 });
 
 
@@ -59,4 +64,18 @@ function checkForUniqueNamesTTT(names) {
         }
     }
     return true;
+}
+
+function create_ttt_player(name_id, throw_alert=true) {
+    let player = {};
+    player.name = document.getElementById(name_id).value.trim();
+    if (!player.name) {
+        if (throw_alert)
+            alert("Player names must not be empty.");
+        return_to_page(tttSettings.type);
+        return;
+    }
+    player.number = Math.floor(Math.random() * 100); // Random number beetween 0 and 99
+    player.position = 0;
+    return player;
 }
