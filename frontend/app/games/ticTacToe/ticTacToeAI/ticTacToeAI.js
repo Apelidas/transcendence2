@@ -168,6 +168,7 @@ function start_ttt_ai_game(player1) {
     };
 
     const displayWinner = (winner) => {
+        sendTTTData(winner, player1, 'AI');
         gameActive = false;
         giveUpButton.disabled = true;
         statusDisplay.textContent =
