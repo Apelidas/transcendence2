@@ -203,8 +203,12 @@ function start_ttt_game(player1, player2, local_settings) {
 	  const winnerName = winner === 'X' ? player1 : player2;
   
 	  if (winner) {
+        gameActive = false;
+        if (winner === "Tie") {
+            createBoard();
+            return ;
+        }
         sendTTTData(winner, player1, player2);
-		gameActive = false;
 		statusDisplay.textContent = winner === "Tie" ? "It's a tie!" : `${winnerName} wins!`;
         document.getElementById("TTTTournGameBoard").style.display = "none";
         if (tttSettings.type === "ttt_semi_1") {
