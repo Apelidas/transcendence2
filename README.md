@@ -45,3 +45,7 @@ to access the database:
 `
 docker exec -it my_postgres_container psql -U myuser -d mydatabase
 `
+
+
+test vor tsl version for security:
+`openssl s_client -connect localhost:443 -tls1_2`
