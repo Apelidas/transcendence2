@@ -56,6 +56,12 @@ document.getElementById("startPongTournament").addEventListener('click', () => {
     pongSettings.winningScore = document.getElementById('winningScoreTournament').value;
 
     changeRoute('/games/pong/pongBracket')
+    createTournament(true, {
+        'player1': player1,
+        'player2': player2,
+        'player3': player3,
+        'player4': player4,
+    })
     display_bracket(players); // , settings TODO
 });
 

@@ -20,7 +20,8 @@ const Locations = [
 ];
 
 const redirects = new Map([
-    ['/games/tictactoe/tictactoebracket', '/games/ticTacToe/ticTacToeTourn']
+    ['/games/tictactoe/tictactoebracket', '/games/ticTacToe/ticTacToeTourn'],
+    ['/games/pong/pongbracket', '/games/pong/pongTourn'],
 ]);
 
 

@@ -179,6 +179,7 @@ function start_pong_game(left_player, right_player, local_settings) {
             else if (local_settings.type === 'pong_finals') {
                 pong_winner = winner;
                 display_bracket(players);
+                finishTournament(getCookie('tournamentId'), winner);
             }
         }
     }
