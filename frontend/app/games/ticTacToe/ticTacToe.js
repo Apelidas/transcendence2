@@ -16,6 +16,7 @@ document.getElementById('ticTacToePvpButton').addEventListener('click', function
 document.getElementById('ticTacToeAiButton').addEventListener('click', function() {
     document.getElementById("ai-startTTTGame").style.display = "inline";
     document.getElementById("aiPlayerName").disabled = false;
+    document.getElementById("aiPlayerSymbol").disabled = false;
     document.getElementById("ai-TTTGameBoard").style.display = "none";
     changeRoute('/games/ticTacToe/ticTacToeAI'); 
 });
