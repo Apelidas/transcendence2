@@ -212,6 +212,7 @@ function start_ttt_game(player1, player2, local_settings) {
             ttt_finalist_2 = winnerName;
         } else if (tttSettings.type === "ttt_finals") {
             ttt_winner = winnerName;
+            alert(winnerName + " wins the tournament!");
         }
         display_ttt_bracket(ttt_players);
 	  } else {
