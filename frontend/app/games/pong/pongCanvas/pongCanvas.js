@@ -197,10 +197,12 @@ function endGame(winner, leftScore, rightScore) {
 }
 
 async function sendGameData(leftScore, rightScore, leftPlayer, rightPlayer) {
-    const response = await sendGame(leftScore, rightScore, true, leftScore > rightScore, leftPlayer, rightPlayer);
-    if (response.status !== 200) {
-        alert('There has been an error. GameData could not be stored');
-    }
+    try{
+        const response = await sendGame(leftScore, rightScore, true, leftScore > rightScore, leftPlayer, rightPlayer);
+        if (response.status !== 200) {
+            alert('There has been an error. GameData could not be stored');
+        }
+    }catch(exception) {}
 }
 
 function resetBallsChanges() {
