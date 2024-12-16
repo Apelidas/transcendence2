@@ -1,5 +1,5 @@
 
-const ttt_players = [];
+let ttt_players = [];
 
 let ttt_finalist_1 = "";
 let ttt_finalist_2 = "";
@@ -7,6 +7,7 @@ let ttt_winner = "";
 
 document.getElementById("startTTTTournament").addEventListener('click', () => {
 
+    ttt_players = [];
     document.getElementById("ttt-tournament-bracket").style.display = "grid";
     const player1 = create_ttt_player("tttTournPlayer1Name");
     player1.symbol = document.getElementById("tttTournPlayer1Symbol").value;
@@ -40,8 +41,7 @@ document.getElementById("startTTTTournament").addEventListener('click', () => {
         return ;
     }
 
-    if (!checkForUniqueNamesTTT([player1.name, player2.name, player3.name, player4.name])) {
-        alert("Names should be unique.");
+    if (!checkForUniqueNamesTTT(ttt_players)) {
         return; // Do not proceed if names are not unique
     }
 
