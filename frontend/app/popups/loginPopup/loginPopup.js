@@ -32,7 +32,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         // Attempt login
         const isSuccess = await loginAdapter(username, password, mfa);
         
-        if (isSuccess) {
+        if (isSuccess === true) {
             closeAllPopups(true); // Close all popups and remove blur effect
             const loggedInEvent = new CustomEvent('loggedIn');
             document.dispatchEvent(loggedInEvent);
@@ -45,7 +45,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             errorMessage.textContent = "MFA field is required.";
             errorMessage.style.display = "block";
         } else {
-            alert('Login failed. Please try again.');
+            alert('Unknown/Invalid username or password.');
         }
         if (event) {
             event.preventDefault();
