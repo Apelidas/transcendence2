@@ -3,7 +3,10 @@ function handleRouting() {
     // Hide all sections by removing the active class
     document.querySelectorAll('.active').forEach(div => div.classList.remove('active'));
 
-    const path = window.location.pathname;
+    let path = window.location.pathname;
+    if (path !== '/' && path.endsWith('/')){
+        path = path.slice(0, -1);
+    }
 
     console.log('switch to path: ' + path);
     switch (path) {
