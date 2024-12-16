@@ -21,8 +21,8 @@ document.getElementById('startPongPvp').addEventListener('click', () => {
         return; // Do not proceed if validation fails
     }
 
-    console.log(left_player.name)
-    console.log(right_player.name)
+    // console.log(left_player.name)
+    // console.log(right_player.name)
     if(left_player.name === right_player.name) {
         alert("Please use different names, even tho you want to be the same person")
         return;

@@ -4,20 +4,30 @@ let pvpPlayer2Symbol = "";
 
 document.getElementById("startTTTGame").addEventListener("click", () => {
     
-    const player1 = document.getElementById("tttPlayer1Name").value.trim();
+    const player1 = document.getElementById("tttPlayer1Name").value;
     pvpPlayer1Symbol = document.getElementById("tttPlayer1Symbol").value;
-    const player2 = document.getElementById("tttPlayer2Name").value.trim();
+    const player2 = document.getElementById("tttPlayer2Name").value;
     pvpPlayer2Symbol = document.getElementById("tttPlayer2Symbol").value;
 
     const isPlayer1Valid = validateNameTTT(player1);
     const isPlayer2Valid = validateNameTTT(player2);
-    const validSymbols = pvpPlayer1Symbol === pvpPlayer2Symbol;
+    const invalidSymbols = pvpPlayer1Symbol === pvpPlayer2Symbol;
 
-    if (isPlayer1Valid && isPlayer2Valid && !validSymbols) {
-        start_ttt_pvp_game(player1, player2);
+	if(isPlayer1Valid === isPlayer2Valid) {
+        alert("Please use different names, even tho you want to be the same person")
+        return;
+    }
+
+	if(invalidSymbols) {
+        alert("Please use different symbols to be able to play.")
+        return;
+    }
+    
+	if (!isPlayer1Valid || !isPlayer2Valid || invalidSymbols) {
+		    console.log("Validation failed: Game cannot start.");
+		    return;
     } else {
-        console.log("Validation failed: Game cannot start.");
-        return false;
+		start_ttt_pvp_game(player1, player2);
     }
 });
 

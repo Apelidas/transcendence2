@@ -39,7 +39,7 @@ document.getElementById('ticTacToeTournButton').addEventListener('click', functi
 
 function validateNameTTT(name) {
     // Ensure `name` is always treated as a string
-    name = String(name || "").trim();
+    name = String(name || "").trim().toLowerCase();
     
     if (name === "") { // Handle empty name
         alert("Player name cannot be empty.");
@@ -55,8 +55,7 @@ function validateNameTTT(name) {
 }
 
 function checkForUniqueNamesTTT(names) {
-    return true; // TODO
-    const normalizedNames = names.map(item=> String(item.name || "").trim().toLowerCase()); // Normalize to lowercase
+    const normalizedNames = names.map(item=> String(item.name || "")); // Normalize to lowercase
  
     for (i = 0; i < normalizedNames.length - 1; i++) {
         for (j = i + 1; j < normalizedNames.length - 1; j++) {
