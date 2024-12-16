@@ -7,3 +7,19 @@
     cursor: pointer;
     border-radius: 5px;
 }
+
+#start-new-tournament {
+    padding: 10px 20px;
+    background-color: #28a745; /* Green background */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+#start-new-tournament:hover {
+    background-color: #218838;
+}

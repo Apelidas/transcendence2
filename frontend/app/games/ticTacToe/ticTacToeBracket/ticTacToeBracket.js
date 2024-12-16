@@ -161,6 +161,36 @@ function display_ttt_bracket(ttt_players) {
     });
 }
 
+document.getElementById("start-new-tournament").addEventListener("click", () => {
+    // Reset bracket visibility and player inputs
+    document.getElementById("ttt-tournament-bracket").style.display = "none";
+    document.getElementById("startTTTTournament").style.display = "block";
+
+    // Re-enable player inputs
+    document.getElementById("tttTournPlayer1Name").disabled = false;
+    document.getElementById("tttTournPlayer1Symbol").disabled = false;
+    document.getElementById("tttTournPlayer2Name").disabled = false;
+    document.getElementById("tttTournPlayer2Symbol").disabled = false;
+    document.getElementById("tttTournPlayer3Name").disabled = false;
+    document.getElementById("tttTournPlayer3Symbol").disabled = false;
+    document.getElementById("tttTournPlayer4Name").disabled = false;
+    document.getElementById("tttTournPlayer4Symbol").disabled = false;
+
+    // Reset winner and finalist states
+    ttt_finalist_1 = "";
+    ttt_finalist_2 = "";
+    ttt_winner = "";
+
+    // Clear game board and statuses
+    document.getElementById("tourn-game-board").innerHTML = "";
+    document.getElementById("tourn-status").textContent = "";
+
+    // Reset player positions
+    ttt_players = [];
+    changeRoute("/games/ticTacToe/ticTacToeTourn");
+});
+
+
 function start_ttt_game(player1, player2, local_settings) {
 
     if (local_settings.type === "ttt_semi_1") {
