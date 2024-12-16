@@ -10,12 +10,16 @@ document.getElementById("startTTTTournament").addEventListener('click', () => {
     ttt_players = [];
     document.getElementById("ttt-tournament-bracket").style.display = "grid";
     const player1 = create_ttt_player("tttTournPlayer1Name");
+    if (!player1) return ;
     player1.symbol = document.getElementById("tttTournPlayer1Symbol").value;
     const player2 = create_ttt_player("tttTournPlayer2Name");
+    if (!player2) return ;
     player2.symbol = document.getElementById("tttTournPlayer2Symbol").value;
     const player3 = create_ttt_player("tttTournPlayer3Name");
+    if (!player3) return ;
     player3.symbol = document.getElementById("tttTournPlayer3Symbol").value;
     const player4 = create_ttt_player("tttTournPlayer4Name", false);
+    if (!player4) return ;
     if (player4)
         player4.symbol = document.getElementById("tttTournPlayer4Symbol").value;
 
