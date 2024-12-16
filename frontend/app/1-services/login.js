@@ -10,20 +10,18 @@ async function loginAdapter(username, password, mfaCode) {
 			},
 			body: JSON.stringify({ username, password, mfaCode})
 		});
+		const data = await response.json();
 		if (response.status === 200) {
-			const data = await response.json();
 			setCookie('username', data.username, 86400000);
 			setCookie('access_token', data.access, 1800000);
 			setCookie('refresh_token', data.refresh, 86400000);
 			return true;
 		} else if(response.status === 401){
-			const content = await response.json();
-			if (content.message === '2FA AUTH required'){
+			if (data.message === '2FA AUTH required'){
 				return null;
 			}
-
 		} else {
-			return false;
+			return data.error();
 		}
 	} catch (error) {
 		return false;
