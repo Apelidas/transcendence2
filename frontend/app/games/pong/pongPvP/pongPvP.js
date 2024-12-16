@@ -13,24 +13,17 @@ document.getElementById('startPongPvp').addEventListener('click', () => {
     if (!right_player)
         return ;
     
-    // Validate names
-    if (!validateName(left_player.name)) {
-       return; // Do not proceed if validation fails
-    }
-    else if (!validateName(right_player.name)) {
-        return; // Do not proceed if validation fails
-    }
 
-    // console.log(left_player.name)
-    // console.log(right_player.name)
-    if(left_player.name === right_player.name) {
-        alert("Please use different names, even tho you want to be the same person")
-        return;
-    }
-
-    if (!checkForUniqueNames([left_player.name, right_player.name])) {
-        return; // Do not proceed if names are not unique
-    }
-
-    start_pong_game(left_player, right_player);
+	if (validateName(left_player.name) && validateName(right_player.name)) {
+		// Check if names are unique
+		if (String(left_player.name || "").toLowerCase() === String(right_player.name || "").toLowerCase()) {
+			alert("Please use different names, even though you want to be the same person.");
+			return;
+		}	
+		// All checks passed, start the game
+		start_pong_game(left_player, right_player);
+	} else {
+		//alert("One or both player names are invalid. Please ensure names are at least 3 characters long.");
+		return;
+	}
 });
