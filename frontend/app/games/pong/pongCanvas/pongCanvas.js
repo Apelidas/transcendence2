@@ -15,7 +15,7 @@ const giveUpButtons = document.querySelectorAll('.give-up-button');
 let gamePaused = false; // Tracks whether the game is paused
 let gameRunning = false;
 
-let ballSpeed = 3;
+let ballSpeed = 2;
 let ballSize = 10;
 let obstaclesEnabled = false;    
 let winningScore = 11;
@@ -417,7 +417,7 @@ function update_game() {
 
 increaseSpeedButton.addEventListener('click', () => {
     if(!isTournament()){
-        if (!gamePaused) {
+        if (!gamePaused && ball.speed < 4) {
             ballSpeed++;
             ball.speed = ballSpeed;
         }
@@ -435,7 +435,7 @@ decreaseSpeedButton.addEventListener('click', () => {
 
 increaseSizeButton.addEventListener('click', () => {
     if(!isTournament()){
-        if (!gamePaused)
+        if (!gamePaused && ball.radius < 20)
             ball.radius += 2;
     }
 });
