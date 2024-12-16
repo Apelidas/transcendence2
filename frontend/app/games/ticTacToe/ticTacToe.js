@@ -39,7 +39,7 @@ document.getElementById('ticTacToeTournButton').addEventListener('click', functi
 
 function validateNameTTT(name) {
     // Ensure `name` is always treated as a string
-    name = String(name || "").trim();
+    name = String(name || "").trim().toLowerCase();
     
     if (name === "") { // Handle empty name
         alert("Player name cannot be empty.");

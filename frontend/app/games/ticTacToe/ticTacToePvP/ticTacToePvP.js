@@ -4,21 +4,31 @@ let pvpPlayer2Symbol = "";
 
 document.getElementById("startTTTGame").addEventListener("click", () => {
     
-    const player1 = document.getElementById("tttPlayer1Name").value.trim();
+    const player1 = document.getElementById("tttPlayer1Name").value;
     pvpPlayer1Symbol = document.getElementById("tttPlayer1Symbol").value;
-    const player2 = document.getElementById("tttPlayer2Name").value.trim();
+    const player2 = document.getElementById("tttPlayer2Name").value;
     pvpPlayer2Symbol = document.getElementById("tttPlayer2Symbol").value;
 
-    const isPlayer1Valid = validateNameTTT(player1);
-    const isPlayer2Valid = validateNameTTT(player2);
-    const validSymbols = pvpPlayer1Symbol === pvpPlayer2Symbol;
+	if (validateNameTTT(player1) && validateNameTTT(player2)) {
+		// Check if names are unique
+		if (player1.toLowerCase() === player2.toLowerCase()) {
+			alert("Please use different names, even though you want to be the same person.");
+			return;
+		}
+	
+		// Check if symbols are unique
+		if (pvpPlayer1Symbol === pvpPlayer2Symbol) {
+			alert("Please use different symbols to be able to play.");
+			return;
+		}
+	
+		// All checks passed, start the game
+		start_ttt_pvp_game(player1, player2);
+	} else {
+		//alert("One or both player names are invalid. Please ensure names are at least 3 characters long.");
+		return;
+	}
 
-    if (isPlayer1Valid && isPlayer2Valid && !validSymbols) {
-        start_ttt_pvp_game(player1, player2);
-    } else {
-        console.log("Validation failed: Game cannot start.");
-        return false;
-    }
 });
 
 function start_ttt_pvp_game(player1, player2) {
