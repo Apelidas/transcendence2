@@ -20,6 +20,7 @@ services:
       - .env
     depends_on:
       - postgres
+      - nginx
     command: sh run.sh
     volumes:
       - ./backend/transcendence/media:/app/transcendence/media
@@ -48,9 +49,6 @@ services:
     networks:
       - t_network
       - public_network
-    depends_on:
-      - frontend
-      - backend
     restart: on-failure
 
 volumes:
