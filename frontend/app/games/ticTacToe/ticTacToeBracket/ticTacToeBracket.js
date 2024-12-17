@@ -188,6 +188,7 @@ document.getElementById("start-new-tournament").addEventListener("click", () => 
     // Reset player positions
     ttt_players = [];
     changeRoute("/games/ticTacToe/ticTacToeTourn");
+	//alert("The Pong Tournament has been restarted!");
 });
 
 

@@ -134,6 +134,38 @@ function display_bracket(players) {
     }
 }
 
+document.getElementById("pong-start-new-tournament").addEventListener("click", () => {
+    // Reset variables
+    players = [];
+    pong_finalist_1 = "";
+    pong_finalist_2 = "";
+    pong_winner = "";
+
+    // Reset tournament bracket display
+    document.getElementById("pt-tournament-bracket").style.display = "none";
+    document.getElementById("startPongTournament").style.display = "block";
+
+    // Clear player inputs and bracket elements
+    document.getElementById("ptPlayer1").innerHTML = "";
+    document.getElementById("ptPlayer2").innerHTML = "";
+    document.getElementById("ptPlayer3").innerHTML = "";
+    document.getElementById("ptPlayer4").innerHTML = "";
+    document.getElementById("ptWinner1").innerHTML = "";
+    document.getElementById("ptWinner2").innerHTML = "";
+    document.getElementById("ptWinner").innerHTML = "";
+
+    // Hide semi-final and final buttons
+    document.getElementById("ptSemi1").style.display = "none";
+    document.getElementById("ptSemi2").style.display = "none";
+    document.getElementById("ptFinal").style.display = "none";
+
+    // Reset route (navigate to tournament start page)
+    changeRoute("/games/pong/pongTourn");
+
+    //alert("The Pong Tournament has been restarted!");
+});
+
+
 document.getElementById("ptSemi1").addEventListener('click', () => {
     pongSettings.type = "pong_semi_1";
     start_pong_game(get_player_at_pos(players, 1), get_player_at_pos(players, 2));
