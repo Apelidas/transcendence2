@@ -29,6 +29,8 @@ document.getElementById('loginLink').addEventListener('click', function(event) {
 document.getElementById('signupForm').addEventListener('submit', async function(event) {
 	event.preventDefault();
 	await signup();
+    passwordSignup.value = '';
+    repeatPassword.value = '';
 });
 
     passwordSignup.addEventListener('input', () => {
