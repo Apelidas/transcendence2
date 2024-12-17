@@ -54,6 +54,8 @@ document.getElementById("startPongTournament").addEventListener('click', () => {
     pong_winner = "";
 
     pongSettings.winningScore = document.getElementById('winningScoreTournament').value;
+    pongSettings.backgroundColor = document.getElementById('backgroundColorTourn').value;
+    pongSettings.ballColor = document.getElementById('ballColorTourn').value;
 
     changeRoute('/games/pong/pongBracket')
     createTournament(true, {
