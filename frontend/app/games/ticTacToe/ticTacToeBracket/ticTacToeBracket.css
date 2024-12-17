@@ -9,6 +9,8 @@
 }
 
 #start-new-tournament {
+	width: 120px; 
+    height: 40px;
     padding: 10px 20px;
     background-color: #28a745; /* Green background */
     color: white;
