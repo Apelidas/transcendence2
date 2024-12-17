@@ -101,6 +101,7 @@ function handleRouting() {
                 getGraphData().then(value => {
                     renderGeneralChart(value);
                     renderPongChart(value);
+                    renderTicTacToeChart(value);
                 })
             })
             break;

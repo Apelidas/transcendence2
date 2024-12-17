@@ -111,6 +111,7 @@ function populateFriendsList(friends) {
 
 let generalChart = null;
 let pongChart = null;
+let ticTacToeChart = null;
 
 // Fetch wins per day data from the backend API and render the chart
 function renderGeneralChart(data) {
@@ -190,6 +191,56 @@ function renderPongChart(data) {
                 {
                     label: 'Loses Per Day',
                     data: pongLoseCounts,
+                    borderColor: 'rgb(184,67,130)',
+                    borderWidth: 2,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {display: true},
+                tooltip: {enabled: true},
+            },
+            scales: {
+                x: {
+                    title: {display: true, text: 'Date'}
+                },
+                y: {
+                    title: {display: true, text: 'Wins'},
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+function renderTicTacToeChart(data) {
+    const labels = data.map(item => item.date);
+    const ticTacToeWinCounts = data.map(item => item.tictactoe_win_count)
+    const ticTacToeLoseCounts = data.map(item => item.tictactoe_lose_count)
+    const graph = document.getElementById('ticTacToeChart').getContext('2d');
+
+    if (ticTacToeChart) {
+        ticTacToeChart.destroy();
+    }
+
+    ticTacToeChart = new Chart(graph, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Wins Per Day',
+                    data: ticTacToeWinCounts,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false
+                },
+                {
+                    label: 'Loses Per Day',
+                    data: ticTacToeLoseCounts,
                     borderColor: 'rgb(184,67,130)',
                     borderWidth: 2,
                     fill: false
