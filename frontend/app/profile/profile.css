@@ -140,6 +140,15 @@
     text-align: center;
 }
 
+.graph-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-bottom: 10px;
+    color: #333;
+    margin: 0;
+    text-align: center;
+}
+
 /* Friends list styling */
 .friends-list {
     list-style: none;
