@@ -55,6 +55,18 @@ class GraphView(APIView):
                         When(user_won=False, isPong=True, then=1),
                         output_field=IntegerField(),
                     )
+                ),
+                tictactoe_win_count = Count(
+                    Case(
+                        When(user_won=True, isPong=False, then=1),
+                        output_field=IntegerField(),
+                    )
+                ),
+                tictactoe_lose_count = Count(
+                    Case(
+                        When(user_won=False, isPong=False, then=1),
+                        output_field=IntegerField(),
+                    )
                 )
             )
             .order_by('date')  # Order by date
