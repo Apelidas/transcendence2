@@ -122,7 +122,7 @@ function debounce(func, delay) {
 }
 
 // Helper function to convert RGB color to luminance and to calculate it
-function getLuminance(color) {
+function getRgbValues(color) {
     let r, g, b;
 
     if (color.startsWith('#')) {
@@ -136,32 +136,60 @@ function getLuminance(color) {
     } else {
         throw new Error(`Unsupported color format: ${color}`);
     }
-
-    [r, g, b] = [r, g, b].map(c => {
-        c /= 255;
-        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
-    });
-
-    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    return [r, g, b];
 }
 
 // Helper function to calculate contrast ratio
 function getContrastRatio(color1, color2) {
-    const L1 = getLuminance(color1);
-    const L2 = getLuminance(color2);
-    return (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05);
+    const L1 = getRgbValues(color1);
+    const L2 = getRgbValues(color2);
+    return deltaE(L1, L2);
 }
 
 // Helper function to check contrast sufficiency
-function isContrastSufficient(ballColor, backgroundColor, minRatio = 4.5) {
+function isContrastSufficient(ballColor, backgroundColor, minRatio = 30) {
     try {
         const contrast = getContrastRatio(ballColor, backgroundColor);
-        console.log(`Contrast ratio: ${contrast.toFixed(2)}`); // Debug output
+        console.log(`Contrast ratio: ${contrast}`); // Debug output
         return contrast >= minRatio;
     } catch (error) {
         console.error(`Error calculating contrast: ${error.message}`);
         return false;
     }
+}
+
+function deltaE(rgbA, rgbB) {
+    let labA = rgb2lab(rgbA);
+    let labB = rgb2lab(rgbB);
+    let deltaL = labA[0] - labB[0];
+    let deltaA = labA[1] - labB[1];
+    let deltaB = labA[2] - labB[2];
+    let c1 = Math.sqrt(labA[1] * labA[1] + labA[2] * labA[2]);
+    let c2 = Math.sqrt(labB[1] * labB[1] + labB[2] * labB[2]);
+    let deltaC = c1 - c2;
+    let deltaH = deltaA * deltaA + deltaB * deltaB - deltaC * deltaC;
+    deltaH = deltaH < 0 ? 0 : Math.sqrt(deltaH);
+    let sc = 1.0 + 0.045 * c1;
+    let sh = 1.0 + 0.015 * c1;
+    let deltaLKlsl = deltaL / (1.0);
+    let deltaCkcsc = deltaC / (sc);
+    let deltaHkhsh = deltaH / (sh);
+    let i = deltaLKlsl * deltaLKlsl + deltaCkcsc * deltaCkcsc + deltaHkhsh * deltaHkhsh;
+    return i < 0 ? 0 : Math.sqrt(i);
+}
+
+function rgb2lab(rgb){
+    let r = rgb[0] / 255, g = rgb[1] / 255, b = rgb[2] / 255, x, y, z;
+    r = (r > 0.04045) ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
+    g = (g > 0.04045) ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
+    b = (b > 0.04045) ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
+    x = (r * 0.4124 + g * 0.3576 + b * 0.1805) / 0.95047;
+    y = (r * 0.2126 + g * 0.7152 + b * 0.0722) / 1.00000;
+    z = (r * 0.0193 + g * 0.1192 + b * 0.9505) / 1.08883;
+    x = (x > 0.008856) ? Math.pow(x, 1/3) : (7.787 * x) + 16/116;
+    y = (y > 0.008856) ? Math.pow(y, 1/3) : (7.787 * y) + 16/116;
+    z = (z > 0.008856) ? Math.pow(z, 1/3) : (7.787 * z) + 16/116;
+    return [(116 * y) - 16, 500 * (x - y), 200 * (y - z)]
 }
 
 // Apply settings for game initialization
