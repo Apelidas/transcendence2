@@ -234,7 +234,7 @@ function start_ttt_game(player1, player2, local_settings) {
 	  for (let i = 0; i < 9; i++) {
 		const cell = document.createElement("div");
 		cell.classList.add("cell");
-		cell.setAttribute("data-index", i);
+		cell.setAttribute("data-index-bracket", i);
 		cell.addEventListener("click", handleCellClick);
 		gameBoard.appendChild(cell);
 	  }
@@ -244,7 +244,7 @@ function start_ttt_game(player1, player2, local_settings) {
 	  if (!gameActive) return;
   
 	  const cell = event.target;
-	  const cellIndex = parseInt(cell.getAttribute("data-index"));
+	  const cellIndex = parseInt(cell.getAttribute("data-index-bracket"));
   
 	  if (gameState[cellIndex]) {
 		statusDisplay.textContent = "Cell already taken!";

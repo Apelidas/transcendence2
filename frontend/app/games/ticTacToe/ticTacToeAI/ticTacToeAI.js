@@ -66,7 +66,7 @@ function start_ttt_ai_game(player1) {
         for (let i = 0; i < 9; i++) {
             const cell = document.createElement("div");
             cell.classList.add("ai-cell");
-            cell.setAttribute("data-index", i);
+            cell.setAttribute("data-index-ai", i);
             cell.addEventListener("click", handleCellClick);
             aiGameBoard.appendChild(cell);
         }
@@ -86,7 +86,7 @@ function start_ttt_ai_game(player1) {
         if (!gameActive || currentPlayer !== aiPlayerSymbol) return; // Ensure it's the player's turn
 
         const cell = event.target;
-        const cellIndex = parseInt(cell.getAttribute("data-index"));
+        const cellIndex = parseInt(cell.getAttribute("data-index-ai"));
 
         if (gameState[cellIndex]) {
             statusDisplay.textContent = "Cell already taken!";
@@ -118,7 +118,7 @@ function start_ttt_ai_game(player1) {
         if (bestMoveIndex !== null) {
             gameState[bestMoveIndex] = "O";
 
-            const cell = document.querySelector(`[data-index="${bestMoveIndex}"]`);
+            const cell = document.querySelector(`[data-index-ai="${bestMoveIndex}"]`);
             cell.textContent = "O";
             cell.classList.add("taken");
 

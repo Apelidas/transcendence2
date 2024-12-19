@@ -78,7 +78,7 @@ function start_ttt_pvp_game(player1, player2) {
         for (let i = 0; i < 9; i++) {
             const cell = document.createElement("div");
             cell.classList.add("cell");
-            cell.setAttribute("data-index", i);
+            cell.setAttribute("data-index-pvp", i);
             cell.addEventListener("click", handleCellClick);
             gameBoard.appendChild(cell);
         }
@@ -93,7 +93,7 @@ function start_ttt_pvp_game(player1, player2) {
         if (!gameActive) return;
 
         const cell = event.target;
-        const cellIndex = parseInt(cell.getAttribute("data-index"));
+        const cellIndex = parseInt(cell.getAttribute("data-index-pvp"));
 
         if (gameState[cellIndex]) {
             statusDisplay.textContent = "Cell already taken!";
