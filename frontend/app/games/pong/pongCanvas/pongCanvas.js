@@ -15,7 +15,7 @@ const giveUpButtons = document.querySelectorAll('.give-up-button');
 let gamePaused = false; // Tracks whether the game is paused
 let gameRunning = false;
 
-let ballSpeed = 3;
+let ballSpeed = 2;
 let ballSize = 10;
 let obstaclesEnabled = false;
 let winningScore = 11;
@@ -35,7 +35,7 @@ function start_pong_game(left_player, right_player) {
     canvas.width = 600;
     canvas.height = 400;
 
-    ballSpeed = 3;
+    ballSpeed = 2;
     ballSize = 10;
     obstaclesEnabled = false;
     winningScore = 11;
