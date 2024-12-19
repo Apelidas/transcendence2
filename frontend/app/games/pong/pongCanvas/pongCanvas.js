@@ -588,10 +588,10 @@ rightGiveUp.addEventListener('click', () => {
 document.addEventListener('keydown', (e) => {
     if (gameRunning) {
         if (!gamePaused) {
-            if (e.key === 'w') playerLeft.dy = -3;
-            if (e.key === 's') playerLeft.dy = 3;
-            if (e.key === 'ArrowUp') playerRight.dy = -3;
-            if (e.key === 'ArrowDown') playerRight.dy = 3;
+            if (e.key === 'w') playerLeft.dy = -5;
+            if (e.key === 's') playerLeft.dy = 5;
+            if (e.key === 'ArrowUp') playerRight.dy = -5;
+            if (e.key === 'ArrowDown') playerRight.dy = 5;
         }
         if (e.key === 'Escape') { endGame(); }
         if (e.key === 'p' || e.key === 'P') {
