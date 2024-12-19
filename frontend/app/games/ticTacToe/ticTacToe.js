@@ -9,6 +9,7 @@ document.getElementById('ticTacToePvpButton').addEventListener('click', function
     document.getElementById("tttPlayer1Symbol").disabled = false;
 	document.getElementById("tttPlayer2Name").disabled = false;
     document.getElementById("tttPlayer2Symbol").disabled = false;
+    document.getElementById("whoStartsContainer").style.display = "block";
 	document.getElementById("TTTGameBoard").style.display = "none";
     changeRoute('/games/ticTacToe/ticTacToePvP'); 
 });
@@ -17,6 +18,7 @@ document.getElementById('ticTacToeAiButton').addEventListener('click', function(
     document.getElementById("ai-startTTTGame").style.display = "inline";
     document.getElementById("aiPlayerName").disabled = false;
     document.getElementById("aiPlayerSymbol").disabled = false;
+    document.getElementById("aiwhoStartsContainer").style.display = "block";
     document.getElementById("ai-TTTGameBoard").style.display = "none";
     changeRoute('/games/ticTacToe/ticTacToeAI'); 
 });
