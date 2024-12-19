@@ -436,7 +436,7 @@ function resetBall() {
     }
 
     // Ensure the ball speed remains constant
-    const speed = ball.speed || 3; // TODO
+    const speed = ball.speed || ballSpeed;
 
     // Set the ball's velocity
     ball.dx =  Math.cos(angle) * speed;

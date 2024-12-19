@@ -64,7 +64,7 @@ document.getElementById("startPongTournament").addEventListener('click', () => {
         'player3': player3,
         'player4': player4,
     })
-    display_bracket(players); // , settings TODO
+    display_bracket(players);
 });
 
 function set_player_postitions(players) {
