@@ -57,7 +57,7 @@ function updateAI(ball, playerRight, canvasHeight, playerLeft) {
     }
 
     // Apply simulated keypresses to adjust paddle speed
-    const aiSpeed = 3; // Adjust for smoother or faster movement
+    const aiSpeed = 5; // Adjust for smoother or faster movement
     if (aiKeyPress.up) {
         playerRight.dy = -aiSpeed;
     } else if (aiKeyPress.down) {
