@@ -15,7 +15,7 @@ const giveUpButtons = document.querySelectorAll('.give-up-button');
 let gamePaused = false; // Tracks whether the game is paused
 let gameRunning = false;
 
-let ballSpeed = 2;
+let ballSpeed = 3;
 let ballSize = 10;
 let obstaclesEnabled = false;
 let winningScore = 11;
@@ -390,11 +390,11 @@ function moveBall() {
     // console.log("DEBUG ball.x = " + ball.x + " ball.y = " + ball.y + " radius = " + ball.radius + " canvas-width = " + canvas.width);
     if (ball.x + ball.radius < 0) {
         playerRight.score++;
-        console.log("DEBUG Right player scored (" + playerRight.score + ")");
+        // console.log("DEBUG Right player scored (" + playerRight.score + ")");
         resetBall();
     } else if (ball.x - ball.radius > canvas.width) {
         playerLeft.score++;
-        console.log("DEBUG Left player scored (" + playerLeft.score + ")");
+        // console.log("DEBUG Left player scored (" + playerLeft.score + ")");
         resetBall();
     }
 
@@ -546,7 +546,7 @@ function update_game() {
 
 increaseSpeedButton.addEventListener('click', () => {
     if(!isTournament()){
-        if (!gamePaused && ball.speed < 4) {
+        if (!gamePaused && ballSpeed < 4) {
             ballSpeed++;
             ball.speed = ballSpeed;
         }
@@ -555,7 +555,7 @@ increaseSpeedButton.addEventListener('click', () => {
 
 decreaseSpeedButton.addEventListener('click', () => {
     if(!isTournament()){
-        if (ball.speed > 1 && !gamePaused) {
+        if (ballSpeed > 1 && !gamePaused) {
             ballSpeed--;
             ball.speed = ballSpeed;
         }
