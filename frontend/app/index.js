@@ -8,6 +8,10 @@ function handleRouting() {
         path = path.slice(0, -1);
     }
 
+    if (gameRunning) {
+        endGame();
+    }
+
     console.log('switch to path: ' + path);
     switch (path) {
         case '/':
