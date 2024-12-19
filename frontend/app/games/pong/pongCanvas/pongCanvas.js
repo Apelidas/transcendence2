@@ -75,8 +75,8 @@ function start_pong_game(left_player, right_player) {
 
         if (!isContrastSufficient(ballColor, selectedColor)) {
             alert("The selected background color is too similar to the ball. Adjusting to a high-contrast color.");
-            backgroundColorInput.value = '#222'; // Reset to a safe, contrasting color
-            canvas.style.backgroundColor = '#222'; // Apply fallback color
+            backgroundColorInput.value = '#000000'; // Reset to a safe, contrasting color
+            canvas.style.backgroundColor = '#000000'; // Apply fallback color
         } else {
             canvas.style.backgroundColor = selectedColor; // Apply selected background color
         }
@@ -89,7 +89,7 @@ function start_pong_game(left_player, right_player) {
 
         if (!isContrastSufficient(selectedColor, backgroundColor)) {
             alert("The selected ball color is too similar to the background. Adjusting to a high-contrast color.");
-            ballColorInput.value = '#FF0000'; // Reset to a safe, contrasting color
+            ballColorInput.value = '##FFFFFF'; // Reset to a safe, contrasting color
         }
         ball.color = ballColorInput.value;
     }, 300));
@@ -195,7 +195,7 @@ function rgb2lab(rgb){
 // Apply settings for game initialization
 function applySettings(left_player, right_player) {
     const defaultBallColor = '#FFFFFF'; // Default white ball
-    const defaultBgColor = '#222';     // Default black background
+    const defaultBgColor = '#000000';     // Default black background
 
     // Apply background color
     let bgColor = pongSettings.backgroundColor || defaultBgColor;
@@ -504,7 +504,7 @@ function checkObstacleCollision() {
 // Draw paddles, ball, and UI elements
 function draw() {
     context.clearRect(0, 0, canvas.width, canvas.height);
-    canvas.style.backgroundColor = canvas.style.backgroundColor || pongSettings.backgroundColor || '#222';
+    canvas.style.backgroundColor = canvas.style.backgroundColor || pongSettings.backgroundColor || '#000000';
 
     drawPaddle(playerLeft);
     drawPaddle(playerRight);
@@ -588,10 +588,10 @@ rightGiveUp.addEventListener('click', () => {
 document.addEventListener('keydown', (e) => {
     if (gameRunning) {
         if (!gamePaused) {
-            if (e.key === 'w') playerLeft.dy = -5;
-            if (e.key === 's') playerLeft.dy = 5;
-            if (e.key === 'ArrowUp') playerRight.dy = -5;
-            if (e.key === 'ArrowDown') playerRight.dy = 5;
+            if (e.key === 'w') playerLeft.dy = -3;
+            if (e.key === 's') playerLeft.dy = 3;
+            if (e.key === 'ArrowUp') playerRight.dy = -3;
+            if (e.key === 'ArrowDown') playerRight.dy = 3;
         }
         if (e.key === 'Escape') { endGame(); }
         if (e.key === 'p' || e.key === 'P') {
