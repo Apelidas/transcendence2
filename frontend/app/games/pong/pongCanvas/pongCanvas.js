@@ -9,6 +9,7 @@ const toggleObstaclesButton = document.getElementById('toggleObstacles');
 const leftGiveUp = document.getElementById('left-give-up');
 const rightGiveUp = document.getElementById('right-give-up');
 const ballColorInput = document.getElementById('ballColor');
+const backgroundColorInput = document.getElementById('backgroundColor');
 const giveUpButtons = document.querySelectorAll('.give-up-button');
 
 let gamePaused = false; // Tracks whether the game is paused
@@ -16,7 +17,7 @@ let gameRunning = false;
 
 let ballSpeed = 2;
 let ballSize = 10;
-let obstaclesEnabled = false;    
+let obstaclesEnabled = false;
 let winningScore = 11;
 let obstacles = [];
 
@@ -36,17 +37,17 @@ function start_pong_game(left_player, right_player) {
 
     ballSpeed = 3;
     ballSize = 10;
-    obstaclesEnabled = false;    
+    obstaclesEnabled = false;
     winningScore = 11;
     obstacles = [];
 
     playerLeft = {
-        x: 10, 
-        y: canvas.height / 2 - 50, 
-        width: 10, 
-        height: 100, 
-        dy: 0, 
-        score: 0, 
+        x: 10,
+        y: canvas.height / 2 - 50,
+        width: 10,
+        height: 100,
+        dy: 0,
+        score: 0,
         color: left_player.color || '#FF0000',
     };
     playerRight = {
@@ -67,6 +68,19 @@ function start_pong_game(left_player, right_player) {
         radius: ballSize,
         color: ballColorInput ? ballColorInput.value : '#FFFFFF',
     };
+
+    backgroundColorInput.addEventListener('input', debounce((event) => {
+        const selectedColor = event.target.value;
+        const ballColor = ball.color || '#FFFFFF'; // Use current ball color or default white
+
+        if (!isContrastSufficient(ballColor, selectedColor)) {
+            alert("The selected background color is too similar to the ball. Adjusting to a high-contrast color.");
+            backgroundColorInput.value = '#222'; // Reset to a safe, contrasting color
+            canvas.style.backgroundColor = '#222'; // Apply fallback color
+        } else {
+            canvas.style.backgroundColor = selectedColor; // Apply selected background color
+        }
+    }, 300));
 
     ballColorInput.addEventListener('input', debounce((event) => {
         const selectedColor = event.target.value;
@@ -106,31 +120,28 @@ function debounce(func, delay) {
         timeoutId = setTimeout(() => func.apply(this, args), delay);
     };
 }
-// Helper function to convert RGB color to luminance
+
+// Helper function to convert RGB color to luminance and to calculate it
 function getLuminance(color) {
     let r, g, b;
 
-    // Check if the color is in HEX format (#RRGGBB)
     if (color.startsWith('#')) {
         const bigint = parseInt(color.slice(1), 16);
         r = (bigint >> 16) & 255;
         g = (bigint >> 8) & 255;
         b = bigint & 255;
     } else if (color.startsWith('rgb')) {
-        // Extract RGB values from the "rgb(r, g, b)" format
         const rgb = color.match(/\d+/g).map(Number);
         [r, g, b] = rgb;
     } else {
         throw new Error(`Unsupported color format: ${color}`);
     }
 
-    // Normalize to 0–1 and convert to linear space
     [r, g, b] = [r, g, b].map(c => {
-        c /= 255; // Normalize
+        c /= 255;
         return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
     });
 
-    // Relative luminance formula
     return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
@@ -141,8 +152,7 @@ function getContrastRatio(color1, color2) {
     return (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05);
 }
 
-
-// Helper to check if contrast is sufficient
+// Helper function to check contrast sufficiency
 function isContrastSufficient(ballColor, backgroundColor, minRatio = 4.5) {
     try {
         const contrast = getContrastRatio(ballColor, backgroundColor);
@@ -154,23 +164,36 @@ function isContrastSufficient(ballColor, backgroundColor, minRatio = 4.5) {
     }
 }
 
-
 // Apply settings for game initialization
 function applySettings(left_player, right_player) {
+    const defaultBallColor = '#FFFFFF'; // Default white ball
+    const defaultBgColor = '#222';     // Default black background
+
     // Apply background color
-    const bgColor = pongSettings.backgroundColor || '#222'; // Default to black background
+    let bgColor = pongSettings.backgroundColor || defaultBgColor;
     canvas.style.backgroundColor = bgColor;
 
-    const ballColor = pongSettings.ballColor || '#FFFFFF'; // Default to white ball
+    // Apply ball color
+    let ballColor = pongSettings.ballColor || defaultBallColor;
     ball.color = ballColor;
 
     // Check contrast between ball and background
-    if (!isContrastSufficient(ball.color, bgColor)) {
+    if (!isContrastSufficient(ballColor, bgColor)) {
         console.warn(
-            `Insufficient contrast between ball and background (${getContrastRatio(ball.color, bgColor).toFixed(2)}:1). Adjusting ball color.`
+            `Insufficient contrast between ball (${ballColor}) and background (${bgColor}). Adjusting colors.`
         );
-        ball.color = '#FF0000'; // Fallback to red if contrast is insufficient
+        // Fallback logic: adjust background first, then ball color if needed
+        if (!isContrastSufficient(defaultBallColor, bgColor)) {
+            console.warn(`Default ball color also insufficient. Adjusting background to ${defaultBgColor}.`);
+            bgColor = defaultBgColor;
+            canvas.style.backgroundColor = bgColor;
+        }
+        ballColor = defaultBallColor; // Ensure ball is white
+        ball.color = ballColor;
     }
+
+    // Debugging output for color contrast adjustments
+    console.log(`Final ball color: ${ball.color}, Final background color: ${canvas.style.backgroundColor}`);
 
     // Apply paddle colors
     playerLeft.color = left_player.color || '#FF0000';
@@ -185,6 +208,7 @@ function applySettings(left_player, right_player) {
     // Set winning score
     winningScore = parseInt(pongSettings?.winningScore || 11);
 }
+
 
 //////////////////////////GAME////////////////////////////
 //DRAWING
